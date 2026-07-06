@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BriefLoop.ai - Accountable AI Briefing Workflow</title>
+    <meta name="description" content="BriefLoop establishes an accountable briefing workflow for research, IR, compliance, and management briefs through a deterministic ledger, source mapping, and quality gates.">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo">
+                <span class="logo-icon">🧾</span>
+                <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="#governance">Governance Model</a>
+                <a href="#usecases">Typical Scenarios</a>
+                <a href="#artifacts">Deliverables</a>
+                <a href="#sandbox" class="btn-sandbox-nav">Live Sandbox</a>
+                <a href="index.html" class="lang-switch">中文</a>
+            </nav>
+            <div class="header-cta">
+                <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-github">
+                    <svg class="github-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge-new">⚡ Accountable AI Briefing Workflow Framework</div>
+                <h1 class="hero-title">
+                    Move Fast with AI.<br>
+                    <span class="text-gradient">Ship with Accountability.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    BriefLoop is an open-source workflow for AI-assisted business briefings. It records key claims in a claim ledger, links them to source records, runs delivery gates, and keeps a traceable audit trail before a human approves the final brief.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#sandbox" class="btn-primary">Run Sandbox Demo</a>
+                    <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">
+                        GitHub Source
+                    </a>
+                </div>
+            </div>
+
+            <!-- Custom Audit Chain Interface (Dynamic Display) -->
+            <div class="hero-visual" id="audit-chain">
+                <div class="visual-card">
+                    <div class="card-header">
+                        <span class="card-dot red"></span>
+                        <span class="card-dot yellow"></span>
+                        <span class="card-dot green"></span>
+                        <span class="card-title">BriefLoop Live Chain of Custody Tracker</span>
+                    </div>
+                    <div class="visual-panels">
+                        <!-- Panel 1: Display Layer -->
+                        <div class="panel" id="panel-display">
+                            <div class="panel-tag tag-display">Display Layer</div>
+                            <div class="panel-content">
+                                <h4 class="doc-title">Readable Brief (Draft)</h4>
+                                <p class="doc-text">
+                                    Market growth accelerated this quarter. Driven by robust expansion in solar and energy storage segments, the 
+                                    <span class="highlight-node green-glow" id="node-claim">average spot price of components dropped 1.8%</span>, 
+                                    marking the largest single-quarter decline of the year.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Panel 2: Authority Layer -->
+                        <div class="panel" id="panel-authority">
+                            <div class="panel-tag tag-authority">Authority Layer (Claim Ledger)</div>
+                            <div class="panel-content">
+                                <div class="ledger-card" id="ledger-item">
+                                    <div class="ledger-header">
+                                        <span class="ledger-id">CL-0012</span>
+                                        <span class="status-badge green">Locked</span>
+                                    </div>
+                                    <pre class="ledger-json"><code>{
+  "statement": "component spot price fell 1.8%",
+  "source_id": "SRC-003",
+  "evidence_page": 12,
+  "frozen_hash": "a4f89d..."
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel 3: Source Layer -->
+                        <div class="panel" id="panel-source">
+                            <div class="panel-tag tag-source">Raw Source (Evidence)</div>
+                            <div class="panel-content">
+                                <h4 class="doc-title">PDF: 2026_Industry_Price_Brief.pdf</h4>
+                                <div class="pdf-viewer">
+                                    <p class="pdf-text">
+                                        ...Due to silicon overcapacity and component inventory pileup, the <span class="highlight-node orange-glow" id="node-evidence">average spot price of components dropped 1.8%</span> this quarter...
+                                    </p>
+                                    <div class="pdf-footer">Page 12 / Anchored Source</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Glow Connectors (SVG overlay for lines) -->
+                    <svg class="glow-lines" xmlns="http://www.w3.org/2000/svg">
+                        <path id="line-display-to-ledger" d="" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-width="2" />
+                        <path id="line-ledger-to-source" d="" fill="none" stroke="rgba(249, 115, 22, 0.4)" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contrast Section -->
+    <section class="section-contrast" id="governance">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Corporate Governance for AI Workflows</h2>
+                <p class="section-desc">AI acts as the assistant to draft and propose; BriefLoop's deterministic control layer enforces quality audits and logs the ledger. Division of authority builds trust.</p>
+            </div>
+            
+            <div class="grid-2">
+                <div class="contrast-card bad">
+                    <div class="contrast-icon">❌</div>
+                    <h3>Traditional AI (Black Box)</h3>
+                    <ul>
+                        <li><strong>Unstable Wording</strong>: LLM output is unstable. After several editing rounds, the original sources of figures become difficult to cross-check.</li>
+                        <li><strong>Error Amplification</strong>: A tiny misinterpretation in the draft matures into a highly confident but false final conclusion.</li>
+                        <li><strong>Evaporated Feedback</strong>: Styling guidelines and constraints disappear from the loop, resulting in repeated AI mistakes.</li>
+                        <li><strong>Manual Review Costs</strong>: Due to the lack of clear modification history and provenance trails, review teams must cross-check manually.</li>
+                    </ul>
+                </div>
+                
+                <div class="contrast-card good">
+                    <div class="contrast-icon">🛡️</div>
+                    <h3>BriefLoop Workflow (White Box)</h3>
+                    <ul>
+                        <li><strong>Claim Ledger Registration</strong>: Every key data point and assertion in final deliverables must be logged with precise coordinates in the Claim Ledger.</li>
+                        <li><strong>Deterministic Quality Gates</strong>: Compliance gates are enforced by Python code (checking timeline bounds, source integrity), not left to LLM self-validation.</li>
+                        <li><strong>Improvement Ledger Persistence</strong>: Human-approved preferences are solidified as memory, backed by immutable change logs to prevent pollution.</li>
+                        <li><strong>Authorized Derivative Projections</strong>: The display layer is decoupled from the authority layer. Finalizers only perform formatting projections, never content edits.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience & Typical Scenarios Section -->
+    <section class="section-usecases" id="usecases">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Target Scenarios & Portals</h2>
+                <p class="section-desc">In high-stake commercial scenarios where errors carry consequences, we help you guard the final milestone.</p>
+            </div>
+            <div class="grid-2">
+                <div class="usecase-item">
+                    <div class="usecase-icon">🏢</div>
+                    <div class="usecase-detail">
+                        <h3>Investor Relations (IR)</h3>
+                        <p class="usecase-problem"><strong>Pain Point</strong>: Disclosure data relies on complex source documents. Locating raw coordinates to answer analyst questions is resource-heavy.</p>
+                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Generates an automatic Source Map, letting you trace disclosed figures back to the exact source page and paragraph.</p>
+                    </div>
+                </div>
+                <div class="usecase-item">
+                    <div class="usecase-icon">📈</div>
+                    <div class="usecase-detail">
+                        <h3>Strategic & Investment Research</h3>
+                        <p class="usecase-problem"><strong>Pain Point</strong>: Weekly competitor tracking and market briefs go through rapid editing cycles, easily letting unverified claims creep into the final copy.</p>
+                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Establishes a strict Authority Layer with a multi-agent topology to lock in core facts, preventing text modifications from altering truth.</p>
+                    </div>
+                </div>
+                <div class="usecase-item">
+                    <div class="usecase-icon">🛡️</div>
+                    <div class="usecase-detail">
+                        <h3>Review & Quality Teams</h3>
+                        <p class="usecase-problem"><strong>Pain Point</strong>: Cross-checking AI drafts against source documents is resource-heavy, leaving vulnerability to outdated data or missing citations.</p>
+                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Quality Gates automatically block expired or citation-less claims, reducing manual auditing and review overhead.</p>
+                    </div>
+                </div>
+                <div class="usecase-item">
+                    <div class="usecase-icon">👥</div>
+                    <div class="usecase-detail">
+                        <h3>Executive Briefings</h3>
+                        <p class="usecase-problem"><strong>Pain Point</strong>: Mixed-source summaries suffer from distortion, and AI-generated opinions are often overly absolute without solid causal grounding.</p>
+                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Enforces human-agent isolation. Only human-adjudicated feedback registers as persistent Preference memory, keeping control clean.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables & Boundaries Section -->
+    <section class="section-artifacts" id="artifacts">
+        <div class="container">
+            <div class="grid-2">
+                <!-- Left: Standard Deliverables -->
+                <div class="artifacts-list-box">
+                    <h2>Standard Deliverables (Artifacts)</h2>
+                    <p class="artifacts-desc">A BriefLoop execution yields not only the reader-facing brief but also a transparent record trail of the entire process.</p>
+                    
+                    <div class="artifact-card-small">
+                        <h4>🧾 Claim Ledger</h4>
+                        <p>JSON records capturing key claims, figures, and coordinate bindings. Serves as the single source of truth.</p>
+                    </div>
+                    <div class="artifact-card-small">
+                        <h4>🗺️ Source Map (Appendix)</h4>
+                        <p>An appendix document linking final statements to page numbers and highlighted text spans in source documents.</p>
+                    </div>
+                    <div class="artifact-card-small">
+                        <h4>🛡️ Audit Bundle</h4>
+                        <p>Includes quality gate execution reports, timeline validation logs, and consistency check matrices.</p>
+                    </div>
+                    <div class="artifact-card-small">
+                        <h4>📄 Readable Brief & Delivery Bundle</h4>
+                        <p>The clean Markdown and Word reports projected from the Authority Layer for final audience consumption.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Responsibility Boundary -->
+                <div class="boundary-box">
+                    <div class="boundary-badge">🔒 Governance Boundary</div>
+                    <h2>Human-in-the-Loop Boundary</h2>
+                    <div class="boundary-content">
+                        <p>No automated AI system should or can replace human responsibility for legal, compliance, or decision-making. BriefLoop does not automate final approvals; it equips humans with a traceable, auditable chain of evidence to reduce omission risks.</p>
+                        
+                        <div class="boundary-metric">
+                            <span class="m-title">AI Agents</span>
+                            <span class="m-desc">Drafting, analyzing, and proposing</span>
+                        </div>
+                        <div class="boundary-metric">
+                            <span class="m-title">Control Layer (Python)</span>
+                            <span class="m-desc">Enforcing gates, locking state, and logging history</span>
+                        </div>
+                        <div class="boundary-metric highlight">
+                            <span class="m-title">Human Decision-Maker</span>
+                            <span class="m-desc">Final sign-off, approval, and accountability</span>
+                        </div>
+                        
+                        <blockquote class="boundary-quote">
+                            "If conflict or omission exists, our framework exposes the audit trail immediately to support quick back-tracing."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Sandbox Section -->
+    <section class="section-sandbox" id="sandbox">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="badge-demo">Interactive Simulation</div>
+                <h2>Quality Gate Sandbox Demo</h2>
+                <p class="section-desc">This is a frontend simulation demonstrating BriefLoop's blocking and repair logic, not a live runtime environment.</p>
+            </div>
+
+            <div class="sandbox-app">
+                <div class="sandbox-controls">
+                    <button class="btn-scenario active" data-scenario="hallucination">Scenario 1: AI Hallucinated Data</button>
+                    <button class="btn-scenario" data-scenario="tampering">Scenario 2: Display Layer Modification</button>
+                </div>
+
+                <div class="sandbox-workspace">
+                    <!-- Left: Editor / File Staging -->
+                    <div class="sandbox-panel">
+                        <div class="panel-header">
+                            <span>✍️ AI Analyst Draft</span>
+                            <span class="status-marker editing">Editing</span>
+                        </div>
+                        <div class="panel-body">
+                            <textarea id="sandbox-draft" class="sandbox-textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Middle: Claim Ledger (Truth) -->
+                    <div class="sandbox-panel">
+                        <div class="panel-header">
+                            <span>🧾 Immutable Claim Ledger</span>
+                            <span class="status-marker verified">Locked</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="ledger-viewer">
+                                <div class="ledger-entry">
+                                    <span class="entry-lbl">Claim ID:</span> <span class="entry-val highlight-blue">CL-0045</span>
+                                </div>
+                                <div class="ledger-entry">
+                                    <span class="entry-lbl">Assertion Fact:</span> <span class="entry-val highlight-green" id="sandbox-ledger-fact">Component spot price dropped 1.5%</span>
+                                </div>
+                                <div class="ledger-entry">
+                                    <span class="entry-lbl">Source coordinate:</span> <span class="entry-val">SRC-009 (2026-06-05)</span>
+                                </div>
+                                <div class="ledger-entry">
+                                    <span class="entry-lbl">Ledger Hash:</span> <span class="entry-val code-font">sha256_8f0a2e...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quality Gate / Output -->
+                    <div class="sandbox-panel">
+                        <div class="panel-header">
+                            <span>🛡️ Quality Gate</span>
+                        </div>
+                        <div class="panel-body flex-col justify-between">
+                            <div id="gate-report" class="gate-report-box pending">
+                                <div class="gate-status-text">⏳ Waiting for gate check execution...</div>
+                                <div class="gate-log">Click "Run Audit" below, and the system will cross-reference the draft draft facts with the Claim Ledger.</div>
+                            </div>
+                            
+                            <div class="gate-actions">
+                                <button id="btn-run-gate" class="btn-action-primary">Run Audit</button>
+                                <button id="btn-auto-repair" class="btn-action-success hidden">⚙️ Rebuild Draft</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Portals -->
+    <section class="section-portals" id="portals">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Product Portals</h2>
+                <p class="section-desc">High-standard agent topologies and validation agreements tailored for different reporting scopes.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="portal-card">
+                    <div class="portal-icon">📊</div>
+                    <h3>industry-weekly</h3>
+                    <p class="portal-meta">Weekly Industry & Competitor Tracker</p>
+                    <p class="portal-text">Monitors competitor releases, news, and policies. Maps multi-source facts to coordinates, yielding weekly industry briefs ready for human sign-off.</p>
+                    <div class="portal-tag-list">
+                        <span>Multi-source Fetching</span>
+                        <span>Timeline Check</span>
+                        <span>Entity Cross-ref</span>
+                    </div>
+                </div>
+
+                <div class="portal-card">
+                    <div class="portal-icon">📈</div>
+                    <h3>management-monthly</h3>
+                    <p class="portal-meta">Management & Operations Reporting</p>
+                    <p class="portal-text">Enables internal financial metrics input. Runs in isolated environments to lock the Claim Ledger, providing traceable attribution logs for decision-making.</p>
+                    <div class="portal-tag-list">
+                        <span>Metric Audit</span>
+                        <span>Offline Isolation</span>
+                        <span>Authority Segregation</span>
+                    </div>
+                </div>
+
+                <div class="portal-card">
+                    <div class="portal-icon">🔍</div>
+                    <h3>document-review</h3>
+                    <p class="portal-meta">Document Review & Verification</p>
+                    <p class="portal-text">Scans batches of prospectuses, audit releases, and inquiries. Extracts claims backed by specific page coordinates and text segments, assisting research.</p>
+                    <div class="portal-tag-list">
+                        <span>Paragraph Highlights</span>
+                        <span>Chain of Custody</span>
+                        <span>Origin Back-trace</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLI & Developer Section -->
+    <section class="section-cli" id="cli">
+        <div class="container">
+            <div class="grid-2 align-center">
+                <div class="cli-info">
+                    <h2>Developer & Agent Integrations</h2>
+                    <p>BriefLoop is designed for developers and multi-agent workflow engines. You can run local audits or cooperate with WorkBuddy to schedule tasks, ensuring final briefs meet quality contracts.</p>
+                    
+                    <div class="integration-item">
+                        <div class="integration-header">
+                            <span class="icon-small">📟</span>
+                            <h4>Deterministic CLI</h4>
+                        </div>
+                        <p>Inspect stage transitions, audit summaries, blocking gates, and check reports via command line.</p>
+                    </div>
+
+                    <div class="integration-item">
+                        <div class="integration-header">
+                            <span class="icon-small">🤖</span>
+                            <h4>WorkBuddy / Claude Code Cooperation</h4>
+                        </div>
+                        <p>Schedule briefs via WorkBuddy (e.g. say "help me run a weekly report") or run tasks in your terminal using <code>briefloop run --workspace ~/my-workspace</code>.</p>
+                    </div>
+                </div>
+
+                <!-- Styled Terminal -->
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="terminal-title">bash — briefloop</span>
+                        <button class="btn-copy-terminal" id="btn-copy-code">Copy Code</button>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line"><span class="t-prompt">$</span> pipx install briefloop</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
+                        <div class="terminal-line t-comment"># Capture industry scope, rules, and readers to onboarding.json</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ~/my-workspace --from-onboarding onboarding.json</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ~/my-workspace</div>
+                        <div class="terminal-line t-output">[info] Initializing Orchestrator: hermes</div>
+                        <div class="terminal-line t-output">[info] Scout stage materializing: Source Discovery: sources decide...</div>
+                        <div class="terminal-line t-success">[success] Audit ledger written to: output/intermediate/claim_ledger.json</div>
+                        <div class="terminal-line t-success">[success] Quality Gate passed! Generated derivative bundle: output/delivery/brief.md</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-icon">🧾</span>
+                <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+                <p class="footer-desc">Ensure every commercial briefing assertion stands verifiable. Custody layers for Enterprise AI.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="https://github.com/Stahl-G/briefloop" target="_blank">GitHub Repository</a>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.md" target="_blank">15-Min Pilot</a>
+                <a href="mailto:contact@briefloop.ai">Business Contact</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2026 BriefLoop.ai. Open-sourced under the MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
