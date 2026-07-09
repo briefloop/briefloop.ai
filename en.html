@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BriefLoop.ai - Accountable AI Briefing Workflow</title>
-    <meta name="description" content="BriefLoop establishes an accountable briefing workflow for research, IR, compliance, and management briefs through a deterministic ledger, source mapping, and quality gates.">
-    <!-- Custom CSS -->
+    <title>BriefLoop.ai — Accountable AI Briefing Workflow</title>
+    <meta name="description" content="BriefLoop turns AI drafts into reviewable, approvable, deliverable business briefs through deterministic ledgers, source anchoring, and quality gates — a full chain of custody for research, IR, compliance, and executive briefings.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1322'/%3E%3Cpath d='M22.5 10.5a8 8 0 1 0 2 5.5' fill='none' stroke='%232dd4bf' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12.5 16.5l3 3 5.5-6' fill='none' stroke='%232dd4bf' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,19 +17,24 @@
     <header class="app-header">
         <div class="container header-container">
             <div class="logo">
-                <span class="logo-icon">🧾</span>
+                <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+                    <rect width="32" height="32" rx="7" fill="#0b1424"/>
+                    <path d="M22.5 10.5a8 8 0 1 0 2 5.5" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round"/>
+                    <path d="M12.5 16.5l3 3 5.5-6" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
             </div>
             <nav class="nav-links">
-                <a href="#governance">Governance Model</a>
-                <a href="#usecases">Typical Scenarios</a>
-                <a href="#artifacts">Deliverables</a>
-                <a href="#sandbox" class="btn-sandbox-nav">Live Sandbox</a>
+                <a href="#loop">The Loop</a>
+                <a href="#governance">Governance</a>
+                <a href="#usecases">Scenarios</a>
+                <a href="#artifacts">Artifacts</a>
+                <a href="#sandbox" class="btn-sandbox-nav">Live Demo</a>
                 <a href="index.html" class="lang-switch">中文</a>
             </nav>
             <div class="header-cta">
                 <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-github">
-                    <svg class="github-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    <svg class="github-icon" viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
                     GitHub
                 </a>
             </div>
@@ -37,215 +45,315 @@
     <section class="hero-section">
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="badge-new">⚡ Accountable AI Briefing Workflow Framework</div>
+                <div class="badge-row">
+                    <span class="badge-version">v1.0.2</span>
+                    <div class="badge-new"><span class="pulse-dot"></span>Accountable AI briefing workflow · open source</div>
+                </div>
                 <h1 class="hero-title">
-                    Move Fast with AI.<br>
-                    <span class="text-gradient">Ship with Accountability.</span>
+                    Let AI draft fast.<br>
+                    <span class="text-gradient">Let humans deliver with confidence.</span>
                 </h1>
                 <p class="hero-subtitle">
-                    BriefLoop is an open-source workflow for AI-assisted business briefings. It records key claims in a claim ledger, links them to source records, runs delivery gates, and keeps a traceable audit trail before a human approves the final brief.
+                    BriefLoop puts AI-generated industry weeklies, IR material, and executive briefs inside a traceable workflow: material claims enter a fact ledger, sources keep citation records, quality gates block obvious risks before delivery, and a human makes the final call.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#sandbox" class="btn-primary">Run Sandbox Demo</a>
-                    <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">
-                        GitHub Source
-                    </a>
+                    <a href="#sandbox" class="btn-primary">See the quality gate demo</a>
+                    <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">Source on GitHub</a>
                 </div>
             </div>
 
-            <!-- Custom Audit Chain Interface (Dynamic Display) -->
+            <!-- Chain of Custody — auto-playing trace -->
             <div class="hero-visual" id="audit-chain">
                 <div class="visual-card">
                     <div class="card-header">
                         <span class="card-dot red"></span>
                         <span class="card-dot yellow"></span>
                         <span class="card-dot green"></span>
-                        <span class="card-title">BriefLoop Live Chain of Custody Tracker</span>
+                        <span class="card-title">BriefLoop Chain of Custody</span>
+                        <button class="card-replay" id="btn-replay-trace">↻ Replay trace</button>
                     </div>
                     <div class="visual-panels">
-                        <!-- Panel 1: Display Layer -->
                         <div class="panel" id="panel-display">
-                            <div class="panel-tag tag-display">Display Layer</div>
+                            <div class="panel-tag tag-display">Display · Reader Brief</div>
                             <div class="panel-content">
-                                <h4 class="doc-title">Readable Brief (Draft)</h4>
+                                <h4 class="doc-title">Weekly draft (reader-facing)</h4>
                                 <p class="doc-text">
-                                    Market growth accelerated this quarter. Driven by robust expansion in solar and energy storage segments, the 
-                                    <span class="highlight-node green-glow" id="node-claim">average spot price of components dropped 1.8%</span>, 
-                                    marking the largest single-quarter decline of the year.
+                                    Market growth accelerated this quarter. Driven by strong solar and storage demand,
+                                    <span class="highlight-node green-glow" id="node-claim">the average component spot price fell 1.8% QoQ</span>,
+                                    the largest single-quarter decline this year.
                                 </p>
                             </div>
                         </div>
 
-                        <!-- Panel 2: Authority Layer -->
                         <div class="panel" id="panel-authority">
-                            <div class="panel-tag tag-authority">Authority Layer (Claim Ledger)</div>
+                            <div class="panel-tag tag-authority">Authority · Claim Ledger</div>
                             <div class="panel-content">
                                 <div class="ledger-card" id="ledger-item">
                                     <div class="ledger-header">
                                         <span class="ledger-id">CL-0012</span>
-                                        <span class="status-badge green">Locked</span>
+                                        <span class="status-badge green">FROZEN</span>
                                     </div>
                                     <pre class="ledger-json"><code>{
-  "statement": "component spot price fell 1.8%",
+  "statement": "avg spot price fell 1.8%",
   "source_id": "SRC-003",
   "evidence_page": 12,
-  "frozen_hash": "a4f89d..."
+  "frozen_hash": "a4f89d…"
 }</code></pre>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Panel 3: Source Layer -->
                         <div class="panel" id="panel-source">
-                            <div class="panel-tag tag-source">Raw Source (Evidence)</div>
+                            <div class="panel-tag tag-source">Raw Source</div>
                             <div class="panel-content">
-                                <h4 class="doc-title">PDF: 2026_Industry_Price_Brief.pdf</h4>
+                                <h4 class="doc-title">PDF: 2026-industry-price-brief.pdf</h4>
                                 <div class="pdf-viewer">
                                     <p class="pdf-text">
-                                        ...Due to silicon overcapacity and component inventory pileup, the <span class="highlight-node orange-glow" id="node-evidence">average spot price of components dropped 1.8%</span> this quarter...
+                                        …amid polysilicon oversupply and component inventory build-up, <span class="highlight-node orange-glow" id="node-evidence">the monitored sample average component spot price recorded a 1.8% QoQ decline</span>, narrowing for a third consecutive week…
                                     </p>
-                                    <div class="pdf-footer">Page 12 / Anchored Source</div>
+                                    <div class="pdf-footer">Page 12 · source anchored</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Glow Connectors (SVG overlay for lines) -->
                     <svg class="glow-lines" xmlns="http://www.w3.org/2000/svg">
-                        <path id="line-display-to-ledger" d="" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-width="2" />
-                        <path id="line-ledger-to-source" d="" fill="none" stroke="rgba(249, 115, 22, 0.4)" stroke-width="2" />
+                        <path id="line-display-to-ledger" d="" fill="none" stroke="rgba(45, 212, 191, 0.45)" stroke-width="2" />
+                        <path id="line-ledger-to-source" d="" fill="none" stroke="rgba(251, 191, 36, 0.45)" stroke-width="2" />
                     </svg>
+                    <div class="trace-stamp" id="trace-stamp">TRACED</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contrast Section -->
+    <!-- The Loop — pipeline animation -->
+    <section class="section-loop" id="loop">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow on-dark" style="justify-content:center;">The Loop</div>
+                <h2>The full journey of a claim</h2>
+                <p class="section-desc">From source to human sign-off, every claim leaves a trail on the deterministic control plane. Claims the gate refuses go back into the repair loop — they do not sneak into the delivery bundle.</p>
+            </div>
+
+            <div class="loop-stage-rail reveal">
+                <svg class="loop-svg" viewBox="0 88 960 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BriefLoop pipeline: sources → scout → claim ledger → draft and edit → auditor → quality gates → human-approved delivery; blocked claims return through the repair loop">
+                    <path d="M80 140 H880" stroke="rgba(255,255,255,0.14)" stroke-width="2" fill="none"/>
+                    <path id="repair-path" d="M745 152 C745 262 495 262 495 152" stroke="rgba(248,113,113,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="5 5"/>
+                    <path d="M495 162 l-6 10 h12 z" fill="rgba(248,113,113,0.5)"/>
+                    <text x="620" y="252" class="loop-node-label" fill="rgba(248,113,113,0.75)">repair loop</text>
+
+                    <g class="loop-nodes">
+                        <circle cx="80" cy="140" r="17" fill="#0e1a2e" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                        <path d="M74 133 h9 l4 4 v10 h-13 z M83 133 v4 h4" stroke="rgba(232,235,240,0.7)" stroke-width="1.2" fill="none"/>
+                        <text x="80" y="180" class="loop-node-label">Sources</text>
+                        <text x="80" y="196" class="loop-node-sub">evidence in</text>
+
+                        <circle cx="215" cy="140" r="17" fill="#0e1a2e" stroke="rgba(232,235,240,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <circle cx="212" cy="137" r="5.5" stroke="rgba(232,235,240,0.7)" stroke-width="1.2" fill="none"/>
+                        <path d="M216 141 l6 6" stroke="rgba(232,235,240,0.7)" stroke-width="1.2"/>
+                        <text x="215" y="180" class="loop-node-label">Scout</text>
+                        <text x="215" y="196" class="loop-node-sub">agent drafts</text>
+
+                        <circle cx="360" cy="140" r="19" fill="#0e1a2e" stroke="#2dd4bf" stroke-width="1.8"/>
+                        <path d="M353 134 h14 M353 140 h14 M353 146 h8" stroke="#2dd4bf" stroke-width="1.3"/>
+                        <text x="360" y="180" class="loop-node-label" fill="#2dd4bf">Claim Ledger</text>
+                        <text x="360" y="196" class="loop-node-sub">deterministic freeze</text>
+
+                        <circle cx="495" cy="140" r="17" fill="#0e1a2e" stroke="rgba(232,235,240,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <path d="M489 147 l9-9 3 3 -9 9 -4 1 z" stroke="rgba(232,235,240,0.7)" stroke-width="1.2" fill="none"/>
+                        <text x="495" y="180" class="loop-node-label">Draft · Edit</text>
+                        <text x="495" y="196" class="loop-node-sub">analyst / editor</text>
+
+                        <circle cx="620" cy="140" r="17" fill="#0e1a2e" stroke="rgba(232,235,240,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <circle cx="618" cy="138" r="5" stroke="rgba(232,235,240,0.7)" stroke-width="1.2" fill="none"/>
+                        <path d="M622 142 l5 5 M615.5 138 l1.8 1.8 3.2-3.6" stroke="rgba(232,235,240,0.7)" stroke-width="1.2" fill="none"/>
+                        <text x="620" y="180" class="loop-node-label">Auditor</text>
+                        <text x="620" y="196" class="loop-node-sub">against the ledger</text>
+
+                        <circle cx="745" cy="140" r="19" fill="#0e1a2e" stroke="#2dd4bf" stroke-width="1.8"/>
+                        <circle cx="745" cy="140" r="19" fill="none" stroke="#2dd4bf" stroke-width="1.5" opacity="0.5">
+                            <animate attributeName="r" values="19;26;19" dur="4s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
+                        </circle>
+                        <path d="M745 131 l7 3 v6 c0 5 -3.5 8 -7 9 -3.5 -1 -7 -4 -7 -9 v-6 z" stroke="#2dd4bf" stroke-width="1.3" fill="none"/>
+                        <text x="745" y="180" class="loop-node-label" fill="#2dd4bf">Quality Gates</text>
+                        <text x="745" y="196" class="loop-node-sub">Python-enforced</text>
+
+                        <circle cx="880" cy="140" r="19" fill="#0e1a2e" stroke="#2dd4bf" stroke-width="1.8"/>
+                        <circle cx="880" cy="134" r="4.5" stroke="#2dd4bf" stroke-width="1.3" fill="none"/>
+                        <path d="M872 150 c0-5 4-7 8-7 s8 2 8 7" stroke="#2dd4bf" stroke-width="1.3" fill="none"/>
+                        <text x="880" y="180" class="loop-node-label" fill="#2dd4bf">Human delivery</text>
+                        <text x="880" y="196" class="loop-node-sub">human-triggered</text>
+                    </g>
+
+                    <g class="loop-anim-only">
+                        <g>
+                            <rect x="-9" y="-6" width="18" height="12" rx="3" fill="#34d399" opacity="0.9"/>
+                            <animateMotion dur="9s" repeatCount="indefinite" path="M80 140 H880" calcMode="linear"/>
+                        </g>
+                        <g>
+                            <rect x="-9" y="-6" width="18" height="12" rx="3" fill="#f87171" opacity="0.85">
+                                <animate attributeName="opacity" values="0;0.85;0.85;0.85;0" keyTimes="0;0.08;0.5;0.92;1" dur="9s" repeatCount="indefinite"/>
+                            </rect>
+                            <animateMotion dur="9s" repeatCount="indefinite" path="M620 140 H745 L745 152 C745 262 495 262 495 152 L495 140" keyPoints="0;0;0.3;0.34;0.9;1;1" keyTimes="0;0.2;0.42;0.48;0.85;0.95;1" calcMode="linear"/>
+                        </g>
+                    </g>
+                    <text x="880" y="112" class="loop-node-sub" fill="rgba(52,211,153,0.8)">delivery_truth.valid=true</text>
+                </svg>
+            </div>
+
+            <div class="loop-legend reveal">
+                <span><span class="legend-chip pass"></span>ledger-backed claim → delivery</span>
+                <span><span class="legend-chip blocked"></span>gate-blocked → repair loop</span>
+                <span><span class="legend-chip human"></span>solid nodes = deterministic control, dashed = AI drafting</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Governance Contrast -->
     <section class="section-contrast" id="governance">
         <div class="container">
-            <div class="section-header text-center">
-                <h2>Corporate Governance for AI Workflows</h2>
-                <p class="section-desc">AI acts as the assistant to draft and propose; BriefLoop's deterministic control layer enforces quality audits and logs the ledger. Division of authority builds trust.</p>
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">Governance</div>
+                <h2>Corporate governance, for your AI</h2>
+                <p class="section-desc">AI drafts and proposes. BriefLoop's deterministic control layer audits and keeps the books. Separation of duties is what makes the output trustworthy.</p>
             </div>
-            
-            <div class="grid-2">
-                <div class="contrast-card bad">
-                    <div class="contrast-icon">❌</div>
-                    <h3>Traditional AI (Black Box)</h3>
+
+            <div class="grid-2" style="margin-top:48px;">
+                <div class="contrast-card bad reveal">
+                    <div class="contrast-icon">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg>
+                    </div>
+                    <h3>Traditional AI writing (black box)</h3>
                     <ul>
-                        <li><strong>Unstable Wording</strong>: LLM output is unstable. After several editing rounds, the original sources of figures become difficult to cross-check.</li>
-                        <li><strong>Error Amplification</strong>: A tiny misinterpretation in the draft matures into a highly confident but false final conclusion.</li>
-                        <li><strong>Evaporated Feedback</strong>: Styling guidelines and constraints disappear from the loop, resulting in repeated AI mistakes.</li>
-                        <li><strong>Manual Review Costs</strong>: Due to the lack of clear modification history and provenance trails, review teams must cross-check manually.</li>
+                        <li><strong>Unverifiable data</strong>: after a few revision rounds, the true origin of a number is often impossible to re-check.</li>
+                        <li><strong>Errors compound</strong>: one small misreading in a draft gets polished into a confident, wrong conclusion.</li>
+                        <li><strong>Feedback evaporates</strong>: reviewer preferences live in someone's head; the model forgets them on the next run.</li>
+                        <li><strong>Expensive review</strong>: with no evidence trail, review teams re-verify source documents by hand, every time.</li>
                     </ul>
                 </div>
-                
-                <div class="contrast-card good">
-                    <div class="contrast-icon">🛡️</div>
-                    <h3>BriefLoop Workflow (White Box)</h3>
+
+                <div class="contrast-card good reveal reveal-delay-1">
+                    <div class="contrast-icon">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+                    </div>
+                    <h3>BriefLoop chain of custody (auditable)</h3>
                     <ul>
-                        <li><strong>Claim Ledger Registration</strong>: Every key data point and assertion in final deliverables must be logged with precise coordinates in the Claim Ledger.</li>
-                        <li><strong>Deterministic Quality Gates</strong>: Compliance gates are enforced by Python code (checking timeline bounds, source integrity), not left to LLM self-validation.</li>
-                        <li><strong>Improvement Ledger Persistence</strong>: Human-approved preferences are solidified as memory, backed by immutable change logs to prevent pollution.</li>
-                        <li><strong>Authorized Derivative Projections</strong>: The display layer is decoupled from the authority layer. Finalizers only perform formatting projections, never content edits.</li>
+                        <li><strong>Ledger-registered facts</strong>: every material claim and number in the deliverable has coordinates in the Claim Ledger.</li>
+                        <li><strong>Deterministic quality gates</strong>: Python logic enforces freshness and source-integrity gates — the model cannot grade its own homework.</li>
+                        <li><strong>Approved preferences persist</strong>: human-approved writing preferences become durable memory with contamination-safe rollback records.</li>
+                        <li><strong>One delivery-truth record</strong>: delivery status comes only from finalize_report and the completion projection. A failed reader-clean never promotes the bundle — file existence is not delivery.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Target Audience & Typical Scenarios Section -->
+    <!-- Use Cases -->
     <section class="section-usecases" id="usecases">
         <div class="container">
-            <div class="section-header text-center">
-                <h2>Target Scenarios & Portals</h2>
-                <p class="section-desc">In high-stake commercial scenarios where errors carry consequences, we help you guard the final milestone.</p>
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">Scenarios</div>
+                <h2>Built for buyers who bear consequences</h2>
+                <p class="section-desc">In business settings where mistakes have consequences, we help humans hold the last line.</p>
             </div>
-            <div class="grid-2">
-                <div class="usecase-item">
-                    <div class="usecase-icon">🏢</div>
+            <div class="grid-2" style="margin-top:48px;">
+                <div class="usecase-item reveal">
+                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 21V8l6-4v17M10 21h10V10l-6-3.5M7 10h.01M7 13h.01M7 16h.01M14 13h.01M14 16h.01M17 13h.01M17 16h.01"/><path d="M2 21h20"/></svg></div>
                     <div class="usecase-detail">
                         <h3>Investor Relations (IR)</h3>
-                        <p class="usecase-problem"><strong>Pain Point</strong>: Disclosure data relies on complex source documents. Locating raw coordinates to answer analyst questions is resource-heavy.</p>
-                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Generates an automatic Source Map, letting you trace disclosed figures back to the exact source page and paragraph.</p>
+                        <p class="usecase-problem"><strong>Pain</strong>: quarterly and disclosure data has tangled origins; answering analyst or reviewer follow-ups means hunting for the original evidence.</p>
+                        <p class="usecase-solution"><strong>BriefLoop</strong>: an auto-generated Source Map with traceable coordinates lets disclosure data snap back to the original page and context.</p>
                     </div>
                 </div>
-                <div class="usecase-item">
-                    <div class="usecase-icon">📈</div>
+                <div class="usecase-item reveal reveal-delay-1">
+                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <div class="usecase-detail">
-                        <h3>Strategic & Investment Research</h3>
-                        <p class="usecase-problem"><strong>Pain Point</strong>: Weekly competitor tracking and market briefs go through rapid editing cycles, easily letting unverified claims creep into the final copy.</p>
-                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Establishes a strict Authority Layer with a multi-agent topology to lock in core facts, preventing text modifications from altering truth.</p>
+                        <h3>Strategy &amp; Investment Research</h3>
+                        <p class="usecase-problem"><strong>Pain</strong>: weekly competitor tracking changes constantly; multi-round editing lets unverified numbers slip in.</p>
+                        <p class="usecase-solution"><strong>BriefLoop</strong>: a strict authority layer and multi-agent topology lock core claims so polish never mutates facts.</p>
                     </div>
                 </div>
-                <div class="usecase-item">
-                    <div class="usecase-icon">🛡️</div>
+                <div class="usecase-item reveal">
+                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M5 7l7-4 7 4M5 7v4c0 2 1.5 3.5 3.5 3.5S12 13 12 11M19 7v4c0 2-1.5 3.5-3.5 3.5S12 13 12 11"/><path d="M8 21h8"/></svg></div>
                     <div class="usecase-detail">
-                        <h3>Review & Quality Teams</h3>
-                        <p class="usecase-problem"><strong>Pain Point</strong>: Cross-checking AI drafts against source documents is resource-heavy, leaving vulnerability to outdated data or missing citations.</p>
-                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Quality Gates automatically block expired or citation-less claims, reducing manual auditing and review overhead.</p>
+                        <h3>Compliance &amp; Review</h3>
+                        <p class="usecase-problem"><strong>Pain</strong>: manually re-verifying the sources behind AI drafts is expensive; stale data and missing evidence are hard to catch.</p>
+                        <p class="usecase-solution"><strong>BriefLoop</strong>: deterministic gates flag stale or unsupported statements automatically, cutting review and correction cost.</p>
                     </div>
                 </div>
-                <div class="usecase-item">
-                    <div class="usecase-icon">👥</div>
+                <div class="usecase-item reveal reveal-delay-1">
+                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.5-5.5 6-5.5s6 2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16.5 14.6c2.8.3 4.5 2 4.5 4.9"/></svg></div>
                     <div class="usecase-detail">
                         <h3>Executive Briefings</h3>
-                        <p class="usecase-problem"><strong>Pain Point</strong>: Mixed-source summaries suffer from distortion, and AI-generated opinions are often overly absolute without solid causal grounding.</p>
-                        <p class="usecase-solution"><strong>BriefLoop Value</strong>: Enforces human-agent isolation. Only human-adjudicated feedback registers as persistent Preference memory, keeping control clean.</p>
+                        <p class="usecase-problem"><strong>Pain</strong>: multi-source briefs drift; AI conclusions sound absolute without attribution to back them.</p>
+                        <p class="usecase-solution"><strong>BriefLoop</strong>: strict human/machine separation — only human-approved feedback enters memory as preference, with a clear, controllable baseline.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Deliverables & Boundaries Section -->
+    <!-- Artifacts & Boundary -->
     <section class="section-artifacts" id="artifacts">
         <div class="container">
             <div class="grid-2">
-                <!-- Left: Standard Deliverables -->
-                <div class="artifacts-list-box">
-                    <h2>Standard Deliverables (Artifacts)</h2>
-                    <p class="artifacts-desc">A BriefLoop execution yields not only the reader-facing brief but also a transparent record trail of the entire process.</p>
-                    
+                <div class="artifacts-list-box reveal">
+                    <div class="eyebrow">Artifacts</div>
+                    <h2>Standard deliverables</h2>
+                    <p class="artifacts-desc">A BriefLoop run produces more than the final reading document — it keeps a full set of inspectable process ledgers.</p>
+
                     <div class="artifact-card-small">
-                        <h4>🧾 Claim Ledger</h4>
-                        <p>JSON records capturing key claims, figures, and coordinate bindings. Serves as the single source of truth.</p>
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+                        <div>
+                            <h4>Claim Ledger <code>claim_ledger.json</code></h4>
+                            <p>A JSON record of material facts, numbers, and source coordinates — frozen into the single authority for every output fact.</p>
+                        </div>
                     </div>
                     <div class="artifact-card-small">
-                        <h4>🗺️ Source Map (Appendix)</h4>
-                        <p>An appendix document linking final statements to page numbers and highlighted text spans in source documents.</p>
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/></svg>
+                        <div>
+                            <h4>Source Map <code>source_appendix</code></h4>
+                            <p>An appendix mapping brief statements back to the original filing/PDF page and highlighted passage.</p>
+                        </div>
                     </div>
                     <div class="artifact-card-small">
-                        <h4>🛡️ Audit Bundle</h4>
-                        <p>Includes quality gate execution reports, timeline validation logs, and consistency check matrices.</p>
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+                        <div>
+                            <h4>Audit Bundle <code>audit bundle</code></h4>
+                            <p>Quality-gate results, freshness verification logs, and fact-consistency reports.</p>
+                        </div>
                     </div>
                     <div class="artifact-card-small">
-                        <h4>📄 Readable Brief & Delivery Bundle</h4>
-                        <p>The clean Markdown and Word reports projected from the Authority Layer for final audience consumption.</p>
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13l2.5 2.5L16 11"/></svg>
+                        <div>
+                            <h4>Delivery Bundle <code>delivery bundle</code></h4>
+                            <p>Clean Markdown and Word reports promoted only after reader-clean passes; delivery truth lives in a single record, <code>finalize_report.json</code>.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right: Responsibility Boundary -->
-                <div class="boundary-box">
-                    <div class="boundary-badge">🔒 Governance Boundary</div>
-                    <h2>Human-in-the-Loop Boundary</h2>
+                <div class="boundary-box reveal reveal-delay-1">
+                    <div class="boundary-badge">Governance Boundary</div>
+                    <h2>Human responsibility statement</h2>
                     <div class="boundary-content">
-                        <p>No automated AI system should or can replace human responsibility for legal, compliance, or decision-making. BriefLoop does not automate final approvals; it equips humans with a traceable, auditable chain of evidence to reduce omission risks.</p>
-                        
+                        <p>No automated AI system should — or can — take over human responsibility for decisions and sign-off. BriefLoop does not approve delivery for you; it gives you an <b>evidence chain that reduces the risk of missing something</b> — traceability, not semantic proof.</p>
+
                         <div class="boundary-metric">
-                            <span class="m-title">AI Agents</span>
-                            <span class="m-desc">Drafting, analyzing, and proposing</span>
+                            <span class="m-title">AI agents</span>
+                            <span class="m-desc">draft, analyze, propose (drafting layer)</span>
                         </div>
                         <div class="boundary-metric">
-                            <span class="m-title">Control Layer (Python)</span>
-                            <span class="m-desc">Enforcing gates, locking state, and logging history</span>
+                            <span class="m-title">Control logic (Python)</span>
+                            <span class="m-desc">audits, records, enforces gates (audit layer)</span>
                         </div>
                         <div class="boundary-metric highlight">
-                            <span class="m-title">Human Decision-Maker</span>
-                            <span class="m-desc">Final sign-off, approval, and accountability</span>
+                            <span class="m-title">Human decision-maker</span>
+                            <span class="m-desc">signs, approves, bears responsibility (judgment layer)</span>
                         </div>
-                        
+
                         <blockquote class="boundary-quote">
-                            "If conflict or omission exists, our framework exposes the audit trail immediately to support quick back-tracing."
+                            "When data conflicts or goes missing, the system exposes the trail and supports fast trace-back."
                         </blockquote>
                     </div>
                 </div>
@@ -253,71 +361,68 @@
         </div>
     </section>
 
-    <!-- Interactive Sandbox Section -->
+    <!-- Interactive Sandbox -->
     <section class="section-sandbox" id="sandbox">
         <div class="container">
-            <div class="section-header text-center">
-                <div class="badge-demo">Interactive Simulation</div>
-                <h2>Quality Gate Sandbox Demo</h2>
-                <p class="section-desc">This is a frontend simulation demonstrating BriefLoop's blocking and repair logic, not a live runtime environment.</p>
+            <div class="section-header text-center reveal">
+                <div class="badge-demo">Front-end simulation · not a real runtime</div>
+                <h2>Quality gate simulation</h2>
+                <p class="section-desc">A front-end simulation of BriefLoop's blocking and repair logic — not a real command-line environment.</p>
             </div>
 
-            <div class="sandbox-app">
+            <div class="sandbox-app reveal">
                 <div class="sandbox-controls">
-                    <button class="btn-scenario active" data-scenario="hallucination">Scenario 1: AI Hallucinated Data</button>
-                    <button class="btn-scenario" data-scenario="tampering">Scenario 2: Display Layer Modification</button>
+                    <button class="btn-scenario active" data-scenario="hallucination">Scenario 1: AI hallucinates a number</button>
+                    <button class="btn-scenario" data-scenario="tampering">Scenario 2: display-layer tampering</button>
                 </div>
 
                 <div class="sandbox-workspace">
-                    <!-- Left: Editor / File Staging -->
                     <div class="sandbox-panel">
                         <div class="panel-header">
-                            <span>✍️ AI Analyst Draft</span>
-                            <span class="status-marker editing">Editing</span>
+                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l4-1L19.5 7.5a2.1 2.1 0 0 0-3-3L5 16z"/><path d="M14.5 6.5l3 3"/></svg>Analyst Draft</span>
+                            <span class="status-marker editing">EDITING</span>
                         </div>
                         <div class="panel-body">
                             <textarea id="sandbox-draft" class="sandbox-textarea"></textarea>
                         </div>
                     </div>
 
-                    <!-- Middle: Claim Ledger (Truth) -->
                     <div class="sandbox-panel">
                         <div class="panel-header">
-                            <span>🧾 Immutable Claim Ledger</span>
-                            <span class="status-marker verified">Locked</span>
+                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>Claim Ledger</span>
+                            <span class="status-marker verified">FROZEN</span>
                         </div>
                         <div class="panel-body">
                             <div class="ledger-viewer">
                                 <div class="ledger-entry">
-                                    <span class="entry-lbl">Claim ID:</span> <span class="entry-val highlight-blue">CL-0045</span>
+                                    <span class="entry-lbl">claim_id</span> <span class="entry-val highlight-blue">CL-0045</span>
                                 </div>
                                 <div class="ledger-entry">
-                                    <span class="entry-lbl">Assertion Fact:</span> <span class="entry-val highlight-green" id="sandbox-ledger-fact">Component spot price dropped 1.5%</span>
+                                    <span class="entry-lbl">statement</span> <span class="entry-val highlight-green" id="sandbox-ledger-fact">Component average spot price dropped 1.5%</span>
                                 </div>
                                 <div class="ledger-entry">
-                                    <span class="entry-lbl">Source coordinate:</span> <span class="entry-val">SRC-009 (2026-06-05)</span>
+                                    <span class="entry-lbl">source</span> <span class="entry-val">SRC-009 (2026-06-05)</span>
                                 </div>
                                 <div class="ledger-entry">
-                                    <span class="entry-lbl">Ledger Hash:</span> <span class="entry-val code-font">sha256_8f0a2e...</span>
+                                    <span class="entry-lbl">frozen_hash</span> <span class="entry-val code-font">sha256_8f0a2e…</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right: Quality Gate / Output -->
                     <div class="sandbox-panel">
                         <div class="panel-header">
-                            <span>🛡️ Quality Gate</span>
+                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Quality Gate</span>
                         </div>
                         <div class="panel-body flex-col justify-between">
                             <div id="gate-report" class="gate-report-box pending">
-                                <div class="gate-status-text">⏳ Waiting for gate check execution...</div>
-                                <div class="gate-log">Click "Run Audit" below, and the system will cross-reference the draft draft facts with the Claim Ledger.</div>
+                                <div class="gate-status-text">⏳ Waiting for gate check…</div>
+                                <div class="gate-log">Click "Run Audit" below; the system will cross-check the draft against the frozen Claim Ledger.</div>
                             </div>
-                            
+
                             <div class="gate-actions">
                                 <button id="btn-run-gate" class="btn-action-primary">Run Audit</button>
-                                <button id="btn-auto-repair" class="btn-action-success hidden">⚙️ Rebuild Draft</button>
+                                <button id="btn-auto-repair" class="btn-action-success hidden">Rebuild Draft from Ledger</button>
                             </div>
                         </div>
                     </div>
@@ -329,98 +434,96 @@
     <!-- Product Portals -->
     <section class="section-portals" id="portals">
         <div class="container">
-            <div class="section-header text-center">
-                <h2>Product Portals</h2>
-                <p class="section-desc">High-standard agent topologies and validation agreements tailored for different reporting scopes.</p>
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">Report Packs</div>
+                <h2>Three delivery entry points</h2>
+                <p class="section-desc">Preconfigured topologies and audit contracts for research, compliance, and corporate disclosure work.</p>
             </div>
 
-            <div class="grid-3">
-                <div class="portal-card">
-                    <div class="portal-icon">📊</div>
+            <div class="grid-3" style="margin-top:48px;">
+                <div class="portal-card reveal">
+                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <h3>industry-weekly</h3>
-                    <p class="portal-meta">Weekly Industry & Competitor Tracker</p>
-                    <p class="portal-text">Monitors competitor releases, news, and policies. Maps multi-source facts to coordinates, yielding weekly industry briefs ready for human sign-off.</p>
+                    <p class="portal-meta">Industry / market weekly tracking</p>
+                    <p class="portal-text">Monitor industry news, competitor moves, and policy releases. Multi-source collection with entity mapping, producing a weekly brief a human can deliver.</p>
                     <div class="portal-tag-list">
-                        <span>Multi-source Fetching</span>
-                        <span>Timeline Check</span>
-                        <span>Entity Cross-ref</span>
+                        <span>multi-source</span>
+                        <span>freshness gate</span>
+                        <span>entity mapping</span>
                     </div>
                 </div>
 
-                <div class="portal-card">
-                    <div class="portal-icon">📈</div>
+                <div class="portal-card reveal reveal-delay-1">
+                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
                     <h3>management-monthly</h3>
-                    <p class="portal-meta">Management & Operations Reporting</p>
-                    <p class="portal-text">Enables internal financial metrics input. Runs in isolated environments to lock the Claim Ledger, providing traceable attribution logs for decision-making.</p>
+                    <p class="portal-meta">Executive reporting &amp; business analysis</p>
+                    <p class="portal-text">Bring internal financial data and business metrics. Build a frozen, protected Claim Ledger in a strictly isolated offline environment, with traceable attribution for decisions.</p>
                     <div class="portal-tag-list">
-                        <span>Metric Audit</span>
-                        <span>Offline Isolation</span>
-                        <span>Authority Segregation</span>
+                        <span>metric audit</span>
+                        <span>offline runs</span>
+                        <span>human/machine split</span>
                     </div>
                 </div>
 
-                <div class="portal-card">
-                    <div class="portal-icon">🔍</div>
+                <div class="portal-card reveal reveal-delay-2">
+                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 10.5h5M10.5 8v5"/></svg></div>
                     <h3>document-review</h3>
-                    <p class="portal-meta">Document Review & Verification</p>
-                    <p class="portal-text">Scans batches of prospectuses, audit releases, and inquiries. Extracts claims backed by specific page coordinates and text segments, assisting research.</p>
+                    <p class="portal-meta">Document evidence review</p>
+                    <p class="portal-text">Search across prospectuses, audit reports, and regulator letters at scale. Extracted facts anchor to exact pages and highlighted passages, with a complete audit trail for diligence.</p>
                     <div class="portal-tag-list">
-                        <span>Paragraph Highlights</span>
-                        <span>Chain of Custody</span>
-                        <span>Origin Back-trace</span>
+                        <span>passage highlight</span>
+                        <span>chain of custody</span>
+                        <span>source trace-back</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CLI & Developer Section -->
+    <!-- CLI & Developer -->
     <section class="section-cli" id="cli">
         <div class="container">
             <div class="grid-2 align-center">
-                <div class="cli-info">
-                    <h2>Developer & Agent Integrations</h2>
-                    <p>BriefLoop is designed for developers and multi-agent workflow engines. You can run local audits or cooperate with WorkBuddy to schedule tasks, ensuring final briefs meet quality contracts.</p>
-                    
+                <div class="cli-info reveal">
+                    <div class="eyebrow">Developers</div>
+                    <h2>Built for developers and agents</h2>
+                    <p>BriefLoop fits both hacker workflows and enterprise deployment. Run it standalone from the command line, or orchestrate it from an AI editor with WorkBuddy — the final brief still has to satisfy the quality contract.</p>
+
                     <div class="integration-item">
                         <div class="integration-header">
-                            <span class="icon-small">📟</span>
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
                             <h4>Deterministic CLI</h4>
                         </div>
-                        <p>Inspect stage transitions, audit summaries, blocking gates, and check reports via command line.</p>
+                        <p>Inspect the current stage, missing files, blockers, and audit reports from the command line. Delivery status comes only from the single delivery-truth record, <code>finalize_report.json</code>.</p>
                     </div>
 
                     <div class="integration-item">
                         <div class="integration-header">
-                            <span class="icon-small">🤖</span>
-                            <h4>WorkBuddy / Claude Code Cooperation</h4>
+                            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
+                            <h4>WorkBuddy / Claude Code</h4>
                         </div>
-                        <p>Schedule briefs via WorkBuddy (e.g. say "help me run a weekly report") or run tasks in your terminal using <code>briefloop run --workspace ~/my-workspace</code>.</p>
+                        <p>Say "run my industry weekly" in WorkBuddy, or kick off a run from Claude Code with <code>briefloop run --workspace ~/my-workspace</code>.</p>
                     </div>
                 </div>
 
-                <!-- Styled Terminal -->
-                <div class="terminal-container">
+                <div class="terminal-container reveal reveal-delay-1">
                     <div class="terminal-header">
-                        <div class="terminal-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
+                        <div class="terminal-dots"><span></span><span></span><span></span></div>
                         <span class="terminal-title">bash — briefloop</span>
-                        <button class="btn-copy-terminal" id="btn-copy-code">Copy Code</button>
+                        <button class="btn-copy-terminal" id="btn-copy-code">Copy commands</button>
                     </div>
-                    <div class="terminal-body">
+                    <div class="terminal-body" id="terminal-demo">
                         <div class="terminal-line"><span class="t-prompt">$</span> pipx install briefloop</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
-                        <div class="terminal-line t-comment"># Capture industry scope, rules, and readers to onboarding.json</div>
+                        <div class="terminal-line t-comment"># guided Q&amp;A captures industry, purpose, and reader preferences into onboarding.json</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ~/my-workspace --from-onboarding onboarding.json</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ~/my-workspace</div>
-                        <div class="terminal-line t-output">[info] Initializing Orchestrator: hermes</div>
-                        <div class="terminal-line t-output">[info] Scout stage materializing: Source Discovery: sources decide...</div>
-                        <div class="terminal-line t-success">[success] Audit ledger written to: output/intermediate/claim_ledger.json</div>
-                        <div class="terminal-line t-success">[success] Quality Gate passed! Generated derivative bundle: output/delivery/brief.md</div>
+                        <div class="terminal-line t-output">[info] Claim Ledger frozen → output/intermediate/claim_ledger.json</div>
+                        <div class="terminal-line t-output">[gate] auditor quality gates passed → stage-complete</div>
+                        <div class="terminal-line t-success">[finalize] reader-clean passed → delivery_promotion: "promoted"</div>
+                        <div class="terminal-line t-success">[done] Delivery bundle: output/delivery/brief.md · delivery truth in finalize_report.json</div>
                     </div>
+                    <p class="terminal-note">Recommended install (v1.0.2+): <code>pipx install briefloop</code> · isolated env, global CLI</p>
                 </div>
             </div>
         </div>
@@ -430,23 +533,35 @@
     <footer class="app-footer">
         <div class="container footer-container">
             <div class="footer-brand">
-                <span class="logo-icon">🧾</span>
-                <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
-                <p class="footer-desc">Ensure every commercial briefing assertion stands verifiable. Custody layers for Enterprise AI.</p>
+                <div class="logo">
+                    <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+                        <rect width="32" height="32" rx="7" fill="#12203a"/>
+                        <path d="M22.5 10.5a8 8 0 1 0 2 5.5" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round"/>
+                        <path d="M12.5 16.5l3 3 5.5-6" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+                </div>
+                <p class="footer-desc">Every line of a business report, accounted for. Chain-of-custody infrastructure for enterprise AI.</p>
+                <p class="footer-boundary">Traceability, not semantic proof.</p>
             </div>
             <div class="footer-links">
-                <h4>Quick Links</h4>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank">GitHub Repository</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.md" target="_blank">15-Min Pilot</a>
-                <a href="mailto:contact@briefloop.ai">Business Contact</a>
+                <h4>Links</h4>
+                <a href="https://github.com/Stahl-G/briefloop" target="_blank">GitHub</a>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.md" target="_blank">15-minute pilot</a>
+                <a href="mailto:contact@briefloop.ai">Contact</a>
+            </div>
+            <div class="footer-links">
+                <h4>Docs</h4>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank">Getting Started</a>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/weekly-loop.md" target="_blank">Weekly Loop</a>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md" target="_blank">Support Matrix</a>
             </div>
             <div class="footer-copyright">
-                <p>&copy; 2026 BriefLoop.ai. Open-sourced under the MIT License.</p>
+                <p>&copy; 2026 BriefLoop.ai · Open-sourced under the MIT License.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
