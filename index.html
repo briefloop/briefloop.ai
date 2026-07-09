@@ -56,6 +56,24 @@
                 <p class="hero-subtitle">
                     BriefLoop 把 AI 生成的行业周报、IR 材料和管理层简报放进一套可追溯的工作流：关键断言进入事实账本，来源保留引用记录，质量门禁在交付前阻断明显风险，最终由人确认放行。
                 </p>
+
+                <div class="hero-install" id="hero-install">
+                    <div class="hero-install-tabs" role="tablist" aria-label="安装路径">
+                        <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">CLI</button>
+                        <button type="button" class="hero-install-tab" data-install="agent" role="tab" aria-selected="false">Agent</button>
+                    </div>
+                    <div class="hero-install-panel" data-panel="cli" role="tabpanel">
+                        <code class="hero-install-cmd" id="hero-install-cmd-cli">pipx install briefloop</code>
+                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="复制 CLI 安装命令">复制</button>
+                    </div>
+                    <div class="hero-install-panel hidden" data-panel="agent" role="tabpanel">
+                        <code class="hero-install-cmd" id="hero-install-cmd-agent">/briefloop new</code>
+                        <button type="button" class="btn-copy-hero" data-copy-target="agent" aria-label="复制 Agent 命令">复制</button>
+                    </div>
+                    <p class="hero-install-hint" data-hint="cli">安装后：<code>briefloop onboard</code> → <code>init</code> → <code>run</code></p>
+                    <p class="hero-install-hint hidden" data-hint="agent">Claude Code 写入入口：<code>/briefloop run</code> · <code>status</code> · <code>deliver</code></p>
+                </div>
+
                 <div class="hero-buttons">
                     <a href="#sandbox" class="btn-primary">查看质量门禁演示</a>
                     <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">GitHub 源码</a>

@@ -332,7 +332,52 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* --- 5. Terminal copy --- */
+    /* --- 5. Hero install tabs + copy --- */
+    const heroInstall = document.getElementById("hero-install");
+    const installCopyText = {
+        cli: "pipx install briefloop",
+        agent: "/briefloop new"
+    };
+
+    const flashCopied = (btn) => {
+        const original = btn.textContent;
+        btn.textContent = isEn ? "Copied!" : "已复制！";
+        btn.classList.add("copied");
+        setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove("copied");
+        }, 1800);
+    };
+
+    if (heroInstall) {
+        const tabs = heroInstall.querySelectorAll(".hero-install-tab");
+        const panels = heroInstall.querySelectorAll(".hero-install-panel");
+        const hints = heroInstall.querySelectorAll(".hero-install-hint");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                const key = tab.getAttribute("data-install");
+                tabs.forEach(t => {
+                    const on = t === tab;
+                    t.classList.toggle("active", on);
+                    t.setAttribute("aria-selected", on ? "true" : "false");
+                });
+                panels.forEach(p => p.classList.toggle("hidden", p.getAttribute("data-panel") !== key));
+                hints.forEach(h => h.classList.toggle("hidden", h.getAttribute("data-hint") !== key));
+            });
+        });
+
+        heroInstall.querySelectorAll(".btn-copy-hero").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const key = btn.getAttribute("data-copy-target");
+                const text = installCopyText[key] || "";
+                navigator.clipboard.writeText(text).then(() => flashCopied(btn))
+                    .catch(err => console.error("Copy failed", err));
+            });
+        });
+    }
+
+    /* --- 6. Terminal copy (full quickstart) --- */
     const copyBtn = document.getElementById("btn-copy-code");
     if (copyBtn) {
         copyBtn.addEventListener("click", () => {

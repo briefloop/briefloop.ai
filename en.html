@@ -56,6 +56,24 @@
                 <p class="hero-subtitle">
                     BriefLoop puts AI-generated industry weeklies, IR material, and executive briefs inside a traceable workflow: material claims enter a fact ledger, sources keep citation records, quality gates block obvious risks before delivery, and a human makes the final call.
                 </p>
+
+                <div class="hero-install" id="hero-install">
+                    <div class="hero-install-tabs" role="tablist" aria-label="Install path">
+                        <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">CLI</button>
+                        <button type="button" class="hero-install-tab" data-install="agent" role="tab" aria-selected="false">Agent</button>
+                    </div>
+                    <div class="hero-install-panel" data-panel="cli" role="tabpanel">
+                        <code class="hero-install-cmd" id="hero-install-cmd-cli">pipx install briefloop</code>
+                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="Copy CLI install command">Copy</button>
+                    </div>
+                    <div class="hero-install-panel hidden" data-panel="agent" role="tabpanel">
+                        <code class="hero-install-cmd" id="hero-install-cmd-agent">/briefloop new</code>
+                        <button type="button" class="btn-copy-hero" data-copy-target="agent" aria-label="Copy Agent command">Copy</button>
+                    </div>
+                    <p class="hero-install-hint" data-hint="cli">Then: <code>briefloop onboard</code> → <code>init</code> → <code>run</code></p>
+                    <p class="hero-install-hint hidden" data-hint="agent">Claude Code writer verbs: <code>/briefloop run</code> · <code>status</code> · <code>deliver</code></p>
+                </div>
+
                 <div class="hero-buttons">
                     <a href="#sandbox" class="btn-primary">See the quality gate demo</a>
                     <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">Source on GitHub</a>
