@@ -27,8 +27,8 @@
             </div>
             <nav class="nav-links">
                 <a href="#loop">The Loop</a>
+                <a href="#evolution">Evolution</a>
                 <a href="#governance">Governance</a>
-                <a href="#usecases">Scenarios</a>
                 <a href="#artifacts">Artifacts</a>
                 <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Tech Report</a>
                 <a href="#sandbox" class="btn-sandbox-nav">Live Demo</a>
@@ -243,6 +243,56 @@
                 <span><span class="legend-chip pass"></span>ledger-backed claim → delivery</span>
                 <span><span class="legend-chip blocked"></span>gate-blocked → repair loop</span>
                 <span><span class="legend-chip human"></span>solid nodes = deterministic control, dashed = AI drafting</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evolution Loop — governed improvement across runs -->
+    <section class="section-evolution" id="evolution">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">Evolution Loop</div>
+                <h2>Each failure can become a test for the next version — without rewriting the system by itself</h2>
+                <p class="section-desc">The run loop produces a brief. The evolution loop turns recorded failures into reviewable improvement candidates. Only evaluated, human-approved changes enter a later release.</p>
+            </div>
+
+            <div class="evolution-shell reveal" data-evolution-loop>
+                <div class="evolution-track" role="tablist" aria-label="BriefLoop evolution stages">
+                    <button class="evolution-stage active" type="button" role="tab" aria-selected="true" data-evolution-step="finding">
+                        <span class="evolution-number">01</span><b>Record failure</b><small>Finding</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="diagnose">
+                        <span class="evolution-number">02</span><b>Propose cause</b><small>Diagnose</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="candidate">
+                        <span class="evolution-number">03</span><b>Patch &amp; evaluate</b><small>Patch + Eval</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="approve">
+                        <span class="evolution-number">04</span><b>Human approval</b><small>Approve</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="release">
+                        <span class="evolution-number">05</span><b>Versioned release</b><small>Release</small>
+                    </button>
+                </div>
+
+                <div class="evolution-detail" role="tabpanel" aria-live="polite">
+                    <div class="evolution-detail-main">
+                        <span class="detail-kicker" id="evolution-kicker">RUN-152 · GATE BLOCKED</span>
+                        <h3 id="evolution-title">A failure becomes a queryable control record first</h3>
+                        <p id="evolution-copy">A missing citation mapping is not hidden in prose. It becomes a finding, blocker, and event with stage, scope, and repair ownership.</p>
+                    </div>
+                    <dl class="evolution-facts">
+                        <div><dt>Authority</dt><dd id="evolution-owner">Python control plane</dd></div>
+                        <div><dt>Record</dt><dd id="evolution-record">finding + event</dd></div>
+                        <div><dt>Immediate effect</dt><dd id="evolution-effect">block this delivery</dd></div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="evolution-boundary reveal">
+                <strong>Not autonomous “self-improvement”</strong>
+                <span>Agents may analyze failures and propose candidates. They cannot modify prompts, gates, policies, or the main branch, and cannot declare an improvement effective. Adoption requires evaluation, human approval, and a versioned record.</span>
+                <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer">Research context: Harness Engineering →</a>
             </div>
         </div>
     </section>

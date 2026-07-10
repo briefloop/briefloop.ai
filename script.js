@@ -201,7 +201,133 @@ document.addEventListener("DOMContentLoaded", () => {
         termIO.observe(terminal);
     }
 
-    /* --- 4. Interactive gate and sanctioned-repair simulation --- */
+    /* --- 4. Governed evolution loop --- */
+    const evolutionData = {
+        zh: {
+            finding: {
+                kicker: "RUN-152 · GATE BLOCKED",
+                title: "失败先变成可查询的控制记录",
+                copy: "缺失引用映射不会被藏进正文说明，而会成为 finding、blocker 和 event，保留发生阶段、影响范围与修复责任。",
+                owner: "Python control plane",
+                record: "finding + event",
+                effect: "阻断当前交付"
+            },
+            diagnose: {
+                kicker: "CANDIDATE-027 · PROPOSED",
+                title: "Agent 可以分析根因，但归因仍是候选",
+                copy: "模型可以阅读轨迹并提出“Writer 跳过 source binding”这样的解释；它不能把自己的解释直接写成系统事实或修改生产规则。",
+                owner: "Agent proposes",
+                record: "diagnosis candidate",
+                effect: "等待人类审阅"
+            },
+            candidate: {
+                kicker: "PATCH-027 · EVAL-CASE-041",
+                title: "改动必须同时带着评测样例进入审查",
+                copy: "开发者把候选落成 validator、gate、prompt 或 workflow patch，并用原失败构造回归样例。补丁和样例一起接受确定性测试与人工复核。",
+                owner: "Developer + test runner",
+                record: "patch + regression case",
+                effect: "生产版本保持不变"
+            },
+            approve: {
+                kicker: "HUMAN DECISION · RECORDED",
+                title: "是否吸收为系统规则，由人类决定",
+                copy: "评审者可以批准、驳回或要求更多证据。写作偏好经批准后才可进入 Improvement Ledger；系统规则仍需代码评审与发布。决定本身也留下记录。",
+                owner: "Human reviewer",
+                record: "approval / rejection",
+                effect: "允许进入发布流程"
+            },
+            release: {
+                kicker: "vNEXT · VERSIONED CHANGE",
+                title: "改进以新版本生效，并保留回滚路径",
+                copy: "通过评测和批准的改动进入下一版本；旧运行、失败 finding、测试结果和采用决定仍可复查。新版本再次产生信号，演进环重新开始。",
+                owner: "Release transaction",
+                record: "version + changelog",
+                effect: "可追溯、可回滚"
+            }
+        },
+        en: {
+            finding: {
+                kicker: "RUN-152 · GATE BLOCKED",
+                title: "A failure becomes a queryable control record first",
+                copy: "A missing citation mapping is not hidden in prose. It becomes a finding, blocker, and event with stage, scope, and repair ownership.",
+                owner: "Python control plane",
+                record: "finding + event",
+                effect: "block this delivery"
+            },
+            diagnose: {
+                kicker: "CANDIDATE-027 · PROPOSED",
+                title: "An agent may analyze the cause, but its diagnosis remains a candidate",
+                copy: "A model may read the trace and propose that the writer skipped source binding. It cannot turn that explanation into system fact or modify production rules.",
+                owner: "Agent proposes",
+                record: "diagnosis candidate",
+                effect: "await human review"
+            },
+            candidate: {
+                kicker: "PATCH-027 · EVAL-CASE-041",
+                title: "A change enters review together with an evaluation case",
+                copy: "A developer turns the candidate into a validator, gate, prompt, or workflow patch and converts the original failure into a regression case. Patch and case are reviewed together.",
+                owner: "Developer + test runner",
+                record: "patch + regression case",
+                effect: "production unchanged"
+            },
+            approve: {
+                kicker: "HUMAN DECISION · RECORDED",
+                title: "A human decides whether the system should absorb the change",
+                copy: "A reviewer may approve, reject, or request more evidence. A writing preference may enter the Improvement Ledger only after approval; a system rule still requires code review and release. The decision is recorded.",
+                owner: "Human reviewer",
+                record: "approval / rejection",
+                effect: "admit to release flow"
+            },
+            release: {
+                kicker: "vNEXT · VERSIONED CHANGE",
+                title: "The improvement takes effect as a versioned, reversible change",
+                copy: "An evaluated and approved patch enters a later release. Prior runs, findings, test results, and adoption decisions remain inspectable. The next version produces new signals, and the loop begins again.",
+                owner: "Release transaction",
+                record: "version + changelog",
+                effect: "traceable + reversible"
+            }
+        }
+    };
+
+    const evolutionLoop = document.querySelector("[data-evolution-loop]");
+    if (evolutionLoop) {
+        const evolutionStages = Array.from(evolutionLoop.querySelectorAll("[data-evolution-step]"));
+        const data = evolutionData[isEn ? "en" : "zh"];
+        const fields = {
+            kicker: document.getElementById("evolution-kicker"),
+            title: document.getElementById("evolution-title"),
+            copy: document.getElementById("evolution-copy"),
+            owner: document.getElementById("evolution-owner"),
+            record: document.getElementById("evolution-record"),
+            effect: document.getElementById("evolution-effect")
+        };
+
+        const showEvolutionStep = (key, focus = false) => {
+            const entry = data[key];
+            if (!entry) return;
+            Object.entries(fields).forEach(([name, node]) => { node.textContent = entry[name]; });
+            evolutionStages.forEach(stage => {
+                const active = stage.getAttribute("data-evolution-step") === key;
+                stage.classList.toggle("active", active);
+                stage.setAttribute("aria-selected", active ? "true" : "false");
+                if (active && focus) stage.focus();
+            });
+        };
+
+        evolutionStages.forEach((stage, index) => {
+            stage.addEventListener("click", () => showEvolutionStep(stage.getAttribute("data-evolution-step")));
+            stage.addEventListener("keydown", event => {
+                if (event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+                event.preventDefault();
+                const delta = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
+                const next = (index + delta + evolutionStages.length) % evolutionStages.length;
+                showEvolutionStep(evolutionStages[next].getAttribute("data-evolution-step"), true);
+            });
+        });
+        showEvolutionStep("finding");
+    }
+
+    /* --- 5. Interactive gate and sanctioned-repair simulation --- */
     const scenarioData = {
         zh: {
             hallucination: {
@@ -324,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* --- 5. In-place card disclosures --- */
+    /* --- 6. In-place card disclosures --- */
     const disclosureCards = document.querySelectorAll(".disclosure-card");
 
     const setDisclosureState = (card, open) => {
@@ -354,7 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* --- 6. Hero install tabs + copy --- */
+    /* --- 7. Hero install tabs + copy --- */
     const heroInstall = document.getElementById("hero-install");
     const installCopyText = {
         cli: [
@@ -408,7 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* --- 7. Terminal copy (full quickstart) --- */
+    /* --- 8. Terminal copy (full quickstart) --- */
     const copyBtn = document.getElementById("btn-copy-code");
     if (copyBtn) {
         copyBtn.addEventListener("click", () => {

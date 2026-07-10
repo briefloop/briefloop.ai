@@ -27,8 +27,8 @@
             </div>
             <nav class="nav-links">
                 <a href="#loop">运行环</a>
+                <a href="#evolution">演进环</a>
                 <a href="#governance">治理模型</a>
-                <a href="#usecases">典型场景</a>
                 <a href="#artifacts">交付物</a>
                 <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告</a>
                 <a href="#sandbox" class="btn-sandbox-nav">模拟演示</a>
@@ -258,6 +258,56 @@
                 <span><span class="legend-chip pass"></span>有账可查的断言 → 交付</span>
                 <span><span class="legend-chip blocked"></span>被门禁阻断 → 修复回路</span>
                 <span><span class="legend-chip human"></span>实线节点 = 确定性控制面，虚线节点 = AI 起草</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evolution Loop — governed improvement across runs -->
+    <section class="section-evolution" id="evolution">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">Evolution Loop · 演进环</div>
+                <h2>每次失败可以成为下一版的测试，但不会自动改写系统</h2>
+                <p class="section-desc">单次运行负责生产简报；演进环负责把已记录的失败变成可审阅的改进候选。只有通过评估并经人类批准的变更，才进入下一版本。</p>
+            </div>
+
+            <div class="evolution-shell reveal" data-evolution-loop>
+                <div class="evolution-track" role="tablist" aria-label="BriefLoop 演进环阶段">
+                    <button class="evolution-stage active" type="button" role="tab" aria-selected="true" data-evolution-step="finding">
+                        <span class="evolution-number">01</span><b>失败留痕</b><small>Finding</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="diagnose">
+                        <span class="evolution-number">02</span><b>归因候选</b><small>Diagnose</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="candidate">
+                        <span class="evolution-number">03</span><b>补丁与评测</b><small>Patch + Eval</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="approve">
+                        <span class="evolution-number">04</span><b>人类批准</b><small>Approve</small>
+                    </button>
+                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="release">
+                        <span class="evolution-number">05</span><b>版本化发布</b><small>Release</small>
+                    </button>
+                </div>
+
+                <div class="evolution-detail" role="tabpanel" aria-live="polite">
+                    <div class="evolution-detail-main">
+                        <span class="detail-kicker" id="evolution-kicker">RUN-152 · GATE BLOCKED</span>
+                        <h3 id="evolution-title">失败先变成可查询的控制记录</h3>
+                        <p id="evolution-copy">缺失引用映射不会被藏进正文说明，而会成为 finding、blocker 和 event，保留发生阶段、影响范围与修复责任。</p>
+                    </div>
+                    <dl class="evolution-facts">
+                        <div><dt>权威写者</dt><dd id="evolution-owner">Python control plane</dd></div>
+                        <div><dt>留下什么</dt><dd id="evolution-record">finding + event</dd></div>
+                        <div><dt>立即效果</dt><dd id="evolution-effect">阻断当前交付</dd></div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="evolution-boundary reveal">
+                <strong>不是自治“自我改进”</strong>
+                <span>Agent 可以分析失败并提出候选，但不能自行修改 prompt、gate、policy 或主分支，也不能宣称改进已生效。生效必须经过评测、人类批准与版本化记录。</span>
+                <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer">研究语境：Harness Engineering →</a>
             </div>
         </div>
     </section>
