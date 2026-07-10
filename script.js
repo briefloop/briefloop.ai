@@ -5,6 +5,7 @@
    2. Scroll reveals (IntersectionObserver)
    3. Terminal typewriter on first view
    4. Sandbox gate micro-motion (shake on block, flash on rebuild)
+   5. In-place card disclosures for artifacts, responsibilities, and report packs
    All motion respects prefers-reduced-motion.
    ========================================================================== */
 
@@ -200,143 +201,173 @@ document.addEventListener("DOMContentLoaded", () => {
         termIO.observe(terminal);
     }
 
-    /* --- 4. Interactive sandbox --- */
+    /* --- 4. Interactive gate and sanctioned-repair simulation --- */
     const scenarioData = {
         zh: {
             hallucination: {
-                draft: "在本季度储能板块强劲增长驱动下，组件现货均价环比上升 2.5%，市场信心正逐步建立。",
+                draft: "组件现货均价环比上升 2.5%，该变化反映市场需求正在改善。",
                 ledger: "组件现货均价环比下降 1.5%",
-                error: "❌ [门禁审计失败] 数据不一致。\n\n[草稿声明] 组件现货均价上升 2.5%\n[事实账本] 组件现货均价下降 1.5%\n\n⚠️ 阻断原因：起草内容与已冻结的权威事实账本记录冲突。该断言不会进入交付件。",
-                success: "✅ [门禁审计通过] 授权派生件重建成功。\n\n- 凭证哈希: sha256_8f0a2e…\n- 允许的操作已校验：无未经登记的事实修改\n- reader-clean 通过 → delivery_promotion: \"promoted\"\n- 交付真值记录: finalize_report.json",
-                repairedDraft: "在本季度储能板块强劲增长驱动下，组件现货均价环比下降 1.5%，市场信心正逐步建立。"
+                blocked: "[草稿] 上升 2.5%\n[冻结记录] 下降 1.5%\n\nBLOCKED · 数字方向与幅度冲突\nfinding_id: QG-014",
+                repairedDraft: "监测样本中的组件现货均价环比下降 1.5%。",
+                repairReady: "修复示例已生成 revision 2。\n\n这一步代表 Agent / 人提交新版本；revision 1 与 QG-014 继续保留。请重新运行门禁。",
+                passed: "PASSED · revision 2 与冻结记录一致。\n\n门禁允许进入人工批准环节；它没有替人批准交付。"
             },
             tampering: {
-                draft: "字节跳动发布了最新的太阳能储能设备。在此驱动下，组件现货均价环比下降 1.5%，市场正在平稳过渡。",
+                draft: "某头部互联网公司发布了新型储能设备，组件现货均价环比下降 1.5%。",
                 ledger: "组件现货均价环比下降 1.5%",
-                error: "❌ [门禁审计失败] 未经授权的内容篡改。\n\n[草稿声明] 引入了未登记的主张词汇「字节跳动」\n[事实账本] 未找到匹配「字节跳动」的登记项\n\n⚠️ 阻断原因：派生件只读展示，严禁直接在展示层新增事实。新增断言必须先登记于事实账本。",
-                success: "✅ [门禁审计通过] 授权派生件重建成功。\n\n- 凭证哈希: sha256_8f0a2e…\n- 过滤并移除了未经授权的修改（「字节跳动」）\n- reader-clean 通过 → delivery_promotion: \"promoted\"\n- 交付真值记录: finalize_report.json",
-                repairedDraft: "在本季度储能电池板块驱动下，组件现货均价环比下降 1.5%，市场正在平稳过渡。"
+                blocked: "[草稿] 新增“头部互联网公司发布储能设备”\n[冻结记录] 无对应登记项\n\nBLOCKED · 未登记实体主张\nfinding_id: QG-021",
+                repairedDraft: "监测样本中的组件现货均价环比下降 1.5%。",
+                repairReady: "修复示例已生成 revision 2。\n\n未登记主张被移出新版本；revision 1 与 QG-021 继续保留。请重新运行门禁。",
+                passed: "PASSED · revision 2 不再包含未登记主张。\n\n门禁允许进入人工批准环节；它没有替人批准交付。"
             },
-            waitingText: "⏳ 等待质量检查运行…",
-            waitingLog: "点击下方「运行质量审计」，系统将比对草稿事实与权威账本。",
-            rebuildingText: "🔄 正在重新生成授权派生件…",
-            rebuildingLog: "正在回滚不当修改，提取账本事实并重新生成展示件。",
-            gatePassTitle: "✅ 门禁通过 · 派生件重建完成",
-            gateFailTitle: "❌ 质量门禁审计未通过"
+            waiting: "门禁会检查并阻断问题，但不会替 Agent 或人类修改草稿。",
+            blockedTitle: "❌ 门禁阻断 · 未进入交付件",
+            repairTitle: "🛠 修复示例 · 新 revision 待复检",
+            passedTitle: "✅ 门禁通过 · 等待人类批准"
         },
         en: {
             hallucination: {
-                draft: "Driven by strong growth in the energy storage segment this quarter, the average spot price of components rose 2.5%, and market confidence is gradually building.",
+                draft: "Component average spot price rose 2.5%, indicating improving market demand.",
                 ledger: "Component average spot price dropped 1.5%",
-                error: "❌ [Gate Check Failed] Fact mismatch.\n\n[Draft claim] Component average spot price rose 2.5%\n[Claim Ledger] Component average spot price dropped 1.5%\n\n⚠️ Blocked: the analyst draft conflicts with the frozen ledger record. This claim will not reach the delivery bundle.",
-                success: "✅ [Audit Passed] Authorized derivative rebuilt.\n\n- Source hash: sha256_8f0a2e…\n- Allowed operations verified: no unregistered fact edits\n- reader-clean passed → delivery_promotion: \"promoted\"\n- Delivery truth record: finalize_report.json",
-                repairedDraft: "Driven by strong growth in the energy storage segment this quarter, the average spot price of components dropped 1.5%, and market confidence is gradually building."
+                blocked: "[Draft] rose 2.5%\n[Frozen record] dropped 1.5%\n\nBLOCKED · direction and magnitude conflict\nfinding_id: QG-014",
+                repairedDraft: "In the monitored sample, component average spot price dropped 1.5%.",
+                repairReady: "Repair example created revision 2.\n\nThis represents a new version submitted by an agent / human. Revision 1 and QG-014 remain in history. Run the gate again.",
+                passed: "PASSED · revision 2 matches the frozen record.\n\nThe gate allows the run to await human approval; it does not approve delivery itself."
             },
             tampering: {
-                draft: "ByteDance released the latest solar energy storage equipment. Driven by this, the average spot price of components dropped 1.5%, and the market is transitioning smoothly.",
+                draft: "A leading internet company launched a new energy-storage device. Component average spot price dropped 1.5%.",
                 ledger: "Component average spot price dropped 1.5%",
-                error: "❌ [Gate Check Failed] Unauthorized modification.\n\n[Draft claim] 'ByteDance' was introduced in the draft\n[Claim Ledger] no record matches 'ByteDance'\n\n⚠️ Blocked: display derivatives are read-only projections. New claims must be registered in the Claim Ledger first.",
-                success: "✅ [Audit Passed] Authorized derivative rebuilt.\n\n- Source hash: sha256_8f0a2e…\n- Removed unauthorized modification ('ByteDance')\n- reader-clean passed → delivery_promotion: \"promoted\"\n- Delivery truth record: finalize_report.json",
-                repairedDraft: "Driven by strong growth in the solar energy storage segment, the average spot price of components dropped 1.5%, and the market is transitioning smoothly."
+                blocked: "[Draft] adds a company-product launch claim\n[Frozen record] no matching entry\n\nBLOCKED · unregistered entity claim\nfinding_id: QG-021",
+                repairedDraft: "In the monitored sample, component average spot price dropped 1.5%.",
+                repairReady: "Repair example created revision 2.\n\nThe unregistered claim is absent from the new version. Revision 1 and QG-021 remain in history. Run the gate again.",
+                passed: "PASSED · revision 2 contains no unregistered claim.\n\nThe gate allows the run to await human approval; it does not approve delivery itself."
             },
-            waitingText: "⏳ Waiting for gate check…",
-            waitingLog: "Click 'Run Audit' below; the system will cross-check the draft against the frozen Claim Ledger.",
-            rebuildingText: "🔄 Rebuilding authorized derivative…",
-            rebuildingLog: "Rolling back unauthorized edits, re-deriving the display projection from ledger facts.",
-            gatePassTitle: "✅ Gate passed · derivative rebuilt",
-            gateFailTitle: "❌ Quality gate blocked"
+            waiting: "The gate detects and blocks problems. It does not rewrite the draft for the agent or human.",
+            blockedTitle: "❌ Gate blocked · not admitted to delivery",
+            repairTitle: "🛠 Repair example · new revision awaits re-check",
+            passedTitle: "✅ Gate passed · awaiting human approval"
         }
     };
 
     const langData = scenarioData[isEn ? "en" : "zh"];
     let currentScenario = "hallucination";
-
     const draftTextarea = document.getElementById("sandbox-draft");
     const ledgerFactSpan = document.getElementById("sandbox-ledger-fact");
     const gateReportBox = document.getElementById("gate-report");
+    const draftRevision = document.getElementById("draft-revision");
     const runGateBtn = document.getElementById("btn-run-gate");
-    const autoRepairBtn = document.getElementById("btn-auto-repair");
+    const showRepairBtn = document.getElementById("btn-show-repair");
+    const rerunGateBtn = document.getElementById("btn-rerun-gate");
+
+    const setGateReport = (state, title, log) => {
+        gateReportBox.className = `gate-report-box ${state}`;
+        gateReportBox.innerHTML = `<div class="gate-status-text">${title}</div><div class="gate-log">${log}</div>`;
+    };
 
     const loadScenario = (name) => {
         currentScenario = name;
-        draftTextarea.value = langData[name].draft;
-        ledgerFactSpan.textContent = langData[name].ledger;
-        gateReportBox.className = "gate-report-box pending";
-        gateReportBox.innerHTML = `
-            <div class="gate-status-text">${langData.waitingText}</div>
-            <div class="gate-log">${langData.waitingLog}</div>
-        `;
-        autoRepairBtn.classList.add("hidden");
+        const data = langData[name];
+        draftTextarea.value = data.draft;
+        ledgerFactSpan.textContent = data.ledger;
+        draftRevision.textContent = "REVISION 1";
+        setGateReport("pending", isEn ? "⏳ Waiting for gate check…" : "⏳ 等待质量检查运行…", langData.waiting);
         runGateBtn.classList.remove("hidden");
+        showRepairBtn.classList.add("hidden");
+        rerunGateBtn.classList.add("hidden");
     };
 
     if (draftTextarea) loadScenario("hallucination");
 
     document.querySelectorAll(".btn-scenario").forEach(btn => {
         btn.addEventListener("click", () => {
-            document.querySelectorAll(".btn-scenario").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".btn-scenario").forEach(item => item.classList.remove("active"));
             btn.classList.add("active");
             loadScenario(btn.getAttribute("data-scenario"));
         });
     });
 
-    const renderGateResult = (passed) => {
-        const data = langData[currentScenario];
-        if (passed) {
-            gateReportBox.className = "gate-report-box success";
-            gateReportBox.innerHTML = `
-                <div class="gate-status-text">${langData.gatePassTitle}</div>
-                <div class="gate-log">${data.success.substring(data.success.indexOf("\n\n") + 2)}</div>
-            `;
-            autoRepairBtn.classList.add("hidden");
-        } else {
-            gateReportBox.className = "gate-report-box error";
-            gateReportBox.innerHTML = `
-                <div class="gate-status-text">${langData.gateFailTitle}</div>
-                <div class="gate-log">${data.error.substring(data.error.indexOf("\n\n") + 2)}</div>
-            `;
-            if (!reducedMotion) {
-                gateReportBox.classList.add("shake");
-                setTimeout(() => gateReportBox.classList.remove("shake"), 450);
-            }
-            autoRepairBtn.classList.remove("hidden");
-        }
-    };
-
     if (runGateBtn) {
         runGateBtn.addEventListener("click", () => {
-            const text = draftTextarea.value;
-            let passed = false;
-            if (currentScenario === "hallucination" && (text.includes("下降 1.5%") || text.includes("dropped 1.5%"))) {
-                passed = true;
-            } else if (currentScenario === "tampering" && !text.includes("字节跳动") && !text.includes("ByteDance") && (text.includes("下降 1.5%") || text.includes("dropped 1.5%"))) {
-                passed = true;
+            const data = langData[currentScenario];
+            const alreadyRepaired = draftTextarea.value.trim() === data.repairedDraft;
+            if (alreadyRepaired) {
+                setGateReport("success", langData.passedTitle, data.passed);
+                return;
             }
-            renderGateResult(passed);
+            setGateReport("error", langData.blockedTitle, data.blocked);
+            gateReportBox.classList.add("shake");
+            setTimeout(() => gateReportBox.classList.remove("shake"), reducedMotion ? 0 : 450);
+            runGateBtn.classList.add("hidden");
+            showRepairBtn.classList.remove("hidden");
         });
     }
 
-    if (autoRepairBtn) {
-        autoRepairBtn.addEventListener("click", () => {
-            draftTextarea.value = langData[currentScenario].repairedDraft;
-            if (!reducedMotion) {
-                draftTextarea.classList.add("flash-repair");
-                setTimeout(() => draftTextarea.classList.remove("flash-repair"), 900);
-            }
-            gateReportBox.className = "gate-report-box pending";
-            gateReportBox.innerHTML = `
-                <div class="gate-status-text">${langData.rebuildingText}</div>
-                <div class="gate-log">${langData.rebuildingLog}</div>
-            `;
-            setTimeout(() => renderGateResult(true), reducedMotion ? 0 : 900);
+    if (showRepairBtn) {
+        showRepairBtn.addEventListener("click", () => {
+            const data = langData[currentScenario];
+            draftTextarea.value = data.repairedDraft;
+            draftRevision.textContent = "REVISION 2";
+            draftTextarea.classList.add("flash-repair");
+            setTimeout(() => draftTextarea.classList.remove("flash-repair"), reducedMotion ? 0 : 900);
+            setGateReport("pending", langData.repairTitle, data.repairReady);
+            showRepairBtn.classList.add("hidden");
+            rerunGateBtn.classList.remove("hidden");
         });
     }
 
-    /* --- 5. Hero install tabs + copy --- */
+    if (rerunGateBtn) {
+        rerunGateBtn.addEventListener("click", () => {
+            const data = langData[currentScenario];
+            const passed = draftTextarea.value.trim() === data.repairedDraft;
+            setGateReport(passed ? "success" : "error", passed ? langData.passedTitle : langData.blockedTitle, passed ? data.passed : data.blocked);
+            if (passed) rerunGateBtn.classList.add("hidden");
+        });
+    }
+
+    /* --- 5. In-place card disclosures --- */
+    const disclosureCards = document.querySelectorAll(".disclosure-card");
+
+    const setDisclosureState = (card, open) => {
+        card.classList.toggle("is-open", open);
+        card.setAttribute("aria-expanded", open ? "true" : "false");
+        const detail = card.querySelector(":scope > .card-inline-detail");
+        if (detail) detail.setAttribute("aria-hidden", open ? "false" : "true");
+    };
+
+    const toggleDisclosure = (card) => {
+        const willOpen = !card.classList.contains("is-open");
+        const group = card.closest("[data-disclosure-group]");
+        if (willOpen && group) {
+            group.querySelectorAll(".disclosure-card.is-open").forEach(other => {
+                if (other !== card) setDisclosureState(other, false);
+            });
+        }
+        setDisclosureState(card, willOpen);
+    };
+
+    disclosureCards.forEach(card => {
+        card.addEventListener("click", () => toggleDisclosure(card));
+        card.addEventListener("keydown", event => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            toggleDisclosure(card);
+        });
+    });
+
+    /* --- 6. Hero install tabs + copy --- */
     const heroInstall = document.getElementById("hero-install");
     const installCopyText = {
-        cli: "pipx install briefloop",
-        agent: "/briefloop new"
+        cli: [
+            "pipx install briefloop",
+            "briefloop new industry-weekly ./my-weekly",
+            "briefloop run --workspace ./my-weekly --runtime operator"
+        ].join("\n"),
+        claude: [
+            "git clone https://github.com/Stahl-G/briefloop.git",
+            "cd briefloop && bash scripts/setup.sh",
+            "source .venv/bin/activate",
+            "briefloop claude install --repo-workdir ."
+        ].join("\n")
     };
 
     const flashCopied = (btn) => {
@@ -377,15 +408,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* --- 6. Terminal copy (full quickstart) --- */
+    /* --- 7. Terminal copy (full quickstart) --- */
     const copyBtn = document.getElementById("btn-copy-code");
     if (copyBtn) {
         copyBtn.addEventListener("click", () => {
             const commands = [
                 "pipx install briefloop",
-                "briefloop onboard",
-                "briefloop init ~/my-workspace --from-onboarding onboarding.json",
-                "briefloop run --workspace ~/my-workspace"
+                "briefloop new industry-weekly ./my-weekly",
+                "briefloop run --workspace ./my-weekly --runtime operator"
             ].join("\n");
             navigator.clipboard.writeText(commands).then(() => {
                 const originalText = copyBtn.textContent;

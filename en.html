@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BriefLoop.ai — Accountable AI Briefing Workflow</title>
     <meta name="description" content="BriefLoop turns AI drafts into reviewable, approvable, deliverable business briefs through deterministic ledgers, source anchoring, and quality gates — a full chain of custody for research, IR, compliance, and executive briefings.">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1322'/%3E%3Cpath d='M22.5 10.5a8 8 0 1 0 2 5.5' fill='none' stroke='%232dd4bf' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12.5 16.5l3 3 5.5-6' fill='none' stroke='%232dd4bf' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1322'/%3E%3Cpath d='M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9' fill='none' stroke='%232dd4bf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.3' fill='none' stroke='%23f3f7fb' stroke-width='1.6'/%3E%3Cpath d='M14.5 16h3' stroke='%23f3f7fb' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
@@ -19,16 +19,18 @@
             <div class="logo">
                 <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
                     <rect width="32" height="32" rx="7" fill="#0b1424"/>
-                    <path d="M22.5 10.5a8 8 0 1 0 2 5.5" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round"/>
-                    <path d="M12.5 16.5l3 3 5.5-6" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="13" y="13" width="6" height="6" rx="1.3" fill="none" stroke="#f3f7fb" stroke-width="1.6"/>
+                    <path d="M14.5 16h3" stroke="#f3f7fb" stroke-width="1.4" stroke-linecap="round"/>
                 </svg>
-                <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+                <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
             </div>
             <nav class="nav-links">
                 <a href="#loop">The Loop</a>
                 <a href="#governance">Governance</a>
                 <a href="#usecases">Scenarios</a>
                 <a href="#artifacts">Artifacts</a>
+                <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Tech Report</a>
                 <a href="#sandbox" class="btn-sandbox-nav">Live Demo</a>
                 <a href="index.html" class="lang-switch">中文</a>
             </nav>
@@ -45,38 +47,55 @@
     <section class="hero-section">
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="badge-row">
-                    <span class="badge-version">v1.0.2</span>
-                    <div class="badge-new"><span class="pulse-dot"></span>Accountable AI briefing workflow · open source</div>
+                <div class="hero-message">
+                    <div class="badge-row">
+                        <span class="badge-version">v1.0.2</span>
+                        <div class="badge-new"><span class="pulse-dot"></span>Accountable AI briefing workflow · open source</div>
+                    </div>
+                    <h1 class="hero-title">
+                        Let AI draft fast.<br>
+                        <span class="text-gradient">Let humans deliver with confidence.</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        BriefLoop puts AI-generated industry weeklies, IR material, and executive briefs inside a traceable workflow: material claims enter a fact ledger, sources keep citation records, quality gates block obvious risks before delivery, and a human makes the final call.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#sandbox" class="btn-primary">See the quality gate demo</a>
+                        <a href="#artifacts" class="btn-secondary">Inspect example artifacts</a>
+                    </div>
                 </div>
-                <h1 class="hero-title">
-                    Let AI draft fast.<br>
-                    <span class="text-gradient">Let humans deliver with confidence.</span>
-                </h1>
-                <p class="hero-subtitle">
-                    BriefLoop puts AI-generated industry weeklies, IR material, and executive briefs inside a traceable workflow: material claims enter a fact ledger, sources keep citation records, quality gates block obvious risks before delivery, and a human makes the final call.
-                </p>
 
                 <div class="hero-install" id="hero-install">
-                    <div class="hero-install-tabs" role="tablist" aria-label="Install path">
-                        <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">CLI</button>
-                        <button type="button" class="hero-install-tab" data-install="agent" role="tab" aria-selected="false">Agent</button>
+                    <div class="hero-install-head">
+                        <div class="hero-install-title">
+                            <span>Start here</span>
+                            <strong>Choose a path that works today</strong>
+                        </div>
+                        <div class="hero-install-tabs" role="tablist" aria-label="Start path">
+                            <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">Control-plane CLI</button>
+                            <button type="button" class="hero-install-tab" data-install="claude" role="tab" aria-selected="false">Claude Code</button>
+                        </div>
                     </div>
                     <div class="hero-install-panel" data-panel="cli" role="tabpanel">
-                        <code class="hero-install-cmd" id="hero-install-cmd-cli">pipx install briefloop</code>
-                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="Copy CLI install command">Copy</button>
+                        <div class="hero-command-list">
+                            <div class="hero-command-row"><span>01</span><code>pipx install briefloop</code></div>
+                            <div class="hero-command-row"><span>02</span><code>briefloop new industry-weekly ./my-weekly</code></div>
+                            <div class="hero-command-row"><span>03</span><code>briefloop run --workspace ./my-weekly --runtime operator</code></div>
+                        </div>
+                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="Copy control-plane CLI commands">Copy all</button>
                     </div>
-                    <div class="hero-install-panel hidden" data-panel="agent" role="tabpanel">
-                        <code class="hero-install-cmd" id="hero-install-cmd-agent">/briefloop new</code>
-                        <button type="button" class="btn-copy-hero" data-copy-target="agent" aria-label="Copy Agent command">Copy</button>
+                    <div class="hero-install-panel hidden" data-panel="claude" role="tabpanel">
+                        <div class="hero-command-list">
+                            <div class="hero-command-row"><span>01</span><code>git clone https://github.com/Stahl-G/briefloop.git</code></div>
+                            <div class="hero-command-row"><span>02</span><code>cd briefloop &amp;&amp; bash scripts/setup.sh</code></div>
+                            <div class="hero-command-row"><span>03</span><code>source .venv/bin/activate</code></div>
+                            <div class="hero-command-row"><span>04</span><code>briefloop claude install --repo-workdir .</code></div>
+                        </div>
+                        <button type="button" class="btn-copy-hero" data-copy-target="claude" aria-label="Copy Claude Code setup commands">Copy all</button>
                     </div>
-                    <p class="hero-install-hint" data-hint="cli">Then: <code>briefloop onboard</code> → <code>init</code> → <code>run</code></p>
-                    <p class="hero-install-hint hidden" data-hint="agent">Claude Code writer verbs: <code>/briefloop run</code> · <code>status</code> · <code>deliver</code></p>
-                </div>
-
-                <div class="hero-buttons">
-                    <a href="#sandbox" class="btn-primary">See the quality gate demo</a>
-                    <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">Source on GitHub</a>
+                    <p class="hero-install-hint" data-hint="cli">Creates a workspace and operator handoff; the CLI does not call an LLM to write the brief.</p>
+                    <p class="hero-install-hint hidden" data-hint="claude">Then open Claude Code and enter <code>/briefloop new</code> for conversational setup.</p>
                 </div>
             </div>
 
@@ -321,32 +340,54 @@
                     <h2>Standard deliverables</h2>
                     <p class="artifacts-desc">A BriefLoop run produces more than the final reading document — it keeps a full set of inspectable process ledgers.</p>
 
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
-                        <div>
-                            <h4>Claim Ledger <code>claim_ledger.json</code></h4>
-                            <p>A JSON record of material facts, numbers, and source coordinates — frozen into the single authority for every output fact.</p>
+                    <div class="artifact-card-list" aria-label="BriefLoop standard deliverables" data-disclosure-group>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+                            <div>
+                                <h4>Claim Ledger <code>claim_ledger.json</code></h4>
+                                <p>A structured record of material facts, numbers, and registered sources, frozen as the factual basis for downstream writing.</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">Example record</span>
+                                <code>CL-0012 · Component spot price fell 1.8% · SRC-003 · Scope: monitored sample only</code>
+                            </div>
                         </div>
-                    </div>
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/></svg>
-                        <div>
-                            <h4>Source Map <code>source_appendix</code></h4>
-                            <p>An appendix mapping brief statements back to the original filing/PDF page and highlighted passage.</p>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/></svg>
+                            <div>
+                                <h4>Source Appendix <code>source_appendix</code></h4>
+                                <p>A list of registered sources cited by the brief, with page and span traces when evidence spans are available.</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">Example entry</span>
+                                <code>[SRC-003] Sample industry price brief · page 12 · retrieved 2026-06-30</code>
+                            </div>
                         </div>
-                    </div>
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-                        <div>
-                            <h4>Audit Bundle <code>audit bundle</code></h4>
-                            <p>Quality-gate results, freshness verification logs, and fact-consistency reports.</p>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+                            <div>
+                                <h4>Audit Bundle <code>audit bundle</code></h4>
+                                <p>Quality-gate results, runtime traces, audit findings, and pre-delivery checks.</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">Check summary</span>
+                                <code>material_fact: PASS · freshness: WARNING · reader_clean: PASS · human approval: REQUIRED</code>
+                            </div>
                         </div>
-                    </div>
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13l2.5 2.5L16 11"/></svg>
-                        <div>
-                            <h4>Delivery Bundle <code>delivery bundle</code></h4>
-                            <p>Clean Markdown and Word reports promoted only after reader-clean passes; delivery truth lives in a single record, <code>finalize_report.json</code>.</p>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13l2.5 2.5L16 11"/></svg>
+                            <div>
+                                <h4>Delivery Bundle <code>delivery bundle</code></h4>
+                                <p>Markdown and Word reports promoted only after reader-clean passes; delivery truth lives in <code>finalize_report.json</code>.</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">Example files</span>
+                                <code>brief.md · brief.docx · source_appendix.md · finalize_report.json</code>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -357,17 +398,25 @@
                     <div class="boundary-content">
                         <p>No automated AI system should — or can — take over human responsibility for decisions and sign-off. BriefLoop does not approve delivery for you; it gives you an <b>evidence chain that reduces the risk of missing something</b> — traceability, not semantic proof.</p>
 
-                        <div class="boundary-metric">
-                            <span class="m-title">AI agents</span>
-                            <span class="m-desc">draft, analyze, propose (drafting layer)</span>
-                        </div>
-                        <div class="boundary-metric">
-                            <span class="m-title">Control logic (Python)</span>
-                            <span class="m-desc">audits, records, enforces gates (audit layer)</span>
-                        </div>
-                        <div class="boundary-metric highlight">
-                            <span class="m-title">Human decision-maker</span>
-                            <span class="m-desc">signs, approves, bears responsibility (judgment layer)</span>
+                        <div class="boundary-roles" aria-label="BriefLoop responsibility layers" data-disclosure-group>
+                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                                <span class="m-title">AI agents</span>
+                                <span class="m-desc">draft, analyze, and propose</span>
+                                <span class="card-chevron" aria-hidden="true">⌄</span>
+                                <div class="card-inline-detail" aria-hidden="true">May find sources, decompose claims, draft, and propose audit findings; may not freeze ledgers, pass gates, or approve delivery.</div>
+                            </div>
+                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                                <span class="m-title">Deterministic control plane</span>
+                                <span class="m-desc">validates, records, enforces gates, and preserves the trace</span>
+                                <span class="card-chevron" aria-hidden="true">⌄</span>
+                                <div class="card-inline-detail" aria-hidden="true">Checks schemas, hashes, stage state, gate results, and archive integrity; it does not determine whether a source is ultimately true.</div>
+                            </div>
+                            <div class="boundary-metric highlight disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                                <span class="m-title">Human decision-maker</span>
+                                <span class="m-desc">approves delivery and bears responsibility</span>
+                                <span class="card-chevron" aria-hidden="true">⌄</span>
+                                <div class="card-inline-detail" aria-hidden="true">Reviews material inferences and unresolved issues, then chooses downgrade, repair, or delivery; the approval is recorded.</div>
+                            </div>
                         </div>
 
                         <blockquote class="boundary-quote">
@@ -379,51 +428,43 @@
         </div>
     </section>
 
-    <!-- Interactive Sandbox -->
+    <!-- Repair transaction simulation -->
     <section class="section-sandbox" id="sandbox">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="badge-demo">Front-end simulation · not a real runtime</div>
-                <h2>Quality gate simulation</h2>
-                <p class="section-desc">A front-end simulation of BriefLoop's blocking and repair logic — not a real command-line environment.</p>
+                <div class="badge-demo">Process simulation · no live runtime</div>
+                <h2>Problems enter a repair loop instead of being polished away</h2>
+                <p class="section-desc">The chain of custody above answers “where did this claim come from?” This trace answers “what happens after a problem is found?” Gates block; an agent or human revises; the control plane checks again.</p>
             </div>
 
             <div class="sandbox-app reveal">
                 <div class="sandbox-controls">
-                    <button class="btn-scenario active" data-scenario="hallucination">Scenario 1: AI hallucinates a number</button>
-                    <button class="btn-scenario" data-scenario="tampering">Scenario 2: display-layer tampering</button>
+                    <button class="btn-scenario active" data-scenario="hallucination">Scenario 1: draft conflicts with frozen facts</button>
+                    <button class="btn-scenario" data-scenario="tampering">Scenario 2: draft introduces an unregistered claim</button>
                 </div>
 
                 <div class="sandbox-workspace">
                     <div class="sandbox-panel">
                         <div class="panel-header">
                             <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l4-1L19.5 7.5a2.1 2.1 0 0 0-3-3L5 16z"/><path d="M14.5 6.5l3 3"/></svg>Analyst Draft</span>
-                            <span class="status-marker editing">EDITING</span>
+                            <span class="status-marker editing" id="draft-revision">REVISION 1</span>
                         </div>
                         <div class="panel-body">
-                            <textarea id="sandbox-draft" class="sandbox-textarea"></textarea>
+                            <textarea id="sandbox-draft" class="sandbox-textarea" aria-label="Editable analyst draft"></textarea>
                         </div>
                     </div>
 
                     <div class="sandbox-panel">
                         <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>Claim Ledger</span>
+                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>Frozen Control Record</span>
                             <span class="status-marker verified">FROZEN</span>
                         </div>
                         <div class="panel-body">
                             <div class="ledger-viewer">
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">claim_id</span> <span class="entry-val highlight-blue">CL-0045</span>
-                                </div>
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">statement</span> <span class="entry-val highlight-green" id="sandbox-ledger-fact">Component average spot price dropped 1.5%</span>
-                                </div>
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">source</span> <span class="entry-val">SRC-009 (2026-06-05)</span>
-                                </div>
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">frozen_hash</span> <span class="entry-val code-font">sha256_8f0a2e…</span>
-                                </div>
+                                <div class="ledger-entry"><span class="entry-lbl">claim_id</span><span class="entry-val highlight-blue">CL-0045</span></div>
+                                <div class="ledger-entry"><span class="entry-lbl">statement</span><span class="entry-val highlight-green" id="sandbox-ledger-fact">Component average spot price dropped 1.5%</span></div>
+                                <div class="ledger-entry"><span class="entry-lbl">source</span><span class="entry-val">SRC-009 (2026-06-05)</span></div>
+                                <div class="ledger-entry"><span class="entry-lbl">frozen_hash</span><span class="entry-val code-font">sha256_8f0a2e…</span></div>
                             </div>
                         </div>
                     </div>
@@ -433,18 +474,19 @@
                             <span><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Quality Gate</span>
                         </div>
                         <div class="panel-body flex-col justify-between">
-                            <div id="gate-report" class="gate-report-box pending">
+                            <div id="gate-report" class="gate-report-box pending" aria-live="polite">
                                 <div class="gate-status-text">⏳ Waiting for gate check…</div>
-                                <div class="gate-log">Click "Run Audit" below; the system will cross-check the draft against the frozen Claim Ledger.</div>
+                                <div class="gate-log">The gate detects and blocks problems. It does not rewrite the draft for the agent or human.</div>
                             </div>
-
                             <div class="gate-actions">
-                                <button id="btn-run-gate" class="btn-action-primary">Run Audit</button>
-                                <button id="btn-auto-repair" class="btn-action-success hidden">Rebuild Draft from Ledger</button>
+                                <button id="btn-run-gate" class="btn-action-primary" type="button">Run Audit</button>
+                                <button id="btn-show-repair" class="btn-action-success hidden" type="button">Show sanctioned repair example</button>
+                                <button id="btn-rerun-gate" class="btn-action-primary hidden" type="button">Run Gate Again</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <p class="sandbox-boundary-note">Simulation boundary: the repair example represents a new revision submitted by an agent or human. The gate records, blocks, and re-checks; the old revision and finding remain in the audit trail.</p>
             </div>
         </div>
     </section>
@@ -458,8 +500,8 @@
                 <p class="section-desc">Preconfigured topologies and audit contracts for research, compliance, and corporate disclosure work.</p>
             </div>
 
-            <div class="grid-3" style="margin-top:48px;">
-                <div class="portal-card reveal">
+            <div class="grid-3" style="margin-top:48px;" data-disclosure-group>
+                <div class="portal-card reveal disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <h3>industry-weekly</h3>
                     <p class="portal-meta">Industry / market weekly tracking</p>
@@ -469,9 +511,15 @@
                         <span>freshness gate</span>
                         <span>entity mapping</span>
                     </div>
+                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail portal-detail" aria-hidden="true">
+                        <span class="detail-kicker">Typical task</span>
+                        <p><b>Input:</b> the last seven days of industry materials, competitor moves, policy updates, and watch topics.</p>
+                        <p><b>Delivery:</b> executive summary, key signals, competitor changes, risk watchlist, and source appendix.</p>
+                    </div>
                 </div>
 
-                <div class="portal-card reveal reveal-delay-1">
+                <div class="portal-card reveal reveal-delay-1 disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
                     <h3>management-monthly</h3>
                     <p class="portal-meta">Executive reporting &amp; business analysis</p>
@@ -481,9 +529,15 @@
                         <span>offline runs</span>
                         <span>human/machine split</span>
                     </div>
+                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail portal-detail" aria-hidden="true">
+                        <span class="detail-kicker">Typical task</span>
+                        <p><b>Input:</b> monthly operating updates, KPI tables, department notes, and the prior report.</p>
+                        <p><b>Delivery:</b> operating highlights, period changes, attributed explanations, risks, actions, and an audit bundle.</p>
+                    </div>
                 </div>
 
-                <div class="portal-card reveal reveal-delay-2">
+                <div class="portal-card reveal reveal-delay-2 disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 10.5h5M10.5 8v5"/></svg></div>
                     <h3>document-review</h3>
                     <p class="portal-meta">Document evidence review</p>
@@ -493,7 +547,36 @@
                         <span>chain of custody</span>
                         <span>source trace-back</span>
                     </div>
+                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail portal-detail" aria-hidden="true">
+                        <span class="detail-kicker">Typical task</span>
+                        <p><b>Input:</b> specified files, a locked review scope, and explicit questions.</p>
+                        <p><b>Delivery:</b> evidence extracts, source-lock records, and reviewable citations; no automatic legal or disclosure conclusion.</p>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Report -->
+    <section class="section-tech-report" id="tech-report">
+        <div class="container tech-report-layout">
+            <div class="tech-report-copy reveal">
+                <div class="eyebrow">Technical Report</div>
+                <h2>We publish not only what it does, but why it is built this way</h2>
+                <p><em>BriefLoop Architecture Reference v0.4.0</em> explains the architecture charters, control transactions, claim-and-evidence boundaries, product baseline, and the experimental path from traceability toward support sufficiency.</p>
+                <div class="tech-report-actions">
+                    <a class="btn-primary" href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Read the full technical report</a>
+                    <a class="tech-report-alt" href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">中文版 →</a>
+                </div>
+            </div>
+            <div class="tech-report-index reveal reveal-delay-1" aria-label="Technical report contents">
+                <span class="report-edition-label">ARCHITECTURE REFERENCE · v0.4.0</span>
+                <div class="report-index-row"><span>01</span><b>Architecture charters and authority boundaries</b></div>
+                <div class="report-index-row"><span>02</span><b>Runtime, evidence, gate, and archive spines</b></div>
+                <div class="report-index-row"><span>03</span><b>Support-sufficiency experiments and limits</b></div>
+                <div class="report-index-row"><span>04</span><b>The product baseline toward v1.0</b></div>
+                <p>Code snapshot v0.11.12 · 2026-07-10 · bilingual self-contained HTML</p>
             </div>
         </div>
     </section>
@@ -505,7 +588,7 @@
                 <div class="cli-info reveal">
                     <div class="eyebrow">Developers</div>
                     <h2>Built for developers and agents</h2>
-                    <p>BriefLoop fits both hacker workflows and enterprise deployment. Run it standalone from the command line, or orchestrate it from an AI editor with WorkBuddy — the final brief still has to satisfy the quality contract.</p>
+                    <p>BriefLoop separates writing from control. An external agent researches and drafts; the Python CLI creates workspaces, validates artifacts, records transactions, runs gates, and preserves delivery state. The CLI does not generate a brief by itself.</p>
 
                     <div class="integration-item">
                         <div class="integration-header">
@@ -520,7 +603,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
                             <h4>WorkBuddy / Claude Code</h4>
                         </div>
-                        <p>Say "run my industry weekly" in WorkBuddy, or kick off a run from Claude Code with <code>briefloop run --workspace ~/my-workspace</code>.</p>
+                        <p>After runtime assets are installed, WorkBuddy or Claude Code reads the operator handoff and performs the writing. In Claude Code, <code>/briefloop new</code> is a conversational command, not a shell command.</p>
                     </div>
                 </div>
 
@@ -532,16 +615,13 @@
                     </div>
                     <div class="terminal-body" id="terminal-demo">
                         <div class="terminal-line"><span class="t-prompt">$</span> pipx install briefloop</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
-                        <div class="terminal-line t-comment"># guided Q&amp;A captures industry, purpose, and reader preferences into onboarding.json</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ~/my-workspace --from-onboarding onboarding.json</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ~/my-workspace</div>
-                        <div class="terminal-line t-output">[info] Claim Ledger frozen → output/intermediate/claim_ledger.json</div>
-                        <div class="terminal-line t-output">[gate] auditor quality gates passed → stage-complete</div>
-                        <div class="terminal-line t-success">[finalize] reader-clean passed → delivery_promotion: "promoted"</div>
-                        <div class="terminal-line t-success">[done] Delivery bundle: output/delivery/brief.md · delivery truth in finalize_report.json</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime operator</div>
+                        <div class="terminal-line t-output">[created] workspace → ./my-weekly</div>
+                        <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
+                        <div class="terminal-line t-comment"># Next: give the handoff to a supported agent runtime; the CLI does not write the report</div>
                     </div>
-                    <p class="terminal-note">Recommended install (v1.0.2+): <code>pipx install briefloop</code> · isolated env, global CLI</p>
+                    <p class="terminal-note">Control-plane quickstart: <code>pipx install briefloop</code>. The complete Claude Code path requires a source install and <code>briefloop claude install</code>.</p>
                 </div>
             </div>
         </div>
@@ -554,10 +634,11 @@
                 <div class="logo">
                     <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
                         <rect width="32" height="32" rx="7" fill="#12203a"/>
-                        <path d="M22.5 10.5a8 8 0 1 0 2 5.5" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round"/>
-                        <path d="M12.5 16.5l3 3 5.5-6" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="13" y="13" width="6" height="6" rx="1.3" fill="none" stroke="#f3f7fb" stroke-width="1.6"/>
+                        <path d="M14.5 16h3" stroke="#f3f7fb" stroke-width="1.4" stroke-linecap="round"/>
                     </svg>
-                    <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+                    <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
                 </div>
                 <p class="footer-desc">Every line of a business report, accounted for. Chain-of-custody infrastructure for enterprise AI.</p>
                 <p class="footer-boundary">Traceability, not semantic proof.</p>
@@ -570,6 +651,7 @@
             </div>
             <div class="footer-links">
                 <h4>Docs</h4>
+                <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Technical Report v0.4.0</a>
                 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank">Getting Started</a>
                 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/weekly-loop.md" target="_blank">Weekly Loop</a>
                 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md" target="_blank">Support Matrix</a>

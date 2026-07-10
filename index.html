@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BriefLoop.ai — 可问责的 AI 简报工作流 (Accountable AI Briefing Workflow)</title>
     <meta name="description" content="BriefLoop 通过确定性账本、来源锚定和质量门禁，把 AI 草稿变成可复核、可批准、可交付的商业简报，为投研、IR、合规和管理层简报建立完整的保管链。">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1322'/%3E%3Cpath d='M22.5 10.5a8 8 0 1 0 2 5.5' fill='none' stroke='%232dd4bf' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M12.5 16.5l3 3 5.5-6' fill='none' stroke='%232dd4bf' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1322'/%3E%3Cpath d='M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9' fill='none' stroke='%232dd4bf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.3' fill='none' stroke='%23f3f7fb' stroke-width='1.6'/%3E%3Cpath d='M14.5 16h3' stroke='%23f3f7fb' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
@@ -19,16 +19,18 @@
             <div class="logo">
                 <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
                     <rect width="32" height="32" rx="7" fill="#0b1424"/>
-                    <path d="M22.5 10.5a8 8 0 1 0 2 5.5" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round"/>
-                    <path d="M12.5 16.5l3 3 5.5-6" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="13" y="13" width="6" height="6" rx="1.3" fill="none" stroke="#f3f7fb" stroke-width="1.6"/>
+                    <path d="M14.5 16h3" stroke="#f3f7fb" stroke-width="1.4" stroke-linecap="round"/>
                 </svg>
-                <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+                <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
             </div>
             <nav class="nav-links">
                 <a href="#loop">运行环</a>
                 <a href="#governance">治理模型</a>
                 <a href="#usecases">典型场景</a>
                 <a href="#artifacts">交付物</a>
+                <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告</a>
                 <a href="#sandbox" class="btn-sandbox-nav">模拟演示</a>
                 <a href="en.html" class="lang-switch">EN</a>
             </nav>
@@ -45,38 +47,55 @@
     <section class="hero-section">
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="badge-row">
-                    <span class="badge-version">v1.0.2</span>
-                    <div class="badge-new"><span class="pulse-dot"></span>可问责的 AI 简报工作流 · 开源框架</div>
+                <div class="hero-message">
+                    <div class="badge-row">
+                        <span class="badge-version">v1.0.2</span>
+                        <div class="badge-new"><span class="pulse-dot"></span>可问责的 AI 简报工作流 · 开源框架</div>
+                    </div>
+                    <h1 class="hero-title">
+                        让 AI 快速起草，<br>
+                        <span class="text-gradient">让人类敢于交付。</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        BriefLoop 把 AI 生成的行业周报、IR 材料和管理层简报放进一套可追溯的工作流：关键断言进入事实账本，来源保留引用记录，质量门禁在交付前阻断明显风险，最终由人确认放行。
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#sandbox" class="btn-primary">查看质量门禁演示</a>
+                        <a href="#artifacts" class="btn-secondary">查看交付物示例</a>
+                    </div>
                 </div>
-                <h1 class="hero-title">
-                    让 AI 快速起草，<br>
-                    <span class="text-gradient">让人类敢于交付。</span>
-                </h1>
-                <p class="hero-subtitle">
-                    BriefLoop 把 AI 生成的行业周报、IR 材料和管理层简报放进一套可追溯的工作流：关键断言进入事实账本，来源保留引用记录，质量门禁在交付前阻断明显风险，最终由人确认放行。
-                </p>
 
                 <div class="hero-install" id="hero-install">
-                    <div class="hero-install-tabs" role="tablist" aria-label="安装路径">
-                        <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">CLI</button>
-                        <button type="button" class="hero-install-tab" data-install="agent" role="tab" aria-selected="false">Agent</button>
+                    <div class="hero-install-head">
+                        <div class="hero-install-title">
+                            <span>Start here</span>
+                            <strong>选择现在就能跑通的路径</strong>
+                        </div>
+                        <div class="hero-install-tabs" role="tablist" aria-label="启动路径">
+                            <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">控制面 CLI</button>
+                            <button type="button" class="hero-install-tab" data-install="claude" role="tab" aria-selected="false">Claude Code</button>
+                        </div>
                     </div>
                     <div class="hero-install-panel" data-panel="cli" role="tabpanel">
-                        <code class="hero-install-cmd" id="hero-install-cmd-cli">pipx install briefloop</code>
-                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="复制 CLI 安装命令">复制</button>
+                        <div class="hero-command-list">
+                            <div class="hero-command-row"><span>01</span><code>pipx install briefloop</code></div>
+                            <div class="hero-command-row"><span>02</span><code>briefloop new industry-weekly ./my-weekly</code></div>
+                            <div class="hero-command-row"><span>03</span><code>briefloop run --workspace ./my-weekly --runtime operator</code></div>
+                        </div>
+                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="复制控制面 CLI 命令">复制全部</button>
                     </div>
-                    <div class="hero-install-panel hidden" data-panel="agent" role="tabpanel">
-                        <code class="hero-install-cmd" id="hero-install-cmd-agent">/briefloop new</code>
-                        <button type="button" class="btn-copy-hero" data-copy-target="agent" aria-label="复制 Agent 命令">复制</button>
+                    <div class="hero-install-panel hidden" data-panel="claude" role="tabpanel">
+                        <div class="hero-command-list">
+                            <div class="hero-command-row"><span>01</span><code>git clone https://github.com/Stahl-G/briefloop.git</code></div>
+                            <div class="hero-command-row"><span>02</span><code>cd briefloop &amp;&amp; bash scripts/setup.sh</code></div>
+                            <div class="hero-command-row"><span>03</span><code>source .venv/bin/activate</code></div>
+                            <div class="hero-command-row"><span>04</span><code>briefloop claude install --repo-workdir .</code></div>
+                        </div>
+                        <button type="button" class="btn-copy-hero" data-copy-target="claude" aria-label="复制 Claude Code 安装命令">复制全部</button>
                     </div>
-                    <p class="hero-install-hint" data-hint="cli">安装后：<code>briefloop onboard</code> → <code>init</code> → <code>run</code></p>
-                    <p class="hero-install-hint hidden" data-hint="agent">Claude Code 写入入口：<code>/briefloop run</code> · <code>status</code> · <code>deliver</code></p>
-                </div>
-
-                <div class="hero-buttons">
-                    <a href="#sandbox" class="btn-primary">查看质量门禁演示</a>
-                    <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-secondary">GitHub 源码</a>
+                    <p class="hero-install-hint" data-hint="cli">创建工作区和 operator handoff；CLI 本身不会调用 LLM 写报告。</p>
+                    <p class="hero-install-hint hidden" data-hint="claude">安装后打开 Claude Code，输入 <code>/briefloop new</code> 开始对话式建档。</p>
                 </div>
             </div>
 
@@ -336,32 +355,54 @@
                     <h2>标准交付产物</h2>
                     <p class="artifacts-desc">BriefLoop 运行后，不仅生成最终的阅读文档，还会为你保留一整套清晰可查的「过程性账簿」。</p>
 
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
-                        <div>
-                            <h4>事实账本 <code>claim_ledger.json</code></h4>
-                            <p>关键事实、数字及来源坐标的 JSON 记录，冻结后成为所有输出事实的唯一权威源。</p>
+                    <div class="artifact-card-list" aria-label="BriefLoop 标准交付产物" data-disclosure-group>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+                            <div>
+                                <h4>事实账本 <code>claim_ledger.json</code></h4>
+                                <p>关键事实、数字及登记来源的结构化记录，冻结后成为下游写作的事实依据。</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">示例记录</span>
+                                <code>CL-0012 · 组件现货均价环比下降 1.8% · SRC-003 · 限定：仅代表监测样本</code>
+                            </div>
                         </div>
-                    </div>
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/></svg>
-                        <div>
-                            <h4>来源地图 <code>source_appendix</code></h4>
-                            <p>将简报中的陈述自动映射至原始公告/PDF 对应页码和高亮段落的附录文档。</p>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/></svg>
+                            <div>
+                                <h4>来源附录 <code>source_appendix</code></h4>
+                                <p>汇总简报引用的登记来源；具备证据片段时，可附页码与片段轨迹供复核。</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">示例条目</span>
+                                <code>[SRC-003] 示例行业价格简报 · 第 12 页 · 取回日期 2026-06-30</code>
+                            </div>
                         </div>
-                    </div>
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-                        <div>
-                            <h4>审计记录包 <code>audit bundle</code></h4>
-                            <p>包含质量门禁检测结果、时效性验证日志和事实一致性校对报告。</p>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+                            <div>
+                                <h4>审计记录包 <code>audit bundle</code></h4>
+                                <p>保留质量门禁结果、运行轨迹、审计发现和交付前检查记录。</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">检查摘要</span>
+                                <code>material_fact: PASS · freshness: WARNING · reader_clean: PASS · human approval: REQUIRED</code>
+                            </div>
                         </div>
-                    </div>
-                    <div class="artifact-card-small">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13l2.5 2.5L16 11"/></svg>
-                        <div>
-                            <h4>交付包 <code>delivery bundle</code></h4>
-                            <p>reader-clean 通过后才晋升的干净 Markdown 与 Word 报告；交付真值由 <code>finalize_report.json</code> 单一记录承载。</p>
+                        <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13l2.5 2.5L16 11"/></svg>
+                            <div>
+                                <h4>交付包 <code>delivery bundle</code></h4>
+                                <p>reader-clean 通过后才晋升的 Markdown 与 Word 报告；交付真值由 <code>finalize_report.json</code> 单一记录承载。</p>
+                            </div>
+                            <span class="card-chevron" aria-hidden="true">⌄</span>
+                            <div class="card-inline-detail" aria-hidden="true">
+                                <span class="detail-kicker">示例文件</span>
+                                <code>brief.md · brief.docx · source_appendix.md · finalize_report.json</code>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -372,17 +413,25 @@
                     <div class="boundary-content">
                         <p>任何自动化 AI 系统都不应当、也不能代替人类承担决策与把关的责任。BriefLoop 并不代替人类进行最终的批准决策，而是为人类提供一个<b>降低遗漏风险的证据链条</b>——可追溯性，而非语义证明。</p>
 
-                        <div class="boundary-metric">
-                            <span class="m-title">AI 智能体</span>
-                            <span class="m-desc">负责起草、分析和提议（起草层）</span>
-                        </div>
-                        <div class="boundary-metric">
-                            <span class="m-title">控制逻辑 (Python)</span>
-                            <span class="m-desc">负责自动审计、留痕和执行门禁（审计层）</span>
-                        </div>
-                        <div class="boundary-metric highlight">
-                            <span class="m-title">人类决策者</span>
-                            <span class="m-desc">负责最终签字、批准和承担责任（裁决层）</span>
+                        <div class="boundary-roles" aria-label="BriefLoop 责任分层" data-disclosure-group>
+                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                                <span class="m-title">AI 智能体</span>
+                                <span class="m-desc">起草、分析和提出建议</span>
+                                <span class="card-chevron" aria-hidden="true">⌄</span>
+                                <div class="card-inline-detail" aria-hidden="true">可以找资料、拆分断言、写作和提出审计意见；不能冻结账本、通过门禁或批准交付。</div>
+                            </div>
+                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                                <span class="m-title">确定性控制面</span>
+                                <span class="m-desc">校验、记账、执行门禁并保留记录</span>
+                                <span class="card-chevron" aria-hidden="true">⌄</span>
+                                <div class="card-inline-detail" aria-hidden="true">检查 schema、哈希、阶段状态、门禁结果和归档完整性；不判断来源是否代表事实真理。</div>
+                            </div>
+                            <div class="boundary-metric highlight disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                                <span class="m-title">人类决策者</span>
+                                <span class="m-desc">最终批准交付并承担责任</span>
+                                <span class="card-chevron" aria-hidden="true">⌄</span>
+                                <div class="card-inline-detail" aria-hidden="true">复核重要推论和未决问题，决定降级、返工或交付；批准动作会被记录。</div>
+                            </div>
                         </div>
 
                         <blockquote class="boundary-quote">
@@ -394,51 +443,43 @@
         </div>
     </section>
 
-    <!-- Interactive Sandbox -->
+    <!-- Repair transaction simulation -->
     <section class="section-sandbox" id="sandbox">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="badge-demo">前端模拟 · 非真实运行环境</div>
-                <h2>质量门禁模拟演示</h2>
-                <p class="section-desc">这是一个前端模拟，用来展示 BriefLoop 的阻断和修复逻辑；并非真实命令行运行环境。</p>
+                <div class="badge-demo">过程模拟 · 不调用真实运行时</div>
+                <h2>问题不会被润色掉，而会进入修复回路</h2>
+                <p class="section-desc">上面的保管链回答“这句话从哪来”；这里回答“发现问题以后会怎样”。门禁只负责阻断，Agent 或人完成修订后，由控制面重新检查。</p>
             </div>
 
             <div class="sandbox-app reveal">
                 <div class="sandbox-controls">
-                    <button class="btn-scenario active" data-scenario="hallucination">场景 1：AI 幻觉捏造数据</button>
-                    <button class="btn-scenario" data-scenario="tampering">场景 2：展示层篡改内容</button>
+                    <button class="btn-scenario active" data-scenario="hallucination">场景 1：数据与冻结事实冲突</button>
+                    <button class="btn-scenario" data-scenario="tampering">场景 2：草稿引入未登记主张</button>
                 </div>
 
                 <div class="sandbox-workspace">
                     <div class="sandbox-panel">
                         <div class="panel-header">
                             <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l4-1L19.5 7.5a2.1 2.1 0 0 0-3-3L5 16z"/><path d="M14.5 6.5l3 3"/></svg>AI 编辑草稿 (Analyst Draft)</span>
-                            <span class="status-marker editing">编辑中</span>
+                            <span class="status-marker editing" id="draft-revision">REVISION 1</span>
                         </div>
                         <div class="panel-body">
-                            <textarea id="sandbox-draft" class="sandbox-textarea"></textarea>
+                            <textarea id="sandbox-draft" class="sandbox-textarea" aria-label="可编辑的分析草稿"></textarea>
                         </div>
                     </div>
 
                     <div class="sandbox-panel">
                         <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>权威事实账本 (Claim Ledger)</span>
+                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>冻结对照记录 (Control Record)</span>
                             <span class="status-marker verified">已冻结</span>
                         </div>
                         <div class="panel-body">
                             <div class="ledger-viewer">
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">claim_id</span> <span class="entry-val highlight-blue">CL-0045</span>
-                                </div>
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">statement</span> <span class="entry-val highlight-green" id="sandbox-ledger-fact">组件现货均价环比下降 1.5%</span>
-                                </div>
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">source</span> <span class="entry-val">SRC-009 (2026-06-05)</span>
-                                </div>
-                                <div class="ledger-entry">
-                                    <span class="entry-lbl">frozen_hash</span> <span class="entry-val code-font">sha256_8f0a2e…</span>
-                                </div>
+                                <div class="ledger-entry"><span class="entry-lbl">claim_id</span><span class="entry-val highlight-blue">CL-0045</span></div>
+                                <div class="ledger-entry"><span class="entry-lbl">statement</span><span class="entry-val highlight-green" id="sandbox-ledger-fact">组件现货均价环比下降 1.5%</span></div>
+                                <div class="ledger-entry"><span class="entry-lbl">source</span><span class="entry-val">SRC-009 (2026-06-05)</span></div>
+                                <div class="ledger-entry"><span class="entry-lbl">frozen_hash</span><span class="entry-val code-font">sha256_8f0a2e…</span></div>
                             </div>
                         </div>
                     </div>
@@ -448,18 +489,19 @@
                             <span><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>质量门禁 (Quality Gate)</span>
                         </div>
                         <div class="panel-body flex-col justify-between">
-                            <div id="gate-report" class="gate-report-box pending">
+                            <div id="gate-report" class="gate-report-box pending" aria-live="polite">
                                 <div class="gate-status-text">⏳ 等待质量检查运行…</div>
-                                <div class="gate-log">点击下方「运行质量审计」，系统将比对草稿事实与权威账本。</div>
+                                <div class="gate-log">门禁会检查并阻断问题，但不会替 Agent 或人类修改草稿。</div>
                             </div>
-
                             <div class="gate-actions">
-                                <button id="btn-run-gate" class="btn-action-primary">运行质量审计 (Run Audit)</button>
-                                <button id="btn-auto-repair" class="btn-action-success hidden">按账本重建草稿 (Rebuild Draft)</button>
+                                <button id="btn-run-gate" class="btn-action-primary" type="button">运行质量审计 (Run Audit)</button>
+                                <button id="btn-show-repair" class="btn-action-success hidden" type="button">查看合法修复示例</button>
+                                <button id="btn-rerun-gate" class="btn-action-primary hidden" type="button">重新运行门禁</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <p class="sandbox-boundary-note">模拟说明：修复示例代表 Agent 或人提交一个新 revision；门禁只记录、阻断和复检，旧版本与 finding 继续留痕。</p>
             </div>
         </div>
     </section>
@@ -473,8 +515,8 @@
                 <p class="section-desc">针对投研、合规、企业披露的不同任务，系统预置了高标准的拓扑与审计合同。</p>
             </div>
 
-            <div class="grid-3" style="margin-top:48px;">
-                <div class="portal-card reveal">
+            <div class="grid-3" style="margin-top:48px;" data-disclosure-group>
+                <div class="portal-card reveal disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <h3>industry-weekly</h3>
                     <p class="portal-meta">行业 / 市场周报追踪</p>
@@ -484,9 +526,15 @@
                         <span>时效门禁</span>
                         <span>实体对照</span>
                     </div>
+                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail portal-detail" aria-hidden="true">
+                        <span class="detail-kicker">典型任务</span>
+                        <p><b>输入：</b>近 7 天行业材料、竞品动态、政策更新与关注主题。</p>
+                        <p><b>交付：</b>执行摘要、关键信号、竞品变化、风险观察和来源附录。</p>
+                    </div>
                 </div>
 
-                <div class="portal-card reveal reveal-delay-1">
+                <div class="portal-card reveal reveal-delay-1 disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
                     <h3>management-monthly</h3>
                     <p class="portal-meta">管理层汇报与经营分析</p>
@@ -496,9 +544,15 @@
                         <span>离线运行</span>
                         <span>人机分权</span>
                     </div>
+                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail portal-detail" aria-hidden="true">
+                        <span class="detail-kicker">典型任务</span>
+                        <p><b>输入：</b>月度经营更新、KPI 表、部门说明和上期材料。</p>
+                        <p><b>交付：</b>经营亮点、环比变化、原因说明、风险与行动项，并保留审计记录包。</p>
+                    </div>
                 </div>
 
-                <div class="portal-card reveal reveal-delay-2">
+                <div class="portal-card reveal reveal-delay-2 disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 10.5h5M10.5 8v5"/></svg></div>
                     <h3>document-review</h3>
                     <p class="portal-meta">文档证据审阅</p>
@@ -508,7 +562,36 @@
                         <span>保管链留痕</span>
                         <span>出处回溯</span>
                     </div>
+                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail portal-detail" aria-hidden="true">
+                        <span class="detail-kicker">典型任务</span>
+                        <p><b>输入：</b>指定文件、锁定的审阅范围和需要回答的问题。</p>
+                        <p><b>交付：</b>证据摘录、来源锁定记录与可复核引用；不自动形成法律或披露结论。</p>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Report -->
+    <section class="section-tech-report" id="tech-report">
+        <div class="container tech-report-layout">
+            <div class="tech-report-copy reveal">
+                <div class="eyebrow">Technical Report · 技术报告</div>
+                <h2>不只展示结果，也公开为什么这样设计</h2>
+                <p>《BriefLoop 架构参考 v0.4.0》系统说明项目的架构宪章、控制事务、证据与声明边界、产品基线，以及从可追溯性走向支持充分性的实验方向。</p>
+                <div class="tech-report-actions">
+                    <a class="btn-primary" href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">阅读完整中文技术报告</a>
+                    <a class="tech-report-alt" href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">English edition →</a>
+                </div>
+            </div>
+            <div class="tech-report-index reveal reveal-delay-1" aria-label="技术报告内容摘要">
+                <span class="report-edition-label">ARCHITECTURE REFERENCE · v0.4.0</span>
+                <div class="report-index-row"><span>01</span><b>架构宪章与权力边界</b></div>
+                <div class="report-index-row"><span>02</span><b>运行状态、证据、门禁与归档骨干</b></div>
+                <div class="report-index-row"><span>03</span><b>支持充分性实验栈与能力边界</b></div>
+                <div class="report-index-row"><span>04</span><b>迈向 v1.0 的产品基线</b></div>
+                <p>代码快照 v0.11.12 · 2026-07-10 · 中英双语 HTML</p>
             </div>
         </div>
     </section>
@@ -520,7 +603,7 @@
                 <div class="cli-info reveal">
                     <div class="eyebrow">Developers · 开发者</div>
                     <h2>现代开发者与 Agent 协作</h2>
-                    <p>BriefLoop 契合极客与企业级部署流程。你可以通过命令行独立运行，或在 AI 编辑器中结合 WorkBuddy 配合调度，确保最终简报满足质量契约。</p>
+                    <p>BriefLoop 把写作与控制分开：外部 Agent 负责研究和起草，Python CLI 负责建档、校验、状态事务、门禁与交付记录。CLI 不会单独调用模型生成简报。</p>
 
                     <div class="integration-item">
                         <div class="integration-header">
@@ -535,7 +618,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
                             <h4>WorkBuddy / Claude Code 配合</h4>
                         </div>
-                        <p>支持在 WorkBuddy 中配合调度：在 WorkBuddy 中说"帮我跑一份行业周报"，或在 Claude Code 中通过 <code>briefloop run --workspace ~/my-workspace</code> 发起子任务。</p>
+                        <p>安装对应 runtime 资产后，由 WorkBuddy 或 Claude Code 读取 operator handoff 并执行写作；Claude Code 的对话入口是 <code>/briefloop new</code>，不是 shell 命令。</p>
                     </div>
                 </div>
 
@@ -547,16 +630,13 @@
                     </div>
                     <div class="terminal-body" id="terminal-demo">
                         <div class="terminal-line"><span class="t-prompt">$</span> pipx install briefloop</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
-                        <div class="terminal-line t-comment"># 系统问答捕获行业、目的、读者偏好并写入 onboarding.json</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ~/my-workspace --from-onboarding onboarding.json</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ~/my-workspace</div>
-                        <div class="terminal-line t-output">[info] Claim Ledger frozen → output/intermediate/claim_ledger.json</div>
-                        <div class="terminal-line t-output">[gate] auditor quality gates passed → stage-complete</div>
-                        <div class="terminal-line t-success">[finalize] reader-clean passed → delivery_promotion: "promoted"</div>
-                        <div class="terminal-line t-success">[done] Delivery bundle: output/delivery/brief.md · 交付真值见 finalize_report.json</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime operator</div>
+                        <div class="terminal-line t-output">[created] workspace → ./my-weekly</div>
+                        <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
+                        <div class="terminal-line t-comment"># 下一步：把 handoff 交给支持的 Agent runtime；CLI 不会自行写报告</div>
                     </div>
-                    <p class="terminal-note">推荐安装路径（v1.0.2+）：<code>pipx install briefloop</code> · 隔离环境，全局可用 CLI</p>
+                    <p class="terminal-note">控制面快速体验：<code>pipx install briefloop</code>。完整 Claude Code 路径需要源码安装并运行 <code>briefloop claude install</code>。</p>
                 </div>
             </div>
         </div>
@@ -569,10 +649,11 @@
                 <div class="logo">
                     <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
                         <rect width="32" height="32" rx="7" fill="#12203a"/>
-                        <path d="M22.5 10.5a8 8 0 1 0 2 5.5" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round"/>
-                        <path d="M12.5 16.5l3 3 5.5-6" fill="none" stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="13" y="13" width="6" height="6" rx="1.3" fill="none" stroke="#f3f7fb" stroke-width="1.6"/>
+                        <path d="M14.5 16h3" stroke="#f3f7fb" stroke-width="1.4" stroke-linecap="round"/>
                     </svg>
-                    <span class="logo-text">BriefLoop<span class="highlight-dot">.ai</span></span>
+                    <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
                 </div>
                 <p class="footer-desc">让每一行商业报告都有据可查，为 Enterprise AI 提供保管链基础设施。</p>
                 <p class="footer-boundary">Traceability, not semantic proof. · 可追溯性，而非语义证明。</p>
@@ -585,6 +666,7 @@
             </div>
             <div class="footer-links">
                 <h4>文档</h4>
+                <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告 v0.4.0</a>
                 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank">Getting Started</a>
                 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/weekly-loop.md" target="_blank">Weekly Loop</a>
                 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md" target="_blank">Support Matrix</a>
