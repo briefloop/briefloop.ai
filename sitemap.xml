@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://briefloop.ai/</loc></url>
   <url><loc>https://briefloop.ai/en.html</loc></url>
+  <url><loc>https://briefloop.ai/how-it-works.html</loc></url>
+  <url><loc>https://briefloop.ai/how-it-works.en.html</loc></url>
   <url><loc>https://briefloop.ai/llms.txt</loc></url>
   <url><loc>https://briefloop.ai/agents/briefloop/SKILL.md</loc></url>
   <url><loc>https://briefloop.ai/reports/briefloop-architecture-reference-v0.4.0.zh-CN.html</loc></url>

@@ -557,3 +557,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+/* ==========================================================================
+   Editorial additions — mobile nav + live version badge
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* --- 9. Mobile nav toggle --- */
+    const navToggle = document.getElementById("nav-toggle");
+    const siteNav = document.getElementById("site-nav");
+    if (navToggle && siteNav) {
+        navToggle.addEventListener("click", () => {
+            const open = siteNav.classList.toggle("open");
+            navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        siteNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+            siteNav.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+        }));
+    }
+
+    /* --- 10. Live version badge — PyPI is the single source of truth --- */
+    const versionBadge = document.getElementById("version-badge");
+    if (versionBadge) {
+        fetch("https://pypi.org/pypi/briefloop/json")
+            .then(r => (r.ok ? r.json() : Promise.reject(new Error("pypi unavailable"))))
+            .then(d => {
+                if (d && d.info && d.info.version) versionBadge.textContent = "v" + d.info.version;
+            })
+            .catch(() => { /* keep the static fallback text */ });
+    }
+});
