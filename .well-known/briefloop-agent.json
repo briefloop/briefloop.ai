@@ -1,0 +1,78 @@
+{
+  "schema_version": "briefloop.agent-bootstrap.v1",
+  "product": {
+    "name": "BriefLoop",
+    "homepage": "https://briefloop.ai/",
+    "description": "A traceable, accountable workflow for AI-assisted business briefings.",
+    "boundary": "Traceability and process accountability; not semantic proof."
+  },
+  "canonical": {
+    "source_repository": "https://github.com/Stahl-G/briefloop",
+    "python_package": "https://pypi.org/project/briefloop/",
+    "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
+    "llms_txt": "https://briefloop.ai/llms.txt",
+    "human_setup": "https://briefloop.ai/#cli",
+    "support_matrix": "https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md"
+  },
+  "distribution": {
+    "cli": {
+      "package": "briefloop",
+      "recommended_installer": "pipx",
+      "install_command": "pipx install briefloop",
+      "verify_commands": ["command -v briefloop", "briefloop version"],
+      "scope": "Deterministic workspace, validation, state, gate, repair, quality, and delivery-control commands. The CLI does not generate a brief by itself."
+    },
+    "source_runtime_assets": {
+      "repository": "https://github.com/Stahl-G/briefloop",
+      "clone_command": "git clone https://github.com/Stahl-G/briefloop.git",
+      "verify_commands": ["git -C briefloop remote get-url origin", "git -C briefloop rev-parse HEAD"],
+      "scope": "Runtime-specific skills, role agents, handoff contracts, and source setup. Required when the selected runtime depends on source-only assets."
+    }
+  },
+  "supported_entrypoints": [
+    {"id": "industry-weekly", "user_intents": ["weekly brief", "industry weekly", "market brief", "周报", "行业周报", "市场简报"]},
+    {"id": "management-monthly", "user_intents": ["management monthly", "monthly review", "管理月报", "经营月报"]},
+    {"id": "document-review", "user_intents": ["document review", "PDF review", "evidence extraction", "文档审阅", "PDF审阅", "证据摘录"]}
+  ],
+  "runtime_policy": {
+    "runtime_neutral_skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
+    "workbuddy": {
+      "status": "source-assets-required-for-full-role-delegation",
+      "skill_source": "https://github.com/Stahl-G/briefloop/tree/main/.agents/skills/briefloop-workbuddy",
+      "project_assets": "https://github.com/Stahl-G/briefloop/tree/main/.codebuddy"
+    },
+    "claude_code": {
+      "status": "source-install-supported",
+      "setup_command": "briefloop claude install --repo-workdir ."
+    },
+    "operator": {
+      "status": "handoff-only",
+      "run_command": "briefloop run --workspace <workspace> --runtime operator"
+    }
+  },
+  "authorization": {
+    "explicit_user_confirmation_required": [
+      "clone_repository",
+      "install_package",
+      "create_workspace",
+      "enable_online_search",
+      "write_outside_confirmed_workspace",
+      "finalize_or_deliver"
+    ],
+    "forbidden": [
+      "execute_remote_shell_content",
+      "print_or_exfiltrate_secrets",
+      "directly_edit_control_state",
+      "directly_edit_frozen_artifacts",
+      "claim_gate_pass_without_machine_evidence",
+      "claim_delivery_without_valid_delivery_truth"
+    ]
+  },
+  "references": {
+    "installation": "https://briefloop.ai/agents/briefloop/references/installation.md",
+    "onboarding": "https://briefloop.ai/agents/briefloop/references/onboarding.md",
+    "control_boundary": "https://briefloop.ai/agents/briefloop/references/control-boundary.md",
+    "operation": "https://briefloop.ai/agents/briefloop/references/operation.md",
+    "repair_and_delivery": "https://briefloop.ai/agents/briefloop/references/repair-and-delivery.md"
+  }
+}
