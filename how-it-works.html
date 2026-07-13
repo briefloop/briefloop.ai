@@ -350,14 +350,15 @@
                         <button class="btn-copy-terminal" id="btn-copy-code">复制命令</button>
                     </div>
                     <div class="terminal-body" id="terminal-demo">
-                        <div class="terminal-line"><span class="t-prompt">$</span> pipx install briefloop</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime operator</div>
                         <div class="terminal-line t-output">[created] workspace → ./my-weekly</div>
                         <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
                         <div class="terminal-line t-comment"># 下一步：把 handoff 交给支持的 Agent runtime；CLI 不会自行写报告</div>
                     </div>
-                    <p class="terminal-note">控制面快速体验：<code>pipx install briefloop</code>。完整 Claude Code 路径需要源码安装并运行 <code>briefloop claude install</code>。</p>
+                    <p class="terminal-note">控制面 CLI 可通过 <code>pipx install briefloop</code> 安装。需要 Claude Code、Codex 或 WorkBuddy 的源码 runtime 资产时，再使用 <code>git clone</code> + <code>scripts/setup.sh</code>；完整 Claude Code 路径随后运行 <code>briefloop claude install</code>。</p>
                 </div>
             </div>
         </div>

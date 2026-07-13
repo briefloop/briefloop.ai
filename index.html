@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BriefLoop.ai — 可问责的 AI 简报工作流 (Accountable AI Briefing Workflow)</title>
-    <meta name="description" content="BriefLoop 通过确定性账本、来源锚定和质量门禁，把 AI 草稿变成可复核、可批准、可交付的商业简报，为投研、IR、合规和管理层简报建立完整的保管链。">
+    <title>BriefLoop.ai — AI 先写，BriefLoop 对账，问题没处理完就不能交付</title>
+    <meta name="description" content="BriefLoop 不是又一个帮你写报告的 AI。它在 AI 写完之后，把没有出处、用错数据、说得过头和尚未确认的内容找出来；问题没处理完，报告就不能被当成最终稿。">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305351d'/%3E%3Cpath d='M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9' fill='none' stroke='%234faf62' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.3' fill='none' stroke='%23f2f5f1' stroke-width='1.6'/%3E%3Cpath d='M14.5 16h3' stroke='%23f2f5f1' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,11 +26,12 @@
                 <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
             </div>
             <nav class="nav-links" id="site-nav">
-                <a href="#scenarios">典型场景</a>
-                <a href="how-it-works.html">运作原理</a>
-                <a href="#artifacts">交付物</a>
-                <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告</a>
-                <a href="how-it-works.html#sandbox" class="btn-sandbox-nav">模拟演示</a>
+                <a href="#product">产品</a>
+                <a href="#catch">看它抓错</a>
+                <a href="#compare">对比</a>
+                <a href="#scenarios">使用场景</a>
+                <a href="#start">怎么开始</a>
+                <a href="how-it-works.html">文档</a>
                 <a href="en.html" class="lang-switch">EN</a>
                 <a class="nav-github-mobile" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">GitHub →</a>
             </nav>
@@ -46,387 +47,474 @@
         </div>
     </header>
 
-    <!-- Hero Section — one idea, one action, evidence below -->
-    <section class="hero-section">
+    <!-- ===== 第一屏 · 产品价值与一个可见的交付阻断 ===== -->
+    <section class="hero-section" id="product">
         <div class="container hero-container">
-            <div class="hero-message hero-centered">
+            <div class="hero-message hero-message-centered">
                 <div class="badge-row">
                     <span class="badge-version" id="version-badge">v0.11.12</span>
-                    <div class="badge-new"><span class="pulse-dot"></span>可问责的 AI 简报工作流 · 开源框架</div>
+                    <div class="badge-new"><span class="pulse-dot"></span>开源框架 · MIT License</div>
                 </div>
                 <h1 class="hero-title">
                     让 AI 快速起草，<br>
                     <span class="text-gradient">让人类敢于交付。</span>
                 </h1>
+                <p class="hero-lede">AI 会写报告。BriefLoop 负责查出处、抓冲突、拦住问题。<br>问题没有处理完，这一版就不能被当成最终稿。</p>
                 <p class="hero-subtitle">
-                    BriefLoop 为 AI 起草的行业周报、IR 材料和管理层简报建立完整保管链：每个关键断言都能回溯到原始来源的具体页码，未通过质量门禁的内容进不了交付件。
+                    同一个 Agent 继续负责研究和写作；BriefLoop 把关键事实、检查结果与人工批准留在 Agent 之外，让每一次交付都经得起追问。
                 </p>
                 <div class="hero-buttons">
-                    <a href="#quickstart" class="btn-primary">15 分钟跑通第一份简报</a>
-                    <a href="how-it-works.html" class="link-arrow">它如何工作 →</a>
+                    <a href="#catch" class="btn-primary">看它怎样抓住三个错误</a>
+                    <a href="#start" class="link-arrow">用样例跑一次 →</a>
                 </div>
             </div>
 
-            <!-- Chain of Custody — auto-playing trace -->
-            <div class="hero-visual" id="audit-chain">
-                <div class="visual-card">
-                    <div class="card-header">
-                        <span class="card-dot red"></span>
-                        <span class="card-dot yellow"></span>
-                        <span class="card-dot green"></span>
-                        <span class="card-title">BriefLoop 保管链追溯 · Chain of Custody</span>
-                        <button class="card-replay" id="btn-replay-trace">↻ 重放追溯</button>
+            <div class="hero-review-card reveal visible" aria-label="交付前报告审阅示例">
+                <div class="hero-review-head">
+                    <div>
+                        <span class="hero-review-kicker">交付前审阅示例 · SYNTHETIC CASE</span>
+                        <h2>同一份材料，同一个 Agent，两种交付方式</h2>
                     </div>
-                    <div class="visual-panels">
-                        <!-- Panel 1: Display Layer -->
-                        <div class="panel" id="panel-display">
-                            <div class="panel-tag tag-display">展示层 · Reader Brief</div>
-                            <div class="panel-content">
-                                <h4 class="doc-title">周报草稿（可读交付件）</h4>
-                                <p class="doc-text">
-                                    本季度市场增速加快。在太阳能和储能电池板块强劲增长驱动下，
-                                    <span class="highlight-node green-glow" id="node-claim">组件现货均价环比下降 1.8%</span>，
-                                    创下年内最大单季跌幅。
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Panel 2: Authority Layer -->
-                        <div class="panel" id="panel-authority">
-                            <div class="panel-tag tag-authority">权威事实层 · Claim Ledger</div>
-                            <div class="panel-content">
-                                <div class="ledger-card" id="ledger-item">
-                                    <div class="ledger-header">
-                                        <span class="ledger-id">CL-0012</span>
-                                        <span class="status-badge green">已冻结</span>
-                                    </div>
-                                    <pre class="ledger-json"><code>{
-  "statement": "组件现货均价下降1.8%",
-  "source_id": "SRC-003",
-  "evidence_page": 12,
-  "frozen_hash": "a4f89d…"
-}</code></pre>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Panel 3: Source Layer -->
-                        <div class="panel" id="panel-source">
-                            <div class="panel-tag tag-source">原始凭证 · Raw Source</div>
-                            <div class="panel-content">
-                                <h4 class="doc-title">PDF：2026行业价格简报.pdf</h4>
-                                <div class="pdf-viewer">
-                                    <p class="pdf-text">
-                                        …由于硅料产能过剩及组件库存积压，本季监测的<span class="highlight-node orange-glow" id="node-evidence">示例组件现货均价环比录得下降1.8%</span>，为连续三周收窄…
-                                    </p>
-                                    <div class="pdf-footer">第 12 页 · 来源已锚定</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <svg class="glow-lines" xmlns="http://www.w3.org/2000/svg">
-                        <path id="line-display-to-ledger" d="" fill="none" stroke="rgba(79, 175, 98, 0.45)" stroke-width="2" />
-                        <path id="line-ledger-to-source" d="" fill="none" stroke="rgba(251, 191, 36, 0.45)" stroke-width="2" />
-                    </svg>
-                    <div class="trace-stamp" id="trace-stamp">已核验 · TRACED</div>
+                    <span class="hero-review-status">当前 revision · BLOCKED</span>
                 </div>
+                <div class="hero-review-grid">
+                    <article class="hero-review-pane direct-report">
+                        <div class="hero-pane-head">
+                            <span>直接生成的报告</span>
+                            <span class="hero-pane-state neutral">看起来已完成</span>
+                        </div>
+                        <p class="hero-pane-label">行业周报 · 摘要</p>
+                        <p class="hero-report-copy">公司目前的市场份额为 <mark class="review-problem">18%</mark>，继续保持 <mark class="review-problem">行业领先地位</mark>。</p>
+                        <p class="hero-pane-note">读起来顺，但时间范围和结论强度都没有被交付流程拦住。</p>
+                    </article>
+
+                    <article class="hero-review-pane source-report">
+                        <div class="hero-pane-head">
+                            <span>原始材料</span>
+                            <span class="hero-pane-state source">第 12 页</span>
+                        </div>
+                        <p class="hero-pane-label">《2025 年第四季度报告》</p>
+                        <blockquote>“2025 年第四季度，公司在样本市场中的份额为 <b>18%</b>。”</blockquote>
+                        <p class="hero-pane-note">这份材料登记了时间范围与样本范围，没有“目前”或“行业领先”的结论。</p>
+                    </article>
+
+                    <article class="hero-review-pane review-result">
+                        <div class="hero-pane-head">
+                            <span>BriefLoop 的检查结果</span>
+                            <span class="hero-pane-state blocked">交付已锁定</span>
+                        </div>
+                        <div class="hero-finding blocked">
+                            <b>不能交付</b>
+                            <span>时间范围被删除：2025 Q4 被写成“目前”。</span>
+                        </div>
+                        <div class="hero-finding warning">
+                            <b>没有依据</b>
+                            <span>“行业领先”不在登记材料支持范围内。</span>
+                        </div>
+                        <div class="hero-lock-state">
+                            <span class="hero-lock-icon" aria-hidden="true">⌁</span>
+                            <span><b>当前状态：</b>待修复，交付按钮已锁定</span>
+                        </div>
+                    </article>
+                </div>
+                <details class="hero-audit-details">
+                    <summary>查看审计详情</summary>
+                    <div><code>source: Q4-2025-report · page: 12 · claim scope: sample market / Q4 2025 · findings: stale_scope + unsupported_superlative</code></div>
+                </details>
+            </div>
+
+            <div class="hero-fact-strip" aria-label="BriefLoop 项目与能力信息">
+                <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer"><span>开源项目</span><b>GitHub · MIT License</b></a>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.zh-CN.md" target="_blank" rel="noopener noreferrer"><span>首次体验</span><b>15 分钟跑通样例</b></a>
+                <div><span>Agent runtime</span><b>Claude Code · Codex* · WorkBuddy*</b><small>*部分 adapter 为实验性源码路径</small></div>
+                <div><span>能力边界</span><b>帮你查清出处，不替你判断真假</b></div>
             </div>
         </div>
     </section>
 
-    <!-- Trust band — open-source-native proof -->
-    <section class="trust-band" aria-label="项目事实">
+    <!-- ===== 第二屏 · 三个最常见的事故 ===== -->
+    <section class="section-accidents" id="accidents">
         <div class="container">
-            <div class="trust-band-inner">
-                <a class="trust-item" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">
-                    <span class="t-label">Open Source</span>
-                    <span class="t-value">GitHub · MIT License <span class="t-arrow">→</span></span>
-                </a>
-                <a class="trust-item" href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">
-                    <span class="t-label">Technical Report</span>
-                    <span class="t-value">架构参考 v0.4.0 · 中英双语 <span class="t-arrow">→</span></span>
-                </a>
-                <a class="trust-item" href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.zh-CN.md" target="_blank" rel="noopener noreferrer">
-                    <span class="t-label">Pilot Guide</span>
-                    <span class="t-value">15 分钟试运行指南 <span class="t-arrow">→</span></span>
-                </a>
-                <div class="trust-item">
-                    <span class="t-label">Boundary</span>
-                    <span class="t-value">可追溯性，而非语义证明</span>
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">The real risk · 真正的风险</div>
+                <h2>AI 写报告最危险的，往往不是胡编，而是这些「小错」</h2>
+                <p class="section-desc">它们看起来很自然，读起来很自信，却会被直接当成最终结论发出去。</p>
+            </div>
+            <div class="grid-3 accident-grid" style="margin-top:44px;">
+                <div class="accident-card reveal">
+                    <span class="accident-num">01</span>
+                    <h3>数字在改稿时变了</h3>
+                    <p>原文是「环比<b>下降 1.5%</b>」，改到第五版，正文里变成了「<b>上涨 2.5%</b>」。没人是故意的，但结论已经反了。</p>
+                </div>
+                <div class="accident-card reveal reveal-delay-1">
+                    <span class="accident-num">02</span>
+                    <h3>AI 自己补了一个原因</h3>
+                    <p>数据只显示利润率上升，AI 顺手加了一句「由于物流成本下降」——材料里根本没提到物流。</p>
+                </div>
+                <div class="accident-card reveal reveal-delay-2">
+                    <span class="accident-num">03</span>
+                    <h3>旧数据被写成当前情况</h3>
+                    <p>引用的是上一季度的份额数据，正文却写成「<b>目前</b>市场份额」，时间范围被悄悄抹掉。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Use Cases -->
+    <!-- ===== 第三屏 · 三个对比演示（整站中心） ===== -->
+    <section class="section-catch" id="catch">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">See it catch · 看它抓错</div>
+                <h2>同一份材料，同一个任务。左边直接生成，右边走 BriefLoop</h2>
+                <p class="section-desc">普通 Prompt 不一定会出错。问题是，一旦出错，通常缺少稳定的发现、追踪和阻断机制。下面用合成案例演示这个差异。</p>
+            </div>
+
+            <div class="cmp reveal" id="cmp" data-cmp-widget>
+                <div class="cmp-tabs" role="tablist" aria-label="选择案例">
+                    <button class="cmp-tab active" data-cmp="flip" role="tab" aria-selected="true">
+                        <span class="cmp-tab-label">行业周报</span><span class="cmp-tab-sub">数字被写反</span>
+                    </button>
+                    <button class="cmp-tab" data-cmp="status" role="tab" aria-selected="false">
+                        <span class="cmp-tab-label">管理层月报</span><span class="cmp-tab-sub">计划写成完成</span>
+                    </button>
+                    <button class="cmp-tab" data-cmp="stale" role="tab" aria-selected="false">
+                        <span class="cmp-tab-label">政策/市场跟踪</span><span class="cmp-tab-sub">旧数据冒充最新</span>
+                    </button>
+                </div>
+
+                <div class="cmp-source">
+                    <span class="cmp-source-tag">原始材料</span>
+                    <p id="cmp-source-text">…</p>
+                </div>
+
+                <div class="cmp-cols">
+                    <!-- 左：一次性直接生成 -->
+                    <div class="cmp-col oneshot">
+                        <div class="cmp-col-head">
+                            <span class="cmp-col-title">一次性直接生成</span>
+                            <span class="cmp-col-flag done">看起来已完成 ✓</span>
+                        </div>
+                        <div class="report-page" id="cmp-oneshot">…</div>
+                        <p class="cmp-col-foot muted">读起来通顺、自信——错误就藏在里面，没有任何提示。</p>
+                    </div>
+
+                    <!-- 右：使用 BriefLoop -->
+                    <div class="cmp-col briefloop">
+                        <div class="cmp-col-head">
+                            <span class="cmp-col-title">使用 BriefLoop</span>
+                            <span class="cmp-col-flag" id="cmp-rev">草稿 · revision 1</span>
+                        </div>
+                        <div class="report-page draft" id="cmp-draft">…</div>
+                        <div class="cmp-findings" id="cmp-findings"></div>
+                        <div class="cmp-deliver">
+                            <button class="deliver-btn" id="cmp-deliver" disabled>交付</button>
+                            <button class="repair-btn" id="cmp-repair">按提示修复，再看一次 →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 每个案例固定回答四个问题 -->
+                <div class="cmp-questions">
+                    <div class="q-item"><span class="q-k">哪里错了？</span><span class="q-v" id="q-where">…</span></div>
+                    <div class="q-item"><span class="q-k">根据什么发现？</span><span class="q-v" id="q-how">…</span></div>
+                    <div class="q-item"><span class="q-k">为什么不能交付？</span><span class="q-v" id="q-why">…</span></div>
+                    <div class="q-item"><span class="q-k">修复后应该怎么写？</span><span class="q-v" id="q-fixed">…</span></div>
+                    <div class="q-item not-proven"><span class="q-k">BriefLoop 没有证明什么？</span><span class="q-v" id="q-notproven">…</span></div>
+                </div>
+
+                <details class="cmp-tech">
+                    <summary>查看审计详情（开发者视角）</summary>
+                    <pre class="cmp-tech-pre"><code id="cmp-tech-code">…</code></pre>
+                </details>
+            </div>
+
+            <p class="cmp-disclaimer">合成案例，用于解释工作流，不代表自动事实核查基准。</p>
+        </div>
+    </section>
+
+    <!-- ===== 为什么不只是提示词 · BriefLoop vs ChatGPT / Runtime / Skill ===== -->
+    <section class="section-compare" id="compare">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">Why not just a prompt · 为什么不只是提示词</div>
+                <h2>不是更长的 Prompt，而是 AI 之外的交付规则</h2>
+                <p class="section-desc">Prompt 和 Skill 告诉 Agent「应该怎么做」；BriefLoop 记录它「实际做了什么」，并决定哪一版有资格交付。</p>
+            </div>
+
+            <p class="compare-callout reveal">最大的区别不是多一个审稿 Agent，而是<b>写稿的 Agent 没有权把自己的稿子直接宣布为「可以交付」</b>。</p>
+
+            <div class="role-cols reveal">
+                <div class="role-card">
+                    <div class="role-head"><span class="role-tag">负责「写」</span><h3 class="role-name">ChatGPT + 长 Prompt</h3></div>
+                    <p class="role-analogy">像临时请来一位聪明的分析师。</p>
+                    <ul class="role-list">
+                        <li>阅读材料</li>
+                        <li>总结、分析、写稿</li>
+                        <li>按你的反馈继续修改</li>
+                        <li>按长 Prompt 尽量遵守格式和规则</li>
+                    </ul>
+                    <p class="role-note">但规则主要活在<b>当前对话里</b>。哪一版是最终稿、哪个问题已解决、数字有没有在改稿时变，通常仍靠模型自己理解和说明。</p>
+                    <p class="role-fit"><span>适合</span>头脑风暴、一次性草稿、低风险内部材料。</p>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-head"><span class="role-tag">负责「跑」</span><h3 class="role-name">Agent Runtime + Skill.md</h3></div>
+                    <p class="role-analogy">像给分析师配了工具、任务清单和标准操作流程。</p>
+                    <ul class="role-list">
+                        <li>调用搜索、文件、代码等工具</li>
+                        <li>自动拆分并执行多步任务</li>
+                        <li>复用同一套 Skill、多 Agent 分工</li>
+                        <li>失败后自动尝试重跑</li>
+                    </ul>
+                    <p class="role-note">但若没有独立的状态和权限层，同一个 Agent 仍可能<b>既写稿、又判断自己完成、又改此前的文件、又宣布「最终稿已生成」</b>——执行者和裁判是同一个人。</p>
+                    <p class="role-fit"><span>适合</span>自动化研究、信息收集、末尾人工复核的内部工作流。</p>
+                </div>
+
+                <div class="role-card is-briefloop">
+                    <div class="role-head"><span class="role-tag brand">负责「管住交付」</span><h3 class="role-name">BriefLoop</h3></div>
+                    <p class="role-analogy">不替代上面任何一个，而是<b>包在它们外面</b>。它增加的不是更聪明的写作，而是一层记录与权限：</p>
+                    <ul class="role-list">
+                        <li>哪些关键事实已经确认</li>
+                        <li>哪个版本的工件被登记</li>
+                        <li>检查发现了什么、是否真的处理</li>
+                        <li>哪一版通过交付前检查、谁批准</li>
+                        <li>运行中断后应从哪里继续</li>
+                    </ul>
+                    <p class="role-note">这些状态不只活在模型的回答里，而是由 <b>Agent 之外的程序和记录</b>保存。</p>
+                    <p class="role-fit"><span>适合</span>周报、月报、管理层简报、IR 材料、研究报告，以及需要多人复核、重复运行、承担交付责任的工作。</p>
+                </div>
+            </div>
+
+            <div class="compare-table-wrap reveal">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ChatGPT + 长 Prompt</th>
+                            <th>Agent Runtime + Skill.md</th>
+                            <th class="col-brand">BriefLoop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>主要作用</th><td>生成内容</td><td>自动执行任务</td><td class="col-brand">管理报告从草稿到交付</td></tr>
+                        <tr><th>规则如何生效</th><td>Agent 按 Prompt 理解遵守</td><td>Agent 按 Skill 和 Runtime 执行</td><td class="col-brand">关键边界由外部状态、程序检查和权限控制</td></tr>
+                        <tr><th>谁判断任务完成</th><td>通常是模型或用户</td><td>通常是 Agent 或 Runtime 流程</td><td class="col-brand">写稿 Agent 无权单独宣布可交付</td></tr>
+                        <tr><th>关键数字如何保存</th><td>存在于材料和对话中</td><td>可能保存在中间文件中</td><td class="col-brand">关键事实单独登记，改动必须留痕</td></tr>
+                        <tr><th>发现错误后</th><td>继续对话、重新生成</td><td>Agent 重试或重跑步骤</td><td class="col-brand">问题入账，阻断交付，修复后重新检查</td></tr>
+                        <tr><th>哪一版算最终稿</th><td>最后一次回答或生成的文件</td><td>Agent 标记完成的结果</td><td class="col-brand">通过检查并获批准的版本</td></tr>
+                        <tr><th>运行中断后</th><td>依赖聊天记录和上下文</td><td>取决于 Runtime 是否存状态</td><td class="col-brand">根据工件和运行记录恢复</td></tr>
+                        <tr><th>最适合</th><td>一次性、低风险写作</td><td>多步骤自动化</td><td class="col-brand">重复、高风险、多人复核的正式报告</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="compare-summary reveal">ChatGPT 负责想和写，Skill 负责教它怎么做，Runtime 负责让它跑起来，<b>BriefLoop 负责记账、拦截和放行</b>。</p>
+
+            <div class="compare-boundary reveal">
+                <span class="cb-kicker">诚实说明</span>
+                <p>Agent Runtime 当然也可以自行实现持久状态、工件冻结、不可绕过的门禁、人工批准、审计日志和断点恢复。但当这些能力都被实现后，它其实<b>已经在重建 BriefLoop 的核心</b>。BriefLoop 的价值不是声称别人做不到，而是把每个团队原本要用 Prompt、脚本和约定各自拼出来的治理能力，做成一套现成、统一、可测试、可复用的工作流。</p>
+            </div>
+
+            <p class="compare-punch reveal">Skill 是「请你这样做」，<span class="text-gradient">BriefLoop 是「没做到这一步，就过不去」。</span></p>
+        </div>
+    </section>
+
+    <!-- ===== 第四屏 · 四步说明它怎么工作 ===== -->
+    <section class="section-steps" id="how">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">How it works · 怎么工作</div>
+                <h2>四步，把 AI 草稿变成敢交付的最终稿</h2>
+            </div>
+            <div class="steps-grid reveal" style="margin-top:44px;">
+                <div class="step-card">
+                    <span class="step-num">1</span>
+                    <h3>把资料交给 AI</h3>
+                    <p>本地文件、报告、表格，或已登记的网页材料。</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">2</span>
+                    <h3>AI 起草报告</h3>
+                    <p>可以用 Claude Code、WorkBuddy 或其他支持的 Agent。</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">3</span>
+                    <h3>BriefLoop 对照来源和规则检查</h3>
+                    <p>看数字有没有出处、材料是否过期、是否突然多出新的重要结论。</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">4</span>
+                    <h3>问题退回修改，人确认后交付</h3>
+                    <p>未处理的问题不会被当成最终稿。放行的永远是人，且留有记录。</p>
+                </div>
+            </div>
+            <details class="tech-disclosure reveal">
+                <summary>查看技术细节</summary>
+                <div class="tech-disclosure-body">
+                    <p>在这四步背后，每个关键事实先落进<b>关键事实清单</b>（<code>claim_ledger.json</code>）并冻结；检查结果、审计发现和放行动作写进<b>事件日志</b>（<code>event_log.jsonl</code>）；冻结时对事实做哈希，改稿时不能被悄悄改动。这些是证据，不是你每天要读的东西——完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- ===== 第五屏 · 用户最后得到什么 ===== -->
+    <section class="section-outcome" id="artifacts">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">What you get · 你会拿到</div>
+                <h2>不只是一份报告，而是一套「可以被追问」的交付</h2>
+                <p class="section-desc">先看它有什么用，文件名点开再看。</p>
+            </div>
+            <div class="grid-2 outcome-grid" style="margin-top:44px;" data-disclosure-group>
+                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                    <div><h3>一份可以直接阅读的最终简报</h3><p>通过全部检查、经人工批准后才成为最终稿的报告。</p></div>
+                    <span class="card-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>brief.md · brief.docx</code></div>
+                </div>
+                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                    <div><h3>一张关键数字和出处的来源地图</h3><p>每个关键数字对应哪份材料、第几页，一眼可查。</p></div>
+                    <span class="card-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>claim_ledger.json · source_appendix.md</code></div>
+                </div>
+                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                    <div><h3>一份需要人工处理的问题清单</h3><p>哪些地方还没出处、还在冲突、还需人来判断，都列在这里。</p></div>
+                    <span class="card-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>findings · audit bundle</code></div>
+                </div>
+                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
+                    <div><h3>一条谁在什么时候批准交付的记录</h3><p>放行是谁、什么时间、基于哪一版，全程留痕。</p></div>
+                    <span class="card-chevron" aria-hidden="true">⌄</span>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>event_log.jsonl · finalize_report.json</code></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 真实试运行周报 · 作者手工放置 ===== -->
+    <!--
+      ┌─ 给作者：把三份真实跑出来的周报放这里 ────────────────────────────┐
+      │ 每张卡片替换三处即可：                                              │
+      │   1) href       → 报告链接，例如 reports/weekly-2026-07-solar.html │
+      │                   或 PDF / 外链；未放置前保留 href="#" 会显示为占位 │
+      │   2) 标题 / 摘要 → <h3> 和 <p> 文本                                 │
+      │   3) meta 三项   → 行业 · 日期 · 运行标识                           │
+      │ 放置后，把卡片上的 class "is-placeholder" 删掉即可切换成正式样式。  │
+      └────────────────────────────────────────────────────────────────────┘
+    -->
+    <section class="section-samples" id="samples">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow" style="justify-content:center;">From real runs · 真实试运行</div>
+                <h2>三份真实跑出来的周报</h2>
+                <p class="section-desc">不是合成案例——下面是用 BriefLoop 真实运行、通过检查并交付的周报。点开可读，并附带来源地图与检查记录。</p>
+            </div>
+            <div class="grid-3 sample-grid reveal" style="margin-top:44px;">
+                <!-- 卡片 1 -->
+                <a class="sample-card is-placeholder" href="#" aria-label="待放置的周报 1">
+                    <span class="sample-tag">待放置 · PLACEHOLDER</span>
+                    <h3>周报标题（替换我）</h3>
+                    <p>一句话摘要：这份周报覆盖了什么、拦下了什么问题。</p>
+                    <div class="sample-meta"><span>行业</span><span>日期</span><span>运行 ID</span></div>
+                    <span class="sample-cta">查看报告 →</span>
+                </a>
+                <!-- 卡片 2 -->
+                <a class="sample-card is-placeholder" href="#" aria-label="待放置的周报 2">
+                    <span class="sample-tag">待放置 · PLACEHOLDER</span>
+                    <h3>周报标题（替换我）</h3>
+                    <p>一句话摘要：这份周报覆盖了什么、拦下了什么问题。</p>
+                    <div class="sample-meta"><span>行业</span><span>日期</span><span>运行 ID</span></div>
+                    <span class="sample-cta">查看报告 →</span>
+                </a>
+                <!-- 卡片 3 -->
+                <a class="sample-card is-placeholder" href="#" aria-label="待放置的周报 3">
+                    <span class="sample-tag">待放置 · PLACEHOLDER</span>
+                    <h3>周报标题（替换我）</h3>
+                    <p>一句话摘要：这份周报覆盖了什么、拦下了什么问题。</p>
+                    <div class="sample-meta"><span>行业</span><span>日期</span><span>运行 ID</span></div>
+                    <span class="sample-cta">查看报告 →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 第六屏 · 适用场景 ===== -->
     <section class="section-usecases" id="scenarios">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Scenarios · 典型场景</div>
-                <h2>在「错了有后果」的场景里把好最后一道关</h2>
-                <p class="section-desc">季报追问、竞品周报、合规复核、管理层简报——AI 提速的同时，出处必须经得起追问。</p>
+                <div class="eyebrow" style="justify-content:center;">Scenarios · 适用场景</div>
+                <h2>你每周要交什么，BriefLoop 就帮你守住那一份</h2>
+                <p class="section-desc">你每周要交什么？BriefLoop 帮你保留什么？最常拦住哪类问题？</p>
             </div>
-            <div class="grid-2" style="margin-top:48px;">
+            <div class="grid-3" style="margin-top:44px;">
                 <div class="usecase-item reveal">
-                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 21V8l6-4v17M10 21h10V10l-6-3.5M7 10h.01M7 13h.01M7 16h.01M14 13h.01M14 16h.01M17 13h.01M17 16h.01"/><path d="M2 21h20"/></svg></div>
-                    <div class="usecase-detail">
-                        <h3>投资者关系 (IR)</h3>
-                        <p class="usecase-problem"><strong>典型痛点</strong>：季报/披露数据出处复杂，回答分析师与复核部门追问时，寻找原始凭证耗时耗力。</p>
-                        <p class="usecase-solution"><strong>BriefLoop 价值</strong>：自动生成带溯源坐标的来源地图 (Source Map)，披露数据 30 秒回溯到原始页码与上下文。</p>
-                    </div>
-                </div>
-                <div class="usecase-item reveal reveal-delay-1">
                     <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <div class="usecase-detail">
-                        <h3>战略与投资研究</h3>
-                        <p class="usecase-problem"><strong>典型痛点</strong>：周度竞品跟踪与行业简报改动频繁，多轮编辑后容易混入未经证实的数据观点。</p>
-                        <p class="usecase-solution"><strong>BriefLoop 价值</strong>：核心论点先冻结再润色，多轮修改不会改变事实本质。</p>
-                    </div>
-                </div>
-                <div class="usecase-item reveal">
-                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M5 7l7-4 7 4M5 7v4c0 2 1.5 3.5 3.5 3.5S12 13 12 11M19 7v4c0 2-1.5 3.5-3.5 3.5S12 13 12 11"/><path d="M8 21h8"/></svg></div>
-                    <div class="usecase-detail">
-                        <h3>合规与审查部门</h3>
-                        <p class="usecase-problem"><strong>典型痛点</strong>：人工复核 AI 草稿的原始来源成本高昂，难以核准是否存在过期数据或缺失依据。</p>
-                        <p class="usecase-solution"><strong>BriefLoop 价值</strong>：过期或无依据的陈述被自动标记并阻断，复核只看例外，不用全文重核。</p>
+                        <h3>行业与竞品周报</h3>
+                        <p class="usecase-problem"><strong>要交</strong>：每周的行业动向和竞品跟踪。</p>
+                        <p class="usecase-solution"><strong>常拦住</strong>：多轮改稿后混入的未证实数据和观点；核心数字先冻结再润色。</p>
                     </div>
                 </div>
                 <div class="usecase-item reveal reveal-delay-1">
                     <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.5-5.5 6-5.5s6 2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16.5 14.6c2.8.3 4.5 2 4.5 4.9"/></svg></div>
                     <div class="usecase-detail">
-                        <h3>管理层决策简报</h3>
-                        <p class="usecase-problem"><strong>典型痛点</strong>：多来源混合简报容易失真，AI 生成的判断结论过于绝对，缺乏归因支撑。</p>
-                        <p class="usecase-solution"><strong>BriefLoop 价值</strong>：结论必须有登记来源支撑；最终放行的永远是人，且放行动作留有记录。</p>
+                        <h3>管理层月报</h3>
+                        <p class="usecase-problem"><strong>要交</strong>：给管理层的月度经营与决策简报。</p>
+                        <p class="usecase-solution"><strong>常拦住</strong>：把「预计」写成「已完成」、过于绝对且缺乏归因的结论。</p>
+                    </div>
+                </div>
+                <div class="usecase-item reveal reveal-delay-2">
+                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M5 7l7-4 7 4M5 7v4c0 2 1.5 3.5 3.5 3.5S12 13 12 11M19 7v4c0 2-1.5 3.5-3.5 3.5S12 13 12 11"/><path d="M8 21h8"/></svg></div>
+                    <div class="usecase-detail">
+                        <h3>文档证据审阅</h3>
+                        <p class="usecase-problem"><strong>要交</strong>：对 AI 草稿做出处与合规复核的结论。</p>
+                        <p class="usecase-solution"><strong>常拦住</strong>：过期或无依据的陈述被标记并阻断，复核只看例外。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- The Loop — pipeline animation -->
-    <section class="section-loop" id="loop">
+    <!-- ===== 第七屏 · 诚实说明边界 ===== -->
+    <section class="section-boundary" id="boundary">
+        <div class="container">
+            <div class="boundary-inner reveal">
+                <div class="eyebrow on-dark">Boundary · 边界</div>
+                <h2>帮你查清楚，但不替你拍板</h2>
+                <p>BriefLoop 不会自动证明某句话绝对正确，也不会替代法律、合规或管理层判断。它做的是把出处、冲突、过期材料和未解决问题摆到你面前，并防止这些问题被悄悄当成最终稿。</p>
+                <p class="boundary-note">举个例子：它不会证明「需求一定没有回暖」；它只是指出，当前提供的材料不足以支持这个结论。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 怎么开始 ===== -->
+    <section class="section-start" id="start">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow on-dark" style="justify-content:center;">The Loop · 运行环</div>
-                <h2>一条断言的完整旅程</h2>
-                <p class="section-desc">从信源到人工放行，每个断言都在确定性控制面上留痕。门禁不放行的断言，回到修复回路，而不是溜进交付件。</p>
+                <div class="eyebrow" style="justify-content:center;">Get started · 怎么开始</div>
+                <h2>先看它抓错，再在本地跑一遍</h2>
+                <p class="section-desc">控制面 CLI 可通过 <code>pipx install briefloop</code> 安装；完整的 Agent runtime 资产仍需要源码安装。先从下面三条路径认识并运行它。</p>
             </div>
-
-            <div class="loop-stage-rail reveal">
-                <svg class="loop-svg" viewBox="0 88 960 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BriefLoop 流水线：信源 → Scout → Claim Ledger → 起草润色 → Auditor → 质量门禁 → 人工批准交付，门禁阻断的断言回到修复回路">
-                    <!-- main rail -->
-                    <path d="M80 140 H880" stroke="rgba(255,255,255,0.14)" stroke-width="2" fill="none"/>
-                    <!-- repair loop -->
-                    <path id="repair-path" d="M745 152 C745 262 495 262 495 152" stroke="rgba(248,113,113,0.35)" stroke-width="1.5" fill="none" stroke-dasharray="5 5"/>
-                    <path d="M495 162 l-6 10 h12 z" fill="rgba(248,113,113,0.5)"/>
-                    <text x="620" y="252" class="loop-node-label" fill="rgba(248,113,113,0.75)">修复回路 · repair loop</text>
-
-                    <!-- stage nodes -->
-                    <g class="loop-nodes">
-                        <!-- 1 sources -->
-                        <circle cx="80" cy="140" r="17" fill="#1d2b26" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-                        <path d="M74 133 h9 l4 4 v10 h-13 z M83 133 v4 h4" stroke="rgba(234,241,235,0.7)" stroke-width="1.2" fill="none"/>
-                        <text x="80" y="180" class="loop-node-label">信源</text>
-                        <text x="80" y="196" class="loop-node-sub">sources</text>
-
-                        <!-- 2 scout (agent, dashed) -->
-                        <circle cx="215" cy="140" r="17" fill="#1d2b26" stroke="rgba(246,245,243,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                        <circle cx="212" cy="137" r="5.5" stroke="rgba(234,241,235,0.7)" stroke-width="1.2" fill="none"/>
-                        <path d="M216 141 l6 6" stroke="rgba(234,241,235,0.7)" stroke-width="1.2"/>
-                        <text x="215" y="180" class="loop-node-label">Scout 侦察</text>
-                        <text x="215" y="196" class="loop-node-sub">agent 起草</text>
-
-                        <!-- 3 claim ledger (control, teal) -->
-                        <circle cx="360" cy="140" r="19" fill="#1d2b26" stroke="#4faf62" stroke-width="1.8"/>
-                        <path d="M353 134 h14 M353 140 h14 M353 146 h8" stroke="#4faf62" stroke-width="1.3"/>
-                        <text x="360" y="180" class="loop-node-label" fill="#4faf62">Claim Ledger</text>
-                        <text x="360" y="196" class="loop-node-sub">确定性冻结</text>
-
-                        <!-- 4 analyst/editor (agent, dashed) -->
-                        <circle cx="495" cy="140" r="17" fill="#1d2b26" stroke="rgba(246,245,243,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                        <path d="M489 147 l9-9 3 3 -9 9 -4 1 z" stroke="rgba(234,241,235,0.7)" stroke-width="1.2" fill="none"/>
-                        <text x="495" y="180" class="loop-node-label">起草 · 润色</text>
-                        <text x="495" y="196" class="loop-node-sub">analyst / editor</text>
-
-                        <!-- 5 auditor (agent, dashed) -->
-                        <circle cx="620" cy="140" r="17" fill="#1d2b26" stroke="rgba(246,245,243,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                        <circle cx="618" cy="138" r="5" stroke="rgba(234,241,235,0.7)" stroke-width="1.2" fill="none"/>
-                        <path d="M622 142 l5 5 M615.5 138 l1.8 1.8 3.2-3.6" stroke="rgba(234,241,235,0.7)" stroke-width="1.2" fill="none"/>
-                        <text x="620" y="180" class="loop-node-label">Auditor 审计</text>
-                        <text x="620" y="196" class="loop-node-sub">对照账本</text>
-
-                        <!-- 6 gates (control, pulsing ring) -->
-                        <circle cx="745" cy="140" r="19" fill="#1d2b26" stroke="#4faf62" stroke-width="1.8"/>
-                        <circle cx="745" cy="140" r="19" fill="none" stroke="#4faf62" stroke-width="1.5" opacity="0.5">
-                            <animate attributeName="r" values="19;26;19" dur="4s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
-                        </circle>
-                        <path d="M745 131 l7 3 v6 c0 5 -3.5 8 -7 9 -3.5 -1 -7 -4 -7 -9 v-6 z" stroke="#4faf62" stroke-width="1.3" fill="none"/>
-                        <text x="745" y="180" class="loop-node-label" fill="#4faf62">Quality Gates</text>
-                        <text x="745" y="196" class="loop-node-sub">Python 门禁</text>
-
-                        <!-- 7 human delivery (control) -->
-                        <circle cx="880" cy="140" r="19" fill="#1d2b26" stroke="#4faf62" stroke-width="1.8"/>
-                        <circle cx="880" cy="134" r="4.5" stroke="#4faf62" stroke-width="1.3" fill="none"/>
-                        <path d="M872 150 c0-5 4-7 8-7 s8 2 8 7" stroke="#4faf62" stroke-width="1.3" fill="none"/>
-                        <text x="880" y="180" class="loop-node-label" fill="#4faf62">人工批准交付</text>
-                        <text x="880" y="196" class="loop-node-sub">human-triggered</text>
-                    </g>
-
-                    <!-- passing claim chip (green) -->
-                    <g class="loop-anim-only">
-                        <g>
-                            <rect x="-9" y="-6" width="18" height="12" rx="3" fill="#4faf62" opacity="0.9"/>
-                            <animateMotion dur="9s" repeatCount="indefinite" path="M80 140 H880" keyPoints="0;0.1;0.16;0.32;0.38;0.52;0.58;0.72;0.78;0.92;1" keyTimes="0;0.1;0.16;0.32;0.38;0.52;0.58;0.72;0.78;0.92;1" calcMode="linear"/>
-                        </g>
-                        <!-- blocked claim chip (red): auditor → gate → repair loop back to editor -->
-                        <g>
-                            <rect x="-9" y="-6" width="18" height="12" rx="3" fill="#f87171" opacity="0.85">
-                                <animate attributeName="opacity" values="0;0.85;0.85;0.85;0" keyTimes="0;0.08;0.5;0.92;1" dur="9s" repeatCount="indefinite"/>
-                            </rect>
-                            <animateMotion dur="9s" repeatCount="indefinite" path="M620 140 H745 L745 152 C745 262 495 262 495 152 L495 140" keyPoints="0;0;0.3;0.34;0.9;1;1" keyTimes="0;0.2;0.42;0.48;0.85;0.95;1" calcMode="linear"/>
-                        </g>
-                    </g>
-                    <text x="880" y="112" class="loop-node-sub" fill="rgba(52,211,153,0.8)">delivery_truth.valid=true</text>
-                </svg>
+            <div class="grid-3 start-grid reveal" style="margin-top:44px;">
+                <a class="start-card" href="#catch">
+                    <span class="start-k">01</span>
+                    <h3>在线看三个抓错演示</h3>
+                    <p>不用装任何东西，十秒钟看懂它拦住了什么。</p>
+                    <span class="start-go">回到演示 ↑</span>
+                </a>
+                <a class="start-card" href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank" rel="noopener noreferrer">
+                    <span class="start-k">02</span>
+                    <h3>跑一个本地参考样例</h3>
+                    <p>用仓库自带的 demo 工作区，在本机走通一次完整流程。</p>
+                    <span class="start-go">Getting Started →</span>
+                </a>
+                <a class="start-card" href="how-it-works.html" target="_self">
+                    <span class="start-k">03</span>
+                    <h3>看源码安装指南</h3>
+                    <p>需要 Claude Code、Codex 或 WorkBuddy 的源码 runtime 资产时，用 <code>git clone</code> + <code>setup.sh</code> 安装。</p>
+                    <span class="start-go">运作原理 →</span>
+                </a>
             </div>
-
-            <div class="loop-legend reveal">
-                <span><span class="legend-chip pass"></span>有账可查的断言 → 交付</span>
-                <span><span class="legend-chip blocked"></span>被门禁阻断 → 修复回路</span>
-                <span><span class="legend-chip human"></span>实线节点 = 确定性控制面，虚线节点 = AI 起草</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quickstart — the single conversion target -->
-    <section class="section-quickstart" id="quickstart">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Quickstart · 上手</div>
-                <h2>15 分钟跑通第一份简报</h2>
-                <p class="section-desc">CLI 负责建档、校验和门禁；写作由你选择的 Agent runtime 完成，CLI 本身不会调用 LLM 写报告。</p>
-            </div>
-
-            <div class="quickstart-shell reveal">
-                <div class="hero-install" id="hero-install">
-                    <div class="hero-install-head">
-                        <div class="hero-install-title">
-                            <span>Start here</span>
-                            <strong>选择现在就能跑通的路径</strong>
-                        </div>
-                        <div class="hero-install-tabs" role="tablist" aria-label="启动路径">
-                            <button type="button" class="hero-install-tab active" data-install="cli" role="tab" aria-selected="true">控制面 CLI</button>
-                            <button type="button" class="hero-install-tab" data-install="claude" role="tab" aria-selected="false">Claude Code</button>
-                        </div>
-                    </div>
-                    <div class="hero-install-panel" data-panel="cli" role="tabpanel">
-                        <div class="hero-command-list">
-                            <div class="hero-command-row"><span>01</span><code>pipx install briefloop</code></div>
-                            <div class="hero-command-row"><span>02</span><code>briefloop new industry-weekly ./my-weekly</code></div>
-                            <div class="hero-command-row"><span>03</span><code>briefloop run --workspace ./my-weekly --runtime operator</code></div>
-                        </div>
-                        <button type="button" class="btn-copy-hero" data-copy-target="cli" aria-label="复制控制面 CLI 命令">复制全部</button>
-                    </div>
-                    <div class="hero-install-panel hidden" data-panel="claude" role="tabpanel">
-                        <div class="hero-command-list">
-                            <div class="hero-command-row"><span>01</span><code>git clone https://github.com/Stahl-G/briefloop.git</code></div>
-                            <div class="hero-command-row"><span>02</span><code>cd briefloop &amp;&amp; bash scripts/setup.sh</code></div>
-                            <div class="hero-command-row"><span>03</span><code>source .venv/bin/activate</code></div>
-                            <div class="hero-command-row"><span>04</span><code>briefloop claude install --repo-workdir .</code></div>
-                        </div>
-                        <button type="button" class="btn-copy-hero" data-copy-target="claude" aria-label="复制 Claude Code 安装命令">复制全部</button>
-                    </div>
-                    <p class="hero-install-hint" data-hint="cli">创建工作区和 operator handoff；CLI 本身不会调用 LLM 写报告。</p>
-                    <p class="hero-install-hint hidden" data-hint="claude">安装后打开 Claude Code，输入 <code>/briefloop new</code> 开始对话式建档。</p>
-                </div>
-            </div>
-            <p class="quickstart-note">完整步骤见 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.zh-CN.md" target="_blank" rel="noopener noreferrer">15 分钟试运行指南</a>；治理模型、门禁模拟与开发者细节见 <a href="how-it-works.html">运作原理</a>。</p>
-        </div>
-    </section>
-
-    <!-- Artifacts -->
-    <section class="section-artifacts" id="artifacts">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Artifacts · 交付产物</div>
-                <h2>交付的不只是文档，还有一整套账簿</h2>
-                <p class="section-desc">每次运行都保留可查证的过程记录：事实账本、来源附录、审计记录与最终交付包。点开看示例。</p>
-            </div>
-
-            <div class="grid-2" style="margin-top:48px;" aria-label="BriefLoop 标准交付产物" data-disclosure-group>
-                <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
-                    <div>
-                        <h4>事实账本 <code>claim_ledger.json</code></h4>
-                        <p>关键事实、数字及登记来源的结构化记录，冻结后成为下游写作的事实依据。</p>
-                    </div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true">
-                        <span class="detail-kicker">示例记录</span>
-                        <code>CL-0012 · 组件现货均价环比下降 1.8% · SRC-003 · 限定：仅代表监测样本</code>
-                    </div>
-                </div>
-                <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/></svg>
-                    <div>
-                        <h4>来源附录 <code>source_appendix</code></h4>
-                        <p>汇总简报引用的登记来源；具备证据片段时，可附页码与片段轨迹供复核。</p>
-                    </div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true">
-                        <span class="detail-kicker">示例条目</span>
-                        <code>[SRC-003] 示例行业价格简报 · 第 12 页 · 取回日期 2026-06-30</code>
-                    </div>
-                </div>
-                <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-                    <div>
-                        <h4>审计记录包 <code>audit bundle</code></h4>
-                        <p>保留质量门禁结果、运行轨迹、审计发现和交付前检查记录。</p>
-                    </div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true">
-                        <span class="detail-kicker">检查摘要</span>
-                        <code>material_fact: PASS · freshness: WARNING · reader_clean: PASS · human approval: REQUIRED</code>
-                    </div>
-                </div>
-                <div class="artifact-card-small disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13l2.5 2.5L16 11"/></svg>
-                    <div>
-                        <h4>交付包 <code>delivery bundle</code></h4>
-                        <p>通过全部门禁并经人工批准后才晋升的 Markdown 与 Word 报告。</p>
-                    </div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true">
-                        <span class="detail-kicker">示例文件</span>
-                        <code>brief.md · brief.docx · source_appendix.md · finalize_report.json</code>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Report -->
-    <section class="section-tech-report" id="tech-report">
-        <div class="container tech-report-layout">
-            <div class="tech-report-copy reveal">
-                <div class="eyebrow">Technical Report · 技术报告</div>
-                <h2>不只展示结果，也公开为什么这样设计</h2>
-                <p>《BriefLoop 架构参考 v0.4.0》系统说明项目的架构宪章、控制事务、证据与声明边界、产品基线，以及从可追溯性走向支持充分性的实验方向。</p>
-                <div class="tech-report-actions">
-                    <a class="btn-primary" href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">阅读完整中文技术报告</a>
-                    <a class="tech-report-alt" href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">English edition →</a>
-                </div>
-            </div>
-            <div class="tech-report-index reveal reveal-delay-1" aria-label="技术报告内容摘要">
-                <span class="report-edition-label">ARCHITECTURE REFERENCE · v0.4.0</span>
-                <div class="report-index-row"><span>01</span><b>架构宪章与权力边界</b></div>
-                <div class="report-index-row"><span>02</span><b>运行状态、证据、门禁与归档骨干</b></div>
-                <div class="report-index-row"><span>03</span><b>支持充分性实验栈与能力边界</b></div>
-                <div class="report-index-row"><span>04</span><b>迈向 v1.0 的产品基线</b></div>
-                <p>代码快照 v0.11.12 · 2026-07-10 · 中英双语 HTML</p>
-            </div>
+            <p class="quickstart-note">想深入治理模型、门禁机制与技术报告？都在 <a href="how-it-works.html">运作原理</a> 与 <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.4.0</a> 里。</p>
         </div>
     </section>
 
@@ -443,23 +531,23 @@
                     </svg>
                     <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
                 </div>
-                <p class="footer-desc">让每一行商业报告都有据可查，为 Enterprise AI 提供保管链基础设施。</p>
-                <p class="footer-boundary">Traceability, not semantic proof. · 可追溯性，而非语义证明。</p>
+                <p class="footer-desc">AI 先写，BriefLoop 对账；问题没处理完，就不能交付。</p>
+                <p class="footer-boundary">帮你查清出处，但不替你判断真假。</p>
             </div>
             <div class="footer-links">
-                <h4>快速链接</h4>
+                <h4>产品</h4>
+                <a href="#catch">看它抓错</a>
+                <a href="#compare">对比</a>
+                <a href="#scenarios">使用场景</a>
+                <a href="#start">怎么开始</a>
+                <a href="#boundary">能力边界</a>
+            </div>
+            <div class="footer-links">
+                <h4>文档与研究</h4>
                 <a href="how-it-works.html">运作原理</a>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank">GitHub 仓库</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.zh-CN.md" target="_blank">15 分钟尝鲜</a>
-                <a href="mailto:contact@briefloop.ai">商务合作</a>
-            </div>
-            <div class="footer-links">
-                <h4>文档</h4>
                 <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告 v0.4.0</a>
-                <a href="agents/briefloop/SKILL.md" target="_blank" rel="noopener noreferrer">Agent 安装协议</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank">Getting Started</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/weekly-loop.md" target="_blank">Weekly Loop</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md" target="_blank">Support Matrix</a>
+                <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>
+                <a href="mailto:contact@briefloop.ai">商务合作</a>
             </div>
             <div class="footer-copyright">
                 <p>&copy; 2026 BriefLoop.ai · Open-sourced under the MIT License.</p>

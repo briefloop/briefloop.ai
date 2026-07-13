@@ -350,14 +350,15 @@
                         <button class="btn-copy-terminal" id="btn-copy-code">Copy commands</button>
                     </div>
                     <div class="terminal-body" id="terminal-demo">
-                        <div class="terminal-line"><span class="t-prompt">$</span> pipx install briefloop</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime operator</div>
                         <div class="terminal-line t-output">[created] workspace → ./my-weekly</div>
                         <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
                         <div class="terminal-line t-comment"># Next: give the handoff to a supported agent runtime; the CLI does not write the report</div>
                     </div>
-                    <p class="terminal-note">Control-plane quickstart: <code>pipx install briefloop</code>. The complete Claude Code path requires a source install and <code>briefloop claude install</code>.</p>
+                    <p class="terminal-note">Install the deterministic CLI with <code>pipx install briefloop</code>. Use <code>git clone</code> + <code>scripts/setup.sh</code> when you need source runtime assets for Claude Code, Codex, or WorkBuddy; the complete Claude Code path then runs <code>briefloop claude install</code>.</p>
                 </div>
             </div>
         </div>

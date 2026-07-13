@@ -480,66 +480,201 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* --- 7. Hero install tabs + copy --- */
-    const heroInstall = document.getElementById("hero-install");
-    const installCopyText = {
-        cli: [
-            "pipx install briefloop",
-            "briefloop new industry-weekly ./my-weekly",
-            "briefloop run --workspace ./my-weekly --runtime operator"
-        ].join("\n"),
-        claude: [
-            "git clone https://github.com/Stahl-G/briefloop.git",
-            "cd briefloop && bash scripts/setup.sh",
-            "source .venv/bin/activate",
-            "briefloop claude install --repo-workdir ."
-        ].join("\n")
-    };
+    /* --- 6b. Comparison demo (see it catch) --- */
+    const cmpWidget = document.querySelector("[data-cmp-widget]");
+    if (cmpWidget) {
+        const cmpAll = {
+            zh: {
+                t: { deliver: "交付", delivered: "已通过检查 · 待人工确认", rev1: "草稿 · revision 1", rev2: "revision 2 · 已修复" },
+                scenarios: {
+                    flip: {
+                        source: "样本组件现货均价环比下降 1.5%。",
+                        oneShot: "组件现货均价环比<span class=err>上涨 2.5%</span>，显示<span class=err>下游需求正在回暖</span>。",
+                        draft: "组件现货均价环比上涨 2.5%，显示下游需求正在回暖。",
+                        findings: [
+                            { level: "block", tag: "BLOCKED · 数字冲突", text: "「上涨 2.5%」与已登记数字（下降 1.5%）方向和幅度都不一致。" },
+                            { level: "warn", tag: "AI 复核发现 · 待人确认", text: "「需求正在回暖」没有登记来源支撑，需要人来确认是否保留。" }
+                        ],
+                        repaired: "样本组件现货均价环比下降 1.5%。现有材料不足以判断价格变化的具体原因。",
+                        repairedFindings: [ { level: "pass", tag: "PASSED · 与登记数字一致", text: "revision 2 的方向和幅度与冻结记录一致，未登记结论已移除。" } ],
+                        q: {
+                            where: "把「下降 1.5%」写成了「上涨 2.5%」，还加了一句没有依据的「需求正在回暖」。",
+                            how: "当前草稿里的数字与已登记（冻结）的数字方向、幅度都对不上；「回暖」这句话找不到登记来源。",
+                            why: "存在未解决的冲突和无出处结论；问题没处理完，就不能被当成最终稿。",
+                            fixed: "样本组件现货均价环比下降 1.5%。现有材料不足以判断价格变化的具体原因。",
+                            notProven: "它没有证明需求一定没有回暖；只是指出当前提供的材料不足以支持这个结论。"
+                        },
+                        tech: "finding: QG-014  type: value_conflict\nledger:  CL-0012 组件现货均价 = 下降 1.5% (frozen)\ndraft:   上涨 2.5% + 未登记结论「需求回暖」\ndelivery_truth.valid = false"
+                    },
+                    status: {
+                        source: "公司预计于第四季度启动试生产，具体时间取决于设备验收进度。",
+                        oneShot: "新产线<span class=err>已经投产</span>，并将在第四季度<span class=err>贡献收入</span>。",
+                        draft: "新产线已经投产，并将在第四季度贡献收入。",
+                        findings: [
+                            { level: "block", tag: "BLOCKED · 未登记事实", text: "「已经投产」没有出现在关键事实清单中；来源只支持「预计启动」。" },
+                            { level: "warn", tag: "AI 复核发现 · 待人确认", text: "「贡献收入」没有登记来源，属于新增推论，需人确认。" }
+                        ],
+                        repaired: "公司目前预计于第四季度启动试生产，但时间仍取决于设备验收，收入贡献尚无法确认。",
+                        repairedFindings: [ { level: "pass", tag: "PASSED · 与来源范围一致", text: "revision 2 恢复了「预计」的条件语气，移除了未登记的完成状态与收入结论。" } ],
+                        q: {
+                            where: "把「预计启动」写成了「已经投产」，并凭空加了「贡献收入」。",
+                            how: "来源只支持预计时间，不支持「已完成」；「贡献收入」在清单里找不到依据。",
+                            why: "状态被夸大、结论无出处；退回修改，未处理不能交付。",
+                            fixed: "公司目前预计于第四季度启动试生产，但时间仍取决于设备验收，收入贡献尚无法确认。",
+                            notProven: "它没有证明产线一定不会投产；只是指出材料目前只支持「预计」，不支持「已完成」。"
+                        },
+                        tech: "finding: QG-021 / QG-022  type: unregistered_fact + scope_mismatch\nledger:  无「已投产」登记项\nsource:  仅支持 estimated_start = Q4\ndelivery_truth.valid = false"
+                    },
+                    stale: {
+                        source: "2025 年第四季度，公司在样本市场中的份额为 18%。",
+                        oneShot: "公司<span class=err>目前</span>的市场份额为 18%，<span class=err>仍处于行业领先位置</span>。",
+                        draft: "公司目前的市场份额为 18%，仍处于行业领先位置。",
+                        findings: [
+                            { level: "block", tag: "BLOCKED · 时效不符", text: "当前任务要求近 30 天材料，该来源标注为 2025 Q4，已超出时限。" },
+                            { level: "block", tag: "时间范围缺失", text: "草稿删除了「2025 年第四季度」的限定，把历史数据写成了「目前」。" },
+                            { level: "warn", tag: "AI 复核发现 · 待人确认", text: "「行业领先」没有登记比较依据，需人确认。" }
+                        ],
+                        repaired: "根据公司 2025 年第四季度披露，其在样本市场中的份额为 18%；目前市场份额尚待更新数据确认。",
+                        repairedFindings: [ { level: "pass", tag: "PASSED · 恢复时间限定", text: "revision 2 保留了来源期间，未再把历史数据表述为「目前」。" } ],
+                        q: {
+                            where: "把「2025 Q4 的 18%」写成「目前 18%」，还加了没有依据的「行业领先」。",
+                            how: "来源有明确历史期间且已超出时限；草稿抹掉了时间范围；「行业领先」找不到比较依据。",
+                            why: "过期来源 + 时间范围缺失 + 无依据比较；需更新来源或降低表述后再交付。",
+                            fixed: "根据公司 2025 年第四季度披露，其在样本市场中的份额为 18%；目前市场份额尚待更新数据确认。",
+                            notProven: "它没有证明 18% 一定已经过时；只是指出这份来源超出了本次任务的时限，且不能标成「目前」。"
+                        },
+                        tech: "finding: QG-030..032  type: freshness + scope_drop + unsupported_comparison\nsource:  date = 2025-Q4 (age > 30d policy)\ndraft:   framing = 「目前」，删除期间限定\ndelivery_truth.valid = false"
+                    }
+                }
+            },
+            en: {
+                t: { deliver: "Deliver", delivered: "Checks passed · awaiting human sign-off", rev1: "Draft · revision 1", rev2: "revision 2 · repaired" },
+                scenarios: {
+                    flip: {
+                        source: "In the monitored sample, component average spot price dropped 1.5%.",
+                        oneShot: "Component average spot price <span class=err>rose 2.5%</span>, showing <span class=err>downstream demand is recovering</span>.",
+                        draft: "Component average spot price rose 2.5%, showing downstream demand is recovering.",
+                        findings: [
+                            { level: "block", tag: "BLOCKED · value conflict", text: "'rose 2.5%' contradicts the frozen record (dropped 1.5%) in both direction and magnitude." },
+                            { level: "warn", tag: "AI review · needs human", text: "'demand is recovering' has no registered source and needs a human to confirm." }
+                        ],
+                        repaired: "In the monitored sample, component average spot price dropped 1.5%. The available material is insufficient to explain the cause of the change.",
+                        repairedFindings: [ { level: "pass", tag: "PASSED · matches the record", text: "Revision 2 matches the frozen figure; the unsourced conclusion was removed." } ],
+                        q: {
+                            where: "'dropped 1.5%' was turned into 'rose 2.5%', plus an unsupported 'demand is recovering'.",
+                            how: "The draft figure conflicts with the frozen record; the 'recovering' claim has no registered source.",
+                            why: "An unresolved conflict and an unsourced conclusion remain; nothing ships until they are handled.",
+                            fixed: "In the monitored sample, component average spot price dropped 1.5%. The available material is insufficient to explain the cause.",
+                            notProven: "It doesn't prove demand isn't recovering — only that the current material can't support that claim."
+                        },
+                        tech: "finding: QG-014  type: value_conflict\nledger:  CL-0012 spot price = dropped 1.5% (frozen)\ndraft:   rose 2.5% + unsourced 'recovering'\ndelivery_truth.valid = false"
+                    },
+                    status: {
+                        source: "The company expects to start pilot production in Q4, with timing depending on equipment acceptance.",
+                        oneShot: "The new line is <span class=err>already in production</span> and will <span class=err>contribute revenue</span> in Q4.",
+                        draft: "The new line is already in production and will contribute revenue in Q4.",
+                        findings: [
+                            { level: "block", tag: "BLOCKED · unregistered fact", text: "'already in production' is not in the key-fact ledger; the source only supports 'expects to start'." },
+                            { level: "warn", tag: "AI review · needs human", text: "'contribute revenue' has no registered source and needs confirmation." }
+                        ],
+                        repaired: "The company currently expects to start pilot production in Q4, though timing still depends on equipment acceptance, and any revenue contribution cannot yet be confirmed.",
+                        repairedFindings: [ { level: "pass", tag: "PASSED · within source scope", text: "Revision 2 restores the conditional 'expects' framing and drops the unregistered completion and revenue claims." } ],
+                        q: {
+                            where: "'expects to start' became 'already in production', with a fabricated 'contribute revenue'.",
+                            how: "The source supports only an expected date, not completion; 'contribute revenue' has no basis in the ledger.",
+                            why: "Overstated status and an unsourced conclusion; returned for repair, not shippable as-is.",
+                            fixed: "The company currently expects to start pilot production in Q4, though timing still depends on equipment acceptance, and revenue contribution cannot yet be confirmed.",
+                            notProven: "It doesn't prove the line won't go into production — only that today's material supports 'expected', not 'done'."
+                        },
+                        tech: "finding: QG-021 / QG-022  type: unregistered_fact + scope_mismatch\nledger:  no 'in production' entry\nsource:  supports estimated_start = Q4 only\ndelivery_truth.valid = false"
+                    },
+                    stale: {
+                        source: "In Q4 2025, the company held an 18% share in the sample market.",
+                        oneShot: "The company <span class=err>currently</span> holds 18% market share and <span class=err>remains the industry leader</span>.",
+                        draft: "The company currently holds 18% market share and remains the industry leader.",
+                        findings: [
+                            { level: "block", tag: "BLOCKED · freshness", text: "This task requires material from the last 30 days; the source is dated Q4 2025 and is out of window." },
+                            { level: "block", tag: "time scope dropped", text: "The draft removed the 'Q4 2025' qualifier, presenting historical data as 'current'." },
+                            { level: "warn", tag: "AI review · needs human", text: "'industry leader' has no registered comparison basis and needs confirmation." }
+                        ],
+                        repaired: "Per the company's Q4 2025 disclosure, its share in the sample market was 18%; the current share awaits updated data for confirmation.",
+                        repairedFindings: [ { level: "pass", tag: "PASSED · time scope restored", text: "Revision 2 keeps the source period and no longer frames historical data as 'current'." } ],
+                        q: {
+                            where: "'18% in Q4 2025' became 'currently 18%', plus an unsupported 'industry leader'.",
+                            how: "The source has an explicit, now-expired period; the draft dropped the time scope; 'leader' has no comparison basis.",
+                            why: "Expired source + dropped time scope + unsupported comparison; update the source or soften the wording before delivery.",
+                            fixed: "Per the company's Q4 2025 disclosure, its share in the sample market was 18%; the current share awaits updated data for confirmation.",
+                            notProven: "It doesn't prove 18% is now wrong — only that this source is outside the task's time window and can't be labeled 'current'."
+                        },
+                        tech: "finding: QG-030..032  type: freshness + scope_drop + unsupported_comparison\nsource:  date = 2025-Q4 (age > 30d policy)\ndraft:   framing = 'currently', period qualifier removed\ndelivery_truth.valid = false"
+                    }
+                }
+            }
+        };
 
-    const flashCopied = (btn) => {
-        const original = btn.textContent;
-        btn.textContent = isEn ? "Copied!" : "已复制！";
-        btn.classList.add("copied");
-        setTimeout(() => {
-            btn.textContent = original;
-            btn.classList.remove("copied");
-        }, 1800);
-    };
-
-    if (heroInstall) {
-        const tabs = heroInstall.querySelectorAll(".hero-install-tab");
-        const panels = heroInstall.querySelectorAll(".hero-install-panel");
-        const hints = heroInstall.querySelectorAll(".hero-install-hint");
-
-        tabs.forEach(tab => {
+        const cmp = cmpAll[isEn ? "en" : "zh"];
+        const $ = (id) => document.getElementById(id);
+        const cmpEls = {
+            source: $("cmp-source-text"), oneshot: $("cmp-oneshot"), draft: $("cmp-draft"),
+            findings: $("cmp-findings"), deliver: $("cmp-deliver"), repair: $("cmp-repair"), rev: $("cmp-rev"),
+            where: $("q-where"), how: $("q-how"), why: $("q-why"), fixed: $("q-fixed"), notproven: $("q-notproven"),
+            tech: $("cmp-tech-code")
+        };
+        const renderFindings = (list) => {
+            cmpEls.findings.innerHTML = list.map(f => `<div class="finding ${f.level}"><span class="f-tag">${f.tag}</span>${f.text}</div>`).join("");
+        };
+        let cmpCurrent = "flip";
+        const loadCmp = (key) => {
+            cmpCurrent = key;
+            const s = cmp.scenarios[key];
+            cmpEls.source.textContent = s.source;
+            cmpEls.oneshot.innerHTML = s.oneShot;
+            cmpEls.draft.textContent = s.draft;
+            renderFindings(s.findings);
+            cmpEls.rev.textContent = cmp.t.rev1;
+            cmpEls.deliver.textContent = cmp.t.deliver;
+            cmpEls.deliver.classList.remove("ready");
+            cmpEls.deliver.disabled = true;
+            cmpEls.repair.classList.remove("hidden");
+            cmpEls.where.textContent = s.q.where;
+            cmpEls.how.textContent = s.q.how;
+            cmpEls.why.textContent = s.q.why;
+            cmpEls.fixed.textContent = s.q.fixed;
+            cmpEls.notproven.textContent = s.q.notProven;
+            cmpEls.tech.textContent = s.tech;
+        };
+        const repairCmp = () => {
+            const s = cmp.scenarios[cmpCurrent];
+            cmpEls.draft.textContent = s.repaired;
+            if (!reducedMotion) {
+                cmpEls.draft.classList.add("flash-repair");
+                setTimeout(() => cmpEls.draft.classList.remove("flash-repair"), 900);
+            }
+            renderFindings(s.repairedFindings);
+            cmpEls.rev.textContent = cmp.t.rev2;
+            cmpEls.deliver.classList.add("ready");
+            cmpEls.deliver.textContent = cmp.t.delivered;
+            cmpEls.repair.classList.add("hidden");
+        };
+        document.querySelectorAll(".cmp-tab").forEach(tab => {
             tab.addEventListener("click", () => {
-                const key = tab.getAttribute("data-install");
-                tabs.forEach(t => {
-                    const on = t === tab;
-                    t.classList.toggle("active", on);
-                    t.setAttribute("aria-selected", on ? "true" : "false");
-                });
-                panels.forEach(p => p.classList.toggle("hidden", p.getAttribute("data-panel") !== key));
-                hints.forEach(h => h.classList.toggle("hidden", h.getAttribute("data-hint") !== key));
+                document.querySelectorAll(".cmp-tab").forEach(x => { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); });
+                tab.classList.add("active");
+                tab.setAttribute("aria-selected", "true");
+                loadCmp(tab.getAttribute("data-cmp"));
             });
         });
-
-        heroInstall.querySelectorAll(".btn-copy-hero").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const key = btn.getAttribute("data-copy-target");
-                const text = installCopyText[key] || "";
-                navigator.clipboard.writeText(text).then(() => flashCopied(btn))
-                    .catch(err => console.error("Copy failed", err));
-            });
-        });
+        cmpEls.repair.addEventListener("click", repairCmp);
+        loadCmp("flip");
     }
 
-    /* --- 8. Terminal copy (full quickstart) --- */
+    /* --- 7. Terminal copy (full quickstart) --- */
     const copyBtn = document.getElementById("btn-copy-code");
     if (copyBtn) {
         copyBtn.addEventListener("click", () => {
             const commands = [
-                "pipx install briefloop",
+                "git clone https://github.com/Stahl-G/briefloop.git && cd briefloop",
+                "bash scripts/setup.sh",
                 "briefloop new industry-weekly ./my-weekly",
                 "briefloop run --workspace ./my-weekly --runtime operator"
             ].join("\n");
