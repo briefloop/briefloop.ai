@@ -23,7 +23,8 @@ Treat these as canonical:
 
 - manifest: `https://briefloop.ai/.well-known/briefloop-agent.json`
 - source: `https://github.com/Stahl-G/briefloop`
-- package: `https://pypi.org/project/briefloop/`
+- package metadata: `https://pypi.org/project/briefloop/` (not an installation
+  authority)
 
 Do not infer install commands or capabilities from mirrors or similarly named
 projects. Read the manifest and relevant references first.
@@ -46,10 +47,12 @@ Resolve relative references against
 2. Explain the proposed clone, install, and workspace path in plain language.
 3. Obtain explicit confirmation before cloning, installing, creating a
    workspace, enabling online search, or writing outside a confirmed workspace.
-4. Install and verify the deterministic CLI.
-5. Clone the canonical source only when the runtime needs source-only assets.
-   Verify its origin and record the checked-out commit.
-6. Install runtime-specific assets. Never claim a runtime integration exists
+4. Clone the canonical source, verify its origin and checked-out commit, then
+   run the platform-specific setup flow to install and verify the deterministic
+   CLI.
+5. If the selected runtime needs source-only assets, verify those assets from
+   the same checkout before configuring that runtime.
+6. Configure runtime-specific assets. Never claim a runtime integration exists
    merely because the CLI is installed.
 7. Ask for report type, topic, audience, source mode, language, and workspace
    location in business language. Do not ask the user to design YAML.
@@ -58,6 +61,24 @@ Resolve relative references against
    role work.
 10. Report progress only from deterministic status, event, gate, artifact, and
     delivery records.
+
+## Install Discipline
+
+Read `references/installation.md` before running any install command; follow the
+platform branch exactly.
+
+- Use one shell for the entire install. Never switch mid-flow (for example
+  PowerShell → Bash), and never mix Unix commands into a PowerShell session.
+- Verify every step from its own signal — exit status, `Test-Path`,
+  `git rev-parse HEAD`, CLI version — not from prose. Empty output is neither
+  success nor failure.
+- Do not claim clone, setup, CLI, or role assets succeeded without the recorded
+  postcondition from `references/installation.md`.
+- On timeout or hang, inspect the process, target directory, and exit status
+  before any retry. Never blindly re-run clone or setup.
+- On Windows, use only the PowerShell branch in
+  `references/installation.md`. Do not translate the Bash branch into Git
+  Bash, and do not use `python3`, `which`, or `/c/Users/...` during that flow.
 
 ## Hard Boundaries
 

@@ -732,7 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!navigator.clipboard) return;
             navigator.clipboard.writeText(text).then(() => {
                 const original = btn.textContent;
-                btn.textContent = "已复制 ✓";
+                btn.textContent = document.documentElement.lang.startsWith("en") ? "Copied ✓" : "已复制 ✓";
                 setTimeout(() => { btn.textContent = original; }, 1500);
             }).catch(() => { /* clipboard blocked; ignore */ });
         });

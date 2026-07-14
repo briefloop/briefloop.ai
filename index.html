@@ -330,49 +330,41 @@
         </div>
     </section>
 
-    <!-- ===== 真实试运行周报 · 作者手工放置 ===== -->
+    <!-- ===== 同一任务 · 三种方法 · 作者手工放置 ===== -->
     <!--
-      ┌─ 给作者：把三份真实跑出来的周报放这里 ────────────────────────────┐
-      │ 每张卡片替换三处即可：                                              │
-      │   1) href       → 报告链接，例如 reports/weekly-2026-07-solar.html │
-      │                   或 PDF / 外链；未放置前保留 href="#" 会显示为占位 │
-      │   2) 标题 / 摘要 → <h3> 和 <p> 文本                                 │
-      │   3) meta 三项   → 行业 · 日期 · 运行标识                           │
-      │ 放置后，把卡片上的 class "is-placeholder" 删掉即可切换成正式样式。  │
-      └────────────────────────────────────────────────────────────────────┘
+      给作者：真实对照完成后，把每个 article 换成链接卡片，并补上：
+        1) 报告 / 运行包链接；2) 标题和摘要；3) 时间窗、来源包和运行标识。
+      在没有可复核产物前，不要删除 is-placeholder，也不要把本区写成已完成结果。
     -->
     <section class="section-samples" id="samples">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">From real runs · 真实试运行</div>
-                <h2>三份真实跑出来的周报</h2>
-                <p class="section-desc">不是合成案例——下面是用 BriefLoop 真实运行、通过检查并交付的周报。点开可读，并附带来源地图与检查记录。</p>
+                <div class="eyebrow" style="justify-content:center;">Public comparison packets · 公开对照准备中</div>
+                <h2>同一项周报任务，三种方法</h2>
+                <p class="section-desc">相同时间窗、来源包、模型与交付要求。真实运行完成并核验后，这里会公开三份成品、问题记录与运行包；不把“看起来最好”的一次挑出来当结论。</p>
             </div>
             <div class="grid-3 sample-grid reveal" style="margin-top:44px;">
-                <!-- 卡片 1 -->
-                <a class="sample-card is-placeholder" href="#" aria-label="待放置的周报 1">
-                    <span class="sample-tag">待放置 · PLACEHOLDER</span>
-                    <h3>周报标题（替换我）</h3>
-                    <p>一句话摘要：这份周报覆盖了什么、拦下了什么问题。</p>
-                    <div class="sample-meta"><span>行业</span><span>日期</span><span>运行 ID</span></div>
-                    <span class="sample-cta">查看报告 →</span>
-                </a>
-                <!-- 卡片 2 -->
-                <a class="sample-card is-placeholder" href="#" aria-label="待放置的周报 2">
-                    <span class="sample-tag">待放置 · PLACEHOLDER</span>
-                    <h3>周报标题（替换我）</h3>
-                    <p>一句话摘要：这份周报覆盖了什么、拦下了什么问题。</p>
-                    <div class="sample-meta"><span>行业</span><span>日期</span><span>运行 ID</span></div>
-                    <span class="sample-cta">查看报告 →</span>
-                </a>
-                <!-- 卡片 3 -->
-                <a class="sample-card is-placeholder" href="#" aria-label="待放置的周报 3">
-                    <span class="sample-tag">待放置 · PLACEHOLDER</span>
-                    <h3>周报标题（替换我）</h3>
-                    <p>一句话摘要：这份周报覆盖了什么、拦下了什么问题。</p>
-                    <div class="sample-meta"><span>行业</span><span>日期</span><span>运行 ID</span></div>
-                    <span class="sample-cta">查看报告 →</span>
-                </a>
+                <article class="sample-card is-placeholder" aria-label="筹备中的长 Prompt 直出对照">
+                    <span class="sample-tag">A0 · 筹备中</span>
+                    <h3>长 Prompt 直出</h3>
+                    <p>相同来源包与报告要求下，一次性生成的周报及其原始运行记录。</p>
+                    <div class="sample-meta"><span>同一来源</span><span>同一模型</span><span>待公开</span></div>
+                    <span class="sample-cta">运行包准备中</span>
+                </article>
+                <article class="sample-card is-placeholder" aria-label="筹备中的 Skill 加 Agent Runtime 对照">
+                    <span class="sample-tag">A1 · 筹备中</span>
+                    <h3>Skill + Agent Runtime</h3>
+                    <p>相同来源包与报告要求下，Agent 使用公开 Skill 完成的周报与运行记录。</p>
+                    <div class="sample-meta"><span>同一来源</span><span>同一模型</span><span>待公开</span></div>
+                    <span class="sample-cta">运行包准备中</span>
+                </article>
+                <article class="sample-card is-placeholder" aria-label="筹备中的 BriefLoop 工作流对照">
+                    <span class="sample-tag">A2 · 筹备中</span>
+                    <h3>BriefLoop 工作流</h3>
+                    <p>相同来源包与报告要求下，附事实登记、问题记录、修复与人工放行状态。</p>
+                    <div class="sample-meta"><span>同一来源</span><span>同一模型</span><span>待公开</span></div>
+                    <span class="sample-cta">运行包准备中</span>
+                </article>
             </div>
         </div>
     </section>
@@ -432,7 +424,7 @@
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">Get started · 怎么开始</div>
                 <h2>两种方式，几分钟开始用</h2>
-                <p class="section-desc">不用装任何东西也能先看它抓错；想真正跑起来，下面二选一。</p>
+                <p class="section-desc">不用装任何东西也能先看它抓错；想本地跑起来，下面二选一。</p>
             </div>
             <div class="grid-2 install-methods reveal" style="margin-top:44px;">
                 <div class="install-method recommended">
@@ -440,20 +432,27 @@
                     <h3>对 Agent 说一句话</h3>
                     <p>在 WorkBuddy 或 Claude Code 里说：</p>
                     <p class="install-say">「我想用 briefloop.ai 做周报」</p>
-                    <p class="install-note">它会带你建档、装好所需资产，全程对话完成，不用碰命令行。</p>
+                    <div class="agent-instructions" aria-label="给 Agent 的启动指令">
+                        <span class="agent-instructions-kicker">给 Agent 的指令</span>
+                        <p>执行任何动作前，请先读取：</p>
+                        <a href="/.well-known/briefloop-agent.json"><code>https://briefloop.ai/.well-known/briefloop-agent.json</code></a>
+                        <p>然后读取 manifest 指定的 canonical Skill。不要从本首页自行推断仓库、安装方式、runtime 或能力边界。</p>
+                    </div>
+                    <button type="button" class="btn-copy-agent" data-copy-text="请先读取 https://briefloop.ai/.well-known/briefloop-agent.json&#10;及其中指定的 canonical Skill，识别当前 runtime，并向我说明拟执行的&#10;clone、安装和 workspace 路径。在我明确确认前不要执行任何修改。">复制给 Agent</button>
+                    <p class="install-note">它应先读取安装说明、向你确认目录和权限，再按你的系统路径逐步验证安装；不要把对话里的“完成”当成安装成功。</p>
                 </div>
                 <div class="install-method">
-                    <span class="install-tag">方式二 · 复制命令</span>
-                    <h3>粘贴到终端或 Agent 对话栏</h3>
+                    <span class="install-tag">方式二 · 源码安装</span>
+                    <h3>粘贴到 macOS / Linux 终端</h3>
                     <div class="install-cmds">
                         <code>git clone https://github.com/Stahl-G/briefloop.git</code>
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">复制命令</button>
-                    <p class="install-note">装好后运行 <code>briefloop new industry-weekly ./my-weekly</code> 建第一份周报。</p>
+                    <p class="install-note">Windows 请使用 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a>，不要把这两行 Bash 命令改写到 Git Bash。装好后运行 <code>briefloop new industry-weekly ./my-weekly</code> 建第一份周报。</p>
                 </div>
             </div>
-            <p class="quickstart-note">想先在线体验？<a href="#catch">看三个抓错演示</a>。完整安装与治理细节见 <a href="how-it-works.html">运作原理</a> 与 <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.4.0</a>。</p>
+            <p class="quickstart-note">想先在线体验？<a href="#catch">看三个抓错演示</a>。完整安装与治理细节见 <a href="agents/briefloop/SKILL.md">Agent 安装说明</a>、<a href="how-it-works.html">运作原理</a> 与 <a href="reports/briefloop-architecture-reference-v0.4.0.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.4.0</a>。</p>
         </div>
     </section>
 

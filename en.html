@@ -360,43 +360,42 @@
         </div>
     </section>
 
-    <!-- ===== Real weekly runs · manual placement ===== -->
+    <!-- ===== One task · three methods · manual placement ===== -->
     <!--
-      Author note: replace each placeholder in three places only:
-      1) href -> the report URL, PDF, or external link
-      2) title and summary -> the h3 and p copy
-      3) metadata -> industry, date, and run ID
-      Remove the is-placeholder class after a real report is attached.
+      Author note: once the comparison is complete, replace each article with a
+      linked card and add: 1) report/run-packet URL; 2) title and summary;
+      3) time window, source package, and run ID.
+      Keep is-placeholder until a reproducible, reviewable packet exists.
     -->
     <section class="section-samples" id="samples">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">From real runs</div>
-                <h2>Three weekly briefs produced in real runs</h2>
-                <p class="section-desc">Not synthetic demos. This is where real BriefLoop runs that passed their checks and were delivered will be linked, together with source maps and check records.</p>
+                <div class="eyebrow" style="justify-content:center;">Public comparison packets · in preparation</div>
+                <h2>One briefing task, three methods</h2>
+                <p class="section-desc">The same time window, source package, model, and delivery request. When the real runs are complete and reviewed, this shelf will publish all three outputs, issue records, and run packets — not merely the most flattering one.</p>
             </div>
             <div class="grid-3 sample-grid reveal" style="margin-top:44px;">
-                <a class="sample-card is-placeholder" href="#" aria-label="Placeholder weekly brief 1">
-                    <span class="sample-tag">To be added · PLACEHOLDER</span>
-                    <h3>Weekly brief title</h3>
-                    <p>One-sentence summary: what this brief covered and which issue it caught.</p>
-                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
-                    <span class="sample-cta">Read the brief →</span>
-                </a>
-                <a class="sample-card is-placeholder" href="#" aria-label="Placeholder weekly brief 2">
-                    <span class="sample-tag">To be added · PLACEHOLDER</span>
-                    <h3>Weekly brief title</h3>
-                    <p>One-sentence summary: what this brief covered and which issue it caught.</p>
-                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
-                    <span class="sample-cta">Read the brief →</span>
-                </a>
-                <a class="sample-card is-placeholder" href="#" aria-label="Placeholder weekly brief 3">
-                    <span class="sample-tag">To be added · PLACEHOLDER</span>
-                    <h3>Weekly brief title</h3>
-                    <p>One-sentence summary: what this brief covered and which issue it caught.</p>
-                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
-                    <span class="sample-cta">Read the brief →</span>
-                </a>
+                <article class="sample-card is-placeholder" aria-label="Long-prompt direct-output comparison in preparation">
+                    <span class="sample-tag">A0 · In preparation</span>
+                    <h3>Long prompt, direct output</h3>
+                    <p>A one-shot weekly brief and its raw run record, using the shared source package and report request.</p>
+                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
+                    <span class="sample-cta">Run packet in preparation</span>
+                </article>
+                <article class="sample-card is-placeholder" aria-label="Skill and agent runtime comparison in preparation">
+                    <span class="sample-tag">A1 · In preparation</span>
+                    <h3>Skill + agent runtime</h3>
+                    <p>A weekly brief and run record produced by an agent using a public Skill with the same source package and request.</p>
+                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
+                    <span class="sample-cta">Run packet in preparation</span>
+                </article>
+                <article class="sample-card is-placeholder" aria-label="BriefLoop workflow comparison in preparation">
+                    <span class="sample-tag">A2 · In preparation</span>
+                    <h3>BriefLoop workflow</h3>
+                    <p>The same task with fact registration, issue records, repair, and human delivery status included in the packet.</p>
+                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
+                    <span class="sample-cta">Run packet in preparation</span>
+                </article>
             </div>
         </div>
     </section>
@@ -455,30 +454,36 @@
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">Get started</div>
-                <h2>See it catch first, then run it locally</h2>
-                <p class="section-desc">Install the deterministic CLI with <code>pipx install briefloop</code>. Full agent-runtime assets still require a source checkout. Start with one of the three paths below.</p>
+                <h2>Two ways to start in minutes</h2>
+                <p class="section-desc">You can see it catch errors without installing anything. To run it locally, choose one of the paths below.</p>
             </div>
-            <div class="grid-3 start-grid reveal" style="margin-top:44px;">
-                <a class="start-card" href="#catch">
-                    <span class="start-k">01</span>
-                    <h3>See three catch demos online</h3>
-                    <p>No install needed — understand what it blocks in ten seconds.</p>
-                    <span class="start-go">Back to the demo ↑</span>
-                </a>
-                <a class="start-card" href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank" rel="noopener noreferrer">
-                    <span class="start-k">02</span>
-                    <h3>Run a local reference sample</h3>
-                    <p>Use the repo's demo workspace to run one full pass on your machine.</p>
-                    <span class="start-go">Getting Started →</span>
-                </a>
-                <a class="start-card" href="how-it-works.en.html" target="_self">
-                    <span class="start-k">03</span>
-                    <h3>Read the source-install guide</h3>
-                    <p>Use <code>git clone</code> + <code>setup.sh</code> when you need source runtime assets for Claude Code, Codex, or WorkBuddy.</p>
-                    <span class="start-go">How it works →</span>
-                </a>
+            <div class="grid-2 install-methods reveal" style="margin-top:44px;">
+                <div class="install-method recommended">
+                    <span class="install-tag">Route one · simplest</span>
+                    <h3>Say one sentence to your agent</h3>
+                    <p>In WorkBuddy or Claude Code, say:</p>
+                    <p class="install-say">“I want to use briefloop.ai for a weekly brief.”</p>
+                    <div class="agent-instructions" aria-label="Agent startup instructions">
+                        <span class="agent-instructions-kicker">Agent instructions</span>
+                        <p>Before taking any action, read:</p>
+                        <a href="/.well-known/briefloop-agent.json"><code>https://briefloop.ai/.well-known/briefloop-agent.json</code></a>
+                        <p>Then read the canonical skill specified by the manifest. Do not infer repository, installation, runtime, or capabilities from this homepage.</p>
+                    </div>
+                    <button type="button" class="btn-copy-agent" data-copy-text="Before taking any action, read https://briefloop.ai/.well-known/briefloop-agent.json&#10;and the canonical Skill specified by the manifest. Identify the current runtime and tell me the proposed&#10;clone, installation, and workspace paths. Do not make any changes until I explicitly confirm.">Copy for your agent</button>
+                    <p class="install-note">It should read the installation reference, ask you to confirm the directory and permissions, then verify each setup step. A conversational “done” message is not installation proof.</p>
+                </div>
+                <div class="install-method">
+                    <span class="install-tag">Route two · source install</span>
+                    <h3>Paste into a macOS / Linux terminal</h3>
+                    <div class="install-cmds">
+                        <code>git clone https://github.com/Stahl-G/briefloop.git</code>
+                        <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
+                    </div>
+                    <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">Copy commands</button>
+                    <p class="install-note">On Windows, use the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. Then run <code>briefloop new industry-weekly ./my-weekly</code> to create a first brief.</p>
+                </div>
             </div>
-            <p class="quickstart-note">Want the governance model, gate mechanics, and technical report? They're all in <a href="how-it-works.en.html">How it works</a> and <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Architecture Reference v0.4.0</a>.</p>
+            <p class="quickstart-note">Want an online preview first? <a href="#catch">See the three catch demos</a>. For the complete install path and governance model, read the <a href="agents/briefloop/SKILL.md">agent bootstrap</a>, <a href="how-it-works.en.html">How it works</a>, and the <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Architecture Reference v0.4.0</a>.</p>
         </div>
     </section>
 

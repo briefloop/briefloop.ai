@@ -6,7 +6,7 @@ Canonical agent bootstrap:
 
 - Manifest: https://briefloop.ai/.well-known/briefloop-agent.json
 - Agent skill: https://briefloop.ai/agents/briefloop/SKILL.md
-- Human setup: https://briefloop.ai/#cli
+- Human setup: https://briefloop.ai/#start
 - Source: https://github.com/Stahl-G/briefloop
 - Python package: https://pypi.org/project/briefloop/
 
@@ -20,3 +20,5 @@ Important boundaries:
 - A delivery claim is valid only when deterministic delivery truth says it is valid.
 
 Use the canonical skill and its references for installation, onboarding, operation, repair, and delivery rules.
+The current supported bootstrap is a canonical source checkout; do not infer a
+`pipx` installation path from the package URL.

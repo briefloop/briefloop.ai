@@ -11,16 +11,22 @@
     "python_package": "https://pypi.org/project/briefloop/",
     "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
     "llms_txt": "https://briefloop.ai/llms.txt",
-    "human_setup": "https://briefloop.ai/#cli",
+    "human_setup": "https://briefloop.ai/#start",
     "support_matrix": "https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md"
   },
   "distribution": {
     "cli": {
       "package": "briefloop",
-      "recommended_installer": "pipx",
-      "install_command": "pipx install briefloop",
-      "verify_commands": ["command -v briefloop", "briefloop version"],
-      "scope": "Deterministic workspace, validation, state, gate, repair, quality, and delivery-control commands. The CLI does not generate a brief by itself."
+      "recommended_installer": "canonical source checkout",
+      "install_command": "git clone https://github.com/Stahl-G/briefloop.git",
+      "install_reference": "https://briefloop.ai/agents/briefloop/references/installation.md",
+      "verify_commands": ["git -C <checkout> remote get-url origin", "git -C <checkout> rev-parse HEAD", "briefloop version"],
+      "scope": "Current supported bootstrap uses the canonical source checkout and its platform-specific setup flow. The deterministic CLI creates workspaces, validates, records state, runs gates, and preserves delivery truth; it does not generate a brief by itself."
+    },
+    "package_index": {
+      "package": "briefloop",
+      "status": "not_supported_for_bootstrap",
+      "instruction": "Do not choose pipx or PyPI installation from package metadata. Follow the installation reference until release notes announce a published and smoke-tested package-index artifact."
     },
     "source_runtime_assets": {
       "repository": "https://github.com/Stahl-G/briefloop",
