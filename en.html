@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BriefLoop.ai — AI drafts first, BriefLoop reconciles; nothing ships until issues are handled</title>
-    <meta name="description" content="BriefLoop isn't another AI that writes your report. It works after the AI is done — finding what has no source, uses the wrong data, overstates, or isn't yet confirmed; until those are handled, the report can't count as final.">
+    <title>BriefLoop.ai — AI drafts first, BriefLoop reconciles; nothing ships until issues are cleared</title>
+    <meta name="description" content="BriefLoop isn't another AI that writes your report. After the AI is done, it finds what has no source, uses the wrong number, overstates, or isn't confirmed — and nothing counts as final until those are resolved.">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305351d'/%3E%3Cpath d='M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9' fill='none' stroke='%234faf62' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.3' fill='none' stroke='%23f2f5f1' stroke-width='1.6'/%3E%3Cpath d='M14.5 16h3' stroke='%23f2f5f1' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
                 <a href="#product">Product</a>
                 <a href="#catch">See it catch</a>
                 <a href="#compare">Compare</a>
-                <a href="#scenarios">Scenarios</a>
+                <a href="#scenarios">Use cases</a>
                 <a href="#start">Get started</a>
                 <a href="how-it-works.en.html">Docs</a>
                 <a href="index.html" class="lang-switch">中文</a>
@@ -47,118 +47,105 @@
         </div>
     </header>
 
-    <!-- ===== 1 · Product value and a visible delivery block ===== -->
+    <!-- Hero — product value + one visible delivery block -->
     <section class="hero-section" id="product">
         <div class="container hero-container">
             <div class="hero-message hero-message-centered">
                 <div class="badge-row">
-                    <span class="badge-version" id="version-badge">v0.11.12</span>
+                    <span class="badge-version" id="version-badge">v0.12.1</span>
                     <div class="badge-new"><span class="pulse-dot"></span>Open-source framework · MIT License</div>
                 </div>
                 <h1 class="hero-title">
-                    Let AI draft fast.<br>
-                    <span class="text-gradient">Let humans ship with confidence.</span>
+                    Let AI draft fast,<br>
+                    <span class="text-gradient">let humans ship with confidence.</span>
                 </h1>
-                <p class="hero-lede">AI can write a report. BriefLoop checks its sources, catches conflicts, and blocks unresolved issues.<br>Until those issues are handled, that version cannot count as final.</p>
-                <p class="hero-subtitle">
-                    The same agent can keep researching and writing. BriefLoop keeps material facts, check results, and human approval outside the agent, so every delivery can be questioned later.
-                </p>
+                <p class="hero-lede">AI writes the report. BriefLoop checks the sources, catches conflicts, and blocks problems.<br>Until they're resolved, that version can't be treated as final.</p>
                 <div class="hero-buttons">
                     <a href="#catch" class="btn-primary">See how it catches three errors</a>
-                    <a href="#start" class="link-arrow">Run it on a sample →</a>
+                    <a href="#start" class="btn-secondary">How to install →</a>
                 </div>
             </div>
 
-            <div class="hero-review-card reveal visible" aria-label="Pre-delivery report review example">
+            <div class="hero-review-card reveal visible" aria-label="Pre-delivery review example">
                 <div class="hero-review-head">
                     <div>
-                        <span class="hero-review-kicker">PRE-DELIVERY REVIEW · SYNTHETIC CASE</span>
+                        <span class="hero-review-kicker">Pre-delivery review · SYNTHETIC CASE</span>
                         <h2>Same material, same agent, two ways to deliver</h2>
                     </div>
-                    <span class="hero-review-status">current revision · BLOCKED</span>
+                    <span class="hero-review-status">Current revision · BLOCKED</span>
                 </div>
                 <div class="hero-review-grid">
                     <article class="hero-review-pane direct-report">
-                        <div class="hero-pane-head"><span>Report generated directly</span><span class="hero-pane-state neutral">looks complete</span></div>
-                        <p class="hero-pane-label">Industry weekly · Summary</p>
-                        <p class="hero-report-copy">The company currently holds <mark class="review-problem">18%</mark> market share and remains <mark class="review-problem">an industry leader</mark>.</p>
-                        <p class="hero-pane-note">It reads smoothly, but the delivery flow did not stop the dropped time scope or unsupported conclusion.</p>
+                        <div class="hero-pane-head">
+                            <span>Directly generated report</span>
+                            <span class="hero-pane-state neutral">Looks done</span>
+                        </div>
+                        <p class="hero-pane-label">Industry weekly · summary</p>
+                        <p class="hero-report-copy">The company's current market share is <mark class="review-problem">18%</mark>, keeping its <mark class="review-problem">industry-leading position</mark>.</p>
                     </article>
+
                     <article class="hero-review-pane source-report">
-                        <div class="hero-pane-head"><span>Source material</span><span class="hero-pane-state source">page 12</span></div>
-                        <p class="hero-pane-label">Q4 2025 Report</p>
-                        <blockquote>“In Q4 2025, the company held <b>18%</b> share in the sampled market.”</blockquote>
-                        <p class="hero-pane-note">The source records a time window and sample scope. It does not say “currently” or “industry leader.”</p>
+                        <div class="hero-pane-head">
+                            <span>Source material</span>
+                            <span class="hero-pane-state source">Page 12</span>
+                        </div>
+                        <p class="hero-pane-label">Q4 2025 report</p>
+                        <blockquote>“In Q4 2025, the company's share in the sample market was <b>18%</b>.”</blockquote>
                     </article>
+
                     <article class="hero-review-pane review-result">
-                        <div class="hero-pane-head"><span>BriefLoop check result</span><span class="hero-pane-state blocked">delivery locked</span></div>
-                        <div class="hero-finding blocked"><b>Cannot deliver</b><span>Time range removed: Q4 2025 became “currently.”</span></div>
-                        <div class="hero-finding warning"><b>No registered basis</b><span>“Industry leader” is outside the registered source scope.</span></div>
-                        <div class="hero-lock-state"><span class="hero-lock-icon" aria-hidden="true">⌁</span><span><b>Current state:</b> needs repair; delivery remains locked</span></div>
+                        <div class="hero-pane-head">
+                            <span>BriefLoop's check</span>
+                            <span class="hero-pane-state blocked">Delivery locked</span>
+                        </div>
+                        <div class="hero-finding blocked">
+                            <b>Can't deliver</b>
+                            <span>Time range dropped: Q4 2025 rewritten as “current”.</span>
+                        </div>
+                        <div class="hero-finding warning">
+                            <b>No basis</b>
+                            <span>“Industry-leading” isn't within the registered material's support.</span>
+                        </div>
+                        <div class="hero-lock-state">
+                            <span class="hero-lock-icon" aria-hidden="true">⌁</span>
+                            <span><b>Current status:</b> awaiting repair, deliver button locked</span>
+                        </div>
                     </article>
                 </div>
                 <details class="hero-audit-details">
-                    <summary>View audit detail</summary>
-                    <div><code>source: Q4-2025-report · page: 12 · claim scope: sampled market / Q4 2025 · findings: stale_scope + unsupported_superlative</code></div>
+                    <summary>View audit details</summary>
+                    <div><code>source: Q4-2025-report · page: 12 · claim scope: sample market / Q4 2025 · findings: stale_scope + unsupported_superlative</code></div>
                 </details>
             </div>
 
-            <div class="hero-fact-strip" aria-label="BriefLoop project and capability information">
+            <div class="hero-fact-strip" aria-label="BriefLoop project and capability facts">
                 <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer"><span>Open source</span><b>GitHub · MIT License</b></a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.md" target="_blank" rel="noopener noreferrer"><span>First run</span><b>Run a sample in 15 minutes</b></a>
-                <div><span>Agent runtimes</span><b>Claude Code · Codex* · WorkBuddy*</b><small>*some adapters are experimental source paths</small></div>
-                <div><span>Boundary</span><b>Trace the source; do not outsource truth judgment</b></div>
+                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.md" target="_blank" rel="noopener noreferrer"><span>First run</span><b>Run the sample in ~15 min</b></a>
+                <div><span>Agent runtime</span><b>Claude Code · Codex* · WorkBuddy*</b><small>*some adapters are experimental source paths</small></div>
+                <div><span>Boundary</span><b>Traces the sources; doesn't judge truth for you</b></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 2 · Three common accidents ===== -->
-    <section class="section-accidents" id="accidents">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">The real risk</div>
-                <h2>The most dangerous thing about AI reports usually isn't hallucination — it's these “small” errors</h2>
-                <p class="section-desc">They read naturally and sound confident, yet get shipped as final conclusions.</p>
-            </div>
-            <div class="grid-3 accident-grid" style="margin-top:44px;">
-                <div class="accident-card reveal">
-                    <span class="accident-num">01</span>
-                    <h3>A number flips between drafts</h3>
-                    <p>The source said “<b>down 1.5%</b>.” By draft five, the body reads “<b>up 2.5%</b>.” No one meant to — but the conclusion is now reversed.</p>
-                </div>
-                <div class="accident-card reveal reveal-delay-1">
-                    <span class="accident-num">02</span>
-                    <h3>The AI invents a reason</h3>
-                    <p>The data only shows margins rising; the AI adds “because logistics costs fell” — the material never mentions logistics.</p>
-                </div>
-                <div class="accident-card reveal reveal-delay-2">
-                    <span class="accident-num">03</span>
-                    <h3>Old data written as current</h3>
-                    <p>A prior-quarter share figure is cited, but the body says “<b>current</b> market share” — the time range quietly disappears.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 3 · Comparison demos (the centerpiece) ===== -->
+    <!-- See it catch — three comparison demos (site centerpiece, three common errors) -->
     <section class="section-catch" id="catch">
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">See it catch</div>
-                <h2>Same material, same task. Left: generated in one shot. Right: through BriefLoop</h2>
-                <p class="section-desc">A plain prompt doesn't always go wrong. The problem is that when it does, there's usually no stable way to find, trace, and block it. Below is a synthetic demo of that difference.</p>
+                <h2>Three common errors: they slip into the final on the left, and get blocked on the right</h2>
+                <p class="section-desc">Switch the three real cases below and compare the two ways to deliver the same material.</p>
             </div>
 
             <div class="cmp reveal" id="cmp" data-cmp-widget>
                 <div class="cmp-tabs" role="tablist" aria-label="Choose a case">
                     <button class="cmp-tab active" data-cmp="flip" role="tab" aria-selected="true">
-                        <span class="cmp-tab-label">Industry weekly</span><span class="cmp-tab-sub">a number reversed</span>
+                        <span class="cmp-tab-label">Industry weekly</span><span class="cmp-tab-sub">Number flipped</span>
                     </button>
                     <button class="cmp-tab" data-cmp="status" role="tab" aria-selected="false">
-                        <span class="cmp-tab-label">Management monthly</span><span class="cmp-tab-sub">plan written as done</span>
+                        <span class="cmp-tab-label">Management monthly</span><span class="cmp-tab-sub">Plan written as done</span>
                     </button>
                     <button class="cmp-tab" data-cmp="stale" role="tab" aria-selected="false">
-                        <span class="cmp-tab-label">Policy / market tracking</span><span class="cmp-tab-sub">old data as latest</span>
+                        <span class="cmp-tab-label">Policy / market</span><span class="cmp-tab-sub">Stale data as current</span>
                     </button>
                 </div>
 
@@ -168,15 +155,17 @@
                 </div>
 
                 <div class="cmp-cols">
+                    <!-- Left: one-shot draft -->
                     <div class="cmp-col oneshot">
                         <div class="cmp-col-head">
-                            <span class="cmp-col-title">Generated in one shot</span>
+                            <span class="cmp-col-title">One-shot draft</span>
                             <span class="cmp-col-flag done">Looks done ✓</span>
                         </div>
                         <div class="report-page" id="cmp-oneshot">…</div>
-                        <p class="cmp-col-foot muted">Reads smoothly and confidently — the error is hidden inside, with no warning.</p>
+                        <p class="cmp-col-foot muted">Reads smooth and confident — the error is hidden inside, with no warning.</p>
                     </div>
 
+                    <!-- Right: with BriefLoop -->
                     <div class="cmp-col briefloop">
                         <div class="cmp-col-head">
                             <span class="cmp-col-title">With BriefLoop</span>
@@ -186,121 +175,102 @@
                         <div class="cmp-findings" id="cmp-findings"></div>
                         <div class="cmp-deliver">
                             <button class="deliver-btn" id="cmp-deliver" disabled>Deliver</button>
-                            <button class="repair-btn" id="cmp-repair">Fix as suggested, look again →</button>
+                            <button class="repair-btn" id="cmp-repair">Fix as flagged, see it again →</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Each case answers four fixed questions -->
                 <div class="cmp-questions">
-                    <div class="q-item"><span class="q-k">Where's the error?</span><span class="q-v" id="q-where">…</span></div>
-                    <div class="q-item"><span class="q-k">How was it found?</span><span class="q-v" id="q-how">…</span></div>
+                    <div class="q-item"><span class="q-k">What's wrong?</span><span class="q-v" id="q-where">…</span></div>
+                    <div class="q-item"><span class="q-k">How was it caught?</span><span class="q-v" id="q-how">…</span></div>
                     <div class="q-item"><span class="q-k">Why can't it ship?</span><span class="q-v" id="q-why">…</span></div>
                     <div class="q-item"><span class="q-k">How should it read after the fix?</span><span class="q-v" id="q-fixed">…</span></div>
-                    <div class="q-item not-proven"><span class="q-k">What did BriefLoop NOT prove?</span><span class="q-v" id="q-notproven">…</span></div>
+                    <div class="q-item not-proven"><span class="q-k">What BriefLoop did NOT prove</span><span class="q-v" id="q-notproven">…</span></div>
                 </div>
 
                 <details class="cmp-tech">
-                    <summary>View audit detail (developer view)</summary>
+                    <summary>View audit details (developer view)</summary>
                     <pre class="cmp-tech-pre"><code id="cmp-tech-code">…</code></pre>
                 </details>
             </div>
 
-            <p class="cmp-disclaimer">Synthetic case, to explain the workflow — not an automated fact-checking benchmark.</p>
+            <p class="cmp-disclaimer">Synthetic cases to explain the workflow — not an automated fact-checking benchmark.</p>
         </div>
     </section>
 
-    <!-- ===== Why BriefLoop is not merely a prompt or Skill ===== -->
+    <!-- Why not just a prompt · BriefLoop vs ChatGPT / Runtime / Skill -->
     <section class="section-compare" id="compare">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Why not just a prompt?</div>
-                <h2>Not a longer prompt — delivery rules outside the AI</h2>
-                <p class="section-desc">Prompts and Skills tell an agent what it should do. BriefLoop records what actually happened, then decides which revision is eligible for delivery.</p>
+                <div class="eyebrow" style="justify-content:center;">Why not just a prompt</div>
+                <h2>Not a longer prompt — delivery rules that live outside the AI</h2>
+                <p class="section-desc">Prompts and skills tell the agent what it should do; BriefLoop records what it actually did, and decides which version is allowed to ship.</p>
             </div>
 
-            <p class="compare-callout reveal">The essential difference is not another review agent. It is that <b>the writing agent cannot unilaterally declare its own draft ready to deliver</b>.</p>
+            <p class="compare-callout reveal">The real difference isn't one more reviewer agent — it's that <b>the writing agent has no authority to declare its own draft “ready to deliver”</b>.</p>
 
             <div class="role-cols reveal">
                 <div class="role-card">
-                    <div class="role-head"><span class="role-tag">Writes</span><h3 class="role-name">ChatGPT + a long prompt</h3></div>
-                    <p class="role-analogy">Like bringing in a smart analyst for one assignment.</p>
-                    <ul class="role-list">
-                        <li>Reads material</li>
-                        <li>Summarizes, analyzes, and drafts</li>
-                        <li>Revises from feedback</li>
-                        <li>Attempts to follow formatting and rules</li>
-                    </ul>
-                    <p class="role-note">The rules mostly live in <b>the current conversation</b>. Which draft is final, whether an issue was resolved, and whether a number changed during editing still depend on the model's own explanation.</p>
-                    <p class="role-fit"><span>Best for</span>brainstorming, one-off drafts, and low-risk internal material.</p>
+                    <div class="role-head"><span class="role-tag">Handles writing</span><h3 class="role-name">ChatGPT + long prompt</h3></div>
+                    <p class="role-analogy">Writes well, but the rules only live in this one conversation.</p>
                 </div>
-
                 <div class="role-card">
-                    <div class="role-head"><span class="role-tag">Runs</span><h3 class="role-name">Agent runtime + Skill.md</h3></div>
-                    <p class="role-analogy">Like giving the analyst tools, a task list, and a standard operating procedure.</p>
-                    <ul class="role-list">
-                        <li>Calls search, file, and code tools</li>
-                        <li>Executes multi-step tasks</li>
-                        <li>Reuses Skills and delegates work</li>
-                        <li>Retries after failures</li>
-                    </ul>
-                    <p class="role-note">Without an independent state and authority layer, the same agent may <b>write, judge itself complete, alter earlier files, and announce a final report</b>. The performer can still be its own judge.</p>
-                    <p class="role-fit"><span>Best for</span>automated research, information gathering, and internal workflows reviewed manually at the end.</p>
+                    <div class="role-head"><span class="role-tag">Handles running</span><h3 class="role-name">Agent runtime + Skill.md</h3></div>
+                    <p class="role-analogy">Can call tools and run multi-step, but the writer and the judge are still the same one.</p>
                 </div>
-
                 <div class="role-card is-briefloop">
-                    <div class="role-head"><span class="role-tag brand">Governs delivery</span><h3 class="role-name">BriefLoop</h3></div>
-                    <p class="role-analogy">It does not replace either of the above. It <b>wraps around them</b> with a record and authority layer:</p>
-                    <ul class="role-list">
-                        <li>Which material facts are registered</li>
-                        <li>Which artifact revision is on record</li>
-                        <li>What checks found and whether issues were repaired</li>
-                        <li>Which revision passed pre-delivery checks and who approved it</li>
-                        <li>Where to resume after an interrupted run</li>
-                    </ul>
-                    <p class="role-note">These states live outside the model's reply, in <b>agent-external programs and records</b>.</p>
-                    <p class="role-fit"><span>Best for</span>weeklies, monthlies, executive briefs, IR material, research reports, and work that is repeated, reviewed, or accountable.</p>
+                    <div class="role-head"><span class="role-tag brand">Handles delivery control</span><h3 class="role-name">BriefLoop</h3></div>
+                    <p class="role-analogy">Puts the key facts, checks, and approval outside the agent.</p>
                 </div>
             </div>
 
             <div class="compare-table-wrap reveal">
                 <table class="compare-table">
-                    <thead><tr><th></th><th>ChatGPT + long prompt</th><th>Agent runtime + Skill.md</th><th class="col-brand">BriefLoop</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ChatGPT + long prompt</th>
+                            <th>Agent runtime + Skill.md</th>
+                            <th class="col-brand">BriefLoop</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><th>Main job</th><td>Generate content</td><td>Automate work</td><td class="col-brand">Manage the report from draft to delivery</td></tr>
-                        <tr><th>How rules take effect</th><td>Agent interprets the prompt</td><td>Agent follows the Skill and runtime</td><td class="col-brand">Critical boundaries use external state, deterministic checks, and authority controls</td></tr>
-                        <tr><th>Who decides completion</th><td>Usually the model or user</td><td>Usually the agent or runtime</td><td class="col-brand">The writing agent cannot unilaterally admit delivery</td></tr>
-                        <tr><th>Where key numbers live</th><td>Material and conversation</td><td>Possibly intermediate files</td><td class="col-brand">Registered separately; changes leave a record</td></tr>
-                        <tr><th>After an error</th><td>Continue chatting or regenerate</td><td>Retry or rerun a step</td><td class="col-brand">Record the issue, block delivery, repair, then re-check</td></tr>
-                        <tr><th>What counts as final</th><td>Last reply or generated file</td><td>Whatever the agent marks complete</td><td class="col-brand">A checked, approved revision</td></tr>
-                        <tr><th>After interruption</th><td>Depend on conversation context</td><td>Depend on runtime state</td><td class="col-brand">Resume from artifacts and recorded run state</td></tr>
-                        <tr><th>Best fit</th><td>One-off, low-risk writing</td><td>Multi-step automation</td><td class="col-brand">Repeated, high-consequence, reviewed delivery</td></tr>
+                        <tr><th>Main role</th><td>Generate content</td><td>Automate tasks</td><td class="col-brand">Manage a report from draft to delivery</td></tr>
+                        <tr><th>How rules take effect</th><td>Agent interprets the prompt</td><td>Agent runs skill + runtime</td><td class="col-brand">Key boundaries by external state, program checks, and permissions</td></tr>
+                        <tr><th>Who decides it's done</th><td>Usually the model or user</td><td>Usually the agent or runtime flow</td><td class="col-brand">The writing agent can't declare it deliverable alone</td></tr>
+                        <tr><th>How key numbers are kept</th><td>In the material and the chat</td><td>Maybe in intermediate files</td><td class="col-brand">Key facts registered separately; changes must leave a trace</td></tr>
+                        <tr><th>After an error is found</th><td>Keep chatting, regenerate</td><td>Agent retries or reruns steps</td><td class="col-brand">Issue logged, delivery blocked, rechecked after repair</td></tr>
+                        <tr><th>Which version is final</th><td>The last reply or generated file</td><td>Whatever the agent marks done</td><td class="col-brand">The version that passed checks and was approved</td></tr>
+                        <tr><th>After an interruption</th><td>Depends on the chat log and context</td><td>Depends on whether the runtime kept state</td><td class="col-brand">Recovered from artifacts and run records</td></tr>
+                        <tr><th>Best for</th><td>One-off, low-risk writing</td><td>Multi-step automation</td><td class="col-brand">Recurring, high-stakes, multi-reviewer reports</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <p class="compare-summary reveal">ChatGPT thinks and writes. A Skill tells it how. A runtime lets it run. <b>BriefLoop keeps the books, intercepts issues, and controls delivery.</b></p>
+            <p class="compare-summary reveal">ChatGPT thinks and writes, the skill teaches it how, the runtime makes it run — <b>BriefLoop keeps the ledger, blocks, and releases</b>.</p>
 
             <div class="compare-boundary reveal">
-                <span class="cb-kicker">An honest boundary</span>
-                <p>An agent runtime can certainly build persistent state, frozen artifacts, non-bypassable gates, human approval, audit logs, and recovery by itself. Once it has done so, however, it has effectively <b>rebuilt BriefLoop's core</b>. BriefLoop's value is not that no one else can do this; it is a unified, tested, reusable workflow for the governance layer that teams otherwise assemble from prompts, scripts, and conventions.</p>
+                <span class="cb-kicker">In fairness</span>
+                <p>An agent runtime can implement all of this itself — persistent state, gates, human approval, recovery. But once it has, it's essentially rebuilt BriefLoop. The point isn't that others can't; it's that <b>you don't have to reassemble it from prompts and scripts on every team</b>.</p>
             </div>
 
-            <p class="compare-punch reveal">A Skill says “please do this.” <span class="text-gradient">BriefLoop says “you cannot pass until it is done.”</span></p>
+            <p class="compare-punch reveal">A skill says “please do this,” <span class="text-gradient">BriefLoop says “you don't get past this until it's done.”</span></p>
         </div>
     </section>
 
-    <!-- ===== 4 · Four steps ===== -->
+    <!-- How it works — four steps -->
     <section class="section-steps" id="how">
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">How it works</div>
-                <h2>Four steps to turn an AI draft into something you can ship</h2>
+                <h2>Four steps to turn an AI draft into a final you can ship</h2>
             </div>
             <div class="steps-grid reveal" style="margin-top:44px;">
                 <div class="step-card">
                     <span class="step-num">1</span>
-                    <h3>Hand your material to the AI</h3>
-                    <p>Local files, reports, tables, or registered web material.</p>
+                    <h3>Hand the material to the AI</h3>
+                    <p>Local files, reports, spreadsheets, or registered web material.</p>
                 </div>
                 <div class="step-card">
                     <span class="step-num">2</span>
@@ -309,50 +279,50 @@
                 </div>
                 <div class="step-card">
                     <span class="step-num">3</span>
-                    <h3>BriefLoop checks it against sources and rules</h3>
-                    <p>Whether numbers have sources, whether material is stale, whether important new conclusions appeared.</p>
+                    <h3>BriefLoop checks against sources and rules</h3>
+                    <p>Whether numbers have a source, material is stale, or a big new conclusion suddenly appears.</p>
                 </div>
                 <div class="step-card">
                     <span class="step-num">4</span>
                     <h3>Issues go back for repair; a human confirms before delivery</h3>
-                    <p>Unhandled issues never count as final. A human always releases, and it's on the record.</p>
+                    <p>Unresolved issues don't count as final. A human always releases, and it's recorded.</p>
                 </div>
             </div>
             <details class="tech-disclosure reveal">
-                <summary>View technical detail</summary>
+                <summary>View technical details</summary>
                 <div class="tech-disclosure-body">
-                    <p>Behind these four steps, each key fact lands in a <b>key-fact ledger</b> (<code>claim_ledger.json</code>) and is frozen; check results, audit findings, and the release action are written to an <b>event log</b> (<code>event_log.jsonl</code>); facts are hashed at freeze time so they can't be quietly changed during editing. These are evidence, not something you read daily — full mechanism on <a href="how-it-works.en.html">How it works</a>.</p>
+                    <p>Behind these four steps, each key fact first lands in the <b>claim ledger</b> (<code>claim_ledger.json</code>) and is frozen; check results, findings, and release actions go into the <b>event log</b> (<code>event_log.jsonl</code>); facts are hashed at freeze time so they can't be quietly changed. These are evidence, not daily reading — full mechanics on <a href="how-it-works.en.html">How it works</a>.</p>
                 </div>
             </details>
         </div>
     </section>
 
-    <!-- ===== 5 · What you get ===== -->
+    <!-- What you get -->
     <section class="section-outcome" id="artifacts">
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">What you get</div>
-                <h2>Not just a report — a delivery that can be questioned</h2>
-                <p class="section-desc">See what it's for first; open the filenames if you want them.</p>
+                <h2>Not just a report — a delivery you can question</h2>
+                <p class="section-desc">See what each is for first; open the filename to see more.</p>
             </div>
             <div class="grid-2 outcome-grid" style="margin-top:44px;" data-disclosure-group>
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>A report you can read as final</h3><p>The report that becomes final only after every check passes and a human approves.</p></div>
+                    <div><h3>A brief you can read directly</h3><p>The report that becomes final only after passing every check and human approval.</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
                     <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>brief.md · brief.docx</code></div>
                 </div>
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>A source map of key numbers and their origins</h3><p>Which material and which page each key number came from, at a glance.</p></div>
+                    <div><h3>A source map of the key numbers</h3><p>Which material and page each key number maps to, at a glance.</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
                     <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>claim_ledger.json · source_appendix.md</code></div>
                 </div>
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>A list of issues that still need a human</h3><p>What still lacks a source, still conflicts, or still needs judgment — all listed here.</p></div>
+                    <div><h3>A list of issues for a human</h3><p>Where a source is still missing, a conflict remains, or a human still needs to judge.</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
                     <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>findings · audit bundle</code></div>
                 </div>
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>A record of who approved delivery, and when</h3><p>Who released it, at what time, based on which revision — all on the record.</p></div>
+                    <div><h3>A record of who approved delivery, and when</h3><p>Who released it, when, and on which version — traced throughout.</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
                     <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>event_log.jsonl · finalize_report.json</code></div>
                 </div>
@@ -360,130 +330,129 @@
         </div>
     </section>
 
-    <!-- ===== One task · three methods · manual placement ===== -->
+    <!-- Real trial weekly briefs · author places manually -->
     <!--
-      Author note: once the comparison is complete, replace each article with a
-      linked card and add: 1) report/run-packet URL; 2) title and summary;
-      3) time window, source package, and run ID.
-      Keep is-placeholder until a reproducible, reviewable packet exists.
+      To the author: put three real weekly briefs here.
+      Each card needs three replacements:
+        1) href           -> report link, e.g. reports/weekly-2026-07-solar.html
+                             or a PDF / external link; keep href="#" to show a placeholder
+        2) title / summary -> the <h3> and <p> text
+        3) meta            -> industry · date · run id
+      Once placed, remove the "is-placeholder" class on the card to switch to the live style.
     -->
     <section class="section-samples" id="samples">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Public comparison packets · in preparation</div>
-                <h2>One briefing task, three methods</h2>
-                <p class="section-desc">The same time window, source package, model, and delivery request. When the real runs are complete and reviewed, this shelf will publish all three outputs, issue records, and run packets — not merely the most flattering one.</p>
+                <div class="eyebrow" style="justify-content:center;">From real runs</div>
+                <h2>Three real weekly briefs</h2>
+                <p class="section-desc">Not synthetic — below are weekly briefs actually run through BriefLoop, passed checks, and delivered. Open to read, with the source map and check records.</p>
             </div>
             <div class="grid-3 sample-grid reveal" style="margin-top:44px;">
-                <article class="sample-card is-placeholder" aria-label="Long-prompt direct-output comparison in preparation">
-                    <span class="sample-tag">A0 · In preparation</span>
-                    <h3>Long prompt, direct output</h3>
-                    <p>A one-shot weekly brief and its raw run record, using the shared source package and report request.</p>
-                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
-                    <span class="sample-cta">Run packet in preparation</span>
-                </article>
-                <article class="sample-card is-placeholder" aria-label="Skill and agent runtime comparison in preparation">
-                    <span class="sample-tag">A1 · In preparation</span>
-                    <h3>Skill + agent runtime</h3>
-                    <p>A weekly brief and run record produced by an agent using a public Skill with the same source package and request.</p>
-                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
-                    <span class="sample-cta">Run packet in preparation</span>
-                </article>
-                <article class="sample-card is-placeholder" aria-label="BriefLoop workflow comparison in preparation">
-                    <span class="sample-tag">A2 · In preparation</span>
-                    <h3>BriefLoop workflow</h3>
-                    <p>The same task with fact registration, issue records, repair, and human delivery status included in the packet.</p>
-                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
-                    <span class="sample-cta">Run packet in preparation</span>
-                </article>
+                <!-- Card 1 -->
+                <a class="sample-card is-placeholder" href="#" aria-label="Weekly brief 1, to be placed">
+                    <span class="sample-tag">PLACEHOLDER</span>
+                    <h3>Report title (replace me)</h3>
+                    <p>One-line summary: what this brief covers and what it caught.</p>
+                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
+                    <span class="sample-cta">View report →</span>
+                </a>
+                <!-- Card 2 -->
+                <a class="sample-card is-placeholder" href="#" aria-label="Weekly brief 2, to be placed">
+                    <span class="sample-tag">PLACEHOLDER</span>
+                    <h3>Report title (replace me)</h3>
+                    <p>One-line summary: what this brief covers and what it caught.</p>
+                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
+                    <span class="sample-cta">View report →</span>
+                </a>
+                <!-- Card 3 -->
+                <a class="sample-card is-placeholder" href="#" aria-label="Weekly brief 3, to be placed">
+                    <span class="sample-tag">PLACEHOLDER</span>
+                    <h3>Report title (replace me)</h3>
+                    <p>One-line summary: what this brief covers and what it caught.</p>
+                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
+                    <span class="sample-cta">View report →</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- ===== 6 · Scenarios ===== -->
+    <!-- Use cases -->
     <section class="section-usecases" id="scenarios">
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">Scenarios</div>
-                <h2>Whatever you ship each week, BriefLoop guards that one</h2>
-                <p class="section-desc">What do you ship each week? What does BriefLoop keep for you? What does it most often block?</p>
+                <h2>Whatever you deliver each week, BriefLoop guards that one</h2>
+                <p class="section-desc">Three of the most common recurring deliverables, each with its own easiest mistake.</p>
             </div>
             <div class="grid-3" style="margin-top:44px;">
                 <div class="usecase-item reveal">
                     <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <div class="usecase-detail">
                         <h3>Industry &amp; competitor weekly</h3>
-                        <p class="usecase-problem"><strong>You ship</strong>: weekly industry moves and competitor tracking.</p>
-                        <p class="usecase-solution"><strong>It blocks</strong>: unverified data and claims mixed in over edit rounds; core numbers are frozen before polishing.</p>
+                        <p class="usecase-problem"><strong>Deliver</strong>: weekly industry moves and competitor tracking.</p>
+                        <p class="usecase-solution"><strong>Often blocks</strong>: unverified data and opinions that creep in after many edits; freeze the core numbers before polishing.</p>
                     </div>
                 </div>
                 <div class="usecase-item reveal reveal-delay-1">
                     <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.5-5.5 6-5.5s6 2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16.5 14.6c2.8.3 4.5 2 4.5 4.9"/></svg></div>
                     <div class="usecase-detail">
                         <h3>Management monthly</h3>
-                        <p class="usecase-problem"><strong>You ship</strong>: a monthly operating &amp; decision brief for leadership.</p>
-                        <p class="usecase-solution"><strong>It blocks</strong>: “expected” written as “done,” and over-absolute conclusions without attribution.</p>
+                        <p class="usecase-problem"><strong>Deliver</strong>: a monthly operating and decision brief for leadership.</p>
+                        <p class="usecase-solution"><strong>Often blocks</strong>: “planned” written as “done”; overly absolute conclusions without attribution.</p>
                     </div>
                 </div>
                 <div class="usecase-item reveal reveal-delay-2">
                     <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M5 7l7-4 7 4M5 7v4c0 2 1.5 3.5 3.5 3.5S12 13 12 11M19 7v4c0 2-1.5 3.5-3.5 3.5S12 13 12 11"/><path d="M8 21h8"/></svg></div>
                     <div class="usecase-detail">
                         <h3>Document evidence review</h3>
-                        <p class="usecase-problem"><strong>You ship</strong>: source &amp; compliance review conclusions on AI drafts.</p>
-                        <p class="usecase-solution"><strong>It blocks</strong>: stale or unsupported statements are flagged and blocked; review only the exceptions.</p>
+                        <p class="usecase-problem"><strong>Deliver</strong>: source and compliance review conclusions on an AI draft.</p>
+                        <p class="usecase-solution"><strong>Often blocks</strong>: stale or unsupported statements flagged and blocked; review only the exceptions.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 7 · Honest boundary ===== -->
+    <!-- Boundary — honest limits -->
     <section class="section-boundary" id="boundary">
         <div class="container">
             <div class="boundary-inner reveal">
                 <div class="eyebrow on-dark">Boundary</div>
-                <h2>It helps you find out — it doesn't make the call for you</h2>
-                <p>BriefLoop won't automatically prove a sentence is absolutely true, and it won't replace legal, compliance, or management judgment. What it does is put sources, conflicts, stale material, and open issues in front of you — and keep those from quietly becoming the final draft.</p>
-                <p class="boundary-note">For example: it won't prove “demand definitely isn't recovering”; it only points out that the current material is insufficient to support that conclusion.</p>
+                <h2>It helps you check — it doesn't make the call for you</h2>
+                <p>BriefLoop won't automatically prove a sentence is absolutely correct, and it won't replace legal, compliance, or management judgment. What it does is put sources, conflicts, stale material, and open issues in front of you — and keep them from quietly becoming final.</p>
+                <p class="boundary-note">For example: it won't prove “demand definitely hasn't recovered”; it only points out that the material provided isn't enough to support that conclusion.</p>
             </div>
         </div>
     </section>
 
-    <!-- ===== Get started ===== -->
+    <!-- Get started -->
     <section class="section-start" id="start">
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow" style="justify-content:center;">Get started</div>
-                <h2>Two ways to start in minutes</h2>
-                <p class="section-desc">You can see it catch errors without installing anything. To run it locally, choose one of the paths below.</p>
+                <h2>Two ways, running in minutes</h2>
+                <p class="section-desc">You can see it catch errors without installing anything; to really run it, pick one below.</p>
             </div>
             <div class="grid-2 install-methods reveal" style="margin-top:44px;">
                 <div class="install-method recommended">
-                    <span class="install-tag">Route one · simplest</span>
-                    <h3>Say one sentence to your agent</h3>
+                    <span class="install-tag">Option 1 · Simplest</span>
+                    <h3>Say one line to your agent</h3>
                     <p>In WorkBuddy or Claude Code, say:</p>
-                    <p class="install-say">“I want to use briefloop.ai for a weekly brief.”</p>
-                    <div class="agent-instructions" aria-label="Agent startup instructions">
-                        <span class="agent-instructions-kicker">Agent instructions</span>
-                        <p>Before taking any action, read:</p>
-                        <a href="/.well-known/briefloop-agent.json"><code>https://briefloop.ai/.well-known/briefloop-agent.json</code></a>
-                        <p>Then read the canonical skill specified by the manifest. Do not infer repository, installation, runtime, or capabilities from this homepage.</p>
-                    </div>
-                    <button type="button" class="btn-copy-agent" data-copy-text="Before taking any action, read https://briefloop.ai/.well-known/briefloop-agent.json&#10;and the canonical Skill specified by the manifest. Identify the current runtime and tell me the proposed&#10;clone, installation, and workspace paths. Do not make any changes until I explicitly confirm.">Copy for your agent</button>
-                    <p class="install-note">It should read the installation reference, ask you to confirm the directory and permissions, then verify each setup step. A conversational “done” message is not installation proof.</p>
+                    <p class="install-say">“I want to use briefloop.ai for weekly reports”</p>
+                    <p class="install-note">It walks you through setup and installs what's needed — all in conversation, no command line.</p>
                 </div>
                 <div class="install-method">
-                    <span class="install-tag">Route two · source install</span>
-                    <h3>Paste into a macOS / Linux terminal</h3>
+                    <span class="install-tag">Option 2 · Copy the commands</span>
+                    <h3>Paste into a terminal or agent chat</h3>
                     <div class="install-cmds">
                         <code>git clone https://github.com/Stahl-G/briefloop.git</code>
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">Copy commands</button>
-                    <p class="install-note">On Windows, use the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. Then run <code>briefloop new industry-weekly ./my-weekly</code> to create a first brief.</p>
+                    <p class="install-note">After install, run <code>briefloop new industry-weekly ./my-weekly</code> to create your first weekly.</p>
                 </div>
             </div>
-            <p class="quickstart-note">Want an online preview first? <a href="#catch">See the three catch demos</a>. For the complete install path and governance model, read the <a href="agents/briefloop/SKILL.md">agent bootstrap</a>, <a href="how-it-works.en.html">How it works</a>, and the <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">Architecture Reference v0.4.0</a>.</p>
+            <p class="quickstart-note">Want to try online first? <a href="#catch">See the three catch demos</a>. Full install and governance details on <a href="how-it-works.en.html">How it works</a> and the <a href="reports/briefloop-architecture-reference-v0.4.0.en.html" target="_blank" rel="noopener noreferrer">architecture reference v0.4.0</a>.</p>
         </div>
     </section>
 
@@ -500,14 +469,14 @@
                     </svg>
                     <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
                 </div>
-                <p class="footer-desc">AI drafts first, BriefLoop reconciles; nothing ships until the issues are handled.</p>
-                <p class="footer-boundary">Helps you trace the source — doesn't judge the truth for you.</p>
+                <p class="footer-desc">AI drafts first, BriefLoop reconciles; nothing ships until issues are cleared.</p>
+                <p class="footer-boundary">Traces the sources; doesn't judge truth for you.</p>
             </div>
             <div class="footer-links">
                 <h4>Product</h4>
                 <a href="#catch">See it catch</a>
                 <a href="#compare">Compare</a>
-                <a href="#scenarios">Scenarios</a>
+                <a href="#scenarios">Use cases</a>
                 <a href="#start">Get started</a>
                 <a href="#boundary">Boundary</a>
             </div>

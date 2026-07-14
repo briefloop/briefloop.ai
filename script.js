@@ -715,10 +715,12 @@ document.addEventListener("DOMContentLoaded", () => {
     /* --- 10. Live version badge — PyPI is the single source of truth --- */
     const versionBadge = document.getElementById("version-badge");
     if (versionBadge) {
-        fetch("https://pypi.org/pypi/briefloop/json")
-            .then(r => (r.ok ? r.json() : Promise.reject(new Error("pypi unavailable"))))
+        // Bind the badge to the latest GitHub release tag of the source repo.
+        fetch("https://api.github.com/repos/Stahl-G/briefloop/releases/latest")
+            .then(r => (r.ok ? r.json() : Promise.reject(new Error("no release"))))
             .then(d => {
-                if (d && d.info && d.info.version) versionBadge.textContent = "v" + d.info.version;
+                const tag = d && d.tag_name;
+                if (tag) versionBadge.textContent = tag.charAt(0) === "v" ? tag : "v" + tag;
             })
             .catch(() => { /* keep the static fallback text */ });
     }
