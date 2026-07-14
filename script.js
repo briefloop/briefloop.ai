@@ -723,3 +723,18 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(() => { /* keep the static fallback text */ });
     }
 });
+
+/* Copy-to-clipboard for install commands (data-copy-text buttons) */
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-copy-text]").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const text = btn.getAttribute("data-copy-text");
+            if (!navigator.clipboard) return;
+            navigator.clipboard.writeText(text).then(() => {
+                const original = btn.textContent;
+                btn.textContent = "已复制 ✓";
+                setTimeout(() => { btn.textContent = original; }, 1500);
+            }).catch(() => { /* clipboard blocked; ignore */ });
+        });
+    });
+});
