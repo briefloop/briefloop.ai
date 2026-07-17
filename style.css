@@ -1,3 +1,10 @@
+/* Hallmark · macrostructure: Workbench · tone: technical-austere · anchor hue: forest green
+ * pre-emit critique: P5 H4 E4 S5 R4 V5
+ * theme: existing BriefLoop enterprise palette
+ * central move: one product demo followed by five distinct document rhythms
+ * redesign: in-place · routes, copy intent, brand, and ownership preserved
+ * ========================================================================== */
+
 /* ==========================================================================
    briefloop.ai — Sierra-aligned enterprise palette
    Usage pattern (from sierra.ai): warm gray surfaces + true black type;
@@ -74,17 +81,283 @@
     --shadow-deep: 0 24px 60px rgba(13, 15, 15, 0.45);
 }
 
+/* Hallmark · final cascade for the daylight workbench */
+html,
+body {
+    background: var(--bl-day-paper);
+    color: var(--bl-day-ink);
+}
+
+.section-catch,
+.section-compare,
+.section-steps,
+.section-outcome,
+.section-samples,
+.section-usecases,
+.section-start {
+    border-top-color: var(--bl-day-rule);
+    background: var(--bl-day-paper);
+    color: var(--bl-day-ink);
+}
+.section-catch,
+.section-outcome,
+.section-usecases {
+    background: var(--bl-day-surface);
+}
+.section-samples {
+    background: var(--bl-day-paper-strong);
+}
+
+.section-compare {
+    padding: 104px 0 112px;
+    background: var(--bl-day-paper);
+}
+.section-compare h2,
+.section-compare h3,
+.section-compare .compare-callout,
+.section-compare .compare-summary,
+.section-compare .compare-punch {
+    color: var(--bl-day-ink);
+}
+.section-compare .section-desc,
+.section-compare .role-analogy {
+    color: var(--bl-day-muted);
+}
+.compare-callout {
+    max-width: 920px;
+    padding: 20px 0;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+    background: transparent;
+}
+.compare-callout b,
+.compare-summary b,
+.compare-boundary b {
+    color: var(--bl-day-forest);
+}
+.role-cols {
+    gap: 0;
+    margin-top: 38px;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+    background: var(--bl-day-surface);
+}
+.section-compare .role-card,
+.section-compare .role-card.is-briefloop {
+    min-height: 218px;
+    padding: 28px 26px;
+    border: 0;
+    border-right: 1px solid var(--bl-day-rule);
+    border-radius: 0;
+    background: var(--bl-day-surface);
+    box-shadow: none;
+}
+.section-compare .role-card:last-child {
+    border-right: 0;
+}
+.section-compare .role-card.is-briefloop {
+    background: var(--bl-day-accent-soft);
+    box-shadow: inset 3px 0 0 var(--bl-day-accent);
+}
+.section-compare .role-tag {
+    color: var(--bl-day-muted);
+    background: var(--bl-day-paper-strong);
+}
+.section-compare .role-tag.brand {
+    color: var(--bl-day-forest);
+    background: transparent;
+}
+.section-compare .role-name,
+.section-compare .role-card.is-briefloop .role-name {
+    color: var(--bl-day-ink);
+}
+.section-compare .role-card.is-briefloop .role-analogy {
+    color: var(--bl-day-muted);
+}
+.compare-table-wrap {
+    margin-top: 38px;
+    border: 1px solid var(--bl-day-rule-strong);
+    border-radius: 6px;
+    background: var(--bl-day-surface);
+    box-shadow: var(--bl-day-shadow);
+}
+.compare-table {
+    color: var(--bl-day-ink);
+}
+.compare-table th,
+.compare-table td {
+    border-bottom-color: var(--bl-day-rule);
+}
+.compare-table thead th {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-paper-strong);
+}
+.compare-table tbody th {
+    color: var(--bl-day-muted);
+    background: var(--bl-day-paper-strong);
+}
+.compare-table td {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-surface);
+}
+.compare-table .col-brand {
+    color: var(--bl-day-forest);
+    background: var(--bl-day-accent-soft);
+}
+.compare-table thead .col-brand {
+    color: var(--bl-day-surface);
+    background: var(--bl-day-forest);
+}
+.compare-boundary {
+    border-color: var(--bl-day-rule);
+    border-left-color: var(--bl-day-warn);
+    background: var(--bl-day-warn-soft);
+}
+.cb-kicker {
+    color: var(--bl-day-warn);
+}
+.compare-boundary p {
+    color: var(--bl-day-ink);
+}
+.compare-punch {
+    margin-top: 36px;
+    color: var(--bl-day-ink);
+}
+.compare-punch span {
+    color: var(--bl-day-forest);
+}
+
+.section-boundary {
+    padding: 76px 0;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    background: var(--bl-day-accent-soft);
+}
+.section-boundary h2 {
+    color: var(--bl-day-ink);
+}
+.section-boundary p,
+.section-boundary .boundary-note {
+    color: var(--bl-day-muted);
+}
+.section-boundary .boundary-note {
+    border-top-color: var(--bl-day-rule-strong);
+}
+
+.app-footer {
+    padding: 42px 0 24px;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    color: var(--bl-day-muted);
+    background: var(--bl-day-forest);
+}
+.app-footer .footer-brand .logo-text,
+.app-footer .footer-links h4 {
+    color: var(--bl-day-surface);
+}
+.app-footer .footer-brand .logo-loop,
+.app-footer .footer-links a:hover {
+    color: var(--bl-day-accent-soft);
+}
+.app-footer .footer-desc,
+.app-footer .footer-boundary,
+.app-footer .footer-copyright,
+.app-footer .footer-links a {
+    color: var(--bl-day-accent-soft);
+}
+.app-footer .footer-copyright {
+    border-top-color: var(--bl-day-rule-strong);
+}
+
+.hero-review-card,
+.cmp {
+    border-color: var(--bl-day-rule-strong);
+    box-shadow: var(--bl-day-shadow);
+}
+.hero-review-head,
+.cmp-source,
+.hero-audit-details {
+    background: var(--bl-day-graphite);
+}
+.hero-review-pane,
+.hero-review-pane.source-report,
+.hero-review-pane.review-result {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-surface) !important;
+}
+.hero-review-pane + .hero-review-pane {
+    border-left-color: var(--bl-day-rule);
+}
+.hero-review-pane blockquote {
+    border-color: var(--bl-day-rule);
+    background: var(--bl-day-paper);
+}
+.cmp-tabs,
+.cmp-questions {
+    background: var(--bl-day-paper-strong);
+}
+.cmp-tabs,
+.cmp-cols,
+.cmp-questions {
+    border-color: var(--bl-day-rule);
+}
+.cmp-tab,
+.cmp-tab:nth-child(1),
+.cmp-tab:nth-child(2),
+.cmp-tab:nth-child(3) {
+    color: var(--bl-day-muted);
+    border-right-color: var(--bl-day-rule);
+}
+.cmp-tab:hover {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-accent-soft);
+}
+.cmp-tab.active {
+    color: var(--bl-day-surface);
+    background: var(--bl-day-forest);
+    box-shadow: inset 0 -3px 0 var(--bl-day-accent);
+}
+.cmp-col.oneshot {
+    background: var(--bl-day-surface);
+}
+.cmp-col.briefloop {
+    background: var(--bl-day-accent-soft);
+}
+
+@media (max-width: 920px) {
+    .section-compare .role-card,
+    .section-compare .role-card.is-briefloop {
+        border-right: 0;
+        border-bottom: 1px solid var(--bl-day-rule);
+    }
+    .section-compare .role-card:last-child {
+        border-bottom: 0;
+    }
+}
+
+@media (max-width: 680px) {
+    .section-compare {
+        padding: 76px 0 84px;
+    }
+    .section-compare .role-card,
+    .section-compare .role-card.is-briefloop {
+        min-height: 0;
+        padding: 24px 22px;
+    }
+    .section-boundary {
+        padding: 58px 0;
+    }
+}
+
 /* --- Base --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
     background-color: var(--paper);
     color: var(--text-ink);
     font-family: var(--font-body);
     line-height: 1.65;
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -108,8 +381,8 @@ a:hover { color: var(--accent-strong); }
 .flex-col { flex-direction: column; }
 .hidden { display: none !important; }
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
 @media (max-width: 992px) { .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 28px; } }
 
 /* Eyebrow — mono small caps section label */
@@ -369,13 +642,6 @@ a:hover { color: var(--accent-strong); }
 .hero-title { font-size: 50px; margin-bottom: 26px; }
 @media (max-width: 768px) { .hero-title { font-size: 36px; } }
 
-.text-gradient {
-    color: var(--text-ink);
-    background: none;
-    -webkit-text-fill-color: currentColor;
-    font-style: italic;
-}
-
 .hero-subtitle {
     font-size: 17.5px;
     color: var(--text-muted);
@@ -588,7 +854,7 @@ a:hover { color: var(--accent-strong); }
     padding: 3px 10px;
     border-radius: var(--radius);
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: color 0.18s ease, border-color 0.18s ease;
 }
 .card-replay:hover { color: var(--dtext); border-color: rgba(255,255,255,0.3); }
 
@@ -634,7 +900,7 @@ a:hover { color: var(--accent-strong); }
     padding: 1px 5px;
     border-radius: 3px;
     font-weight: 500;
-    transition: all 0.4s ease;
+    transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     border: 1px dashed transparent;
 }
 .green-glow { background-color: rgba(79, 175, 98, 0.10); color: var(--accent-dark); border-color: rgba(79, 175, 98, 0.35); cursor: pointer; }
@@ -648,7 +914,7 @@ a:hover { color: var(--accent-strong); }
     border: 1px solid var(--line-dark);
     border-radius: var(--radius);
     padding: 12px;
-    transition: all 0.4s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
     position: relative;
 }
 .ledger-card.active { border-color: rgba(79, 175, 98, 0.55); box-shadow: 0 0 16px rgba(79, 175, 98, 0.15); }
@@ -1106,7 +1372,7 @@ a:hover { color: var(--accent-strong); }
     font-weight: 500;
     font-size: 14px;
     font-family: var(--font-body);
-    transition: all 0.18s ease;
+    transition: color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 .btn-scenario.active, .btn-scenario:hover {
     border-color: var(--cta);
@@ -1420,7 +1686,7 @@ a:hover { color: var(--accent-strong); }
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     padding: 30px;
-    transition: all 0.25s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
     box-shadow: var(--shadow-card);
     display: flex;
     flex-direction: column;
@@ -1539,8 +1805,6 @@ a:hover { color: var(--accent-strong); }
     padding: 10px 16px;
     display: flex; justify-content: space-between; align-items: center;
 }
-.terminal-dots { display: flex; gap: 6px; }
-.terminal-dots span { width: 8px; height: 8px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.18); }
 .terminal-title { font-size: 12px; color: var(--dtext-muted); font-family: var(--font-mono); }
 
 .btn-copy-terminal {
@@ -1552,7 +1816,7 @@ a:hover { color: var(--accent-strong); }
     font-size: 11px;
     font-family: var(--font-mono);
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
 }
 .btn-copy-terminal:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
 
@@ -1627,11 +1891,8 @@ a:hover { color: var(--accent-strong); }
 }
 
 /* --- Scroll reveal --- */
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.08s; }
-.reveal-delay-2 { transition-delay: 0.16s; }
-.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal, .reveal.visible { opacity: 1; transform: none; transition: none; }
+.reveal-delay-1, .reveal-delay-2, .reveal-delay-3 { transition-delay: 0s; }
 
 @keyframes dot-breathe {
     0%, 100% { opacity: 1; transform: scale(1); }
@@ -1814,7 +2075,7 @@ a.trust-item:hover { background: var(--accent-wash); color: inherit; }
 .section-catch { padding: 96px 0; border-top: 1px solid var(--line); background: var(--paper-deep); }
 .cmp { max-width: 1000px; margin: 44px auto 0; }
 .cmp-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-.cmp-tab { flex: 1; min-width: 200px; text-align: left; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; cursor: pointer; transition: all .18s; display: flex; flex-direction: column; gap: 3px; font-family: var(--font-body); }
+.cmp-tab { flex: 1; min-width: 200px; text-align: left; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; cursor: pointer; transition: color .18s ease, border-color .18s ease, box-shadow .18s ease, background-color .18s ease; display: flex; flex-direction: column; gap: 3px; font-family: var(--font-body); }
 .cmp-tab:hover { border-color: var(--line-strong); }
 .cmp-tab.active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 .cmp-tab-label { font-weight: 600; color: var(--text-ink); font-size: 14.5px; }
@@ -2170,7 +2431,1125 @@ a.trust-item:hover { background: var(--accent-wash); color: inherit; }
 .agent-instructions-kicker { display: block; margin-bottom: 8px; color: var(--accent-strong); font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .agent-instructions p { margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.58; }
 .agent-instructions a { display: inline-block; max-width: 100%; margin: 6px 0; overflow-wrap: anywhere; }
-.agent-instructions code { font-size: 11px; }
+.agent-instructions code { font-size: 11px; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
 .btn-copy-agent { align-self: flex-start; margin-top: 10px; padding: 8px 13px; color: var(--surface); background: var(--accent-strong); border: 1px solid var(--accent-strong); border-radius: var(--radius); cursor: pointer; font-family: var(--font-mono); font-size: 12px; font-weight: 700; transition: background .18s ease, border-color .18s ease; }
 .btn-copy-agent:hover { background: var(--accent); border-color: var(--accent); }
 .btn-copy-agent:focus-visible, .btn-copy-install:focus-visible { outline: 3px solid rgba(0, 104, 56, .3); outline-offset: 3px; }
+
+/* ==========================================================================
+   Hallmark redesign v3 — Enterprise AI review system
+   Reference DNA: Palantir/Hebbia rigor, Harvey restraint, Glean/Writer
+   product evidence. Colour communicates authority or state, never section
+   variety. Existing interaction and content contracts remain unchanged.
+   ========================================================================== */
+
+:root {
+    --enterprise-paper: #f5f6f3;
+    --enterprise-surface: #ffffff;
+    --enterprise-ink: #111512;
+    --enterprise-muted: #626b65;
+    --enterprise-line: #d9ded9;
+    --enterprise-line-strong: #aeb7b1;
+    --enterprise-graphite: #121714;
+    --enterprise-forest: #103f30;
+    --enterprise-accent: #0d7655;
+    --enterprise-soft: #eef2ef;
+    --enterprise-shadow: 0 24px 70px rgba(14, 25, 18, .1);
+}
+
+body {
+    color: var(--enterprise-ink);
+    background: var(--enterprise-paper);
+}
+
+@media (min-width: 1021px) {
+    .app-header {
+        background: rgba(245, 246, 243, .96);
+        border-bottom-color: rgba(17, 21, 18, .11);
+    }
+    .header-container {
+        height: 70px;
+        max-width: 1220px;
+    }
+}
+
+/* ============================================================================
+   Hallmark redesign v4 — BriefLoop Daylight Workbench
+   Genre: modern-minimal · macrostructure: Workbench · theme: custom daylight
+   Enrichment: none · nav: existing wordmark rail · footer: statement-lite
+   Pre-emit critique: P5 H5 E5 S4 R5 V4
+
+   The page is an enterprise review surface, not a dark product poster. Large
+   surfaces stay readable; graphite is reserved for local evidence/tool chrome.
+   ============================================================================ */
+
+:root {
+    --bl-day-paper: #f5f7f4;
+    --bl-day-paper-strong: #edf1ed;
+    --bl-day-surface: #ffffff;
+    --bl-day-ink: #17201b;
+    --bl-day-muted: #617068;
+    --bl-day-faint: #86928b;
+    --bl-day-rule: #dbe2dc;
+    --bl-day-rule-strong: #bcc8bf;
+    --bl-day-graphite: #1d2923;
+    --bl-day-forest: #0f5a40;
+    --bl-day-accent: #127354;
+    --bl-day-accent-soft: #e5f1e9;
+    --bl-day-warn: #9a5b0b;
+    --bl-day-warn-soft: #fff4df;
+    --bl-day-block: #a33b2a;
+    --bl-day-block-soft: #fff0ed;
+    --bl-day-shadow: 0 12px 32px rgba(23, 32, 27, .07);
+}
+
+html,
+body {
+    background: var(--bl-day-paper);
+    color: var(--bl-day-ink);
+}
+
+/* One paper system across the page. Product evidence supplies the contrast. */
+.section-catch,
+.section-compare,
+.section-steps,
+.section-outcome,
+.section-samples,
+.section-usecases,
+.section-start {
+    border-top-color: var(--bl-day-rule);
+    background: var(--bl-day-paper);
+    color: var(--bl-day-ink);
+}
+.section-catch,
+.section-outcome,
+.section-usecases {
+    background: var(--bl-day-surface);
+}
+.section-samples {
+    background: var(--bl-day-paper-strong);
+}
+
+.section-compare {
+    padding: 104px 0 112px;
+}
+.section-compare h2,
+.section-compare h3,
+.section-compare .compare-callout,
+.section-compare .compare-summary,
+.section-compare .compare-punch {
+    color: var(--bl-day-ink);
+}
+.section-compare .section-desc,
+.section-compare .role-analogy {
+    color: var(--bl-day-muted);
+}
+.section-compare .section-header {
+    margin-bottom: 0;
+}
+.compare-callout {
+    max-width: 920px;
+    padding: 20px 0;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+    background: transparent;
+}
+.compare-callout b,
+.compare-summary b,
+.compare-boundary b {
+    color: var(--bl-day-forest);
+}
+.role-cols {
+    gap: 0;
+    margin-top: 38px;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+    background: var(--bl-day-surface);
+}
+.section-compare .role-card,
+.section-compare .role-card.is-briefloop {
+    min-height: 218px;
+    padding: 28px 26px;
+    border: 0;
+    border-right: 1px solid var(--bl-day-rule);
+    border-radius: 0;
+    background: var(--bl-day-surface);
+    box-shadow: none;
+}
+.section-compare .role-card:last-child {
+    border-right: 0;
+}
+.section-compare .role-card.is-briefloop {
+    background: var(--bl-day-accent-soft);
+    box-shadow: inset 3px 0 0 var(--bl-day-accent);
+}
+.section-compare .role-tag {
+    color: var(--bl-day-muted);
+    background: var(--bl-day-paper-strong);
+}
+.section-compare .role-tag.brand {
+    color: var(--bl-day-forest);
+    background: transparent;
+}
+.section-compare .role-name,
+.section-compare .role-card.is-briefloop .role-name {
+    color: var(--bl-day-ink);
+}
+.section-compare .role-card.is-briefloop .role-analogy {
+    color: var(--bl-day-muted);
+}
+.compare-table-wrap {
+    margin-top: 38px;
+    border: 1px solid var(--bl-day-rule-strong);
+    border-radius: 6px;
+    background: var(--bl-day-surface);
+    box-shadow: var(--bl-day-shadow);
+}
+.compare-table {
+    color: var(--bl-day-ink);
+}
+.compare-table th,
+.compare-table td {
+    border-bottom-color: var(--bl-day-rule);
+}
+.compare-table thead th {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-paper-strong);
+}
+.compare-table tbody th {
+    color: var(--bl-day-muted);
+    background: var(--bl-day-paper-strong);
+}
+.compare-table td {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-surface);
+}
+.compare-table .col-brand {
+    color: var(--bl-day-forest);
+    background: var(--bl-day-accent-soft);
+}
+.compare-table thead .col-brand {
+    color: var(--bl-day-surface);
+    background: var(--bl-day-forest);
+}
+.compare-summary {
+    margin-top: 28px;
+}
+.compare-boundary {
+    margin-top: 30px;
+    border: 1px solid var(--bl-day-rule);
+    border-left: 3px solid var(--bl-day-warn);
+    border-radius: 4px;
+    background: var(--bl-day-warn-soft);
+}
+.cb-kicker {
+    color: var(--bl-day-warn);
+}
+.compare-boundary p {
+    color: var(--bl-day-ink);
+}
+.compare-punch {
+    margin-top: 36px;
+}
+.compare-punch span {
+    color: var(--bl-day-forest);
+}
+
+/* The section boundary becomes a readable policy note, not a dark wall. */
+.section-boundary {
+    padding: 76px 0;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    background: var(--bl-day-accent-soft);
+}
+.section-boundary h2 {
+    color: var(--bl-day-ink);
+}
+.section-boundary p,
+.section-boundary .boundary-note {
+    color: var(--bl-day-muted);
+}
+.section-boundary .boundary-note {
+    border-top-color: var(--bl-day-rule-strong);
+}
+
+/* Footer is a quiet closing statement, not a second dark product surface. */
+.app-footer {
+    padding: 42px 0 24px;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    color: var(--bl-day-muted);
+    background: var(--bl-day-forest);
+}
+.app-footer .footer-brand .logo-text,
+.app-footer .footer-links h4 {
+    color: var(--bl-day-surface);
+}
+.app-footer .footer-brand .logo-loop,
+.app-footer .footer-links a:hover {
+    color: #bfe4ca;
+}
+.app-footer .footer-desc,
+.app-footer .footer-boundary,
+.app-footer .footer-copyright,
+.app-footer .footer-links a {
+    color: #d6e5db;
+}
+.app-footer .footer-copyright {
+    border-top-color: rgba(255, 255, 255, .22);
+}
+
+/* Keep the review workbench dark only where a local tool surface needs it. */
+.hero-review-head,
+.cmp-source,
+.hero-audit-details {
+    background: var(--bl-day-graphite);
+}
+.hero-review-card {
+    border-color: var(--bl-day-rule-strong);
+    box-shadow: var(--bl-day-shadow);
+}
+.hero-review-pane,
+.hero-review-pane.source-report,
+.hero-review-pane.review-result {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-surface) !important;
+}
+.hero-review-pane + .hero-review-pane {
+    border-left-color: var(--bl-day-rule);
+}
+.hero-review-pane blockquote {
+    border-color: var(--bl-day-rule);
+    background: var(--bl-day-paper);
+}
+.cmp {
+    border-color: var(--bl-day-rule-strong);
+    box-shadow: var(--bl-day-shadow);
+}
+.cmp-tabs,
+.cmp-questions {
+    background: var(--bl-day-paper-strong);
+}
+.cmp-tabs {
+    border-bottom-color: var(--bl-day-rule);
+}
+.cmp-tab,
+.cmp-tab:nth-child(1),
+.cmp-tab:nth-child(2),
+.cmp-tab:nth-child(3) {
+    color: var(--bl-day-muted);
+    border-right-color: var(--bl-day-rule);
+}
+.cmp-tab:hover {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-accent-soft);
+}
+.cmp-tab.active {
+    color: var(--bl-day-surface);
+    background: var(--bl-day-forest);
+    box-shadow: inset 0 -3px 0 var(--bl-day-accent);
+}
+.cmp-col.oneshot {
+    background: var(--bl-day-surface);
+}
+.cmp-col.briefloop {
+    background: var(--bl-day-accent-soft);
+}
+.cmp-cols,
+.cmp-questions {
+    border-color: var(--bl-day-rule);
+}
+
+/* Remove the last generic lift; state change is carried by rule and colour. */
+.role-card,
+.sample-card,
+.outcome-card,
+.usecase-item,
+.step-card,
+.cmp-tab {
+    transition: background-color var(--dur-short, 220ms) var(--ease-out, cubic-bezier(.16, 1, .3, 1)),
+                border-color var(--dur-short, 220ms) var(--ease-out, cubic-bezier(.16, 1, .3, 1));
+}
+
+@media (max-width: 920px) {
+    .section-compare .role-card,
+    .section-compare .role-card.is-briefloop {
+        border-right: 0;
+        border-bottom: 1px solid var(--bl-day-rule);
+    }
+    .section-compare .role-card:last-child {
+        border-bottom: 0;
+    }
+}
+
+@media (max-width: 680px) {
+    .section-compare {
+        padding: 76px 0 84px;
+    }
+    .compare-callout {
+        padding: 18px 0;
+    }
+    .section-compare .role-card,
+    .section-compare .role-card.is-briefloop {
+        min-height: 0;
+        padding: 24px 22px;
+    }
+    .section-boundary {
+        padding: 58px 0;
+    }
+}
+
+/* Product first: an executive proposition followed by a real review surface. */
+.hero-section {
+    padding: 72px 0 82px;
+    background: var(--enterprise-paper);
+}
+.hero-section::before {
+    display: none;
+}
+.hero-container {
+    max-width: 1220px;
+    gap: 40px;
+}
+.hero-message-centered {
+    max-width: 850px;
+}
+.hero-message-centered .badge-row {
+    justify-content: center;
+    margin-bottom: 26px;
+}
+.hero-message-centered .hero-title {
+    max-width: 830px;
+    margin-bottom: 22px;
+    color: var(--enterprise-ink);
+    font-size: clamp(54px, 5.4vw, 76px);
+    line-height: 1.02;
+}
+.hero-message-centered .hero-lede {
+    max-width: 740px;
+    color: var(--enterprise-muted);
+    font-size: 20px;
+    line-height: 1.62;
+}
+.hero-message-centered .hero-buttons {
+    margin-top: 30px;
+}
+.hero-message-centered .btn-primary,
+.hero-message-centered .btn-secondary {
+    min-height: 48px;
+    border-radius: 4px;
+}
+.hero-message-centered .btn-primary {
+    background: var(--enterprise-graphite);
+}
+
+.hero-review-card {
+    margin-top: 8px;
+    overflow: hidden;
+    border: 1px solid #2b332e;
+    border-radius: 8px;
+    background: var(--enterprise-surface);
+    box-shadow: var(--enterprise-shadow);
+}
+.hero-review-card::before {
+    display: none;
+}
+.hero-review-head {
+    padding: 20px 24px;
+    color: #f5f7f5;
+    background: var(--enterprise-graphite);
+    border-bottom: 1px solid #343b37;
+}
+.hero-review-kicker {
+    color: #9eb8aa;
+}
+.hero-review-head h2 {
+    color: #f5f7f5;
+    font-size: 23px;
+}
+.hero-review-status {
+    border-color: rgba(255, 179, 163, .35);
+    border-radius: 3px;
+    color: #ffd1c6;
+    background: rgba(170, 50, 31, .22);
+}
+.hero-review-grid {
+    margin: 0;
+    border-radius: 0;
+    background: var(--enterprise-surface);
+}
+.hero-review-pane {
+    min-height: 264px;
+    padding: 24px;
+    background: var(--enterprise-surface) !important;
+}
+.hero-review-pane + .hero-review-pane {
+    border-left: 1px solid var(--enterprise-line);
+}
+.hero-review-pane.source-report {
+    background: #f7f8f6 !important;
+}
+.hero-review-pane.review-result {
+    background: #fbfcfb !important;
+}
+.hero-report-copy {
+    font-size: 20px;
+}
+.hero-review-pane blockquote {
+    border: 1px solid var(--enterprise-line);
+    border-radius: 4px;
+    background: var(--enterprise-surface);
+    box-shadow: none;
+}
+.hero-finding {
+    padding: 12px 13px;
+    border-radius: 4px;
+    box-shadow: none;
+}
+.hero-audit-details {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #343b37;
+    border-radius: 0;
+    background: var(--enterprise-graphite);
+}
+.hero-audit-details summary,
+.hero-audit-details code {
+    color: #b8c4bd;
+}
+.hero-fact-strip {
+    border-top: 1px solid var(--enterprise-line-strong);
+    border-bottom: 1px solid var(--enterprise-line-strong);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Enterprise pages use disciplined left alignment outside the hero. */
+.section-header.section-left,
+#catch .section-left,
+#how .section-left,
+#samples .section-left,
+#start .section-left {
+    max-width: 820px;
+    margin-inline: 0;
+    text-align: left;
+}
+#catch .section-left .section-desc,
+#how .section-left .section-desc,
+#samples .section-left .section-desc,
+#start .section-left .section-desc {
+    margin-inline: 0;
+}
+.section-header h2 {
+    color: var(--enterprise-ink);
+    font-size: clamp(38px, 3.9vw, 56px);
+}
+.section-desc {
+    max-width: 760px;
+    color: var(--enterprise-muted);
+    font-size: 18px;
+}
+
+/* One review workbench, three compact cases. No decorative colour coding. */
+.section-catch {
+    padding: 112px 0 120px;
+    background: var(--enterprise-surface);
+}
+.cmp {
+    margin-top: 44px;
+    overflow: hidden;
+    border: 1px solid var(--enterprise-line-strong);
+    border-radius: 8px;
+    background: var(--enterprise-surface);
+    box-shadow: 0 18px 50px rgba(14, 25, 18, .07);
+}
+.cmp-tabs {
+    gap: 0;
+    margin: 0;
+    border-bottom: 1px solid var(--enterprise-line);
+    background: #f4f5f3;
+}
+.cmp-tab,
+.cmp-tab:nth-child(1),
+.cmp-tab:nth-child(2),
+.cmp-tab:nth-child(3) {
+    min-height: 72px;
+    justify-content: center;
+    padding: 14px 20px;
+    border: 0;
+    border-right: 1px solid var(--enterprise-line);
+    border-radius: 0;
+    color: var(--enterprise-muted);
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+.cmp-tab:last-child {
+    border-right: 0;
+}
+.cmp-tab:hover {
+    color: var(--enterprise-ink);
+    background: #e9ece9;
+    filter: none;
+    transform: none;
+}
+.cmp-tab.active {
+    color: #fff;
+    background: var(--enterprise-graphite);
+    box-shadow: inset 0 -3px 0 var(--enterprise-accent);
+    transform: none;
+}
+.cmp-tab-label {
+    font: 700 17px/1.25 var(--font-body);
+}
+.cmp-tab-sub,
+.cmp-tab.active .cmp-tab-sub {
+    color: inherit;
+    opacity: .7;
+}
+.cmp-source {
+    padding: 18px 22px;
+    border-radius: 0;
+    background: var(--enterprise-graphite);
+}
+.cmp-cols {
+    border-color: var(--enterprise-line);
+}
+.cmp-col {
+    min-height: 410px;
+    padding: 26px;
+}
+.cmp-col.oneshot {
+    background: var(--enterprise-surface);
+}
+.cmp-col.briefloop {
+    background: var(--enterprise-soft);
+}
+.cmp-questions {
+    border-top-color: var(--enterprise-line);
+    background: #f7f8f6;
+}
+.cmp-tech {
+    border-radius: 0;
+    background: var(--enterprise-surface);
+}
+
+/* The authority argument is a readable daylight dossier. */
+.section-compare {
+    padding: 116px 0;
+    color: var(--bl-day-ink);
+    background: var(--bl-day-paper);
+}
+.section-compare h2,
+.section-compare h3,
+.section-compare .compare-callout,
+.section-compare .compare-summary,
+.section-compare .compare-punch {
+    color: var(--bl-day-ink);
+}
+.section-compare .section-desc,
+.section-compare .role-analogy {
+    color: var(--bl-day-muted);
+}
+.compare-callout {
+    padding: 20px 0;
+    max-width: 940px;
+    white-space: normal;
+    border: 0;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+    border-radius: 0;
+    background: transparent;
+}
+.role-cols {
+    gap: 0;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+}
+.role-card,
+.role-card.is-briefloop {
+    min-height: 220px;
+    padding: 26px;
+    border: 0;
+    border-right: 1px solid var(--bl-day-rule);
+    border-radius: 0;
+    background: var(--bl-day-surface);
+}
+.role-card:last-child {
+    border-right: 0;
+}
+.role-card.is-briefloop {
+    background: var(--bl-day-accent-soft);
+    box-shadow: inset 3px 0 0 var(--bl-day-accent);
+}
+.role-card.is-briefloop .role-name {
+    color: var(--bl-day-ink);
+}
+.role-card.is-briefloop .role-analogy {
+    color: var(--bl-day-muted);
+}
+.role-card.is-briefloop .role-tag.brand,
+.role-tag {
+    color: var(--bl-day-muted);
+}
+.compare-table-wrap {
+    border: 1px solid var(--bl-day-rule-strong);
+    border-radius: 6px;
+    background: var(--bl-day-surface);
+    box-shadow: var(--bl-day-shadow);
+}
+.compare-boundary {
+    border-radius: 4px;
+    border-color: var(--bl-day-rule);
+    border-left-color: var(--bl-day-warn);
+    background: var(--bl-day-warn-soft);
+}
+.compare-punch span {
+    color: var(--bl-day-forest);
+}
+.compare-punch,
+#compare .section-desc {
+    color: var(--bl-day-ink);
+    white-space: normal;
+}
+
+/* Workflow steps read like an operating procedure, not lesson cards. */
+.section-steps {
+    padding: 116px 0;
+    background: var(--enterprise-paper);
+}
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 48px !important;
+    border-top: 1px solid var(--enterprise-line-strong);
+}
+.step-card,
+.step-card:nth-child(1),
+.step-card:nth-child(2),
+.step-card:nth-child(3),
+.step-card:nth-child(4) {
+    display: grid;
+    grid-template-columns: 72px minmax(230px, .75fr) minmax(0, 1.25fr);
+    align-items: center;
+    min-height: 138px;
+    padding: 24px 0;
+    border: 0;
+    border-bottom: 1px solid var(--enterprise-line-strong);
+    border-radius: 0;
+    background: transparent;
+}
+.step-num {
+    width: auto;
+    height: auto;
+    justify-content: flex-start;
+    border: 0;
+    border-radius: 0;
+    color: var(--enterprise-accent);
+    background: transparent;
+    font: 600 13px/1 var(--font-mono);
+}
+.step-card h3 {
+    margin: 0;
+    padding-right: 28px;
+    font: 650 24px/1.25 var(--font-body);
+}
+.step-card p {
+    max-width: 620px;
+    margin: 0;
+    color: var(--enterprise-muted);
+    font-size: 16px;
+}
+.tech-disclosure {
+    border-radius: 4px;
+    background: var(--enterprise-surface);
+}
+
+/* Deliverables are records in a dossier, not a colourful bento. */
+.section-outcome {
+    padding: 116px 0;
+    background: var(--enterprise-surface);
+}
+.outcome-grid {
+    counter-reset: outcome-record;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 46px !important;
+    border-top: 1px solid var(--enterprise-line-strong);
+}
+.outcome-card,
+.outcome-card:first-child,
+.outcome-card:nth-child(2),
+.outcome-card:nth-child(3),
+.outcome-card:nth-child(4) {
+    counter-increment: outcome-record;
+    min-height: 210px;
+    padding: 28px 64px 28px 54px;
+    border: 0;
+    border-right: 1px solid var(--enterprise-line);
+    border-bottom: 1px solid var(--enterprise-line-strong);
+    border-radius: 0;
+    color: var(--enterprise-ink);
+    background: transparent;
+    box-shadow: none;
+}
+.outcome-card:nth-child(even) {
+    border-right: 0;
+}
+.outcome-card::before {
+    content: "0" counter(outcome-record);
+    position: absolute;
+    top: 31px;
+    left: 0;
+    color: var(--enterprise-accent);
+    font: 600 12px/1 var(--font-mono);
+}
+.outcome-card:first-child h3,
+.outcome-card:first-child p,
+.outcome-card:first-child code {
+    color: inherit;
+}
+.outcome-card:hover {
+    background: #f6f7f5;
+    box-shadow: none;
+    transform: none;
+}
+.outcome-card h3 {
+    margin-top: 0;
+    font: 650 24px/1.25 var(--font-body);
+}
+
+/* Evaluation arms look like formal case files. */
+.section-samples {
+    padding: 116px 0;
+    background: #eff1ee;
+}
+.sample-grid {
+    gap: 14px;
+    margin-top: 46px !important;
+}
+.sample-card,
+.sample-card.is-placeholder,
+.sample-card:nth-child(1),
+.sample-card:nth-child(2),
+.sample-card:nth-child(3) {
+    min-height: 360px;
+    padding: 26px;
+    border: 1px solid var(--enterprise-line-strong);
+    border-top: 1px solid var(--enterprise-line-strong);
+    border-radius: 6px;
+    background: var(--enterprise-surface);
+    box-shadow: none;
+}
+.sample-card:hover,
+.sample-card.is-placeholder:hover {
+    border-color: var(--enterprise-ink);
+    background: var(--enterprise-surface);
+    box-shadow: none;
+    transform: none;
+}
+.sample-card h3 {
+    font: 650 27px/1.18 var(--font-body);
+}
+.sample-tag {
+    color: var(--enterprise-accent);
+    font-family: var(--font-mono);
+}
+
+/* Use cases are an enterprise matrix: task, exposure, control response. */
+.section-usecases {
+    padding: 116px 0;
+    background: var(--enterprise-surface);
+}
+#scenarios .grid-3 {
+    display: block;
+    margin-top: 44px !important;
+    border-top: 1px solid var(--enterprise-line-strong);
+}
+.usecase-item,
+.usecase-item:first-child,
+.usecase-item:nth-child(3) {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    min-height: 150px;
+    padding: 28px 0;
+    border: 0;
+    border-bottom: 1px solid var(--enterprise-line-strong);
+    border-radius: 0;
+    background: transparent;
+}
+.usecase-item:first-child {
+    grid-row: auto;
+    align-content: initial;
+    padding: 28px 0;
+}
+.usecase-item:hover {
+    background: #f7f8f6;
+    box-shadow: none;
+    transform: none;
+}
+.usecase-icon {
+    margin: 2px 0 0;
+}
+.usecase-detail {
+    display: grid;
+    grid-template-columns: minmax(220px, .65fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 28px;
+    align-items: start;
+}
+.usecase-detail h3,
+.usecase-detail p {
+    margin: 0;
+}
+.usecase-detail h3 {
+    font: 650 23px/1.25 var(--font-body);
+}
+
+.section-boundary {
+    padding: 88px 0;
+    background: var(--bl-day-accent-soft);
+}
+.section-boundary h2 { color: var(--bl-day-ink); }
+.section-boundary p,
+.section-boundary .boundary-note { color: var(--bl-day-muted); }
+.section-boundary .boundary-note { border-top-color: var(--bl-day-rule-strong); }
+.section-start {
+    padding: 116px 0;
+    background: var(--enterprise-paper);
+}
+.install-method,
+.install-method:first-child {
+    min-width: 0;
+    max-width: 100%;
+    border: 1px solid var(--enterprise-line-strong);
+    border-radius: 6px;
+    background: var(--enterprise-surface);
+    box-shadow: none;
+}
+.install-method.recommended {
+    border-top: 4px solid var(--enterprise-accent);
+}
+.agent-instructions {
+    min-width: 0;
+    max-width: 100%;
+    border-color: var(--enterprise-line);
+    border-radius: 4px;
+    background: #f4f6f4;
+}
+.install-methods,
+.install-method > *,
+.install-cmds {
+    min-width: 0;
+    max-width: 100%;
+}
+.app-footer {
+    background: var(--bl-day-forest);
+}
+.app-footer .footer-brand .logo-text,
+.app-footer .footer-links h4 { color: var(--bl-day-surface); }
+.app-footer .footer-desc,
+.app-footer .footer-boundary,
+.app-footer .footer-copyright,
+.app-footer .footer-links a { color: var(--bl-day-accent-soft); }
+.app-footer .footer-copyright { border-top-color: var(--bl-day-rule-strong); }
+
+.cmp-tab,
+.outcome-card,
+.sample-card,
+.usecase-item {
+    will-change: auto;
+}
+
+@media (max-width: 920px) {
+    .hero-review-pane + .hero-review-pane {
+        border-top: 1px solid var(--enterprise-line);
+        border-left: 0;
+    }
+    .role-cols,
+    .outcome-grid,
+    .sample-grid {
+        grid-template-columns: 1fr;
+    }
+    .role-card,
+    .role-card.is-briefloop {
+        border-right: 0;
+        border-bottom: 1px solid var(--bl-day-rule);
+    }
+    .role-card:last-child {
+        border-bottom: 0;
+    }
+    .outcome-card,
+    .outcome-card:nth-child(even) {
+        border-right: 0;
+    }
+    .usecase-detail {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 680px) {
+    .hero-section {
+        padding: 42px 0 58px;
+    }
+    .hero-message-centered .hero-title {
+        font-size: 40px;
+    }
+    .cmp-tabs {
+        grid-template-columns: 1fr;
+    }
+    .cmp-tab,
+    .cmp-tab:nth-child(1),
+    .cmp-tab:nth-child(2),
+    .cmp-tab:nth-child(3) {
+        min-height: 62px;
+        border-right: 0;
+        border-bottom: 1px solid var(--enterprise-line);
+    }
+    .cmp-tab:last-child {
+        border-bottom: 0;
+    }
+    .step-card,
+    .step-card:nth-child(1),
+    .step-card:nth-child(2),
+    .step-card:nth-child(3),
+    .step-card:nth-child(4) {
+        grid-template-columns: 44px minmax(0, 1fr);
+        min-height: 0;
+        padding: 24px 0;
+    }
+    .step-card h3,
+    .step-card p {
+        grid-column: 2;
+    }
+    .step-card p {
+        margin-top: 10px;
+    }
+    .outcome-card,
+    .outcome-card:first-child,
+    .outcome-card:nth-child(2),
+    .outcome-card:nth-child(3),
+    .outcome-card:nth-child(4) {
+        min-height: 0;
+        padding: 24px 44px 24px 42px;
+    }
+    .outcome-card::before {
+        top: 28px;
+    }
+    .usecase-item,
+    .usecase-item:first-child,
+    .usecase-item:nth-child(3) {
+        grid-template-columns: 40px minmax(0, 1fr);
+        padding: 24px 0;
+    }
+}
+
+/* ==========================================================================
+   Hallmark · redesign scope: #compare · macrostructure: Ruled Ledger (rows)
+   mood: sierra restraint · theme: daylight tokens (preserved) · enrichment: none
+   pre-emit critique: P4 H5 E4 S4 R5 V4
+   Three role cards become three ruled ledger rows — the only 3-equal-column
+   grid in the section is gone; the brand row is marked by wash + inset rule.
+   ========================================================================== */
+.role-ledger {
+    margin-top: 44px;
+    border-top: 1px solid var(--bl-day-rule-strong);
+    border-bottom: 1px solid var(--bl-day-rule-strong);
+    background: var(--bl-day-surface);
+}
+.role-row {
+    display: grid;
+    grid-template-columns: 170px 290px minmax(0, 1fr);
+    gap: 28px;
+    align-items: baseline;
+    padding: 24px 26px;
+    border-bottom: 1px solid var(--bl-day-rule);
+}
+.role-row:last-child { border-bottom: 0; }
+.role-row .role-tag {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    color: var(--bl-day-muted);
+}
+.role-row .role-name { font-size: 20px; color: var(--bl-day-ink); }
+.role-row .role-analogy { margin: 0; font-size: 15px; color: var(--bl-day-muted); }
+.role-row.is-briefloop {
+    background: var(--bl-day-accent-soft);
+    box-shadow: inset 3px 0 0 var(--bl-day-accent);
+}
+.role-row.is-briefloop .role-tag { color: var(--bl-day-forest); }
+.role-row.is-briefloop .role-name { color: var(--bl-day-forest); }
+@media (max-width: 880px) {
+    .role-row { grid-template-columns: 1fr; gap: 5px; padding: 20px 22px; }
+}
+
+/* Punch emphasis now uses <b>; keep the forest accent from the v4 system. */
+.compare-punch b { color: var(--bl-day-forest); }
+
+/* ==========================================================================
+   Hallmark · daylight correction pass — remove the graphite slabs
+   The hero review card and demo widget go back to paper + hairline + green
+   kicker. Dark surfaces are reserved for the primary CTA and the footer.
+   ========================================================================== */
+
+/* Hero headline — restrained scale, not a poster */
+.hero-message-centered .hero-title {
+    max-width: 780px;
+    font-size: clamp(40px, 4.4vw, 56px);
+    line-height: 1.12;
+}
+
+/* Review card header: light band with a whisper of brand green */
+.hero-review-card {
+    border: 1px solid var(--bl-day-rule-strong);
+    box-shadow: var(--bl-day-shadow);
+}
+.hero-review-head {
+    padding: 19px 24px 17px;
+    color: var(--bl-day-ink);
+    background: linear-gradient(90deg, rgba(18, 115, 84, 0.07), rgba(255, 255, 255, 0));
+    border-bottom: 1px solid var(--bl-day-rule);
+}
+.hero-review-kicker { color: var(--bl-day-forest); }
+.hero-review-head h2 { color: var(--bl-day-ink); font-size: 22px; }
+.hero-review-status {
+    color: var(--bl-day-block);
+    background: var(--bl-day-block-soft);
+    border: 1px solid rgba(163, 59, 42, 0.28);
+    border-radius: 999px;
+}
+
+/* Audit-details footer: quiet paper strip, not a black bar */
+.hero-audit-details {
+    border-top: 1px solid var(--bl-day-rule);
+    background: var(--bl-day-paper-strong);
+}
+.hero-audit-details summary { color: var(--bl-day-muted); }
+.hero-audit-details summary:hover { color: var(--bl-day-forest); }
+.hero-audit-details code { color: var(--bl-day-muted); }
+
+/* Demo widget: source material reads as a quoted document, not a console */
+.cmp-source {
+    padding: 18px 22px;
+    background: var(--bl-day-paper-strong);
+    border-bottom: 1px solid var(--bl-day-rule);
+    border-radius: 0;
+}
+.cmp-source-tag { color: var(--bl-day-muted); }
+.cmp-source p { color: var(--bl-day-ink); }
+
+/* Active case tab: white surface + green baseline, not a graphite block */
+.cmp-tab.active {
+    color: var(--bl-day-ink);
+    background: var(--bl-day-surface);
+    box-shadow: inset 0 -3px 0 var(--bl-day-accent);
+}
+.cmp-tab.active .cmp-tab-label { color: var(--bl-day-ink); }
+.cmp-tab.active .cmp-tab-sub { color: var(--bl-day-forest); opacity: 1; }
+.cmp-tab:hover { background: var(--bl-day-accent-soft); }
+
+/* Section headings: editorial scale, not poster scale — avoids orphan wraps */
+.section-header h2 { font-size: clamp(28px, 2.9vw, 40px); line-height: 1.22; }
+.section-desc { font-size: 16.5px; }

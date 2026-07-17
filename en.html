@@ -57,7 +57,7 @@
                 </div>
                 <h1 class="hero-title">
                     Let AI draft fast,<br>
-                    <span class="text-gradient">let humans ship with confidence.</span>
+                    let humans ship with confidence.
                 </h1>
                 <p class="hero-lede">AI writes the report. BriefLoop checks the sources, catches conflicts, and blocks problems.<br>Until they're resolved, that version can't be treated as final.</p>
                 <div class="hero-buttons">
@@ -130,8 +130,7 @@
     <!-- See it catch — three comparison demos (site centerpiece, three common errors) -->
     <section class="section-catch" id="catch">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">See it catch</div>
+            <div class="section-header section-left">
                 <h2>Three common errors: they slip into the final on the left, and get blocked on the right</h2>
                 <p class="section-desc">Switch the three real cases below and compare the two ways to deliver the same material.</p>
             </div>
@@ -202,25 +201,27 @@
     <!-- Why not just a prompt · BriefLoop vs ChatGPT / Runtime / Skill -->
     <section class="section-compare" id="compare">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Why not just a prompt</div>
+            <div class="section-header section-left">
                 <h2>Not a longer prompt — delivery rules that live outside the AI</h2>
                 <p class="section-desc">Prompts and skills tell the agent what it should do; BriefLoop records what it actually did, and decides which version is allowed to ship.</p>
             </div>
 
             <p class="compare-callout reveal">The real difference isn't one more reviewer agent — it's that <b>the writing agent has no authority to declare its own draft “ready to deliver”</b>.</p>
 
-            <div class="role-cols reveal">
-                <div class="role-card">
-                    <div class="role-head"><span class="role-tag">Handles writing</span><h3 class="role-name">ChatGPT + long prompt</h3></div>
+            <div class="role-ledger reveal">
+                <div class="role-row">
+                    <span class="role-tag">Handles writing</span>
+                    <h3 class="role-name">ChatGPT + long prompt</h3>
                     <p class="role-analogy">Writes well, but the rules only live in this one conversation.</p>
                 </div>
-                <div class="role-card">
-                    <div class="role-head"><span class="role-tag">Handles running</span><h3 class="role-name">Agent runtime + Skill.md</h3></div>
+                <div class="role-row">
+                    <span class="role-tag">Handles running</span>
+                    <h3 class="role-name">Agent runtime + Skill.md</h3>
                     <p class="role-analogy">Can call tools and run multi-step, but the writer and the judge are still the same one.</p>
                 </div>
-                <div class="role-card is-briefloop">
-                    <div class="role-head"><span class="role-tag brand">Handles delivery control</span><h3 class="role-name">BriefLoop</h3></div>
+                <div class="role-row is-briefloop">
+                    <span class="role-tag">Handles delivery control</span>
+                    <h3 class="role-name">BriefLoop</h3>
                     <p class="role-analogy">Puts the key facts, checks, and approval outside the agent.</p>
                 </div>
             </div>
@@ -255,15 +256,14 @@
                 <p>An agent runtime can implement all of this itself — persistent state, gates, human approval, recovery. But once it has, it's essentially rebuilt BriefLoop. The point isn't that others can't; it's that <b>you don't have to reassemble it from prompts and scripts on every team</b>.</p>
             </div>
 
-            <p class="compare-punch reveal">A skill says “please do this,” <span class="text-gradient">BriefLoop says “you don't get past this until it's done.”</span></p>
+            <p class="compare-punch reveal">A skill says “please do this,” <b>BriefLoop says “you don't get past this until it's done.”</b></p>
         </div>
     </section>
 
     <!-- How it works — four steps -->
     <section class="section-steps" id="how">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">How it works</div>
+            <div class="section-header section-left">
                 <h2>Four steps to turn an AI draft into a final you can ship</h2>
             </div>
             <div class="steps-grid reveal" style="margin-top:44px;">
@@ -300,8 +300,7 @@
     <!-- What you get -->
     <section class="section-outcome" id="artifacts">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">What you get</div>
+            <div class="section-header section-left">
                 <h2>Not just a report — a delivery you can question</h2>
                 <p class="section-desc">See what each is for first; open the filename to see more.</p>
             </div>
@@ -330,48 +329,41 @@
         </div>
     </section>
 
-    <!-- Real trial weekly briefs · author places manually -->
+    <!-- One task · three methods · author places verified packets manually -->
     <!--
-      To the author: put three real weekly briefs here.
-      Each card needs three replacements:
-        1) href           -> report link, e.g. reports/weekly-2026-07-solar.html
-                             or a PDF / external link; keep href="#" to show a placeholder
-        2) title / summary -> the <h3> and <p> text
-        3) meta            -> industry · date · run id
-      Once placed, remove the "is-placeholder" class on the card to switch to the live style.
+      To the author: after the controlled comparison is complete, replace each
+      article with a linked packet and add the report, run record, time window,
+      source pack, and run identifier. Do not remove is-placeholder before the
+      artifacts are public and reviewable.
     -->
     <section class="section-samples" id="samples">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">From real runs</div>
-                <h2>Three real weekly briefs</h2>
-                <p class="section-desc">Not synthetic — below are weekly briefs actually run through BriefLoop, passed checks, and delivered. Open to read, with the source map and check records.</p>
+            <div class="section-header section-left">
+                <h2>One weekly briefing task, three methods</h2>
+                <p class="section-desc">The same time window, source pack, model, and delivery requirements. Once the runs are complete and verified, this section will publish all three outputs, findings, and run packets — not cherry-pick the best-looking result.</p>
             </div>
             <div class="grid-3 sample-grid reveal" style="margin-top:44px;">
-                <!-- Card 1 -->
-                <a class="sample-card is-placeholder" href="#" aria-label="Weekly brief 1, to be placed">
-                    <span class="sample-tag">PLACEHOLDER</span>
-                    <h3>Report title (replace me)</h3>
-                    <p>One-line summary: what this brief covers and what it caught.</p>
-                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
-                    <span class="sample-cta">View report →</span>
-                </a>
-                <!-- Card 2 -->
-                <a class="sample-card is-placeholder" href="#" aria-label="Weekly brief 2, to be placed">
-                    <span class="sample-tag">PLACEHOLDER</span>
-                    <h3>Report title (replace me)</h3>
-                    <p>One-line summary: what this brief covers and what it caught.</p>
-                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
-                    <span class="sample-cta">View report →</span>
-                </a>
-                <!-- Card 3 -->
-                <a class="sample-card is-placeholder" href="#" aria-label="Weekly brief 3, to be placed">
-                    <span class="sample-tag">PLACEHOLDER</span>
-                    <h3>Report title (replace me)</h3>
-                    <p>One-line summary: what this brief covers and what it caught.</p>
-                    <div class="sample-meta"><span>Industry</span><span>Date</span><span>Run ID</span></div>
-                    <span class="sample-cta">View report →</span>
-                </a>
+                <article class="sample-card is-placeholder" aria-label="Long-prompt direct-output comparison in preparation">
+                    <span class="sample-tag">A0 · In preparation</span>
+                    <h3>Long prompt, direct output</h3>
+                    <p>A one-pass weekly brief and its raw run record under the same source pack and report requirements.</p>
+                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
+                    <span class="sample-cta">Run packet in preparation</span>
+                </article>
+                <article class="sample-card is-placeholder" aria-label="Skill plus agent runtime comparison in preparation">
+                    <span class="sample-tag">A1 · In preparation</span>
+                    <h3>Skill + Agent Runtime</h3>
+                    <p>A weekly brief and run record produced by an agent using a public skill under the same inputs.</p>
+                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
+                    <span class="sample-cta">Run packet in preparation</span>
+                </article>
+                <article class="sample-card is-placeholder" aria-label="BriefLoop workflow comparison in preparation">
+                    <span class="sample-tag">A2 · In preparation</span>
+                    <h3>BriefLoop workflow</h3>
+                    <p>The same writing agent, with fact registration, findings, repair state, and human release status attached.</p>
+                    <div class="sample-meta"><span>Same sources</span><span>Same model</span><span>To publish</span></div>
+                    <span class="sample-cta">Run packet in preparation</span>
+                </article>
             </div>
         </div>
     </section>
@@ -379,8 +371,7 @@
     <!-- Use cases -->
     <section class="section-usecases" id="scenarios">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Scenarios</div>
+            <div class="section-header section-left">
                 <h2>Whatever you deliver each week, BriefLoop guards that one</h2>
                 <p class="section-desc">Three of the most common recurring deliverables, each with its own easiest mistake.</p>
             </div>
@@ -428,8 +419,7 @@
     <!-- Get started -->
     <section class="section-start" id="start">
         <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Get started</div>
+            <div class="section-header section-left">
                 <h2>Two ways, running in minutes</h2>
                 <p class="section-desc">You can see it catch errors without installing anything; to really run it, pick one below.</p>
             </div>
@@ -439,20 +429,27 @@
                     <h3>Say one line to your agent</h3>
                     <p>In WorkBuddy or Claude Code, say:</p>
                     <p class="install-say">“I want to use briefloop.ai for weekly reports”</p>
-                    <p class="install-note">It walks you through setup and installs what's needed — all in conversation, no command line.</p>
+                    <div class="agent-instructions" aria-label="Instructions for the agent">
+                        <span class="agent-instructions-kicker">Agent instructions</span>
+                        <p>Before taking any action, read:</p>
+                        <a href="/.well-known/briefloop-agent.json"><code>https://briefloop.ai/.well-known/briefloop-agent.json</code></a>
+                        <p>Then read the canonical Skill specified by the manifest. Do not infer repository, installation, runtime, or capabilities from this homepage.</p>
+                    </div>
+                    <button type="button" class="btn-copy-agent" data-copy-text="Before taking any action, read https://briefloop.ai/.well-known/briefloop-agent.json&#10;and the canonical Skill specified by the manifest. Identify the current runtime and tell me the proposed&#10;clone, installation, and workspace paths. Do not make any changes until I explicitly confirm.">Copy for agent</button>
+                    <p class="install-note">It should read the installation reference, confirm directory and permissions, and verify each setup step for your platform. A conversational “done” is not proof of installation.</p>
                 </div>
                 <div class="install-method">
-                    <span class="install-tag">Option 2 · Copy the commands</span>
-                    <h3>Paste into a terminal or agent chat</h3>
+                    <span class="install-tag">Option 2 · Source install</span>
+                    <h3>Paste into a macOS / Linux terminal</h3>
                     <div class="install-cmds">
                         <code>git clone https://github.com/Stahl-G/briefloop.git</code>
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">Copy commands</button>
-                    <p class="install-note">After install, run <code>briefloop new industry-weekly ./my-weekly</code> to create your first weekly.</p>
+                    <p class="install-note">On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. After install, run <code>briefloop new industry-weekly ./my-weekly</code> to create your first weekly.</p>
                 </div>
             </div>
-            <p class="quickstart-note">Want to try online first? <a href="#catch">See the three catch demos</a>. Full install and governance details on <a href="how-it-works.en.html">How it works</a> and the <a href="reports/briefloop-architecture-reference-v0.5.0.en.html" target="_blank" rel="noopener noreferrer">architecture reference v0.5.0</a>.</p>
+            <p class="quickstart-note">Want to try online first? <a href="#catch">See the three catch demos</a>. Full installation and governance details are in the <a href="agents/briefloop/SKILL.md">agent installation guide</a>, <a href="how-it-works.en.html">How it works</a>, and the <a href="reports/briefloop-architecture-reference-v0.5.0.en.html" target="_blank" rel="noopener noreferrer">architecture reference v0.5.0</a>.</p>
         </div>
     </section>
 
