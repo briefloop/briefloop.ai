@@ -17,13 +17,15 @@
     <header class="app-header">
         <div class="container header-container">
             <div class="logo">
-                <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
-                    <rect width="32" height="32" rx="7" fill="#05351d"/>
-                    <path d="M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9" fill="none" stroke="#4faf62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <rect x="13" y="13" width="6" height="6" rx="1.3" fill="none" stroke="#f2f5f1" stroke-width="1.6"/>
-                    <path d="M14.5 16h3" stroke="#f2f5f1" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <a href="en.html" style="text-decoration:none;"><span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span></a>
+                <a href="en.html" aria-label="BriefLoop.ai home">
+                    <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+                        <rect width="32" height="32" rx="7" fill="#05351d"/>
+                        <path d="M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9" fill="none" stroke="#4faf62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="13" y="13" width="6" height="6" rx="1.3" fill="none" stroke="#f2f5f1" stroke-width="1.6"/>
+                        <path d="M14.5 16h3" stroke="#f2f5f1" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="logo-text">Brief<span class="logo-loop">Loop</span><span class="highlight-dot">.ai</span></span>
+                </a>
             </div>
             <nav class="nav-links" id="site-nav">
                 <a href="en.html#scenarios">Scenarios</a>
@@ -57,15 +59,15 @@
     </section>
 
     <!-- Governance Contrast -->
-    <section class="section-contrast" id="governance">
+    <section class="section" id="governance">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Governance</div>
+                <div class="eyebrow">Governance</div>
                 <h2>Corporate governance, for your AI</h2>
                 <p class="section-desc">AI drafts and proposes. BriefLoop's deterministic control layer audits and keeps the books. Separation of duties is what makes the output trustworthy.</p>
             </div>
 
-            <div class="grid-2" style="margin-top:48px;">
+            <div class="grid-2 mt-40">
                 <div class="contrast-card bad reveal">
                     <div class="contrast-icon">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg>
@@ -96,7 +98,7 @@
     </section>
 
     <!-- Repair transaction simulation -->
-    <section class="section-sandbox" id="sandbox">
+    <section class="section" id="sandbox">
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="badge-demo">Process simulation · no live runtime</div>
@@ -159,10 +161,10 @@
     </section>
 
     <!-- Evolution Loop — governed improvement across runs -->
-    <section class="section-evolution" id="evolution">
+    <section class="section" id="evolution">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Evolution Loop</div>
+                <div class="eyebrow">Evolution Loop</div>
                 <h2>Each failure can become a test for the next version — without rewriting the system by itself</h2>
                 <p class="section-desc">The run loop produces a brief. The evolution loop turns recorded failures into reviewable improvement candidates. Only evaluated, human-approved changes enter a later release.</p>
             </div>
@@ -209,14 +211,14 @@
     </section>
 
     <!-- Responsibility boundary -->
-    <section class="section-artifacts" id="boundary">
+    <section class="section" id="boundary">
         <div class="container">
-            <div class="grid-2 align-center">
-                <div class="reveal">
+            <div class="grid-2 align-center gap-lg">
+                <div class="cli-info reveal">
                     <div class="eyebrow">Governance Boundary</div>
-                    <h2 style="font-size:30px; margin-bottom:16px;">Human responsibility statement</h2>
-                    <p style="color:var(--text-muted); font-size:15px; line-height:1.75;">No automated AI system should — or can — take over human responsibility for decisions and sign-off. BriefLoop does not approve delivery for you; it gives you an <b>evidence chain that reduces the risk of missing something</b> — traceability, not semantic proof.</p>
-                    <blockquote class="boundary-quote" style="margin-top:22px; color:var(--text-muted);">
+                    <h2>Human responsibility statement</h2>
+                    <p>No automated AI system should — or can — take over human responsibility for decisions and sign-off. BriefLoop does not approve delivery for you; it gives you an <b>evidence chain that reduces the risk of missing something</b> — traceability, not semantic proof.</p>
+                    <blockquote class="boundary-quote">
                         "When data conflicts or goes missing, the system exposes the trail and supports fast trace-back."
                     </blockquote>
                 </div>
@@ -251,15 +253,15 @@
     </section>
 
     <!-- Product Portals -->
-    <section class="section-portals" id="portals">
+    <section class="section" id="portals">
         <div class="container">
             <div class="section-header text-center reveal">
-                <div class="eyebrow" style="justify-content:center;">Report Packs</div>
+                <div class="eyebrow">Report Packs</div>
                 <h2>Three delivery entry points</h2>
                 <p class="section-desc">Preconfigured topologies and audit contracts for research, compliance, and corporate disclosure work.</p>
             </div>
 
-            <div class="grid-3" style="margin-top:48px;" data-disclosure-group>
+            <div class="grid-3 mt-40" data-disclosure-group>
                 <div class="portal-card reveal disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
                     <h3>industry-weekly</h3>
@@ -318,9 +320,9 @@
     </section>
 
     <!-- CLI & Developer -->
-    <section class="section-cli" id="developers">
+    <section class="section section-cli" id="developers">
         <div class="container">
-            <div class="grid-2 align-center">
+            <div class="grid-2 align-center gap-lg">
                 <div class="cli-info reveal">
                     <div class="eyebrow">Developers</div>
                     <h2>Built for developers and agents</h2>

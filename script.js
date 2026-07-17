@@ -1,11 +1,11 @@
 /* ==========================================================================
    briefloop.ai — Interaction & Motion (language aware)
    Motion inventory:
-   1. Hero chain-of-custody auto trace (staged, replayable, hover-safe)
-   2. Scroll reveals (IntersectionObserver)
-   3. Terminal typewriter on first view
-   4. Sandbox gate micro-motion (shake on block, flash on rebuild)
-   5. In-place card disclosures for artifacts, responsibilities, and report packs
+   1. Scroll reveals (IntersectionObserver)
+   2. Terminal typewriter on first view
+   3. Sandbox gate micro-motion (shake on block, flash on rebuild)
+   4. In-place card disclosures for artifacts, responsibilities, and report packs
+   5. Comparison demo tabs (see it catch) + copy-to-clipboard
    All motion respects prefers-reduced-motion.
    ========================================================================== */
 
@@ -13,121 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isEn = document.documentElement.lang === "en";
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    /* --- 1. Chain-of-custody connector geometry --- */
-    const svg = document.querySelector(".glow-lines");
-    const claimNode = document.getElementById("node-claim");
-    const ledgerCard = document.getElementById("ledger-item");
-    const evidenceNode = document.getElementById("node-evidence");
-    const pathA = document.getElementById("line-display-to-ledger");
-    const pathB = document.getElementById("line-ledger-to-source");
-    const stamp = document.getElementById("trace-stamp");
-    const panels = ["panel-display", "panel-authority", "panel-source"].map(id => document.getElementById(id));
-
-    const drawAuditLines = () => {
-        if (!svg || !claimNode || !ledgerCard || !evidenceNode) return;
-        const svgRect = svg.getBoundingClientRect();
-        const claimRect = claimNode.getBoundingClientRect();
-        const ledgerRect = ledgerCard.getBoundingClientRect();
-        const evidenceRect = evidenceNode.getBoundingClientRect();
-
-        const p1 = { x: claimRect.right - svgRect.left, y: claimRect.top + claimRect.height / 2 - svgRect.top };
-        const p2 = { x: ledgerRect.left - svgRect.left, y: ledgerRect.top + ledgerRect.height / 2 - svgRect.top };
-        const p3 = { x: ledgerRect.right - svgRect.left, y: ledgerRect.top + ledgerRect.height / 2 - svgRect.top };
-        const p4 = { x: evidenceRect.left - svgRect.left, y: evidenceRect.top + evidenceRect.height / 2 - svgRect.top };
-
-        const c1 = (p2.x - p1.x) / 2;
-        pathA.setAttribute("d", `M ${p1.x} ${p1.y} C ${p1.x + c1} ${p1.y}, ${p2.x - c1} ${p2.y}, ${p2.x} ${p2.y}`);
-        const c2 = (p4.x - p3.x) / 2;
-        pathB.setAttribute("d", `M ${p3.x} ${p3.y} C ${p3.x + c2} ${p3.y}, ${p4.x - c2} ${p4.y}, ${p4.x} ${p4.y}`);
-
-        // prepare dash-draw metrics
-        [pathA, pathB].forEach(p => {
-            const len = p.getTotalLength ? p.getTotalLength() : 0;
-            p.dataset.len = len;
-        });
-    };
-
-    window.addEventListener("load", drawAuditLines);
-    window.addEventListener("resize", drawAuditLines);
-    setTimeout(drawAuditLines, 400);
-
-    /* --- Trace timeline: claim → line draws → ledger locks → line draws → source anchors → stamp --- */
-    let traceTimers = [];
-    const clearTrace = () => {
-        traceTimers.forEach(t => clearTimeout(t));
-        traceTimers = [];
-        claimNode && claimNode.classList.remove("active");
-        ledgerCard && ledgerCard.classList.remove("active");
-        evidenceNode && evidenceNode.classList.remove("active");
-        panels.forEach(p => p && p.classList.remove("lit"));
-        stamp && stamp.classList.remove("stamped");
-        [pathA, pathB].forEach(p => {
-            if (!p) return;
-            p.style.transition = "none";
-            const len = p.dataset.len || 600;
-            p.style.strokeDasharray = `${len}`;
-            p.style.strokeDashoffset = `${len}`;
-        });
-    };
-
-    const drawPath = (p, dur) => {
-        if (!p) return;
-        const len = p.dataset.len || 600;
-        p.style.strokeDasharray = `${len}`;
-        p.style.strokeDashoffset = `${len}`;
-        // force reflow, then animate dashoffset to 0
-        void p.getBoundingClientRect();
-        p.style.transition = `stroke-dashoffset ${dur}ms ease-in-out`;
-        p.style.strokeDashoffset = "0";
-    };
-
-    const playTrace = () => {
-        if (!claimNode || !pathA || !pathB) return;
-        if (reducedMotion) {
-            // static end-state, no animation
-            claimNode.classList.add("active");
-            ledgerCard.classList.add("active");
-            evidenceNode.classList.add("active");
-            [pathA, pathB].forEach(p => { p.style.strokeDasharray = "none"; p.style.strokeDashoffset = "0"; });
-            return;
-        }
-        clearTrace();
-        drawAuditLines();
-        const t = (fn, ms) => traceTimers.push(setTimeout(fn, ms));
-
-        t(() => { claimNode.classList.add("active"); panels[0] && panels[0].classList.add("lit"); }, 300);
-        t(() => drawPath(pathA, 700), 900);
-        t(() => { ledgerCard.classList.add("active"); panels[1] && panels[1].classList.add("lit"); }, 1650);
-        t(() => drawPath(pathB, 700), 2250);
-        t(() => { evidenceNode.classList.add("active"); panels[2] && panels[2].classList.add("lit"); }, 3000);
-        t(() => { stamp && stamp.classList.add("stamped"); }, 3500);
-        // settle: dim panels, keep highlights lightly on
-        t(() => { panels.forEach(p => p && p.classList.remove("lit")); }, 6000);
-    };
-
-    // Auto-play when the hero visual first scrolls into view
-    const heroVisual = document.getElementById("audit-chain");
-    if (heroVisual && "IntersectionObserver" in window) {
-        let played = false;
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting && !played) {
-                    played = true;
-                    setTimeout(playTrace, 350);
-                    io.disconnect();
-                }
-            });
-        }, { threshold: 0.35 });
-        io.observe(heroVisual);
-    }
-
-    // Replay button + hover re-trigger on the claim node
-    const replayBtn = document.getElementById("btn-replay-trace");
-    replayBtn && replayBtn.addEventListener("click", playTrace);
-    claimNode && claimNode.addEventListener("mouseenter", () => {
-        if (!traceTimers.length) playTrace();
-    });
 
     /* --- 2. Scroll reveals --- */
     const revealEls = document.querySelectorAll(".reveal");
