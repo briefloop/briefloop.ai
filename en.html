@@ -29,6 +29,7 @@
                 <a href="#product">Product</a>
                 <a href="#catch">See it catch</a>
                 <a href="#compare">Compare</a>
+                <a href="#quality-panel">Quality Panel</a>
                 <a href="#scenarios">Use cases</a>
                 <a href="#start">Get started</a>
                 <a href="how-it-works.en.html">Docs</a>
@@ -333,6 +334,19 @@
         </div>
     </section>
 
+    <!-- Quality Panel — deterministic projection of every run -->
+    <section class="section" id="quality-panel">
+        <div class="container">
+            <div class="section-header">
+                <div class="eyebrow">Quality Panel</div>
+                <h2>Every run ends with a Quality Panel</h2>
+                <p class="section-desc">Gate results, claim support, source evidence, closeout state — read it before you ship. It is a deterministic read-only projection of quality_panel.json, not a score and not a delivery verdict.</p>
+            </div>
+            <div class="qp-demo reveal" data-qp-widget></div>
+            <p class="qp-demo-note">Synthetic data · currently an audit attachment / operator view. The full interactive preview (with the in-development review and feedback areas) is in the <a href="#roadmap">roadmap section</a> below.</p>
+        </div>
+    </section>
+
     <!-- One task · three methods · author places verified packets manually -->
     <!--
       To the author: after the controlled comparison is complete, replace each
@@ -422,6 +436,43 @@
         </div>
     </section>
 
+    <!-- In development -->
+    <section class="section" id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <div class="eyebrow">In development</div>
+                <h2>What we are building next</h2>
+                <p class="section-desc">These directions are in development — none of them shipped, and no dates are promised. Design previews use synthetic data to show interaction and boundaries only.</p>
+            </div>
+            <div class="roadmap-grid reveal mt-40">
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">NOT SHIPPED</span>
+                    <h3>Interactive guided init</h3>
+                    <p>A local browser flow in three steps: describe the report, choose delivery and presentation, confirm — one deterministic transaction. The terminal keeps the same semantics.</p>
+                    <a class="roadmap-link" href="demos/interactive-init/">Open design preview →</a>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">NOT SHIPPED</span>
+                    <h3>AI semantic review</h3>
+                    <p>Post-final semantic suggestions: what to re-check and what could not be judged. Advisory only — it never changes gates or delivery.</p>
+                    <a class="roadmap-link" href="demos/quality-panel/#review">Open design preview →</a>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">NOT SHIPPED</span>
+                    <h3>QP feedback &amp; improvement</h3>
+                    <p>Dispose findings, one input with three destinations, two-step persistent guidance. The next run reads only the human-approved improvement snapshot.</p>
+                    <a class="roadmap-link" href="demos/quality-panel/#feedback">Open design preview →</a>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">NOT SHIPPED</span>
+                    <h3>Run receipts (ControlStore)</h3>
+                    <p>One verifiable receipt per delivery; files are projections, the Store is authority. Until the cutover, JSON workspaces remain the public path.</p>
+                    <span class="roadmap-soon">Documented after cutover</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Get started -->
     <section class="section" id="start">
         <div class="container">
@@ -487,6 +538,7 @@
                 <h4>Product</h4>
                 <a href="#catch">See it catch</a>
                 <a href="#compare">Compare</a>
+                <a href="#quality-panel">Quality Panel</a>
                 <a href="#scenarios">Use cases</a>
                 <a href="#start">Get started</a>
                 <a href="#boundary">Boundary</a>

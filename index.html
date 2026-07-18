@@ -29,6 +29,7 @@
                 <a href="#product">产品</a>
                 <a href="#catch">看它抓错</a>
                 <a href="#compare">对比</a>
+                <a href="#quality-panel">质量面板</a>
                 <a href="#scenarios">使用场景</a>
                 <a href="#start">怎么开始</a>
                 <a href="how-it-works.html">文档</a>
@@ -333,6 +334,19 @@
         </div>
     </section>
 
+    <!-- ===== 质量面板 · 每次运行的确定性投影 ===== -->
+    <section class="section" id="quality-panel">
+        <div class="container">
+            <div class="section-header">
+                <div class="eyebrow">Quality Panel · 质量面板</div>
+                <h2>每次运行结束，还有一张质量面板</h2>
+                <p class="section-desc">门禁结果、主张支持、来源证据、收口状态——交付之前先看这里。它是 quality_panel.json 的确定性只读投影，不是评分，也不是交付裁决。</p>
+            </div>
+            <div class="qp-demo reveal" data-qp-widget></div>
+            <p class="qp-demo-note">合成数据 · 当前为审计附件/操作员视图。完整交互预览（含开发中的复盘与反馈）见下方<a href="#roadmap">开发中区</a>。</p>
+        </div>
+    </section>
+
     <!-- ===== 同一任务 · 三种方法 · 作者手工放置 ===== -->
     <!--
       给作者：真实对照完成后，把每个 article 换成链接卡片，并补上：
@@ -421,6 +435,43 @@
         </div>
     </section>
 
+    <!-- ===== 开发中 ===== -->
+    <section class="section" id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <div class="eyebrow">In development · 开发中</div>
+                <h2>接下来做什么</h2>
+                <p class="section-desc">以下方向正在开发，均未发布、不承诺日期。设计预览使用合成数据，仅用于展示交互与边界。</p>
+            </div>
+            <div class="roadmap-grid reveal mt-40">
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <h3>交互式向导 init</h3>
+                    <p>本地浏览器三步创建：说需求、选交付与版式、确认后一次事务提交；终端保持同等语义。</p>
+                    <a class="roadmap-link" href="demos/interactive-init/">打开设计预览 →</a>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <h3>AI 语义复盘</h3>
+                    <p>终稿后的语义层建议：指出哪里需要复核、哪里无法判断；advisory 性质，不影响门禁与交付。</p>
+                    <a class="roadmap-link" href="demos/quality-panel/#review">打开设计预览 →</a>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <h3>QP 反馈与改进</h3>
+                    <p>处置 finding、一个输入框三种去向、长期指导两步确认；下一轮 Agent 只读人工批准的改进快照。</p>
+                    <a class="roadmap-link" href="demos/quality-panel/#feedback">打开设计预览 →</a>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <h3>运行收据（ControlStore）</h3>
+                    <p>每次交付一张可验证收据；文件只是投影，权威在 Store。JSON 工作区在此之前继续是公开路径。</p>
+                    <span class="roadmap-soon">接入后公开说明</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== 怎么开始 ===== -->
     <section class="section" id="start">
         <div class="container">
@@ -486,6 +537,7 @@
                 <h4>产品</h4>
                 <a href="#catch">看它抓错</a>
                 <a href="#compare">对比</a>
+                <a href="#quality-panel">质量面板</a>
                 <a href="#scenarios">使用场景</a>
                 <a href="#start">怎么开始</a>
                 <a href="#boundary">能力边界</a>

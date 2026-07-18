@@ -2075,8 +2075,226 @@ mark.review-problem {
     .sandbox-app, .evolution-shell { padding: 16px; }
 }
 
-/* ---------- Reduced motion ---------- */
+/* ---------- Quality Panel demo ---------- */
 
+.qp-demo {
+    margin-top: 44px;
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+}
+.qp-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-soft);
+}
+.qp-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+.qp-meta {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+}
+.qp-meta .k { color: var(--faint); }
+.qp-pill {
+    flex-shrink: 0;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 9px;
+    padding: 8px 14px;
+}
+.qp-pill .qp-pill-k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.75;
+}
+.qp-pill strong { display: block; font-size: 15px; margin-top: 2px; }
+.qp-pill.level-warning { color: var(--warn); background: var(--warn-wash); border-color: rgba(180, 83, 9, 0.3); }
+.qp-pill.level-pass { color: var(--pass); background: var(--pass-wash); border-color: rgba(74, 164, 92, 0.3); }
+.qp-pill.level-block { color: var(--block); background: var(--block-wash); border-color: rgba(233, 78, 42, 0.3); }
+
+.qp-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+}
+.qp-metric {
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+}
+.qp-metric .qp-mk {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+.qp-metric .qp-mk-sub {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--faint);
+    opacity: 0.7;
+    margin-top: 1px;
+}
+.qp-metric .qp-mv { display: block; font-size: 20px; font-weight: 700; margin-top: 3px; }
+.qp-metric .qp-mv.level-zero { color: var(--faint); }
+.qp-metric .qp-mv.level-warning { color: var(--warn); }
+.qp-metric .qp-mv.level-block { color: var(--block); }
+.qp-metric .qp-mv.level-info { color: var(--brand); }
+
+.qp-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 18px;
+}
+.qp-sec {
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+}
+.qp-sec h3, .qp-actions h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 8px;
+}
+.qp-kv { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.qp-kv th, .qp-kv td {
+    text-align: left;
+    padding: 6px 8px 6px 0;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+}
+.qp-kv tr:last-child th, .qp-kv tr:last-child td { border-bottom: none; }
+.qp-kv th { font-weight: 500; color: var(--muted); width: 46%; }
+.qp-kv td { color: var(--ink-soft); }
+.qp-kv code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--paper-deep);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 1px 5px;
+    word-break: break-all;
+}
+.qp-demo .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 1px 9px;
+    white-space: nowrap;
+}
+.qp-demo .badge-pass { color: var(--pass); background: var(--pass-wash); border-color: rgba(74, 164, 92, 0.3); }
+.qp-demo .badge-warning { color: var(--warn); background: var(--warn-wash); border-color: rgba(180, 83, 9, 0.3); }
+.qp-demo .badge-block { color: var(--block); background: var(--block-wash); border-color: rgba(233, 78, 42, 0.3); }
+.qp-demo .badge-missing, .qp-demo .badge-incomplete { color: var(--faint); background: var(--paper-deep); border-color: var(--line-soft); }
+.qp-demo .badge-info { color: var(--brand); background: var(--accent-wash); border-color: rgba(0, 104, 56, 0.25); }
+.qp-demo .count-zero { color: var(--faint); font-family: var(--font-mono); font-size: 11.5px; }
+
+.qp-actions { margin-top: 18px; }
+.qp-action-list { margin: 0; padding: 0; list-style: none; }
+.qp-action-list li {
+    position: relative;
+    padding: 8px 0 8px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line-soft);
+}
+.qp-action-list li:last-child { border-bottom: none; }
+.qp-action-list li::before { content: "→"; position: absolute; left: 0; color: var(--brand); }
+.qp-action-list li strong { color: var(--ink-soft); margin-right: 8px; font-family: var(--font-mono); font-size: 12px; }
+
+.qp-demo-note {
+    margin-top: 16px;
+    font-size: 12.5px;
+    color: var(--faint);
+}
+
+/* ---------- Roadmap (in development) ---------- */
+
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+.roadmap-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    padding: 22px;
+}
+.roadmap-tag {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--warn);
+    background: var(--warn-wash);
+    border: 1px solid rgba(180, 83, 9, 0.28);
+    border-radius: 20px;
+    padding: 3px 10px;
+}
+.roadmap-card h3 {
+    margin-top: 12px;
+    font-size: 16.5px;
+    font-weight: 600;
+    color: var(--ink);
+}
+.roadmap-card p {
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: var(--muted);
+    flex: 1;
+}
+.roadmap-link {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--brand);
+}
+.roadmap-link:hover { text-decoration: underline; }
+.roadmap-soon {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--faint);
+}
+
+@media (max-width: 860px) {
+    .qp-sections, .roadmap-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }

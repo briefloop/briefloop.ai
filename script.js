@@ -611,6 +611,169 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+/* Quality Panel demo (deterministic, synthetic; mirrors quality_panel.json shape) */
+document.addEventListener("DOMContentLoaded", () => {
+    const host = document.querySelector("[data-qp-widget]");
+    if (!host) return;
+    const isEn = document.documentElement.lang === "en";
+
+    const T = {
+        eyebrow: isEn ? "Quality Panel · audit attachment" : "质量面板 · 审计附件",
+        overall: isEn ? "Overall status" : "总体状态",
+        overallValue: isEn ? "warning" : "警告",
+        metaRun: isEn ? "Run" : "运行",
+        metaReader: isEn ? "Reader" : "终稿",
+        metaReceipt: isEn ? "Finalize receipt" : "Finalize 收据",
+        sections: [
+            { title: isEn ? "Control integrity" : "控制面完整性" },
+            { title: isEn ? "Source & evidence" : "来源与证据" },
+            { title: isEn ? "Gate results" : "门禁结果" },
+            { title: isEn ? "Claim support & risk" : "主张支持与风险" },
+            { title: isEn ? "Reader-clean & citations" : "读者清洁与引用卫生" },
+            { title: isEn ? "Closeout & bundles" : "收口与交付包分离" }
+        ],
+        metrics: isEn
+            ? [["Gate blockers", "门禁阻断"], ["Gate warnings", "门禁警告"], ["Missing/incomplete", "缺失/不完整"], ["Materiality findings", "重要性发现"], ["Template warnings", "模板警告"], ["Wording warnings", "措辞警告"], ["Semantic proposals", "语义支持提案"], ["Recommended actions", "建议动作"]]
+            : [["门禁阻断", "Gate blockers"], ["门禁警告", "Gate warnings"], ["缺失/不完整", "Missing/incomplete"], ["重要性发现", "Materiality findings"], ["模板警告", "Template warnings"], ["措辞警告", "Wording warnings"], ["语义支持提案", "Semantic proposals"], ["建议动作", "Recommended actions"]],
+        actionsTitle: isEn ? "Recommended next actions" : "推荐的下一步动作"
+    };
+
+    const metrics = [
+        [0, "block"], [2, "warning"], [0, "block"], [1, "warning"],
+        [0, "warning"], [1, "warning"], [0, "warning"], [3, "info"]
+    ];
+
+    // rows: [label zh, label en, [kind, a, zh, en]]
+    const sections = [
+        [
+            ["运行完整性", "Run integrity", ["badge", "pass", "通过", "pass"]],
+            ["可被引用资格", "Reference eligible", ["badge", "pass", "true", "true"]],
+            ["事实层状态", "Fact layer status", ["badge", "pass", "通过", "pass"]],
+            ["运行效果", "Runtime effect", ["badge", "info", "projection_only", "projection_only"]]
+        ],
+        [
+            ["来源包状态", "Source pack status", ["badge", "pass", "通过", "pass"]],
+            ["持久来源数", "Durable sources", ["count", 12]],
+            ["缺失标题", "Missing titles", ["warn_count", 1]],
+            ["缺失发布方", "Missing publishers", ["warn_count", 0]],
+            ["检索来源构成", "Retrieval source mix", ["text", "web 8 · 本地 4", "web 8 · local 4"]]
+        ],
+        [
+            ["Auditor 门禁", "Auditor gate", ["badge", "pass", "通过", "pass"]],
+            ["Finalize 门禁", "Finalize gate", ["badge", "pass", "通过", "pass"]],
+            ["阻断发现", "Blocking findings", ["count", 0]],
+            ["警告发现", "Warning findings", ["warn_count", 2]]
+        ],
+        [
+            ["登记主张数", "Registered claims", ["count", 18]],
+            ["主张-支持矩阵", "Claim-support matrix", ["badge", "pass", "通过", "pass"]],
+            ["弱支持原子", "Weak-support atoms", ["warn_count", 2]],
+            ["重要性排除", "Materiality exclusions", ["warn_count", 1]],
+            ["支持措辞", "Support wording", ["badge", "warning", "警告", "warning"]],
+            ["语义支持状态", "Semantic support status", ["badge", "missing", "not_available", "not_available"]]
+        ],
+        [
+            ["读者清洁状态", "Reader-clean status", ["badge", "pass", "通过", "pass"]],
+            ["重复引用", "Duplicate citations", ["count", 0]],
+            ["来源附录警告", "Source appendix warnings", ["count", 0]]
+        ],
+        [
+            ["收口状态", "Closeout status", ["badge", "pass", "complete", "complete"]],
+            ["收口命令", "Closeout command", ["code", "briefloop quality closeout --workspace ."]],
+            ["审计包", "Audit bundle", ["badge", "pass", "已生成", "generated"]],
+            ["交付包", "Delivery bundle", ["badge", "info", "待人工批准", "awaiting approval"]]
+        ]
+    ];
+
+    const actions = [
+        ["repair_weak_support", isEn ? "2 weak-support atoms need added sources or softer wording" : "2 个弱支持原子需要补充来源或降低表述强度"],
+        ["review_materiality_exclusion", isEn ? "Confirm whether 1 materiality exclusion is intentional" : "确认 1 项重要性排除是否有意为之"],
+        ["human_delivery_approval", isEn ? "Delivery bundle awaits human approval (AUD-2026-0717-03)" : "交付包等待人工批准（AUD-2026-0717-03）"]
+    ];
+
+    const el = (tag, cls, text) => {
+        const n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
+    };
+
+    // hero strip
+    const hero = el("div", "qp-hero");
+    const heroLeft = el("div");
+    heroLeft.appendChild(el("span", "qp-eyebrow", T.eyebrow));
+    const meta = el("div", "qp-meta");
+    [
+        [T.metaRun, "RUN-2026-0717-01"],
+        [T.metaReader, "brief.md · revision 3 · sha256:9c41f2…"],
+        [T.metaReceipt, "TXN-FIN-0088"]
+    ].forEach(([k, v]) => {
+        const s = el("span");
+        s.appendChild(el("span", "k", k + " "));
+        s.appendChild(el("span", null, v));
+        meta.appendChild(s);
+    });
+    heroLeft.appendChild(meta);
+    hero.appendChild(heroLeft);
+    const pill = el("div", "qp-pill level-warning");
+    pill.appendChild(el("span", "qp-pill-k", T.overall));
+    pill.appendChild(el("strong", null, T.overallValue));
+    hero.appendChild(pill);
+    host.appendChild(hero);
+
+    // metrics
+    const grid = el("div", "qp-metrics");
+    metrics.forEach((m, i) => {
+        const card = el("div", "qp-metric");
+        card.appendChild(el("span", "qp-mk", T.metrics[i][0]));
+        const level = m[0] === 0 ? "zero" : m[1];
+        card.appendChild(el("strong", "qp-mv level-" + level, String(m[0])));
+        card.appendChild(el("span", "qp-mk-sub", T.metrics[i][1]));
+        grid.appendChild(card);
+    });
+    host.appendChild(grid);
+
+    // sections
+    const secWrap = el("div", "qp-sections");
+    sections.forEach((rows, idx) => {
+        const sec = el("div", "qp-sec");
+        sec.appendChild(el("h3", null, T.sections[idx].title));
+        const tb = el("table", "qp-kv");
+        rows.forEach(r => {
+            const tr = el("tr");
+            tr.appendChild(el("th", null, isEn ? r[1] : r[0]));
+            const td = el("td");
+            const v = r[2];
+            if (v[0] === "badge") td.appendChild(el("span", "badge badge-" + v[1], isEn ? v[3] : v[2]));
+            else if (v[0] === "count") td.appendChild(el("span", "count-zero", String(v[1])));
+            else if (v[0] === "warn_count") {
+                if (v[1] === 0) td.appendChild(el("span", "count-zero", "0"));
+                else td.appendChild(el("span", "badge badge-warning", String(v[1])));
+            }
+            else if (v[0] === "code") td.appendChild(el("code", null, v[1]));
+            else td.textContent = isEn ? v[2] : v[1];
+            tr.appendChild(td);
+            tb.appendChild(tr);
+        });
+        sec.appendChild(tb);
+        secWrap.appendChild(sec);
+    });
+    host.appendChild(secWrap);
+
+    // actions
+    const act = el("div", "qp-actions");
+    act.appendChild(el("h3", null, T.actionsTitle));
+    const ul = el("ul", "qp-action-list");
+    actions.forEach(a => {
+        const li = el("li");
+        li.appendChild(el("strong", null, a[0]));
+        li.appendChild(el("span", null, a[1]));
+        ul.appendChild(li);
+    });
+    act.appendChild(ul);
+    host.appendChild(act);
+});
+
 /* Copy-to-clipboard for install commands (data-copy-text buttons) */
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("[data-copy-text]").forEach(btn => {
