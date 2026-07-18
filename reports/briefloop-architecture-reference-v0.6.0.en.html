@@ -587,6 +587,12 @@ Snapshot main@47ae439d</p>
       or reproducibility. They are not alternate product names. See
       <code>docs/briefloop-naming.md</code>.</p>
       </blockquote>
+      <blockquote>
+      <p><strong>Draft abstract for a future Tech Report.</strong> The associated evaluation is in progress.</p>
+      <p>Large language models cannot reliably determine what changed in the recent past when parametric memory, retrieved evidence, and the timestamps of publication, availability, evaluation, and resolution disagree. For enterprise intelligence workflows, this is not an edge case but the default operating condition. A model may retrieve a recent document while retaining an older world state, mistake a follow-up announcement for an initial launch, merge distinct product states, or repeat a superseded claim with greater confidence than the available evidence permits. Conventional prompt-only and retrieval-augmented workflows generally leave these conflicts to the model’s implicit judgment.</p>
+      <p>BriefLoop treats temporal knowledge conflict as a systems-governance problem rather than a model-intelligence problem. It operates over frozen source evidence, separates agentic interpretation from authoritative state changes, binds material claims to identifiable evidence, records failures and revisions, and subjects delivery to deterministic controls and human adjudication. We evaluate this architecture against prompt-only and skill-based baselines using a preregistered weekly-intelligence task containing publication–event mismatches, stale status information, preview-to-GA transitions, vendor-reported metrics, and similar-entity collisions. Evaluation focuses on temporal leakage, event-timeline reconstruction, attribution, uncertainty calibration, traceability, and repair behavior rather than prose preference alone.</p>
+      <p>BriefLoop does not make generated claims true by construction. Instead, it provides an enterprise control layer that makes evidence, conflicts, decisions, unresolved uncertainty, and subsequent repairs inspectable and governable.</p>
+      </blockquote>
       </section>
       <section id="core-insights" class="level2">
       <h2>1. Core Insights</h2>
