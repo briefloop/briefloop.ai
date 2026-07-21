@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BriefLoop 质量面板 — 重设计原型</title>
+    <title>BriefLoop v0.14.0 — 三页只读 HTML 预览</title>
     <!--
-      Quality Panel REDESIGN PROTOTYPE · NOT SHIPPED
-      - Presentation-only redesign of the existing quality_panel.html
-        (same payload semantics; deterministic status vocabulary unchanged).
-      - Adds v0.2 PRD zones: AI 语义复盘 (advisory) + 反馈与下一轮改进.
-      - Interactive dispositions/feedback are mocked; the exported static
-        quality_panel.html remains read-only per PRD §11.6.
+      BriefLoop v0.14.0 boundary preview.
+      - Three pages: Quality / LAJ advisory / Improvement unavailable.
+      - Entire page is read-only and presentation-only.
+      - LAJ utility NOT MEASURED; no automatic learning or accepted-suggestion effect.
       - Visual System v1 (draft): green = deterministic pass only ·
         purple = advisory · blue = action · red = block · gray = unavailable.
     -->
@@ -19,7 +17,7 @@
 <body>
     <div class="demo-return-bar">
         <a href="/index.html#roadmap">← briefloop.ai</a>
-        <span>设计预览 · NOT SHIPPED · 合成数据 / Design preview · synthetic data</span>
+        <span>v0.14.0 · read-only · synthetic data</span>
     </div>
 
     <header class="qp-topbar">
@@ -35,7 +33,7 @@
                 </div>
                 <span class="brand-word">BriefLoop</span>
             </div>
-            <span class="proto-banner" data-i18n="proto_banner">重设计原型 · 未发布 · 处置与反馈为模拟</span>
+            <span class="proto-banner" data-i18n="proto_banner">v0.14.0 · 三页只读预览 · 合成数据</span>
             <div class="lang-select">
                 <button id="btn-lang-toggle" class="lang-select-btn" type="button" aria-haspopup="listbox" aria-expanded="false"><span id="lang-current">中文</span><span class="lang-caret" aria-hidden="true">▾</span></button>
                 <ul id="lang-menu" class="lang-menu" role="listbox" hidden>

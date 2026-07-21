@@ -1,35 +1,35 @@
 # Control Boundary
 
-## Authority Model
+## One Runtime Authority
 
-1. Agents understand, research, propose, draft, and revise content.
-2. Deterministic BriefLoop commands own persistent control state, validation,
-   hashes, stage transitions, gates, evidence freezing, and delivery truth.
-3. Humans approve consequential setup choices and final delivery.
+For a fresh 0.14 Codex run, SQLite ControlStore in `briefloop.db` is the sole
+runtime authority. Strict request DTOs cross the write boundary; deterministic
+domain services own effects and return receipts. Agents write proposals only
+inside the invocation scratch path allowed by the current envelope.
 
-Agent output is a proposal until the deterministic control plane accepts and
-records the relevant transaction.
+The legacy JSON control plane is deleted. JSON-only workspaces are unsupported:
+do not migrate, import, dual-read, dual-write, or use them as fallback. Legacy
+JSON control files and report, status, handoff, finalize, Quality Panel,
+Markdown, JSON/JSONL, and HTML exports are non-authoritative projections.
+Strict action, envelope, and human-request JSON payloads may carry input across
+the write boundary, but they are revalidated against ControlStore and are not
+authority by themselves.
 
-## Single Writer Rule
+## Human Authority
 
-Do not directly edit Python-owned control files, including workflow state,
-event logs, artifact registries, gate reports, runtime manifests, hashes, and
-delivery truth. Do not overwrite frozen artifacts. Use sanctioned BriefLoop
-commands for repair, supersede, new revision, or new run behavior.
+Humans approve consequential setup, merge, release, and final delivery. Agent
+prose, button clicks in a static preview, and CLI flags outside a typed request
+are not authorization.
 
-## Evidence Boundary
+## Evidence And Quality
 
-A registered source proves provenance, not truth. A link, search result,
-candidate source, or model summary does not prove that evidence semantically
-supports every word of a claim. Preserve limitations and route uncertain
-judgments to typed findings or human review.
+Provenance is not semantic proof. A link or recorded span does not prove every
+word of a claim. LAJ is an Experimental advisory second opinion whose utility
+and efficacy are NOT MEASURED. No current surface guarantees correctness,
+completeness, hallucination elimination, output quality, or quality improvement.
 
-Allowed framing:
+## No Learning Claim
 
-> BriefLoop records provenance and process evidence, and deterministic gates
-> can block configured risks.
-
-Disallowed framing:
-
-> BriefLoop proves claims are true, eliminates hallucinations, or guarantees
-> output quality.
+The Improvement Ledger is unavailable. No run consumes website feedback,
+Quality Panel suggestions, or an improvement snapshot. Do not promise automatic
+learning or that accepting a suggestion improves a later run.

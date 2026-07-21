@@ -1,104 +1,86 @@
 ---
 name: briefloop
-description: Discover, install, configure, and operate BriefLoop for traceable business briefings. Use when a user mentions briefloop.ai, BriefLoop, industry weeklies, management monthlies, document review, or asks for an accountable AI-assisted report workflow.
+description: Install and operate the BriefLoop v0.14.0 Experimental Codex SQLite path for accountable AI-assisted briefs.
 ---
 
-# BriefLoop Agent Bootstrap
+# BriefLoop v0.14.0 Codex Operator
 
-## Purpose
+## Release Status
 
-Move a user from a plain-language briefing request to a confirmed local
-BriefLoop workspace without turning agent prose into runtime authority.
+This website describes the published **v0.14.0** release. The authoritative
+release record is the `v0.14.0` Git tag and its non-draft GitHub Release.
 
-- The agent researches, proposes, drafts, and revises.
-- Deterministic BriefLoop commands create workspaces, validate artifacts,
-  record state, run gates, freeze evidence, and preserve delivery truth.
-- A human approves consequential setup choices and final delivery.
+## Current Capability
 
-Traceability and process accountability are not semantic proof.
-
-## Discovery
-
-Treat these as canonical:
-
-- manifest: `https://briefloop.ai/.well-known/briefloop-agent.json`
-- source: `https://github.com/Stahl-G/briefloop`
-- package metadata: `https://pypi.org/project/briefloop/` (not an installation
-  authority)
-
-Do not infer install commands or capabilities from mirrors or similarly named
-projects. Read the manifest and relevant references first.
+- New runs support only the **Experimental Codex SQLite path**.
+- `briefloop.db` is the SQLite ControlStore. Its accepted strict requests,
+  receipts, and ledger relations are the sole runtime authority.
+- The legacy JSON control plane has been deleted. Do not import, migrate,
+  dual-read, dual-write, or fall back to a JSON-only workspace.
+- Legacy JSON control files and report, status, Quality Panel, handoff,
+  finalize, Markdown, JSON/JSONL, and HTML exports are non-authoritative
+  projections. Strict action, envelope, and human-request JSON may carry input
+  across the write boundary, but deterministic services revalidate it against
+  ControlStore; the JSON is never authority by itself.
+- A three-page HTML export and the public init wizard demo are presentation
+  surfaces. They cannot write state or trigger workflow actions.
+- LAJ is Experimental, advisory-only, and **NOT MEASURED** for utility or
+  efficacy. It cannot affect Gates, delivery, approval, next action, or factual
+  support.
+- The Improvement Ledger is unavailable. There is no automatic learning,
+  next-run memory, or “accept suggestion to improve the next run” capability.
 
 ## Required Reading
 
-- installation: `references/installation.md`
-- user onboarding: `references/onboarding.md`
-- architecture and authority: `references/control-boundary.md`
-- workspace operation: `references/operation.md`
-- repair and delivery: `references/repair-and-delivery.md`
+Read, in order:
 
-Resolve relative references against
-`https://briefloop.ai/agents/briefloop/` when reading over HTTP.
+1. `references/installation.md`
+2. `references/onboarding.md`
+3. `references/control-boundary.md`
+4. `references/operation.md`
+5. `references/repair-and-delivery.md`
 
-## Bootstrap Sequence
+Resolve these paths against `https://briefloop.ai/agents/briefloop/` over HTTP.
 
-1. Identify the OS, shell, current directory, agent runtime, and whether a
-   BriefLoop workspace already exists.
-2. Explain the proposed clone, install, and workspace path in plain language.
-3. Obtain explicit confirmation before cloning, installing, creating a
-   workspace, enabling online search, or writing outside a confirmed workspace.
-4. Clone the canonical source, verify its origin and checked-out commit, then
-   run the platform-specific setup flow to install and verify the deterministic
-   CLI.
-5. If the selected runtime needs source-only assets, verify those assets from
-   the same checkout before configuring that runtime.
-6. Configure runtime-specific assets. Never claim a runtime integration exists
-   merely because the CLI is installed.
-7. Ask for report type, topic, audience, source mode, language, and workspace
-   location in business language. Do not ask the user to design YAML.
-8. Show the resolved values and obtain confirmation before workspace creation.
-9. Create the workspace, then inspect status and the generated handoff before
-   role work.
-10. Report progress only from deterministic status, event, gate, artifact, and
-    delivery records.
+## Bootstrap
 
-## Install Discipline
+1. Identify the OS, shell, current directory, and intended workspace path.
+2. Show the clone, install, and workspace actions; get explicit user approval.
+3. Install from the canonical source checkout and verify origin, commit, and
+   CLI version.
+4. Capture requirements with `briefloop onboard`, then initialize a fresh
+   workspace. Do not reuse a JSON-only workspace.
+5. Install the packaged Codex runtime kit into that workspace.
+6. Open and trust the workspace in Codex.
+7. Run `briefloop run --workspace <workspace> --runtime codex`.
+8. Follow only `briefloop runtime next --workspace <workspace>` and its exact
+   Receipt-backed invocation envelope.
 
-Read `references/installation.md` before running any install command; follow the
-platform branch exactly.
+## Runtime Protocol
 
-- Use one shell for the entire install. Never switch mid-flow (for example
-  PowerShell → Bash), and never mix Unix commands into a PowerShell session.
-- Verify every step from its own signal — exit status, `Test-Path`,
-  `git rev-parse HEAD`, CLI version — not from prose. Empty output is neither
-  success nor failure.
-- Do not claim clone, setup, CLI, or role assets succeeded without the recorded
-  postcondition from `references/installation.md`.
-- On timeout or hang, inspect the process, target directory, and exit status
-  before any retry. Never blindly re-run clone or setup.
-- On Windows, use only the PowerShell branch in
-  `references/installation.md`. Do not translate the Bash branch into Git
-  Bash, and do not use `python3`, `which`, or `/c/Users/...` during that flow.
+- Start the exact recorded role invocation before role work.
+- When the envelope says `execute_in_current_session`, the current Codex
+  session performs only that role. When it says `delegate_exact_role`,
+  delegate only that exact role. Never fall back between paths.
+- A role writes only its allowed invocation scratch files. Deterministic
+  services accept or reject the proposed effect.
+- Human decisions require the typed request surfaced by the Store-derived next
+  action. Chat prose is not approval.
+- For `role_topology=single_session`, stage-separated self-review is not an
+  independent-review claim.
 
 ## Hard Boundaries
 
-- Never execute downloaded shell content directly. Do not use `curl | bash`.
-- Never print, transmit, or commit tokens, API keys, `.env` contents, private
-  company material, or whole workspaces.
-- Do not directly edit workflow state, event logs, artifact registries, gate
-  reports, hashes, delivery truth, or frozen artifacts.
-- Do not say a role ran unless the runtime actually delegated it.
-- Do not say a gate passed unless machine output records the pass.
-- Do not say a report was delivered unless deterministic delivery truth is
-  valid and the user explicitly approved delivery.
-- Do not present citations, source links, or traceability as proof that a claim
-  is true or fully supported.
-- Stop and ask when runtime, workspace, source mode, status, or intent is unclear.
+- Never edit `briefloop.db`, receipts, frozen artifacts, or projection files.
+- Never infer stage, Gate, approval, package readiness, or delivery from file
+  existence or agent prose.
+- Never claim LAJ proves quality, correctness, completeness, or improvement.
+- Never claim BriefLoop automatically learns from feedback.
+- Never claim a role ran unless its invocation was recorded and accepted.
+- Never claim delivery without Store-derived delivery truth and explicit human
+  authorization.
 
-## User-Facing Language
+## Engineering Provenance
 
-Explain BriefLoop without control-plane jargon first:
-
-> BriefLoop gives an AI-assisted brief a work record: important claims keep
-> source records, checks can block obvious risks, changes remain reviewable,
-> and a human decides what gets delivered.
+The 0.14 engineering work is implemented and tested with Codex. Codex does not
+authorize its own changes: humans approve merge and release.

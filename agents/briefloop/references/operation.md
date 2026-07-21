@@ -1,51 +1,38 @@
 # Workspace Operation
 
-## Start With Machine Facts
+## Active Path
+
+Only the Experimental Codex SQLite path is active for new runs:
 
 ```bash
-BRIEFLOOP_CLI="$(command -v briefloop)"
-test -n "$BRIEFLOOP_CLI"
-"$BRIEFLOOP_CLI" version
+briefloop runtime install --workspace <workspace> --runtime codex
+briefloop run --workspace <workspace> --runtime codex
+briefloop runtime next --workspace <workspace>
 ```
 
-Use the runtime supported by available assets. For handoff only:
+Open and trust the workspace in Codex after installing the runtime kit. Do not
+substitute operator, Claude, Hermes, OpenCode, CodeBuddy, or a JSON-control
+workflow.
 
-```bash
-briefloop run --workspace <workspace> --runtime operator
-```
+## Sequence Authority
 
-For a source checkout with CodeBuddy-compatible role assets:
+`runtime next` returns the Store-derived `CoreRunNextAction`. It is the only
+sequence authority. For role work, start the exact recorded invocation, follow
+its `execute_in_current_session` or `delegate_exact_role` instruction, and
+write only its allowed scratch outputs. A later role requires a new invocation
+and receipt. Deterministic actions stay with the root runtime host.
 
-```bash
-briefloop run --workspace <workspace> --runtime codebuddy
-```
+For `role_topology=single_session`, the same Codex context performs separately
+recorded stage invocations. This is stage-separated self-review, not independent
+review.
 
-Do not silently substitute one runtime for another.
+## Read-Only Views
 
-## Follow The Generated Handoff
-
-Treat these as the workspace-specific execution contract:
-
-```text
-output/intermediate/agent_handoff.md
-output/intermediate/agent_handoff.json
-```
-
-Read the relevant step before each role action and after each deterministic
-transaction. Never hand-author control artifacts to make a stage appear complete.
-
-## Report A Run Card
-
-```text
-runtime:
-current_stage:
-run_integrity:
-blocked:
-latest_gate_status:
-finalize_report:
-delivery_truth:
-next_allowed_action:
-```
-
-Use `unknown` rather than guessing. Prose is not evidence that a stage, gate,
-repair, or delivery completed.
+Use `briefloop status --workspace <workspace> --json` and `runtime next` as
+supported Store-derived views. Legacy JSON control files and report, status,
+handoff, finalize, Quality Panel, Markdown, JSON/JSONL, and HTML exports are
+non-authoritative projections. Strict action, envelope, and human-request JSON
+payloads are revalidated against ControlStore and are not authority by
+themselves. Do not
+infer current stage, blockers, package readiness, or delivery from file
+existence.

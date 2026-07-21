@@ -160,9 +160,9 @@
             <div class="section-header text-center reveal">
                 <div class="eyebrow">Quality Panel</div>
                 <h2>After the gates, every run leaves a deterministic projection</h2>
-                <p class="section-desc">Gates blocking or passing is only the process. When a run ends, the deterministic control plane projects gate results, claim support, source evidence, and closeout state into a Quality Panel (quality_panel.json → read-only HTML and summary). It is an audit attachment: not a quality score, not a delivery verdict, and it cannot trigger any workflow action in return.</p>
+                <p class="section-desc">v0.14.0 can export one self-contained three-page read-only HTML from Store/LAJ data: quality status, LAJ advice, and improvement status. It is not runtime authority, a quality score, or a delivery verdict and cannot trigger workflow action. LAJ utility is NOT MEASURED; the improvement page honestly reports Improvement Ledger unavailable.</p>
             </div>
-            <p class="quickstart-note">The homepage has an <a href="en.html#quality-panel">interactive demo of this panel (synthetic data)</a>; the in-development semantic review and feedback areas are in the <a href="en.html#roadmap">roadmap section</a>.</p>
+            <p class="quickstart-note">The homepage has a <a href="en.html#quality-panel">synthetic preview</a>. All site demos are read-only: no dispositions, writes, automatic learning, or “accept suggestion to improve the next run” capability.</p>
         </div>
     </section>
 
@@ -171,8 +171,8 @@
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow">Evolution Loop</div>
-                <h2>Each failure can become a test for the next version — without rewriting the system by itself</h2>
-                <p class="section-desc">The run loop produces a brief. The evolution loop turns recorded failures into reviewable improvement candidates. Only evaluated, human-approved changes enter a later release.</p>
+                <h2>Codex implements and tests 0.14 engineering changes; humans authorize merge and release</h2>
+                <p class="section-desc">This is a software-engineering responsibility chain, not automatic learning inside a run. A failure may become a code candidate and regression test, but it is not consumed by the current or next brief run. No Store-native Improvement Ledger is available in 0.14.</p>
             </div>
 
             <div class="evolution-shell reveal" data-evolution-loop>
@@ -210,7 +210,7 @@
 
             <div class="evolution-boundary reveal">
                 <strong>Not autonomous “self-improvement”</strong>
-                <span>Agents may analyze failures and propose candidates. They cannot modify prompts, gates, policies, or the main branch, and cannot declare an improvement effective. Adoption requires evaluation, human approval, and a versioned record.</span>
+                <span>Codex implements and tests bounded 0.14 engineering changes on reviewed branches; humans authorize merge and release. Product runs do not absorb suggestions or rewrite prompts, gates, or policy, and the Quality Panel cannot make the next run better automatically.</span>
                 <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer">Read Lilian Weng's original essay: Harness Engineering for Self-Improvement →</a>
             </div>
         </div>
@@ -339,7 +339,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
                             <h4>Deterministic CLI</h4>
                         </div>
-                        <p>Inspect the current stage, missing files, blockers, and audit results from the command line (<code>briefloop status</code> is a read-only Store projection). Finalize, approval, and delivery run as typed Store actions through the Codex runtime host; the SQLite ControlStore is the runtime authority, and JSON, Markdown, and HTML are projections.</p>
+                        <p>New runs support only the Experimental Codex SQLite path. <code>briefloop status</code> and <code>briefloop runtime next</code> expose Store-derived read-only state and the next action. Finalize, approval, and delivery are typed Store actions through the Codex runtime host. SQLite ControlStore is the sole runtime authority, and the legacy JSON control plane has been deleted. Legacy JSON control files and report, status, Quality Panel, Markdown/JSON/JSONL/HTML exports are non-authoritative projections. Strict action, envelope, and human-request JSON payloads are revalidated against ControlStore and are not authority by themselves.</p>
                     </div>
 
                     <div class="integration-item">
@@ -347,7 +347,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
                             <h4>Codex</h4>
                         </div>
-                        <p>After the Codex runtime kit is installed (<code>briefloop runtime install --runtime codex</code>), open and trust the workspace in Codex; Codex reads the operator handoff and performs the writing.</p>
+                        <p>After installing the Codex runtime kit (<code>briefloop runtime install --workspace &lt;workspace&gt; --runtime codex</code>), open and trust the workspace in Codex. Codex performs only the exact action returned by <code>runtime next</code> and its Receipt-backed role invocation; it never falls back to another runtime.</p>
                     </div>
                 </div>
 
@@ -359,12 +359,13 @@
                     <div class="terminal-body" id="terminal-demo">
                         <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ./my-weekly --from-onboarding onboarding.json</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime install --workspace ./my-weekly --runtime codex</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime codex</div>
                         <div class="terminal-line t-output">[created] workspace → ./my-weekly · briefloop.db (SQLite ControlStore)</div>
-                        <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
-                        <div class="terminal-line t-comment"># Next: open and trust the workspace in Codex; runtime next shows the next action</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime next --workspace ./my-weekly</div>
+                        <div class="terminal-line t-comment"># Sole sequence authority: the Store-derived CoreRunNextAction</div>
                     </div>
                     <p class="terminal-note">The current supported bootstrap is this source checkout: it installs the deterministic CLI and keeps source runtime assets together. The Codex path then runs <code>briefloop runtime install --runtime codex</code> inside the workspace — open and trust that directory in Codex afterwards. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash.</p>
                 </div>

@@ -1,28 +1,20 @@
 # Repair And Delivery
 
-## Repair
+When a Gate or integrity check blocks progress, read `briefloop runtime next`
+and the Store-derived status view. Follow only the typed repair or human-review
+request returned there. Never edit `briefloop.db`, receipts, frozen artifacts,
+or projection files to make the run appear clean. If no sanctioned action is
+offered, stop.
 
-When a gate or state check blocks progress:
+Finalize, package readiness, approval, and delivery are typed Store actions
+through the Codex runtime host. A draft, a generated file, a Quality Panel, or
+`package_ready=true` does not prove delivery. Claim delivery only when the
+Store-derived projection reports delivery for the current run and the human
+explicitly authorized it.
 
-1. show the machine-reported finding and current run integrity;
-2. inspect the sanctioned repair route exposed by BriefLoop;
-3. explain what artifact or stage will be reopened;
-4. obtain confirmation when repair changes consequential content or starts a
-   new run;
-5. use deterministic repair commands rather than editing frozen artifacts;
-6. rerun required validation, audit, and gates;
-7. report the new state from machine records.
+The three-page HTML view is read-only. LAJ advice cannot trigger repair or
+delivery, and its utility is NOT MEASURED. The Improvement Ledger is unavailable;
+feedback cannot be accepted into next-run guidance or automatic learning.
 
-If no sanctioned repair exists, stop and recommend a new run or human review.
-Do not erase events or rewrite history to make a run clean.
-
-## Delivery
-
-Do not claim delivery based on a draft alone. Before finalize, export, share,
-or delivery, confirm run integrity is clean, required gates passed,
-deterministic delivery truth is valid, and the human explicitly approved.
-
-Use generated delivery or audit bundles rather than zipping the workspace.
-Never include `.env`, credentials, private planning material, or unrelated
-workspace files. If a package contains a secret, stop and recommend credential
-rotation before sharing anything.
+Use only generated delivery or audit bundles. Never include credentials,
+`.env`, private planning material, or unrelated workspace files.

@@ -160,9 +160,9 @@
             <div class="section-header text-center reveal">
                 <div class="eyebrow">Quality Panel · 质量面板</div>
                 <h2>Gate 之后，每次运行留下一张确定性投影</h2>
-                <p class="section-desc">门禁阻断与放行只是过程。每次运行结束，确定性控制面把门禁结果、主张支持、来源证据和收口状态投影为一张质量面板（quality_panel.json → 只读 HTML 与摘要）。它是审计附件：不是质量评分，不是交付裁决，也不能反过来触发任何工作流动作。</p>
+                <p class="section-desc">v0.14.0 可从 Store/LAJ 数据导出一份自包含的三页只读 HTML：质量状态、LAJ advisory 与改进状态。它不是运行权威、质量评分或交付裁决，也不能触发工作流动作；LAJ 效用 NOT MEASURED，改进页如实显示 Improvement Ledger unavailable。</p>
             </div>
-            <p class="quickstart-note">首页有这张面板的<a href="index.html#quality-panel">交互演示（合成数据）</a>；开发中的语义复盘与反馈改进见首页<a href="index.html#roadmap">开发中区</a>。</p>
+            <p class="quickstart-note">首页有<a href="index.html#quality-panel">合成数据预览</a>；网站演示全部只读，没有处置、写入、自动学习或“接受建议后改善下次运行”的能力。</p>
         </div>
     </section>
 
@@ -171,8 +171,8 @@
         <div class="container">
             <div class="section-header text-center reveal">
                 <div class="eyebrow">Evolution Loop · 演进环</div>
-                <h2>每次失败可以成为下一版的测试，但不会自动改写系统</h2>
-                <p class="section-desc">单次运行负责生产简报；演进环负责把已记录的失败变成可审阅的改进候选。只有通过评估并经人类批准的变更，才进入下一版本。</p>
+                <h2>0.14 的工程变更由 Codex 实现和测试，由人批准合并与发布</h2>
+                <p class="section-desc">这是一条软件工程责任链，不是运行中的自动学习。失败可以成为代码候选与回归测试，但不会进入当前或下一次简报运行；0.14 没有可用的 Store-native Improvement Ledger。</p>
             </div>
 
             <div class="evolution-shell reveal" data-evolution-loop>
@@ -210,7 +210,7 @@
 
             <div class="evolution-boundary reveal">
                 <strong>不是自治“自我改进”</strong>
-                <span>Agent 可以分析失败并提出候选，但不能自行修改 prompt、gate、policy 或主分支，也不能宣称改进已生效。生效必须经过评测、人类批准与版本化记录。</span>
+                <span>Codex 在受限分支中实现并测试 0.14 工程变更；人类授权合并与发布。产品运行不会吸收建议、改写 prompt、gate 或 policy，Quality Panel 也不会让下一次运行自动变好。</span>
                 <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer">阅读 Lilian Weng 英文原文《Harness Engineering for Self-Improvement》→</a>
             </div>
         </div>
@@ -339,7 +339,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
                             <h4>确定性 CLI 交互</h4>
                         </div>
-                        <p>通过命令行查看当前阶段、缺失文件、阻塞原因与审计结果（<code>briefloop status</code> 为只读 Store 投影）。finalize、批准与交付通过 Codex runtime host 的 typed Store action 完成，运行权威是 SQLite ControlStore；JSON、Markdown 和 HTML 只是投影。</p>
+                        <p>新运行只支持 Experimental Codex SQLite 路径。<code>briefloop status</code> 与 <code>briefloop runtime next</code> 提供 Store 派生的只读视图和下一动作；finalize、批准与交付由 Codex runtime host 提交 typed Store action。SQLite ControlStore 是唯一运行权威，legacy JSON 控制面已删除；legacy JSON 控制文件与报告、status、Quality Panel、Markdown/JSON/JSONL/HTML 导出是非权威投影。strict action、envelope 与 human-request JSON 必须重新对照 ControlStore 校验，自身不构成权威。</p>
                     </div>
 
                     <div class="integration-item">
@@ -347,7 +347,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
                             <h4>Codex 配合</h4>
                         </div>
-                        <p>安装 Codex runtime kit 后（<code>briefloop runtime install --runtime codex</code>），在 Codex 中打开并信任该 workspace，由 Codex 读取 operator handoff 并执行写作。</p>
+                        <p>安装 Codex runtime kit 后（<code>briefloop runtime install --workspace &lt;workspace&gt; --runtime codex</code>），在 Codex 中打开并信任该 workspace。Codex 只执行 <code>runtime next</code> 返回的精确动作及 Receipt-backed role invocation；不会回退到其他 runtime。</p>
                     </div>
                 </div>
 
@@ -359,12 +359,13 @@
                     <div class="terminal-body" id="terminal-demo">
                         <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ./my-weekly --from-onboarding onboarding.json</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime install --workspace ./my-weekly --runtime codex</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime codex</div>
                         <div class="terminal-line t-output">[created] workspace → ./my-weekly · briefloop.db (SQLite ControlStore)</div>
-                        <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
-                        <div class="terminal-line t-comment"># 下一步：在 Codex 中打开并信任该 workspace；runtime next 给出下一动作</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime next --workspace ./my-weekly</div>
+                        <div class="terminal-line t-comment"># 唯一顺序权威：Store 返回的 CoreRunNextAction</div>
                     </div>
                     <p class="terminal-note">当前支持的启动路径是源码安装：终端里执行上面的 <code>git clone</code> + <code>scripts/setup.sh</code>；Codex 路径随后在 workspace 里运行 <code>briefloop runtime install --runtime codex</code>，并在 Codex 中打开并信任该目录。Windows 请按 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a> 执行，不要把这组 Bash 命令改写到 Git Bash。软件包入口（<code>pipx install briefloop</code>）在发布说明明确完成全新环境冒烟前暂不作为启动路径。</p>
                 </div>
