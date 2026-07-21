@@ -1,9 +1,9 @@
 /* ==========================================================================
-   BriefLoop Interactive Init — DESIGN PROTOTYPE (NOT SHIPPED)
+   BriefLoop Interactive Init — v0.14.0 READ-ONLY PREVIEW
    Fork shape: PPT Master confirm_ui @619a954 (MIT) — staged wizard shell,
    choice-card mechanics, i18n engine. Product seam fully replaced:
-   BriefLoop SetupCatalog, free-text interpretation review, mock setup
-   service with replay/conflict semantics. No backend, no network.
+   BriefLoop SetupCatalog and free-text interpretation review. The site copy is
+   presentation-only: no backend, no network, no workspace or transaction write.
    ========================================================================== */
 (function () {
     "use strict";
@@ -12,13 +12,13 @@
     var MESSAGES = {
         zh: {
             panel_title: "创建报告工作区",
-            proto_banner: "设计原型 · 未发布 · 预览为固定合成内容",
+            proto_banner: "v0.14.0 · 只读界面预览 · 不创建工作区",
             step_1: "报告方向",
             step_2: "交付与版式",
             step_3: "预览与确认",
             btn_back: "← 上一步",
             btn_next: "下一步 →",
-            btn_confirm: "创建报告工作区",
+            btn_confirm: "只读预览 · 不创建工作区",
             sec_report_type: "你在做什么报告？",
             sec_audience: "谁会读它？",
             sec_purpose: "它要支撑什么决策？",
@@ -53,7 +53,7 @@
             review_proposed: "来自文字的提议 · 待你处置",
             review_unresolved: "未解决 · 不生效",
             review_path_k: "工作区位置",
-            review_statement: "确认后，将在此位置创建 fresh-v2 工作区：一次确定性事务提交报告方向与交付选择，并返回 ControlStore 收据。",
+            review_statement: "本站仅展示 0.14 的 init 界面，不创建工作区、不提交事务。真实 briefloop init --web 是本地 Experimental 一次性向导，并通过同一 ControlStore bootstrap 路径创建工作区。",
             review_accept: "接受",
             review_discard: "丢弃",
             review_accepted: "已接受",
@@ -75,33 +75,22 @@
             field_freetext: "原始文字",
             err_required: "还有必选项未完成：",
             err_pending: "请先处置每条 Agent 提议（接受或丢弃）。",
-            status_ready: "可以确认创建。",
-            status_fill: "完成必选项后即可创建。",
+            status_ready: "只读预览：不会创建工作区。",
+            status_fill: "可浏览选择；本站不会创建工作区。",
             preview_fidelity_html: "HTML 为示意预览",
             preview_fidelity_docx: "DOCX 为近似版式预览",
             preview_formats: "交付：",
-            cf_committed: "已提交 · committed",
-            cf_replayed: "重放 · replayed",
-            cf_conflict: "冲突 · submission_replay_conflict",
-            cf_sub_committed: "报告工作区已初始化。以下是确定性收据（mock）：",
-            cf_sub_replayed: "相同请求已提交过——返回原收据，不产生第二个工作区。",
-            cf_sub_conflict: "同一 request_id 提交了不同内容。已拒绝，零副作用。",
-            cf_next: "下一步：",
-            cf_next_cmd: "briefloop run --workspace ./market-weekly",
-            cf_again: "再次提交同一请求（演示 replay）",
-            cf_close: "关闭，修改后重试（演示 conflict）",
-            cf_note: "原型说明：此收据由内置 mock 服务生成，仅用于演示语义；真实实现中由 ControlStore 事务返回。",
-            receipt_status: "状态视图：该工作区已完成初始化（对应冻结清单 F4）。"
+            read_only_note: "只读预览：未创建工作区、未提交事务、未生成收据。"
         },
         en: {
             panel_title: "Create report workspace",
-            proto_banner: "Design prototype · not shipped · fixed synthetic preview",
+            proto_banner: "v0.14.0 · read-only interface preview · creates no workspace",
             step_1: "Direction",
             step_2: "Delivery & style",
             step_3: "Review & confirm",
             btn_back: "← Back",
             btn_next: "Next →",
-            btn_confirm: "Create report workspace",
+            btn_confirm: "Read-only preview · no workspace creation",
             sec_report_type: "What report are you making?",
             sec_audience: "Who will read it?",
             sec_purpose: "What decision should it support?",
@@ -136,7 +125,7 @@
             review_proposed: "Proposed from your text · awaiting disposition",
             review_unresolved: "Unresolved · no effect",
             review_path_k: "Workspace location",
-            review_statement: "Confirming creates a fresh-v2 workspace here: one deterministic transaction commits the direction and delivery choices and returns a ControlStore receipt.",
+            review_statement: "This site only previews the 0.14 init interface. It creates no workspace and submits no transaction. The real briefloop init --web command is an Experimental local one-shot wizard on the same ControlStore bootstrap path.",
             review_accept: "Accept",
             review_discard: "Discard",
             review_accepted: "Accepted",
@@ -158,23 +147,12 @@
             field_freetext: "Raw text",
             err_required: "Missing required choices: ",
             err_pending: "Dispose of every agent proposal first (accept or discard).",
-            status_ready: "Ready to create.",
-            status_fill: "Complete the required choices to continue.",
+            status_ready: "Read-only preview: no workspace will be created.",
+            status_fill: "Browse the choices; this site creates no workspace.",
             preview_fidelity_html: "HTML preview is representative",
             preview_fidelity_docx: "DOCX preview is approximate",
             preview_formats: "Delivery: ",
-            cf_committed: "Committed",
-            cf_replayed: "Replayed",
-            cf_conflict: "submission_replay_conflict",
-            cf_sub_committed: "The workspace is initialized. Deterministic receipt (mock):",
-            cf_sub_replayed: "This exact request was already committed — original receipt returned, no second workspace.",
-            cf_sub_conflict: "Same request_id with different payload. Rejected with zero effect.",
-            cf_next: "Next: ",
-            cf_next_cmd: "briefloop run --workspace ./market-weekly",
-            cf_again: "Resubmit the same request (replay demo)",
-            cf_close: "Close, change something, retry (conflict demo)",
-            cf_note: "Prototype note: this receipt is produced by a mock service to demonstrate semantics; the real one comes from a ControlStore transaction.",
-            receipt_status: "Status view: this workspace is already initialized (freeze item F4)."
+            read_only_note: "Read-only preview: no workspace, transaction, or receipt was created."
         }
     };
 
@@ -330,42 +308,6 @@
         }
         return null;
     }
-
-    /* ---- mock setup service (the seam the real ControlStore service fills) ----
-       Semantics demonstrated: committed / replayed / submission_replay_conflict.
-       request_id is stable per session; fingerprint covers confirmed payload. */
-    var MockSetupService = (function () {
-        var store = {}; // request_id -> { fingerprint, receipt }
-        function fingerprint(req) { return JSON.stringify(req.payload); }
-        function fakeSha(s) {
-            var h = 0;
-            for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) >>> 0; }
-            return ("00000000" + h.toString(16)).slice(-8);
-        }
-        return {
-            submitDecision: function (req) {
-                var fp = fingerprint(req);
-                var existing = store[req.request_id];
-                if (existing) {
-                    if (existing.fingerprint === fp) {
-                        return { status: "replayed", receipt: existing.receipt };
-                    }
-                    return { status: "conflict" };
-                }
-                var receipt = {
-                    workspace_id: "WS-" + fakeSha(req.payload.workspace_target),
-                    run_id: "RUN-CORE-V2-001",
-                    transaction_id: req.request_id,
-                    committed_revision: 1,
-                    decision_sha256: fakeSha(fp) + "…",
-                    receipt_sha256: fakeSha(fp + "|receipt") + "…",
-                    workspace_path: req.payload.workspace_target
-                };
-                store[req.request_id] = { fingerprint: fp, receipt: receipt };
-                return { status: "committed", receipt: receipt };
-            }
-        };
-    })();
 
     /* ---- state ---- */
     var LANG = "zh";
@@ -963,7 +905,7 @@
                 confirmStatus.textContent = t("err_pending");
                 confirmStatus.classList.add("err");
             } else {
-                btnConfirm.disabled = false;
+                btnConfirm.disabled = true;
                 confirmStatus.textContent = t("status_ready");
             }
         } else {
@@ -995,75 +937,7 @@
     btnBack.addEventListener("click", function () { if (STATE.stage > 1) goStage(STATE.stage - 1); });
     btnNext.addEventListener("click", function () { if (STATE.stage < 3) goStage(STATE.stage + 1); });
 
-    /* ---- confirm → mock service → receipt overlay ---- */
-    var overlay = document.getElementById("confirmed-overlay");
-    var cfBody = document.getElementById("cf-body");
-
-    function buildRequest() {
-        return {
-            request_id: STATE.requestId,
-            payload: {
-                workspace_target: STATE.workspaceTarget,
-                catalog_version: "setup-catalog/v1 (mock)",
-                confirmed: confirmedSelections(),
-                raw_free_text: STATE.freeText.trim(),
-                discarded: STATE.interpretation.mapped.filter(function (m) {
-                    return STATE.dispositions[m.field + ":" + m.value] === "discarded";
-                }).map(function (m) { return m.field + "=" + m.value; }),
-                human_confirmation: { actor: "local-user", marker: "explicit-click" }
-            }
-        };
-    }
-
-    function paintReceipt(result) {
-        cfBody.innerHTML = "";
-        var isConflict = result.status === "conflict";
-        var status = el("div", "cf-status" + (isConflict ? " cf-conflict" : ""));
-        var icon = el("span", "cf-icon", isConflict ? "✗" : "✓");
-        if (isConflict) icon.style.background = "var(--sem-block-wash)";
-        status.appendChild(icon);
-        status.appendChild(el("span", null, t("cf_" + result.status)));
-        cfBody.appendChild(status);
-        cfBody.appendChild(el("p", "cf-sub", t("cf_sub_" + result.status)));
-        if (!isConflict) {
-            var r = result.receipt;
-            var box = el("div", "cf-receipt");
-            [["workspace_id", r.workspace_id], ["run_id", r.run_id], ["transaction_id", r.transaction_id],
-             ["committed_revision", r.committed_revision], ["decision_sha256", r.decision_sha256],
-             ["receipt_sha256", r.receipt_sha256], ["workspace_path", r.workspace_path]].forEach(function (kv) {
-                var line = el("div");
-                line.appendChild(el("span", "k", kv[0] + "  "));
-                line.appendChild(el("span", null, String(kv[1])));
-                box.appendChild(line);
-            });
-            cfBody.appendChild(box);
-            var next = el("p", "cf-next");
-            next.appendChild(el("span", null, t("cf_next")));
-            next.appendChild(el("code", null, t("cf_next_cmd")));
-            cfBody.appendChild(next);
-            if (result.status === "replayed") {
-                cfBody.appendChild(el("p", "cf-sub", t("receipt_status")));
-            }
-        }
-        var actions = el("div", "cf-actions");
-        if (!isConflict) {
-            var again = el("button", "btn-ghost", t("cf_again"));
-            again.addEventListener("click", function () {
-                paintReceipt(MockSetupService.submitDecision(buildRequest()));
-            });
-            actions.appendChild(again);
-        }
-        var close = el("button", isConflict ? "btn-primary" : "btn-ghost", t("cf_close"));
-        close.addEventListener("click", function () { overlay.hidden = true; });
-        actions.appendChild(close);
-        cfBody.appendChild(actions);
-        cfBody.appendChild(el("p", "cf-note", t("cf_note")));
-    }
-
-    btnConfirm.addEventListener("click", function () {
-        overlay.hidden = false;
-        paintReceipt(MockSetupService.submitDecision(buildRequest()));
-    });
+    // Intentionally no confirm handler: the public site is a read-only preview.
 
     /* ---- language toggle ---- */
     var langBtn = document.getElementById("btn-lang-toggle");

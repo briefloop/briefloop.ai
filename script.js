@@ -108,15 +108,15 @@ document.addEventListener("DOMContentLoaded", () => {
             candidate: {
                 kicker: "PATCH-027 · EVAL-CASE-041",
                 title: "改动必须同时带着评测样例进入审查",
-                copy: "开发者把候选落成 validator、gate、prompt 或 workflow patch，并用原失败构造回归样例。补丁和样例一起接受确定性测试与人工复核。",
-                owner: "Developer + test runner",
+                copy: "Codex 把有界候选落成 validator、gate、prompt 或 workflow patch，并用原失败构造回归样例。补丁和样例一起接受确定性测试与人工复核。",
+                owner: "Codex + test runner",
                 record: "patch + regression case",
                 effect: "生产版本保持不变"
             },
             approve: {
                 kicker: "HUMAN DECISION · RECORDED",
                 title: "是否吸收为系统规则，由人类决定",
-                copy: "评审者可以批准、驳回或要求更多证据。写作偏好经批准后才可进入 Improvement Ledger；系统规则仍需代码评审与发布。决定本身也留下记录。",
+                copy: "人类评审者可以批准、驳回或要求更多证据。0.14 没有可用的 Improvement Ledger；代码只有经人授权合并与发布后才进入产品版本。",
                 owner: "Human reviewer",
                 record: "approval / rejection",
                 effect: "允许进入发布流程"
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 kicker: "vNEXT · VERSIONED CHANGE",
                 title: "改进以新版本生效，并保留回滚路径",
                 copy: "通过评测和批准的改动进入下一版本；旧运行、失败 finding、测试结果和采用决定仍可复查。新版本再次产生信号，演进环重新开始。",
-                owner: "Release transaction",
+                owner: "Human-authorized release",
                 record: "version + changelog",
                 effect: "可追溯、可回滚"
             }
@@ -150,24 +150,24 @@ document.addEventListener("DOMContentLoaded", () => {
             candidate: {
                 kicker: "PATCH-027 · EVAL-CASE-041",
                 title: "A change enters review together with an evaluation case",
-                copy: "A developer turns the candidate into a validator, gate, prompt, or workflow patch and converts the original failure into a regression case. Patch and case are reviewed together.",
-                owner: "Developer + test runner",
+                copy: "Codex turns the bounded candidate into a validator, gate, prompt, or workflow patch and converts the original failure into a regression case. Patch and case are reviewed together.",
+                owner: "Codex + test runner",
                 record: "patch + regression case",
                 effect: "production unchanged"
             },
             approve: {
                 kicker: "HUMAN DECISION · RECORDED",
                 title: "A human decides whether the system should absorb the change",
-                copy: "A reviewer may approve, reject, or request more evidence. A writing preference may enter the Improvement Ledger only after approval; a system rule still requires code review and release. The decision is recorded.",
+                copy: "A human reviewer may approve, reject, or request more evidence. No Improvement Ledger is available in 0.14; code enters a product version only after a human authorizes merge and release.",
                 owner: "Human reviewer",
                 record: "approval / rejection",
                 effect: "admit to release flow"
             },
             release: {
                 kicker: "vNEXT · VERSIONED CHANGE",
-                title: "The improvement takes effect as a versioned, reversible change",
+                title: "A reviewed engineering change enters a versioned release",
                 copy: "An evaluated and approved patch enters a later release. Prior runs, findings, test results, and adoption decisions remain inspectable. The next version produces new signals, and the loop begins again.",
-                owner: "Release transaction",
+                owner: "Human-authorized release",
                 record: "version + changelog",
                 effect: "traceable + reversible"
             }
@@ -560,8 +560,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const commands = [
                 "git clone https://github.com/Stahl-G/briefloop.git && cd briefloop",
                 "bash scripts/setup.sh",
-                "briefloop new industry-weekly ./my-weekly",
-                "briefloop run --workspace ./my-weekly --runtime operator"
+                "briefloop onboard",
+                "briefloop init ./my-weekly --from-onboarding onboarding.json",
+                "briefloop runtime install --workspace ./my-weekly --runtime codex",
+                "briefloop run --workspace ./my-weekly --runtime codex",
+                "briefloop runtime next --workspace ./my-weekly"
             ].join("\n");
             navigator.clipboard.writeText(commands).then(() => {
                 const originalText = copyBtn.textContent;
@@ -597,19 +600,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }));
     }
 
-    /* --- 10. Live version badge — repo main VERSION is the source of truth --- */
-    const versionBadge = document.getElementById("version-badge");
-    if (versionBadge) {
-        // The site's install path is a source clone of main, so the badge tracks
-        // the VERSION file on main (releases may lag behind the active cutover).
-        fetch("https://raw.githubusercontent.com/Stahl-G/briefloop/main/VERSION")
-            .then(r => (r.ok ? r.text() : Promise.reject(new Error("no version"))))
-            .then(t => {
-                const v = (t || "").trim();
-                if (v) versionBadge.textContent = v.charAt(0) === "v" ? v : "v" + v;
-            })
-            .catch(() => { /* keep the static fallback text */ });
-    }
+    /* The v0.14.0 badge reflects the published tag and GitHub Release. */
 });
 
 /* Quality Panel demo (deterministic, synthetic; mirrors quality_panel.json shape) */
@@ -680,7 +671,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
         [
             ["收口状态", "Closeout status", ["badge", "pass", "complete", "complete"]],
-            ["收口命令", "Closeout command", ["code", "briefloop quality closeout --workspace ."]],
+            ["收口动作", "Closeout action", ["text", "由 runtime next 返回 typed Store action", "typed Store action from runtime next"]],
             ["审计包", "Audit bundle", ["badge", "pass", "已生成", "generated"]],
             ["交付包", "Delivery bundle", ["badge", "info", "待人工批准", "awaiting approval"]]
         ]

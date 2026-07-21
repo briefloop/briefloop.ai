@@ -4,7 +4,8 @@
     "name": "BriefLoop",
     "homepage": "https://briefloop.ai/",
     "description": "A traceable, accountable workflow for AI-assisted business briefings.",
-    "boundary": "Traceability and process accountability; not semantic proof."
+    "boundary": "Traceability and process accountability; not semantic proof.",
+    "release_status": "v0.14.0 published; official Git tag and non-draft GitHub Release verified"
   },
   "canonical": {
     "source_repository": "https://github.com/Stahl-G/briefloop",
@@ -21,18 +22,19 @@
       "install_command": "git clone https://github.com/Stahl-G/briefloop.git",
       "install_reference": "https://briefloop.ai/agents/briefloop/references/installation.md",
       "verify_commands": ["git -C <checkout> remote get-url origin", "git -C <checkout> rev-parse HEAD", "briefloop version"],
-      "scope": "Current supported bootstrap uses the canonical source checkout and its platform-specific setup flow. The deterministic CLI creates workspaces, validates, records state, runs gates, and preserves delivery truth; it does not generate a brief by itself."
+      "scope": "The v0.14.0 bootstrap uses the canonical source checkout. New runs support only the Experimental Codex SQLite path; the CLI does not generate a brief by itself."
     },
     "package_index": {
       "package": "briefloop",
       "status": "not_supported_for_bootstrap",
       "instruction": "Do not choose pipx or PyPI installation from package metadata. Follow the installation reference until release notes announce a published and smoke-tested package-index artifact."
     },
-    "source_runtime_assets": {
+    "codex_runtime_kit": {
       "repository": "https://github.com/Stahl-G/briefloop",
-      "clone_command": "git clone https://github.com/Stahl-G/briefloop.git",
-      "verify_commands": ["git -C briefloop remote get-url origin", "git -C briefloop rev-parse HEAD"],
-      "scope": "Runtime-specific skills, role agents, handoff contracts, and source setup. Required when the selected runtime depends on source-only assets."
+      "install_command": "briefloop runtime install --workspace <workspace> --runtime codex",
+      "run_command": "briefloop run --workspace <workspace> --runtime codex",
+      "next_command": "briefloop runtime next --workspace <workspace>",
+      "scope": "Packaged Codex runtime kit for the Experimental fresh SQLite-only path."
     }
   },
   "supported_entrypoints": [
@@ -41,20 +43,14 @@
     {"id": "document-review", "user_intents": ["document review", "PDF review", "evidence extraction", "文档审阅", "PDF审阅", "证据摘录"]}
   ],
   "runtime_policy": {
-    "runtime_neutral_skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
-    "workbuddy": {
-      "status": "source-assets-required-for-full-role-delegation",
-      "skill_source": "https://github.com/Stahl-G/briefloop/tree/main/.agents/skills/briefloop-workbuddy",
-      "project_assets": "https://github.com/Stahl-G/briefloop/tree/main/.codebuddy"
-    },
-    "claude_code": {
-      "status": "source-install-supported",
-      "setup_command": "briefloop claude install --repo-workdir ."
-    },
-    "operator": {
-      "status": "handoff-only",
-      "run_command": "briefloop run --workspace <workspace> --runtime operator"
-    }
+    "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
+    "new_run_status": "experimental_codex_sqlite_only",
+    "authority": "briefloop.db SQLite ControlStore receipts and ledger relations",
+    "legacy_json_control_plane": "deleted_no_import_no_migration_no_fallback",
+    "projections": "Legacy JSON control files and report status handoff finalize Quality Panel Markdown JSON JSONL and HTML exports are non-authoritative projections",
+    "strict_json_carriers": "Action envelope and human-request JSON payloads are revalidated against ControlStore and are not authority by themselves",
+    "laj": "Experimental advisory only; utility and efficacy NOT MEASURED",
+    "improvement_ledger": "unavailable; no automatic learning or accepted-suggestion next-run effect"
   },
   "authorization": {
     "explicit_user_confirmation_required": [

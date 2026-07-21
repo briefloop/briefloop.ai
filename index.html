@@ -46,7 +46,7 @@
     <section class="hero-section" id="product">
         <div class="container hero-container">
             <div class="hero-message hero-message-centered">
-                <span class="hero-version-pill"><span id="version-badge">v0.13.0</span> · Open-source · MIT License</span>
+                <span class="hero-version-pill"><span id="version-badge">v0.14.0</span> · Open-source · MIT License</span>
                 <h1 class="hero-title">
                     AI 负责起草。<br>
                     代码负责把关。<br>
@@ -263,7 +263,7 @@
             <details class="tech-disclosure reveal">
                 <summary>查看技术细节</summary>
                 <div class="tech-disclosure-body">
-                    <p>在这四步背后，每个关键事实先落进<b>关键事实清单</b>（<code>claim_ledger.json</code>）并冻结；检查结果、审计发现和放行动作写进<b>事件日志</b>（<code>event_log.jsonl</code>）；冻结时对事实做哈希，改稿时不能被悄悄改动。自 v0.13.0 起，运行权威是 SQLite ControlStore（<code>briefloop.db</code>），finalize、批准与交付通过 Codex runtime host 的 typed Store action 完成；JSON、Markdown 和 HTML 只是可替换的投影。这些是证据，不是你每天要读的东西——完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
+                    <p>v0.14.0 的新运行只走 Experimental Codex SQLite 路径。SQLite ControlStore（<code>briefloop.db</code>）及其收据、账本关系是唯一运行权威；Agent 只能写 invocation scratch 提案，确定性服务才可接受并生效。旧 JSON 控制面已删除；legacy JSON 控制文件与报告、status、Quality Panel、Markdown/JSON/JSONL/HTML 导出是非权威投影。strict action、envelope 与 human-request JSON 只是写边界载体，必须重新对照 ControlStore 校验，自身不构成权威。完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
                 </div>
             </details>
         </div>
@@ -296,7 +296,7 @@
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div><h3>一条谁在什么时候批准交付的记录</h3><p>放行是谁、什么时间、基于哪一版，全程留痕。</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>briefloop.db (ControlStore) · event_log.jsonl</code></div>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>briefloop.db · Store receipts</code></div>
                 </div>
             </div>
         </div>
@@ -308,10 +308,10 @@
             <div class="section-header">
                 <div class="eyebrow">Quality Panel · 质量面板</div>
                 <h2>支持的运行可以生成一张 Quality Panel</h2>
-                <p class="section-desc">门禁结果、主张支持、来源证据、收口状态——交付之前先看这里。它是 quality_panel.json 的确定性只读投影，不是评分，也不是交付裁决；该能力当前为 Experimental。</p>
+                <p class="section-desc">v0.14.0 可导出一份自包含的三页只读 HTML：质量状态、LAJ 建议、改进状态。它只是 Store/LAJ 的展示投影，不是运行权威、质量评分或交付裁决；LAJ 为 Experimental，效用 NOT MEASURED。</p>
             </div>
             <div class="qp-demo reveal" data-qp-widget></div>
-            <p class="qp-demo-note">合成数据 · 当前为审计附件/操作员视图。完整交互预览（含开发中的复盘与反馈）见下方<a href="#roadmap">开发中区</a>。</p>
+            <p class="qp-demo-note">合成数据 · 只读展示。第三页会如实显示 Improvement Ledger unavailable；页面没有处置、写入或“接受建议后改善下次运行”的能力。</p>
         </div>
     </section>
 
@@ -403,32 +403,32 @@
         </div>
     </section>
 
-    <!-- ===== 开发中 ===== -->
+    <!-- ===== 当前版本体验 ===== -->
     <section class="section" id="roadmap">
         <div class="container">
             <div class="section-header">
-                <div class="eyebrow">In development · 开发中</div>
-                <h2>接下来做什么</h2>
-                <p class="section-desc">以下方向正在开发，均未发布、不承诺日期。设计预览使用合成数据，仅用于展示交互与边界。</p>
+                <div class="eyebrow">v0.14.0 · 已发布</div>
+                <h2>体验当前版本</h2>
+                <p class="section-desc">以下页面展示 v0.14.0 的产品边界；均为合成数据，只用于说明界面，不构成能力测量结果。</p>
             </div>
             <div class="roadmap-grid reveal mt-40">
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <span class="roadmap-tag">v0.14.0 · READ-ONLY DEMO</span>
                     <h3>交互式向导 init</h3>
-                    <p>本地浏览器三步创建：说需求、选交付与版式、确认后一次事务提交；终端保持同等语义。</p>
+                    <p>真实 <code>briefloop init --web</code> 是 Experimental 的本地一次性向导；本站页面只是只读界面预览，不创建工作区、不提交事务。</p>
                     <a class="roadmap-link" href="demos/interactive-init/">打开设计预览 →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <span class="roadmap-tag">EXPERIMENTAL · NOT MEASURED</span>
                     <h3>AI 语义复盘</h3>
-                    <p>终稿后的语义层建议：指出哪里需要复核、哪里无法判断；advisory 性质，不影响门禁与交付。</p>
+                    <p>LAJ 只给终稿后的 advisory 第二意见，不影响 Gate、交付、批准、下一动作或事实支持结论；效用 NOT MEASURED。</p>
                     <a class="roadmap-link" href="demos/quality-panel/#review">打开设计预览 →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
-                    <h3>QP 反馈与改进</h3>
-                    <p>处置 finding、一个输入框三种去向、长期指导两步确认；下一轮 Agent 只读人工批准的改进快照。</p>
-                    <a class="roadmap-link" href="demos/quality-panel/#feedback">打开设计预览 →</a>
+                    <span class="roadmap-tag">UNAVAILABLE</span>
+                    <h3>改进页</h3>
+                    <p>三页 HTML 的第三页只读显示不可用状态。Store-native Improvement Ledger 尚未提供；没有自动学习，也不能接受建议来改善下一次运行。</p>
+                    <a class="roadmap-link" href="demos/quality-panel/#improvement">打开只读预览 →</a>
                 </div>
             </div>
         </div>
@@ -465,7 +465,7 @@
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">复制命令</button>
-                    <p class="install-note">Windows 请使用 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a>，不要把这两行 Bash 命令改写到 Git Bash。装好后运行 <code>briefloop new industry-weekly ./my-weekly</code> 建第一份周报。</p>
+                    <p class="install-note">Windows 请使用 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a>，不要把这两行 Bash 命令改写到 Git Bash。装好后先运行 <code>briefloop onboard</code>，再用确认后的 onboarding 文件初始化全新 SQLite workspace。</p>
                 </div>
             </div>
             <p class="quickstart-note">想先在线体验？<a href="#catch">看三个抓错演示</a>。完整安装与治理细节见 <a href="agents/briefloop/SKILL.md">Agent 安装说明</a>、<a href="how-it-works.html">运作原理</a> 与 <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.6.1</a>。</p>

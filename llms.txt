@@ -2,6 +2,8 @@
 
 > BriefLoop is an open-source workflow for traceable, accountable AI-assisted business briefings. Agents research and draft; deterministic control-plane commands validate, record, gate, and preserve delivery state; a human approves delivery.
 
+Release status: v0.14.0 is published with an official Git tag and non-draft GitHub Release.
+
 Canonical agent bootstrap:
 
 - Manifest: https://briefloop.ai/.well-known/briefloop-agent.json
@@ -14,6 +16,12 @@ Important boundaries:
 
 - Traceability and process accountability are not semantic proof.
 - The BriefLoop CLI is the deterministic control plane; it does not write a brief by itself.
+- New runs support only the Experimental Codex SQLite path. `briefloop.db` is the sole runtime authority.
+- The legacy JSON control plane is deleted. Legacy JSON control files and report/status/Quality Panel/HTML exports are non-authoritative projections.
+- Strict action, envelope, and human-request JSON payloads are revalidated against ControlStore and are not authority by themselves.
+- The three-page HTML and the public init wizard page are presentation-only and cannot write runtime state.
+- LAJ is Experimental and advisory-only; utility and efficacy are NOT MEASURED.
+- Improvement Ledger is unavailable. There is no automatic learning or accepted-suggestion effect on a later run.
 - Agents may propose and draft, but must not directly write control state, pass gates, freeze evidence, or approve delivery.
 - Before cloning, installing, creating a workspace, enabling online search, or delivering, show the intended action and obtain explicit user confirmation.
 - Never execute remote shell content directly. Do not use curl-to-shell installation.
@@ -22,3 +30,5 @@ Important boundaries:
 Use the canonical skill and its references for installation, onboarding, operation, repair, and delivery rules.
 The current supported bootstrap is a canonical source checkout; do not infer a
 `pipx` installation path from the package URL.
+
+0.14 engineering changes are implemented and tested with Codex; humans authorize merge and release.

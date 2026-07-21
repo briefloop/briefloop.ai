@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BriefLoop — 创建报告工作区（设计原型）</title>
     <!--
-      DESIGN PROTOTYPE · NOT SHIPPED
-      BriefLoop Interactive Init — UI/UX evaluation build.
-      - No backend: the "setup service" is a mock seam in app.js.
+      BriefLoop v0.14.0 read-only preview.
+      BriefLoop Interactive Init — presentation-only UI/UX build.
+      - No backend and no workspace/transaction write.
       - Fixed public-safe synthetic preview content only.
       - Visual semantics follow BriefLoop Web Visual System v1 (draft):
         blue = action/info · purple = advisory (agent-origin) ·
@@ -19,7 +19,7 @@
 <body>
     <div class="demo-return-bar">
         <a href="/index.html#roadmap">← briefloop.ai</a>
-        <span>设计预览 · NOT SHIPPED · 合成数据 / Design preview · synthetic data</span>
+        <span>v0.14.0 · read-only preview · synthetic data</span>
     </div>
 
     <div id="app">
@@ -38,7 +38,7 @@
                     <div class="panel-title" data-i18n="panel_title">创建报告工作区</div>
                 </div>
             </div>
-            <div class="proto-banner" data-i18n="proto_banner">设计原型 · 未发布 · 预览为固定合成内容</div>
+            <div class="proto-banner" data-i18n="proto_banner">v0.14.0 · 只读界面预览 · 不创建工作区</div>
             <div id="topbar-preview"></div>
         </aside>
 
@@ -67,16 +67,10 @@
                 <div class="actionbar-btns">
                     <button id="btn-back" class="btn-ghost" type="button" data-i18n="btn_back">← 上一步</button>
                     <button id="btn-next" class="btn-primary" type="button" data-i18n="btn_next">下一步 →</button>
-                    <button id="btn-confirm" class="btn-primary" type="button" data-i18n="btn_confirm" hidden>创建报告工作区</button>
+                    <button id="btn-confirm" class="btn-primary" type="button" data-i18n="btn_confirm" hidden disabled>只读预览 · 不创建工作区</button>
                 </div>
             </footer>
         </section>
-    </div>
-
-    <div id="confirmed-overlay" hidden>
-        <div class="cf-card" role="dialog" aria-modal="true" aria-labelledby="cf-title">
-            <div id="cf-body"></div>
-        </div>
     </div>
 
     <script src="app.js"></script>
