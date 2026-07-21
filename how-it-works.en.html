@@ -84,7 +84,7 @@
                         <li><strong>Ledger-registered facts</strong>: every material claim and number in the deliverable has coordinates in the Claim Ledger.</li>
                         <li><strong>Deterministic quality gates</strong>: Python logic enforces freshness and source-integrity gates — the model cannot grade its own homework.</li>
                         <li><strong>Approved preferences persist</strong>: human-approved writing preferences become durable memory with contamination-safe rollback records.</li>
-                        <li><strong>One delivery-truth record</strong>: delivery status comes only from finalize_report and the completion projection. A failed reader-clean never promotes the bundle — file existence is not delivery.</li>
+                        <li><strong>One delivery-truth record</strong>: delivery status comes only from the delivery truth in the ControlStore and its completion projection. A failed reader-clean never promotes the bundle — file existence is not delivery.</li>
                     </ul>
                 </div>
             </div>
@@ -339,7 +339,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
                             <h4>Deterministic CLI</h4>
                         </div>
-                        <p>Inspect the current stage, missing files, blockers, and audit reports from the command line. Delivery status comes only from the single delivery-truth record, <code>finalize_report.json</code>.</p>
+                        <p>Inspect the current stage, missing files, blockers, and audit results from the command line (<code>briefloop status</code> is a read-only Store projection). Finalize, approval, and delivery run as typed Store actions through the Codex runtime host; the SQLite ControlStore is the runtime authority, and JSON, Markdown, and HTML are projections.</p>
                     </div>
 
                     <div class="integration-item">
@@ -360,10 +360,11 @@
                         <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime operator</div>
-                        <div class="terminal-line t-output">[created] workspace → ./my-weekly</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime install --workspace ./my-weekly --runtime codex</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime codex</div>
+                        <div class="terminal-line t-output">[created] workspace → ./my-weekly · briefloop.db (SQLite ControlStore)</div>
                         <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
-                        <div class="terminal-line t-comment"># Next: give the handoff to a supported agent runtime; the CLI does not write the report</div>
+                        <div class="terminal-line t-comment"># Next: open and trust the workspace in Codex; runtime next shows the next action</div>
                     </div>
                     <p class="terminal-note">The current supported bootstrap is this source checkout: it installs the deterministic CLI and keeps source runtime assets together. The Codex path then runs <code>briefloop runtime install --runtime codex</code> inside the workspace — open and trust that directory in Codex afterwards. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash.</p>
                 </div>

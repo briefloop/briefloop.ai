@@ -597,15 +597,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }));
     }
 
-    /* --- 10. Live version badge — PyPI is the single source of truth --- */
+    /* --- 10. Live version badge — repo main VERSION is the source of truth --- */
     const versionBadge = document.getElementById("version-badge");
     if (versionBadge) {
-        // Bind the badge to the latest GitHub release tag of the source repo.
-        fetch("https://api.github.com/repos/Stahl-G/briefloop/releases/latest")
-            .then(r => (r.ok ? r.json() : Promise.reject(new Error("no release"))))
-            .then(d => {
-                const tag = d && d.tag_name;
-                if (tag) versionBadge.textContent = tag.charAt(0) === "v" ? tag : "v" + tag;
+        // The site's install path is a source clone of main, so the badge tracks
+        // the VERSION file on main (releases may lag behind the active cutover).
+        fetch("https://raw.githubusercontent.com/Stahl-G/briefloop/main/VERSION")
+            .then(r => (r.ok ? r.text() : Promise.reject(new Error("no version"))))
+            .then(t => {
+                const v = (t || "").trim();
+                if (v) versionBadge.textContent = v.charAt(0) === "v" ? v : "v" + v;
             })
             .catch(() => { /* keep the static fallback text */ });
     }

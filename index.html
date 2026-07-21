@@ -46,7 +46,7 @@
     <section class="hero-section" id="product">
         <div class="container hero-container">
             <div class="hero-message hero-message-centered">
-                <span class="hero-version-pill"><span id="version-badge">v0.12.1</span> · Open-source · MIT License</span>
+                <span class="hero-version-pill"><span id="version-badge">v0.13.0</span> · Open-source · MIT License</span>
                 <h1 class="hero-title">
                     AI 负责起草。<br>
                     代码负责把关。<br>
@@ -102,7 +102,7 @@
             <div class="section-header">
                 <div class="eyebrow">See it catch · 看它抓错</div>
                 <h2>三种最常见的错误：直接生成会溜进终稿，走 BriefLoop 会被挡下</h2>
-                <p class="section-desc">切换下面三个真实场景，看同一份材料两种交付方式的差别。</p>
+                <p class="section-desc">切换下面三个典型合成场景，看同一份材料两种交付方式的差别。</p>
             </div>
 
             <div class="cmp reveal" id="cmp" data-cmp-widget>
@@ -263,7 +263,7 @@
             <details class="tech-disclosure reveal">
                 <summary>查看技术细节</summary>
                 <div class="tech-disclosure-body">
-                    <p>在这四步背后，每个关键事实先落进<b>关键事实清单</b>（<code>claim_ledger.json</code>）并冻结；检查结果、审计发现和放行动作写进<b>事件日志</b>（<code>event_log.jsonl</code>）；冻结时对事实做哈希，改稿时不能被悄悄改动。这些是证据，不是你每天要读的东西——完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
+                    <p>在这四步背后，每个关键事实先落进<b>关键事实清单</b>（<code>claim_ledger.json</code>）并冻结；检查结果、审计发现和放行动作写进<b>事件日志</b>（<code>event_log.jsonl</code>）；冻结时对事实做哈希，改稿时不能被悄悄改动。自 v0.13.0 起，运行权威是 SQLite ControlStore（<code>briefloop.db</code>），finalize、批准与交付通过 Codex runtime host 的 typed Store action 完成；JSON、Markdown 和 HTML 只是可替换的投影。这些是证据，不是你每天要读的东西——完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
                 </div>
             </details>
         </div>
@@ -296,7 +296,7 @@
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div><h3>一条谁在什么时候批准交付的记录</h3><p>放行是谁、什么时间、基于哪一版，全程留痕。</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>event_log.jsonl · finalize_report.json</code></div>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>briefloop.db (ControlStore) · event_log.jsonl</code></div>
                 </div>
             </div>
         </div>
@@ -307,8 +307,8 @@
         <div class="container">
             <div class="section-header">
                 <div class="eyebrow">Quality Panel · 质量面板</div>
-                <h2>每次运行结束，还有一张质量面板</h2>
-                <p class="section-desc">门禁结果、主张支持、来源证据、收口状态——交付之前先看这里。它是 quality_panel.json 的确定性只读投影，不是评分，也不是交付裁决。</p>
+                <h2>支持的运行可以生成一张 Quality Panel</h2>
+                <p class="section-desc">门禁结果、主张支持、来源证据、收口状态——交付之前先看这里。它是 quality_panel.json 的确定性只读投影，不是评分，也不是交付裁决；该能力当前为 Experimental。</p>
             </div>
             <div class="qp-demo reveal" data-qp-widget></div>
             <p class="qp-demo-note">合成数据 · 当前为审计附件/操作员视图。完整交互预览（含开发中的复盘与反馈）见下方<a href="#roadmap">开发中区</a>。</p>
@@ -429,12 +429,6 @@
                     <h3>QP 反馈与改进</h3>
                     <p>处置 finding、一个输入框三种去向、长期指导两步确认；下一轮 Agent 只读人工批准的改进快照。</p>
                     <a class="roadmap-link" href="demos/quality-panel/#feedback">打开设计预览 →</a>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
-                    <h3>运行收据（ControlStore）</h3>
-                    <p>每次交付一张可验证收据；文件只是投影，权威在 Store。JSON 工作区在此之前继续是公开路径。</p>
-                    <span class="roadmap-soon">接入后公开说明</span>
                 </div>
             </div>
         </div>

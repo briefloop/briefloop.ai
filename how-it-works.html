@@ -84,7 +84,7 @@
                         <li><strong>事实账本登记</strong>：每一个写进交付物的核心断言和数据，必须在事实账本 (Claim Ledger) 有坐标。</li>
                         <li><strong>确定性质量门禁</strong>：由 Python 逻辑执行时效、来源完整性门禁，防止模型自画自签。</li>
                         <li><strong>改进账本固化</strong>：人工批准的写作偏好沉淀为持久记忆，并提供防污染的回滚记录。</li>
-                        <li><strong>交付真值单一记录</strong>：交付状态只认 finalize_report 与完成投影，reader-clean 未通过就不会晋升交付件——文件存在不等于交付。</li>
+                        <li><strong>交付真值单一记录</strong>：交付状态只认 ControlStore 中的交付真值与完成投影，reader-clean 未通过就不会晋升交付件——文件存在不等于交付。</li>
                     </ul>
                 </div>
             </div>
@@ -339,7 +339,7 @@
                             <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
                             <h4>确定性 CLI 交互</h4>
                         </div>
-                        <p>通过命令行轻松查看当前阶段、缺失文件、阻塞原因与审计结果报告。交付状态只认 <code>finalize_report.json</code> 的单一交付真值记录。</p>
+                        <p>通过命令行查看当前阶段、缺失文件、阻塞原因与审计结果（<code>briefloop status</code> 为只读 Store 投影）。finalize、批准与交付通过 Codex runtime host 的 typed Store action 完成，运行权威是 SQLite ControlStore；JSON、Markdown 和 HTML 只是投影。</p>
                     </div>
 
                     <div class="integration-item">
@@ -360,10 +360,11 @@
                         <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
                         <div class="terminal-line"><span class="t-prompt">$</span> briefloop new industry-weekly ./my-weekly</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime operator</div>
-                        <div class="terminal-line t-output">[created] workspace → ./my-weekly</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime install --workspace ./my-weekly --runtime codex</div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime codex</div>
+                        <div class="terminal-line t-output">[created] workspace → ./my-weekly · briefloop.db (SQLite ControlStore)</div>
                         <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
-                        <div class="terminal-line t-comment"># 下一步：把 handoff 交给支持的 Agent runtime；CLI 不会自行写报告</div>
+                        <div class="terminal-line t-comment"># 下一步：在 Codex 中打开并信任该 workspace；runtime next 给出下一动作</div>
                     </div>
                     <p class="terminal-note">当前支持的启动路径是源码安装：终端里执行上面的 <code>git clone</code> + <code>scripts/setup.sh</code>；Codex 路径随后在 workspace 里运行 <code>briefloop runtime install --runtime codex</code>，并在 Codex 中打开并信任该目录。Windows 请按 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a> 执行，不要把这组 Bash 命令改写到 Git Bash。软件包入口（<code>pipx install briefloop</code>）在发布说明明确完成全新环境冒烟前暂不作为启动路径。</p>
                 </div>

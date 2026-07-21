@@ -46,7 +46,7 @@
     <section class="hero-section" id="product">
         <div class="container hero-container">
             <div class="hero-message hero-message-centered">
-                <span class="hero-version-pill"><span id="version-badge">v0.12.1</span> · Open-source · MIT License</span>
+                <span class="hero-version-pill"><span id="version-badge">v0.13.0</span> · Open-source · MIT License</span>
                 <h1 class="hero-title">
                     AI writes. Code enforces.<br>
                     You approve.
@@ -102,7 +102,7 @@
             <div class="section-header">
                 <div class="eyebrow">See it catch</div>
                 <h2>Three common errors: they slip into the final on the left, and get blocked on the right</h2>
-                <p class="section-desc">Switch the three real cases below and compare the two ways to deliver the same material.</p>
+                <p class="section-desc">Switch the three typical synthetic cases below and compare the two ways to deliver the same material.</p>
             </div>
 
             <div class="cmp reveal" id="cmp" data-cmp-widget>
@@ -263,7 +263,7 @@
             <details class="tech-disclosure reveal">
                 <summary>View technical details</summary>
                 <div class="tech-disclosure-body">
-                    <p>Behind these four steps, each key fact first lands in the <b>claim ledger</b> (<code>claim_ledger.json</code>) and is frozen; check results, findings, and release actions go into the <b>event log</b> (<code>event_log.jsonl</code>); facts are hashed at freeze time so they can't be quietly changed. These are evidence, not daily reading — full mechanics on <a href="how-it-works.en.html">How it works</a>.</p>
+                    <p>Behind these four steps, each key fact first lands in the <b>claim ledger</b> (<code>claim_ledger.json</code>) and is frozen; check results, findings, and release actions go into the <b>event log</b> (<code>event_log.jsonl</code>); facts are hashed at freeze time so they can't be quietly changed. Since v0.13.0, the runtime authority is the SQLite ControlStore (<code>briefloop.db</code>); finalize, approval, and delivery run as typed Store actions through the Codex runtime host, and JSON, Markdown, and HTML are replaceable projections. These are evidence, not daily reading — full mechanics on <a href="how-it-works.en.html">How it works</a>.</p>
                 </div>
             </details>
         </div>
@@ -296,7 +296,7 @@
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div><h3>A record of who approved delivery, and when</h3><p>Who released it, when, and on which version — traced throughout.</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>event_log.jsonl · finalize_report.json</code></div>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>briefloop.db (ControlStore) · event_log.jsonl</code></div>
                 </div>
             </div>
         </div>
@@ -307,8 +307,8 @@
         <div class="container">
             <div class="section-header">
                 <div class="eyebrow">Quality Panel</div>
-                <h2>Every run ends with a Quality Panel</h2>
-                <p class="section-desc">Gate results, claim support, source evidence, closeout state — read it before you ship. It is a deterministic read-only projection of quality_panel.json, not a score and not a delivery verdict.</p>
+                <h2>Supported runs can produce a Quality Panel</h2>
+                <p class="section-desc">Gate results, claim support, source evidence, closeout state — read it before you ship. It is a deterministic read-only projection of quality_panel.json, not a score and not a delivery verdict; this capability is currently Experimental.</p>
             </div>
             <div class="qp-demo reveal" data-qp-widget></div>
             <p class="qp-demo-note">Synthetic data · currently an audit attachment / operator view. The full interactive preview (with the in-development review and feedback areas) is in the <a href="#roadmap">roadmap section</a> below.</p>
@@ -430,12 +430,6 @@
                     <h3>QP feedback &amp; improvement</h3>
                     <p>Dispose findings, one input with three destinations, two-step persistent guidance. The next run reads only the human-approved improvement snapshot.</p>
                     <a class="roadmap-link" href="demos/quality-panel/#feedback">Open design preview →</a>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-tag">NOT SHIPPED</span>
-                    <h3>Run receipts (ControlStore)</h3>
-                    <p>One verifiable receipt per delivery; files are projections, the Store is authority. Until the cutover, JSON workspaces remain the public path.</p>
-                    <span class="roadmap-soon">Documented after cutover</span>
                 </div>
             </div>
         </div>
