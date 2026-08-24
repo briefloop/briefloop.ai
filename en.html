@@ -263,7 +263,7 @@
             <details class="tech-disclosure reveal">
                 <summary>View technical details</summary>
                 <div class="tech-disclosure-body">
-                    <p>As of v0.15.3, runtime authority lives only in the SQLite ControlStore (<code>briefloop.db</code>) and its Receipts. The legacy JSON control plane is gone: no import, migration, or dual-write. The claim ledger, checks, findings, and release actions still project to JSON/Markdown/HTML for reading, but those files are not authority. Finalize, approval, and delivery run as typed Store actions through the Codex runtime host. Full mechanics on <a href="how-it-works.en.html">How it works</a>.</p>
+                    <p>New runs in v0.15.3 use only the Experimental Codex SQLite path. The SQLite ControlStore (<code>briefloop.db</code>), its receipts, and ledger relations are the sole runtime authority. Agents write invocation-scratch proposals; only deterministic services may accept effects. The legacy JSON control plane has been deleted: no import, migration, or dual-write. Legacy JSON control files and report, status, Quality Panel, Markdown/JSON/JSONL/HTML exports are non-authoritative projections. Strict action, envelope, and human-request JSON payloads are only write-boundary carriers: they are revalidated against ControlStore and are not authority by themselves. See <a href="how-it-works.en.html">How it works</a>.</p>
                 </div>
             </details>
         </div>
@@ -296,7 +296,7 @@
                 <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
                     <div><h3>A record of who approved delivery, and when</h3><p>Who released it, when, and on which version — traced throughout.</p></div>
                     <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>briefloop.db (ControlStore) · event_log.jsonl</code></div>
+                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">Developer view</span><code>briefloop.db · Store receipts</code></div>
                 </div>
             </div>
         </div>
@@ -308,10 +308,10 @@
             <div class="section-header">
                 <div class="eyebrow">Quality Panel</div>
                 <h2>Supported runs can produce a Quality Panel</h2>
-                <p class="section-desc">Gate results, claim support, source evidence, closeout state — read it before you ship. It is a deterministic read-only projection of quality_panel.json, not a score and not a delivery verdict; this capability is currently Experimental.</p>
+                <p class="section-desc">v0.15.3 can export one self-contained, read-only HTML view: Brief, Quality, Market Data, LAJ advice, and improvement status. It is a Store/LAJ display projection, not runtime authority, a quality score, or a delivery verdict. LAJ is Experimental; utility is NOT MEASURED.</p>
             </div>
             <div class="qp-demo reveal" data-qp-widget></div>
-            <p class="qp-demo-note">Synthetic data · currently an audit attachment / operator view. The full interactive preview (with the in-development review and feedback areas) is in the <a href="#roadmap">roadmap section</a> below.</p>
+            <p class="qp-demo-note">Synthetic data · read-only display. The third page honestly reports Improvement Ledger unavailable; there is no disposition, write, or “accept suggestion to improve the next run” capability.</p>
         </div>
     </section>
 
@@ -404,32 +404,32 @@
         </div>
     </section>
 
-    <!-- In development -->
+    <!-- Current release experience -->
     <section class="section" id="roadmap">
         <div class="container">
             <div class="section-header">
-                <div class="eyebrow">Experimental</div>
-                <h2>Experimental surfaces in v0.15.3</h2>
-                <p class="section-desc">These ship with the source tree and remain Experimental. They do not prove report quality or investment conclusions. Design previews use synthetic data to show interaction and boundaries only.</p>
+                <div class="eyebrow">v0.15.3 · Released</div>
+                <h2>Explore the current release</h2>
+                <p class="section-desc">These pages explain the v0.15.3 product boundary. They use synthetic data and do not establish measured capability.</p>
             </div>
             <div class="roadmap-grid reveal mt-40">
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">Experimental · shipped</span>
+                    <span class="roadmap-tag">v0.15.3 · READ-ONLY DEMO</span>
                     <h3>Interactive guided init</h3>
-                    <p>A local browser flow in three steps: describe the report, choose delivery and presentation, confirm — one deterministic transaction. The terminal keeps the same semantics. <code>briefloop init &lt;workspace&gt; --web</code></p>
+                    <p>The real <code>briefloop init --web</code> command is an Experimental one-shot local wizard. This site page is a read-only interface preview: it creates no workspace and submits no transaction.</p>
                     <a class="roadmap-link" href="demos/interactive-init/">Open design preview →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">Experimental · shipped</span>
+                    <span class="roadmap-tag">EXPERIMENTAL · NOT MEASURED</span>
                     <h3>AI Second Opinion</h3>
-                    <p>Post-final semantic suggestions: what to re-check and what could not be judged. Advisory only — it never changes gates, finalize, or delivery authority.</p>
+                    <p>Post-final advisory review. It never changes Gates, delivery, approval, next action, or factual-support conclusions. Utility is NOT MEASURED.</p>
                     <a class="roadmap-link" href="demos/quality-panel/#review">Open design preview →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">Experimental · shipped</span>
-                    <h3>Human observations and approved guidance</h3>
-                    <p>The old Improvement Ledger files are retired. Post-final observations and guidance live as Store Receipts; a successor run carries them only with explicit <code>--include-approved-guidance</code>.</p>
-                    <a class="roadmap-link" href="demos/quality-panel/#feedback">Open design preview →</a>
+                    <span class="roadmap-tag">UNAVAILABLE ON THIS PAGE</span>
+                    <h3>Improvement page</h3>
+                    <p>The HTML Improvement tab is a read-only unavailable state. There is no automatic learning. v0.15.3 Human observations and approved guidance live as Store Receipts; a successor run carries them only with explicit <code>--include-approved-guidance</code>.</p>
+                    <a class="roadmap-link" href="demos/quality-panel/#improvement">Open read-only preview →</a>
                 </div>
             </div>
         </div>
@@ -466,7 +466,7 @@
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">Copy commands</button>
-                    <p class="install-note">Requires Python 3.12. After setup, <code>source .venv/bin/activate</code>, then you can run <code>bash scripts/demo.sh</code>. Create a first weekly with <code>briefloop new industry-weekly ./my-weekly</code>. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. <code>pipx install briefloop</code> is not the launch path yet.</p>
+                    <p class="install-note">Requires Python 3.12. After setup, <code>source .venv/bin/activate</code>, then you can run <code>bash scripts/demo.sh</code>. Create a workspace with <code>briefloop new industry-weekly ./my-weekly</code>, or run <code>briefloop onboard</code> then <code>init --from-onboarding</code>. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. <code>pipx install briefloop</code> is not the launch path yet.</p>
                 </div>
             </div>
             <p class="quickstart-note">Want to try online first? <a href="#catch">See the three catch demos</a>. Full installation and governance details are in the <a href="agents/briefloop/SKILL.md">agent installation guide</a> and <a href="how-it-works.en.html">How it works</a>. Current capability boundaries are in <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md" target="_blank" rel="noopener noreferrer">architecture-status</a>. The on-site <a href="reports/briefloop-architecture-reference-v0.6.1.en.html" target="_blank" rel="noopener noreferrer">architecture reference v0.6.1</a> is a v0.12.1 code snapshot, not a v0.15.3 capability claim.</p>
