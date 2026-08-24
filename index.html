@@ -46,7 +46,7 @@
     <section class="hero-section" id="product">
         <div class="container hero-container">
             <div class="hero-message hero-message-centered">
-                <span class="hero-version-pill"><span id="version-badge">v0.13.0</span> · Open-source · MIT License</span>
+                <span class="hero-version-pill"><span id="version-badge">v0.15.3</span> · Open-source · MIT License</span>
                 <h1 class="hero-title">
                     AI 负责起草。<br>
                     代码负责把关。<br>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="slip-dash"></div>
                 <div class="slip-foot">
-                    <span>RUN-2026-0717 · sha256:9c41f2… · python 3.11.9</span>
+                    <span>RUN-2026-0824 · sha256:9c41f2… · python 3.12.8</span>
                     <span>2026-07-17 21:46 UTC</span>
                 </div>
             </div>
@@ -263,7 +263,7 @@
             <details class="tech-disclosure reveal">
                 <summary>查看技术细节</summary>
                 <div class="tech-disclosure-body">
-                    <p>在这四步背后，每个关键事实先落进<b>关键事实清单</b>（<code>claim_ledger.json</code>）并冻结；检查结果、审计发现和放行动作写进<b>事件日志</b>（<code>event_log.jsonl</code>）；冻结时对事实做哈希，改稿时不能被悄悄改动。自 v0.13.0 起，运行权威是 SQLite ControlStore（<code>briefloop.db</code>），finalize、批准与交付通过 Codex runtime host 的 typed Store action 完成；JSON、Markdown 和 HTML 只是可替换的投影。这些是证据，不是你每天要读的东西——完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
+                    <p>自 v0.15.3 起，运行权威只在 SQLite ControlStore（<code>briefloop.db</code>）和它的 Receipt。旧的 JSON 控制面已删除，不能导入或双写。Claim Ledger、检查结果、审计发现和放行动作仍会投影成 JSON/Markdown/HTML 供阅读，但这些文件不是权威。finalize、批准与交付通过 Codex runtime host 的 typed Store action 完成。完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
                 </div>
             </details>
         </div>
@@ -407,27 +407,27 @@
     <section class="section" id="roadmap">
         <div class="container">
             <div class="section-header">
-                <div class="eyebrow">In development · 开发中</div>
-                <h2>接下来做什么</h2>
-                <p class="section-desc">以下方向正在开发，均未发布、不承诺日期。设计预览使用合成数据，仅用于展示交互与边界。</p>
+                <div class="eyebrow">Experimental · 实验面</div>
+                <h2>v0.15.3 已带上的实验能力</h2>
+                <p class="section-desc">已随源码发布，仍标 Experimental；不证明报告质量或投资结论。设计预览使用合成数据，只展示交互与边界。</p>
             </div>
             <div class="roadmap-grid reveal mt-40">
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
+                    <span class="roadmap-tag">Experimental · 已发布</span>
                     <h3>交互式向导 init</h3>
-                    <p>本地浏览器三步创建：说需求、选交付与版式、确认后一次事务提交；终端保持同等语义。</p>
+                    <p>本地浏览器三步创建：说需求、选交付与版式、确认后一次事务提交；终端保持同等语义。<code>briefloop init &lt;workspace&gt; --web</code></p>
                     <a class="roadmap-link" href="demos/interactive-init/">打开设计预览 →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
-                    <h3>AI 语义复盘</h3>
-                    <p>终稿后的语义层建议：指出哪里需要复核、哪里无法判断；advisory 性质，不影响门禁与交付。</p>
+                    <span class="roadmap-tag">Experimental · 已发布</span>
+                    <h3>AI Second Opinion</h3>
+                    <p>终稿后的语义层建议：指出哪里需要复核、哪里无法判断。Advisory only，不改门禁、finalize 或交付权威。</p>
                     <a class="roadmap-link" href="demos/quality-panel/#review">打开设计预览 →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">未发布 · NOT SHIPPED</span>
-                    <h3>QP 反馈与改进</h3>
-                    <p>处置 finding、一个输入框三种去向、长期指导两步确认；下一轮 Agent 只读人工批准的改进快照。</p>
+                    <span class="roadmap-tag">Experimental · 已发布</span>
+                    <h3>人工观察与批准指导</h3>
+                    <p>旧的 Improvement Ledger 文件已退役。终稿后的观察与指导走 Store Receipt；下一轮只有显式 <code>--include-approved-guidance</code> 才会带入。</p>
                     <a class="roadmap-link" href="demos/quality-panel/#feedback">打开设计预览 →</a>
                 </div>
             </div>
@@ -465,10 +465,10 @@
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">复制命令</button>
-                    <p class="install-note">Windows 请使用 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a>，不要把这两行 Bash 命令改写到 Git Bash。装好后运行 <code>briefloop new industry-weekly ./my-weekly</code> 建第一份周报。</p>
+                    <p class="install-note">需要 Python 3.12。装好后 <code>source .venv/bin/activate</code>，可先跑 <code>bash scripts/demo.sh</code>；建第一份周报用 <code>briefloop new industry-weekly ./my-weekly</code>。Windows 请使用 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a>，不要把这两行 Bash 改写到 Git Bash。<code>pipx install briefloop</code> 目前不是启动路径。</p>
                 </div>
             </div>
-            <p class="quickstart-note">想先在线体验？<a href="#catch">看三个抓错演示</a>。完整安装与治理细节见 <a href="agents/briefloop/SKILL.md">Agent 安装说明</a>、<a href="how-it-works.html">运作原理</a> 与 <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.6.1</a>。</p>
+            <p class="quickstart-note">想先在线体验？<a href="#catch">看三个抓错演示</a>。完整安装与治理细节见 <a href="agents/briefloop/SKILL.md">Agent 安装说明</a> 与 <a href="how-it-works.html">运作原理</a>。当前能力边界以仓库里的 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md" target="_blank" rel="noopener noreferrer">architecture-status</a> 为准；页面上的 <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.6.1</a> 是 v0.12.1 代码快照，不是 v0.15.3 能力声明。</p>
         </div>
     </section>
 

@@ -8,38 +8,38 @@ test -n "$BRIEFLOOP_CLI"
 "$BRIEFLOOP_CLI" version
 ```
 
-Use the runtime supported by available assets. For handoff only:
+The active writing runtime is Experimental SQLite-only Codex:
 
 ```bash
-briefloop run --workspace <workspace> --runtime operator
+briefloop runtime install --workspace <workspace> --runtime codex
+briefloop run --workspace <workspace> --runtime codex
+briefloop runtime next --workspace <workspace>
+briefloop status --workspace <workspace>
 ```
 
-For a source checkout with CodeBuddy-compatible role assets:
+Do not use `--runtime operator`, `--runtime codebuddy`, Hermes, or WorkBuddy.
+Those paths were deleted or are unsupported on SQLite. Do not silently
+substitute one runtime for another.
 
-```bash
-briefloop run --workspace <workspace> --runtime codebuddy
-```
+JSON, Markdown, and HTML next to the workspace are projections. Runtime
+authority is `briefloop.db` and its Receipts.
 
-Do not silently substitute one runtime for another.
+## Follow The Next Action
 
-## Follow The Generated Handoff
+Treat the Store-derived `CoreRunNextAction` as the sequence authority. Read
+`briefloop runtime next` before each role action and after each deterministic
+transaction. Never hand-author Store state or frozen artifacts to make a stage
+appear complete.
 
-Treat these as the workspace-specific execution contract:
-
-```text
-output/intermediate/agent_handoff.md
-output/intermediate/agent_handoff.json
-```
-
-Read the relevant step before each role action and after each deterministic
-transaction. Never hand-author control artifacts to make a stage appear complete.
+Legacy `agent_handoff.md` / `agent_handoff.json` files may still exist as
+non-authoritative projections. Do not treat them as a new-run entrypoint.
 
 ## Report A Run Card
 
 ```text
 runtime:
+store_revision:
 current_stage:
-run_integrity:
 blocked:
 latest_gate_status:
 finalize_report:

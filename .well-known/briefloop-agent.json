@@ -2,9 +2,12 @@
   "schema_version": "briefloop.agent-bootstrap.v1",
   "product": {
     "name": "BriefLoop",
+    "version": "0.15.3",
     "homepage": "https://briefloop.ai/",
     "description": "A traceable, accountable workflow for AI-assisted business briefings.",
-    "boundary": "Traceability and process accountability; not semantic proof."
+    "boundary": "Traceability and process accountability; not semantic proof.",
+    "python_requires": ">=3.12",
+    "runtime_authority": "SQLite ControlStore (briefloop.db) and Receipts"
   },
   "canonical": {
     "source_repository": "https://github.com/Stahl-G/briefloop",
@@ -12,6 +15,7 @@
     "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
     "llms_txt": "https://briefloop.ai/llms.txt",
     "human_setup": "https://briefloop.ai/#start",
+    "architecture_status": "https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md",
     "support_matrix": "https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md"
   },
   "distribution": {
@@ -21,7 +25,7 @@
       "install_command": "git clone https://github.com/Stahl-G/briefloop.git",
       "install_reference": "https://briefloop.ai/agents/briefloop/references/installation.md",
       "verify_commands": ["git -C <checkout> remote get-url origin", "git -C <checkout> rev-parse HEAD", "briefloop version"],
-      "scope": "Current supported bootstrap uses the canonical source checkout and its platform-specific setup flow. The deterministic CLI creates workspaces, validates, records state, runs gates, and preserves delivery truth; it does not generate a brief by itself."
+      "scope": "Current supported bootstrap uses the canonical source checkout and its platform-specific setup flow on Python 3.12. The deterministic CLI creates workspaces, validates, records Store state, runs gates, and preserves delivery truth; it does not generate a brief by itself."
     },
     "package_index": {
       "package": "briefloop",
@@ -32,28 +36,33 @@
       "repository": "https://github.com/Stahl-G/briefloop",
       "clone_command": "git clone https://github.com/Stahl-G/briefloop.git",
       "verify_commands": ["git -C briefloop remote get-url origin", "git -C briefloop rev-parse HEAD"],
-      "scope": "Runtime-specific skills, role agents, handoff contracts, and source setup. Required when the selected runtime depends on source-only assets."
+      "scope": "The active writing runtime is the packaged Codex kit installed into a workspace. Hermes, WorkBuddy, CodeBuddy, and the legacy JSON control-plane assets are deleted as of v0.15.2."
     }
   },
   "supported_entrypoints": [
     {"id": "industry-weekly", "user_intents": ["weekly brief", "industry weekly", "market brief", "周报", "行业周报", "市场简报"]},
     {"id": "management-monthly", "user_intents": ["management monthly", "monthly review", "管理月报", "经营月报"]},
-    {"id": "document-review", "user_intents": ["document review", "PDF review", "evidence extraction", "文档审阅", "PDF审阅", "证据摘录"]}
+    {"id": "document-review", "user_intents": ["document review", "PDF review", "evidence extraction", "文档审阅", "PDF审阅", "证据摘录"]},
+    {"id": "solar-stock-periodic", "status": "experimental", "user_intents": ["solar stock periodic", "TOYO weekly", "光伏周报", "solar weekly"]}
   ],
   "runtime_policy": {
     "runtime_neutral_skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
+    "codex": {
+      "status": "experimental-active",
+      "setup_command": "briefloop runtime install --workspace <workspace> --runtime codex",
+      "run_command": "briefloop run --workspace <workspace> --runtime codex"
+    },
     "workbuddy": {
-      "status": "source-assets-required-for-full-role-delegation",
-      "skill_source": "https://github.com/Stahl-G/briefloop/tree/main/.agents/skills/briefloop-workbuddy",
-      "project_assets": "https://github.com/Stahl-G/briefloop/tree/main/.codebuddy"
+      "status": "deleted",
+      "note": "Removed with the legacy JSON runtime in v0.15.2. Do not install or claim this path."
     },
     "claude_code": {
-      "status": "source-install-supported",
-      "setup_command": "briefloop claude install --repo-workdir ."
+      "status": "deleted",
+      "note": "Removed with the legacy JSON runtime in v0.15.2. Do not run briefloop claude install."
     },
     "operator": {
-      "status": "handoff-only",
-      "run_command": "briefloop run --workspace <workspace> --runtime operator"
+      "status": "unsupported-on-sqlite",
+      "note": "Legacy JSON operator runtime is not the active path. Use Codex on a fresh SQLite workspace."
     }
   },
   "authorization": {

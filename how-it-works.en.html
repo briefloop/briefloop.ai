@@ -48,7 +48,7 @@
         <div class="container">
             <p class="crumb"><a href="en.html">BriefLoop.ai</a> / How it works</p>
             <h1>AI drafts. The control plane keeps the books. Humans sign off.</h1>
-            <p>The chain-of-custody demo on the homepage answers “where did this claim come from?” This page answers the rest: why the duties are separated, what happens after a problem is found, how failures become the next version's tests, and how developers work with agents.</p>
+            <p>The chain-of-custody demo on the homepage answers “where did this claim come from?” This page answers the rest: why the duties are separated, what happens after a problem is found, how failures become the next version's tests, and how developers work with agents. The current product is v0.15.3; runtime authority is the SQLite ControlStore. The on-site architecture reference v0.6.1 is a v0.12.1 code snapshot. Current boundaries live in <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md">architecture-status</a>.</p>
         </div>
     </section>
 
@@ -366,7 +366,7 @@
                         <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
                         <div class="terminal-line t-comment"># Next: open and trust the workspace in Codex; runtime next shows the next action</div>
                     </div>
-                    <p class="terminal-note">The current supported bootstrap is this source checkout: it installs the deterministic CLI and keeps source runtime assets together. The Codex path then runs <code>briefloop runtime install --runtime codex</code> inside the workspace — open and trust that directory in Codex afterwards. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash.</p>
+                    <p class="terminal-note">The current supported bootstrap is this source checkout on Python 3.12: it installs the deterministic CLI and keeps source runtime assets together. The Codex path then runs <code>briefloop runtime install --runtime codex</code> inside the workspace — open and trust that directory in Codex afterwards. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. <code>pipx install briefloop</code> is not the launch path until release notes say a package-index artifact has been published and smoked. JSON-only workspaces are not imported or upgraded; start a fresh <code>init</code>.</p>
                 </div>
             </div>
         </div>

@@ -48,7 +48,7 @@
         <div class="container">
             <p class="crumb"><a href="index.html">BriefLoop.ai</a> / 运作原理</p>
             <h1>AI 起草，控制面记账，人类放行</h1>
-            <p>首页的保管链演示回答“这句话从哪来”。这一页回答其余的问题：为什么要这样分权、发现问题以后会怎样、失败如何变成下一版的改进，以及开发者如何与 Agent 协作。</p>
+            <p>首页的保管链演示回答“这句话从哪来”。这一页回答其余的问题：为什么要这样分权、发现问题以后会怎样、失败如何变成下一版的改进，以及开发者如何与 Agent 协作。当前产品版本是 v0.15.3；运行权威是 SQLite ControlStore。站内架构参考 v0.6.1 是 v0.12.1 代码快照，现行边界以 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md">architecture-status</a> 为准。</p>
         </div>
     </section>
 
@@ -366,7 +366,7 @@
                         <div class="terminal-line t-output">[handoff] agent_handoff.md · agent_handoff.json</div>
                         <div class="terminal-line t-comment"># 下一步：在 Codex 中打开并信任该 workspace；runtime next 给出下一动作</div>
                     </div>
-                    <p class="terminal-note">当前支持的启动路径是源码安装：终端里执行上面的 <code>git clone</code> + <code>scripts/setup.sh</code>；Codex 路径随后在 workspace 里运行 <code>briefloop runtime install --runtime codex</code>，并在 Codex 中打开并信任该目录。Windows 请按 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a> 执行，不要把这组 Bash 命令改写到 Git Bash。软件包入口（<code>pipx install briefloop</code>）在发布说明明确完成全新环境冒烟前暂不作为启动路径。</p>
+                    <p class="terminal-note">当前支持的启动路径是源码安装（Python 3.12）：终端里执行上面的 <code>git clone</code> + <code>scripts/setup.sh</code>；Codex 路径随后在 workspace 里运行 <code>briefloop runtime install --runtime codex</code>，并在 Codex 中打开并信任该目录。Windows 请按 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a> 执行，不要把这组 Bash 命令改写到 Git Bash。软件包入口（<code>pipx install briefloop</code>）在发布说明明确完成全新环境冒烟前暂不作为启动路径。JSON-only workspace 不再被导入或升级，需要重新 <code>init</code>。</p>
                 </div>
             </div>
         </div>

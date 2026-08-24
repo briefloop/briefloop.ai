@@ -85,8 +85,8 @@ platform branch exactly.
 - Never execute downloaded shell content directly. Do not use `curl | bash`.
 - Never print, transmit, or commit tokens, API keys, `.env` contents, private
   company material, or whole workspaces.
-- Do not directly edit workflow state, event logs, artifact registries, gate
-  reports, hashes, delivery truth, or frozen artifacts.
+- Do not directly edit `briefloop.db`, frozen artifacts, or treat JSON control
+  files as runtime authority.
 - Do not say a role ran unless the runtime actually delegated it.
 - Do not say a gate passed unless machine output records the pass.
 - Do not say a report was delivered unless deterministic delivery truth is

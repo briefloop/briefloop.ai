@@ -2,8 +2,9 @@
 
 ## Current Supported Path
 
-Use a canonical BriefLoop source checkout for the current supported bootstrap.
-It installs the deterministic CLI and contains the source-only runtime assets.
+Use a canonical BriefLoop source checkout. Python **3.12 or newer** is required.
+The checkout installs the deterministic CLI and contains the source-only Codex
+runtime kit.
 
 The package URL is package metadata, not an installation authority. Do not use
 `pipx install briefloop` for bootstrap until BriefLoop release notes explicitly
@@ -12,10 +13,11 @@ say that a package-index artifact has been published and smoke-tested.
 The checkout serves two scopes:
 
 1. **Deterministic CLI** — creates workspaces, validates artifacts, records
-   state, runs gates, freezes evidence, and preserves delivery truth.
-2. **Full runtime assets** — role agents and Skills needed by a selected runtime
-   to delegate writing work. These are required only when that runtime depends
-   on source-only assets.
+   Store state, runs gates, freezes evidence, and preserves delivery truth.
+2. **Codex runtime kit** — installed into a workspace with
+   `briefloop runtime install --workspace <path> --runtime codex`. Hermes,
+   WorkBuddy, CodeBuddy, and the legacy JSON control-plane runtimes are
+   deleted as of v0.15.2.
 
 ## Before Changing The Machine
 
@@ -56,11 +58,15 @@ source .venv/bin/activate
 briefloop version
 ```
 
-For Claude Code, configure its source assets after the CLI verifies:
+The active writing runtime is Codex. After a workspace exists:
 
 ```bash
-briefloop claude install --repo-workdir .
+briefloop runtime install --workspace <workspace> --runtime codex
+briefloop run --workspace <workspace> --runtime codex
 ```
+
+Do not run `briefloop claude install`, Hermes, WorkBuddy, or CodeBuddy paths.
+Those runtimes were deleted in v0.15.2.
 
 ## Windows — PowerShell
 
@@ -128,29 +134,16 @@ if ($LASTEXITCODE -ne 0) {
 
 ## Full Runtime Asset Postconditions
 
-Only perform these checks when the selected runtime needs source-only assets.
-They prove that the checkout contains the assets; they do not prove that a host
-runtime actually delegated a role.
-
-Windows PowerShell:
-
-```powershell
-if (-not (Test-Path .\.agents\skills\briefloop-workbuddy\SKILL.md)) {
-    throw "Missing WorkBuddy Skill source."
-}
-
-$roleAgents = @(Get-ChildItem .\.codebuddy\agents -Filter "briefloop-*.md" -File)
-if ($roleAgents.Count -eq 0) {
-    throw "Missing CodeBuddy role-agent source files."
-}
-```
-
-macOS / Linux:
+Only perform these checks when the selected runtime is Codex. They prove the
+workspace kit is installed; they do not prove that Codex delegated a role.
 
 ```bash
-test -f .agents/skills/briefloop-workbuddy/SKILL.md
-test -n "$(find .codebuddy/agents -maxdepth 1 -type f -name 'briefloop-*.md' -print -quit)"
+briefloop runtime install --workspace <workspace> --runtime codex
+briefloop run --workspace <workspace> --runtime codex
 ```
+
+Do not look for `.agents/skills/briefloop-workbuddy` or `.codebuddy/agents`.
+Those trees were deleted with the legacy JSON runtime.
 
 ## Mandatory Postconditions
 
@@ -160,8 +153,8 @@ Do not report a stage complete until its postcondition is observed and recorded:
    `git rev-parse HEAD` returns a full commit SHA.
 2. **Setup** — the setup command succeeds and `.venv` exists.
 3. **CLI** — `briefloop version` or the venv-local executable prints a version.
-4. **Runtime assets** — only when requested, the selected Skill and role-agent
-   files exist in the source checkout.
+4. **Runtime assets** — only when requested, `briefloop runtime install --runtime
+   codex` succeeds for the confirmed workspace.
 
 If any postcondition is missing, say that the stage is incomplete. Do not infer
 success from prose, an empty response, or the presence of a partial directory.

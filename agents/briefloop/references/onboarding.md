@@ -8,6 +8,9 @@
   `management-monthly`
 - document or PDF review, evidence extraction, 文档审阅, PDF审阅, 证据摘录 ->
   `document-review`
+- solar stock periodic, TOYO weekly, 光伏周报 -> `solar-stock-periodic`
+  (Experimental, fresh schema-19 workspace only; do not upgrade an older
+  SQLite workspace in place)
 
 ## Collect A Small Batch Of Inputs
 

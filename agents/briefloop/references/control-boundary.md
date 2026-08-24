@@ -12,10 +12,11 @@ records the relevant transaction.
 
 ## Single Writer Rule
 
-Do not directly edit Python-owned control files, including workflow state,
-event logs, artifact registries, gate reports, runtime manifests, hashes, and
-delivery truth. Do not overwrite frozen artifacts. Use sanctioned BriefLoop
-commands for repair, supersede, new revision, or new run behavior.
+Do not directly edit the SQLite ControlStore (`briefloop.db`) or overwrite
+frozen artifacts. JSON, Markdown, and HTML files next to a workspace are
+projections, not authority. Use sanctioned BriefLoop runtime commands for
+repair, supersede, new revision, or new run behavior. JSON-only workspaces
+are unsupported; start a fresh `init`.
 
 ## Evidence Boundary
 

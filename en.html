@@ -46,7 +46,7 @@
     <section class="hero-section" id="product">
         <div class="container hero-container">
             <div class="hero-message hero-message-centered">
-                <span class="hero-version-pill"><span id="version-badge">v0.13.0</span> · Open-source · MIT License</span>
+                <span class="hero-version-pill"><span id="version-badge">v0.15.3</span> · Open-source · MIT License</span>
                 <h1 class="hero-title">
                     AI writes. Code enforces.<br>
                     You approve.
@@ -74,7 +74,7 @@
                 </div>
                 <div class="slip-dash"></div>
                 <div class="slip-foot">
-                    <span>RUN-2026-0717 · sha256:9c41f2d8b3… · python 3.11.9</span>
+                    <span>RUN-2026-0824 · sha256:9c41f2d8b3… · python 3.12.8</span>
                     <span>17 JUL 2026&nbsp;&nbsp;21:46 UTC</span>
                 </div>
             </div>
@@ -263,7 +263,7 @@
             <details class="tech-disclosure reveal">
                 <summary>View technical details</summary>
                 <div class="tech-disclosure-body">
-                    <p>Behind these four steps, each key fact first lands in the <b>claim ledger</b> (<code>claim_ledger.json</code>) and is frozen; check results, findings, and release actions go into the <b>event log</b> (<code>event_log.jsonl</code>); facts are hashed at freeze time so they can't be quietly changed. Since v0.13.0, the runtime authority is the SQLite ControlStore (<code>briefloop.db</code>); finalize, approval, and delivery run as typed Store actions through the Codex runtime host, and JSON, Markdown, and HTML are replaceable projections. These are evidence, not daily reading — full mechanics on <a href="how-it-works.en.html">How it works</a>.</p>
+                    <p>As of v0.15.3, runtime authority lives only in the SQLite ControlStore (<code>briefloop.db</code>) and its Receipts. The legacy JSON control plane is gone: no import, migration, or dual-write. The claim ledger, checks, findings, and release actions still project to JSON/Markdown/HTML for reading, but those files are not authority. Finalize, approval, and delivery run as typed Store actions through the Codex runtime host. Full mechanics on <a href="how-it-works.en.html">How it works</a>.</p>
                 </div>
             </details>
         </div>
@@ -408,27 +408,27 @@
     <section class="section" id="roadmap">
         <div class="container">
             <div class="section-header">
-                <div class="eyebrow">In development</div>
-                <h2>What we are building next</h2>
-                <p class="section-desc">These directions are in development — none of them shipped, and no dates are promised. Design previews use synthetic data to show interaction and boundaries only.</p>
+                <div class="eyebrow">Experimental</div>
+                <h2>Experimental surfaces in v0.15.3</h2>
+                <p class="section-desc">These ship with the source tree and remain Experimental. They do not prove report quality or investment conclusions. Design previews use synthetic data to show interaction and boundaries only.</p>
             </div>
             <div class="roadmap-grid reveal mt-40">
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">NOT SHIPPED</span>
+                    <span class="roadmap-tag">Experimental · shipped</span>
                     <h3>Interactive guided init</h3>
-                    <p>A local browser flow in three steps: describe the report, choose delivery and presentation, confirm — one deterministic transaction. The terminal keeps the same semantics.</p>
+                    <p>A local browser flow in three steps: describe the report, choose delivery and presentation, confirm — one deterministic transaction. The terminal keeps the same semantics. <code>briefloop init &lt;workspace&gt; --web</code></p>
                     <a class="roadmap-link" href="demos/interactive-init/">Open design preview →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">NOT SHIPPED</span>
-                    <h3>AI semantic review</h3>
-                    <p>Post-final semantic suggestions: what to re-check and what could not be judged. Advisory only — it never changes gates or delivery.</p>
+                    <span class="roadmap-tag">Experimental · shipped</span>
+                    <h3>AI Second Opinion</h3>
+                    <p>Post-final semantic suggestions: what to re-check and what could not be judged. Advisory only — it never changes gates, finalize, or delivery authority.</p>
                     <a class="roadmap-link" href="demos/quality-panel/#review">Open design preview →</a>
                 </div>
                 <div class="roadmap-card">
-                    <span class="roadmap-tag">NOT SHIPPED</span>
-                    <h3>QP feedback &amp; improvement</h3>
-                    <p>Dispose findings, one input with three destinations, two-step persistent guidance. The next run reads only the human-approved improvement snapshot.</p>
+                    <span class="roadmap-tag">Experimental · shipped</span>
+                    <h3>Human observations and approved guidance</h3>
+                    <p>The old Improvement Ledger files are retired. Post-final observations and guidance live as Store Receipts; a successor run carries them only with explicit <code>--include-approved-guidance</code>.</p>
                     <a class="roadmap-link" href="demos/quality-panel/#feedback">Open design preview →</a>
                 </div>
             </div>
@@ -466,10 +466,10 @@
                         <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
                     </div>
                     <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">Copy commands</button>
-                    <p class="install-note">On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. After install, run <code>briefloop new industry-weekly ./my-weekly</code> to create your first weekly.</p>
+                    <p class="install-note">Requires Python 3.12. After setup, <code>source .venv/bin/activate</code>, then you can run <code>bash scripts/demo.sh</code>. Create a first weekly with <code>briefloop new industry-weekly ./my-weekly</code>. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. <code>pipx install briefloop</code> is not the launch path yet.</p>
                 </div>
             </div>
-            <p class="quickstart-note">Want to try online first? <a href="#catch">See the three catch demos</a>. Full installation and governance details are in the <a href="agents/briefloop/SKILL.md">agent installation guide</a>, <a href="how-it-works.en.html">How it works</a>, and the <a href="reports/briefloop-architecture-reference-v0.6.1.en.html" target="_blank" rel="noopener noreferrer">architecture reference v0.6.1</a>.</p>
+            <p class="quickstart-note">Want to try online first? <a href="#catch">See the three catch demos</a>. Full installation and governance details are in the <a href="agents/briefloop/SKILL.md">agent installation guide</a> and <a href="how-it-works.en.html">How it works</a>. Current capability boundaries are in <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md" target="_blank" rel="noopener noreferrer">architecture-status</a>. The on-site <a href="reports/briefloop-architecture-reference-v0.6.1.en.html" target="_blank" rel="noopener noreferrer">architecture reference v0.6.1</a> is a v0.12.1 code snapshot, not a v0.15.3 capability claim.</p>
         </div>
     </section>
 
