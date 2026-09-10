@@ -4,215 +4,230 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>BriefLoop · 与材料一起思考 — 单人本地 Agent 工作台</title>
+<title>BriefLoop · 与材料一起思考 — 本地 Agent 工作台</title>
 <meta name="description" content="BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕问题找来源、写出可编辑的报告、独立评分，并把每条重要结论绑定回它来自的那一行原文。">
 <link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
 <style>
 :root{
-  --paper:#faf9f6;
+  --bg:#faf9f6;
   --surface:#ffffff;
-  --ink:#1e2320;
+  --fg:#1e2320;
   --muted:#6a706b;
-  --line:#dedfd8;
-  --green:#006838;
-  --green-hover:oklch(0.38 0.1136 154.4);
-  --green-soft:oklch(0.9509 0.0098 125.7);
-  --green-softer:oklch(0.965 0.007 130);
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --serif:"Songti SC","Noto Serif SC","STSong","SimSun",Georgia,"Times New Roman",serif;
+  --border:#dedfd8;
+  --accent:#006838;
+  --accent-2:#006838;
+  --accent-hover:oklch(0.38 0.1136 154.4);
+  --accent-light:color-mix(in srgb,#006838 55%,#faf9f6);
+  --text-2:#5a615b;
+  --text-3:#6a706b;
+  --accent-soft:color-mix(in srgb,#006838 7%,#ffffff);
+  --accent-line:color-mix(in srgb,#006838 22%,#ffffff);
+  --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
-  --radius:9px;
-  --radius-sm:6px;
-  --shadow-sm:0 1px 2px oklch(0.25 0.009 159 / .06);
-  --shadow:0 1px 2px oklch(0.25 0.009 159 / .05),0 12px 32px oklch(0.25 0.009 159 / .07);
+  --r-xs:4px;
+  --r-sm:6px;
+  --r:8px;
+  --r-lg:12px;
+  --shadow-sm:0 1px 2px color-mix(in srgb,#1e2320 5%,transparent);
+  --shadow:0 1px 2px color-mix(in srgb,#1e2320 4%,transparent),0 12px 32px color-mix(in srgb,#1e2320 6%,transparent);
+  --shadow-lg:0 32px 80px -28px color-mix(in srgb,#1e2320 16%,transparent);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 var(--sans);font-feature-settings:"tnum" 1,"ss01" 0}
-a{color:var(--green);text-decoration:none}
-a:hover{color:var(--green-hover);text-decoration:underline;text-underline-offset:3px}
-:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:2px}
-h1,h2,h3,h4,p{margin-top:0}
-h1,h2,h3{font-family:var(--serif);color:var(--ink)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
-section{scroll-margin-top:84px}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+section{scroll-margin-top:88px}
 
-/* ---------- header ---------- */
-.nav{position:sticky;top:0;z-index:50;background:oklch(0.982 0.0041 91.4 / .9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav-inner{display:flex;align-items:center;gap:20px;height:64px}
-.brand{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-size:20px;font-weight:650;color:var(--ink);letter-spacing:.01em}
-.brand:hover{color:var(--ink);text-decoration:none}
-.brand svg{width:20px;height:20px;color:var(--green);flex:none}
-.nav-links{display:flex;align-items:center;gap:4px;margin-left:12px}
-.nav-links a{color:var(--muted);padding:8px 12px;border-radius:var(--radius-sm);font-size:15px}
-.nav-links a:hover{color:var(--ink);background:var(--green-soft);text-decoration:none}
-.nav-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
-.menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:var(--radius-sm);padding:8px 10px;color:var(--ink);cursor:pointer}
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,#faf9f6 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:18px;letter-spacing:-.02em;flex:none}
+.brand:hover{color:var(--fg);text-decoration:none}
+.brand img{width:24px;height:24px;flex:none}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:8px}
+.nav-links a{color:var(--text-2);font-size:14.5px;padding:8px 12px;border-radius:var(--r-sm)}
+.nav-links a:hover{color:var(--fg);background:var(--surface);text-decoration:none}
+.nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.menu-toggle{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 10px;color:var(--fg);cursor:pointer}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);padding:13px 22px;border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease,transform .15s ease}
-.btn-primary{background:var(--green);color:#fff}
-.btn-primary:hover{background:var(--green-hover);color:#fff;text-decoration:none}
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn-ghost:hover{background:var(--green-soft);border-color:var(--line);color:var(--ink);text-decoration:none}
-.btn-sm{padding:10px 16px;font-size:14px}
-.btn:active{transform:translateY(1px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);height:44px;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--accent-2);color:#ffffff;border-color:var(--accent-2)}
+.btn-primary:hover{background:var(--accent-hover);color:#ffffff;box-shadow:0 6px 18px -6px color-mix(in srgb,#006838 45%,transparent);transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0);box-shadow:none}
+.btn-ghost{background:transparent;color:var(--fg);border-color:var(--border)}
+.btn-ghost:hover{background:var(--surface);color:var(--fg);border-color:var(--muted)}
+.btn-sm{height:36px;padding:0 14px;font-size:14px}
+.btn-lg{height:52px;padding:0 26px;font-size:16.5px}
+
+/* ---------- shared ---------- */
+.section{padding:clamp(64px,8vw,100px) 0;border-top:1px solid var(--border)}
+.section.plain{border-top:0}
+.kicker{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px}
+.h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:12px;text-wrap:balance}
+.sub{color:var(--text-2);font-size:17px;max-width:64ch}
+.sec-head{max-width:680px;margin-bottom:clamp(32px,4vw,48px)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--surface)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 26px 28px}
+.card.soft{background:var(--bg)}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);flex:none}
+.ico svg{width:20px;height:20px}
 
 /* ---------- hero ---------- */
-.hero{padding:96px 0 72px}
-.hero .eyebrow{display:flex;align-items:center;gap:10px}
-.hero h1{font-size:clamp(2.6rem,6.4vw,4.4rem);line-height:1.12;font-weight:650;letter-spacing:.005em;margin:22px 0 22px;max-width:16ch}
-.hero h1 .mark{color:var(--green)}
-.lead{font-size:clamp(1.06rem,1.6vw,1.28rem);line-height:1.85;color:var(--ink);max-width:60ch;margin:0 0 12px}
-.hero-note{color:var(--muted);font-size:15px;max-width:60ch;margin:0}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 0}
-.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:44px 0 0}
-.chip{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:var(--surface)}
+.hero{padding:clamp(56px,8vw,96px) 0 0;text-align:center}
+.hero h1{font-size:clamp(40px,7vw,68px);letter-spacing:-.035em;line-height:1.06;margin:22px auto 20px;max-width:12em;text-wrap:balance}
+.lead{font-size:clamp(17px,1.6vw,19.5px);line-height:1.75;color:var(--text-2);max-width:60ch;margin:0 auto}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:32px 0 0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 0}
+.chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
+.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
+.shot .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.shot .dot{width:10px;height:10px;border-radius:50%;background:var(--border);display:block}
+.shot .dot:nth-child(2){background:color-mix(in srgb,#1e2320 22%,#faf9f6)}
+.shot .dot:nth-child(3){background:color-mix(in srgb,#1e2320 34%,#faf9f6)}
+.shot .url{flex:1;max-width:360px;margin-left:10px;height:24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:11.5px;color:var(--text-3);overflow:hidden;white-space:nowrap}
+.shot img{width:100%;height:auto}
+.shot figcaption{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
+.badge{font-size:12px;font-weight:600;color:var(--accent-2);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px;line-height:1.6;white-space:nowrap}
 
-/* ---------- shared section scaffolding ---------- */
-.sec{padding:80px 0;border-top:1px solid var(--line)}
-.sec-head{max-width:60ch;margin-bottom:44px}
-.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.eyebrow svg{width:12px;height:12px}
-.sec-head h2{font-size:clamp(1.72rem,3.2vw,2.3rem);line-height:1.25;font-weight:650;margin-bottom:14px}
-.sec-head .sub{color:var(--muted);margin:0;font-size:16px}
+/* ---------- why ---------- */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why .card h3{font-size:17px;margin:18px 0 8px}
+.why .card p{color:var(--text-2);font-size:14.5px;line-height:1.7}
 
-/* ---------- how it works (interactive architecture) ---------- */
-.arch-nodes{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:14px;align-items:stretch}
-.arch-node{appearance:none;display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;cursor:pointer;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease,transform .15s ease}
-.arch-node:hover{border-color:var(--green);box-shadow:var(--shadow-sm)}
-.arch-node:focus-visible,.arch-loop:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-.arch-node[aria-selected="true"]{border-color:var(--green);background:var(--green-soft);box-shadow:var(--shadow-sm)}
-.arch-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--green);color:var(--green);font:600 13px/1 var(--mono);flex:none;transition:background .15s ease,color .15s ease}
-.arch-node[aria-selected="true"] .arch-num{background:var(--green);color:#fff}
-.arch-title{font-family:var(--serif);font-weight:650;font-size:16.5px;line-height:1.3}
-.arch-sub{color:var(--muted);font-size:13px;line-height:1.5}
-.arch-arrow{display:inline-flex;align-items:center;align-self:center;justify-self:center;color:var(--green);flex:none}
-.arch-arrow svg{width:22px;height:22px}
-.arch-loop{appearance:none;display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--green-softer);border:1px dashed var(--line);border-radius:var(--radius);padding:13px 18px;margin:14px 0 0;cursor:pointer;transition:border-color .15s ease,background .15s ease}
-.arch-loop:hover{border-color:var(--green)}
-.arch-loop[aria-selected="true"]{border-color:var(--green);background:var(--green-soft)}
-.arch-loop .arch-num{width:26px;height:26px}
-.arch-loopicon{color:var(--green);flex:none}
-.arch-loop-text{display:flex;flex-direction:column;gap:2px;min-width:0}
-.arch-loop .arch-title{font-size:15.5px}
-.arch-loop .arch-sub{font-size:12.5px}
-.arch-panel{margin:20px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;box-shadow:var(--shadow-sm)}
-.arch-panel-head{display:flex;align-items:center;gap:12px;margin:0 0 14px}
-.arch-panel-head h3{margin:0;font-family:var(--serif);font-size:19px;font-weight:650}
-.arch-bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-.arch-bullets li{position:relative;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75}
-.arch-bullets li::before{content:"";position:absolute;left:2px;top:12px;width:7px;height:7px;border-radius:2px;background:var(--green)}
-.arch-bullets strong{color:var(--ink);font-weight:600}
-.arch-meta{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
-.arch-meta .chip{font-size:12.5px}
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.step{appearance:none;display:flex;flex-direction:column;gap:8px;text-align:left;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;cursor:pointer;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
+.step:hover{border-color:var(--muted);box-shadow:var(--shadow-sm)}
+.step[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft);box-shadow:var(--shadow-sm)}
+.step-num{font:700 13px/1 var(--mono);color:var(--accent-2);letter-spacing:.04em}
+.step-title{font-size:16px;font-weight:640;line-height:1.3}
+.step-sub{color:var(--text-3);font-size:13px;line-height:1.5}
+.step-arrow{display:inline-flex;align-items:center;align-self:center;color:var(--muted)}
+.step-arrow svg{width:20px;height:20px}
+.loopbar{appearance:none;display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--surface);border:1px dashed var(--border);border-radius:var(--r-lg);padding:14px 18px;margin-top:12px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.loopbar:hover{border-color:var(--muted)}
+.loopbar[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft)}
+.loopbar .ico{width:34px;height:34px;background:transparent;border:1px solid var(--accent-line)}
+.loopbar-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.loopbar .t{font-size:15px;font-weight:640}
+.loopbar .s{font-size:12.5px;color:var(--text-3)}
+.panel{margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;box-shadow:var(--shadow-sm)}
+.panel-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.panel-head h3{font-size:19px}
+.bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.bullets li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.75}
+.bullets li::before{content:"";position:absolute;left:2px;top:11px;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+.bullets strong{color:var(--fg);font-weight:600}
+.panel-meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}
+.panel-meta .chip{font-size:12.5px}
 
-/* ---------- traceability ---------- */
-.trace-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;max-width:760px}
-.trace-list li{display:grid;grid-template-columns:132px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
-.trace-list li:first-child{padding-top:0}
-.trace-list li:last-child{border-bottom:0;padding-bottom:0}
-.trace-key{font-family:var(--serif);font-weight:650;font-size:15px;color:var(--ink)}
-.trace-val{color:var(--muted);font-size:15px;line-height:1.75}
-.trace-val strong{color:var(--ink);font-weight:600}
+/* ---------- trace ---------- */
+.trace{list-style:none;margin:0;padding:0;max-width:780px}
+.trace li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--border)}
+.trace li:first-child{padding-top:0}
+.trace li:last-child{border-bottom:0;padding-bottom:0}
+.trace-key{font-weight:640;font-size:15px;color:var(--fg)}
+.trace-val{color:var(--text-2);font-size:15px;line-height:1.75}
+.trace-val strong{color:var(--fg);font-weight:600}
+.trace-shot{margin:44px 0 0}
+.cmd{margin:32px 0 0;max-width:780px}
+.cmd .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.cmd code{display:block;font:13.5px/1.7 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;overflow-x:auto;white-space:pre}
 
-/* ---------- product shots ---------- */
-.shot{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);box-shadow:var(--shadow);margin:0}
-.shot img{display:block;width:100%;height:auto}
-.shot figcaption{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-.shot .badge{font-size:12px;font-weight:600;color:var(--green);background:var(--green-soft);border:1px solid var(--line);border-radius:999px;padding:2px 10px;line-height:1.5;white-space:nowrap}
-.hero-shot{margin:44px 0 0}
-.trace-shot{margin:40px 0 0}
-.features-shot{max-width:820px;margin:40px auto 0}
-.audit-cmd{margin:28px 0 0}
-.audit-cmd .lbl{font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
-.audit-cmd code{display:block;font:13.5px/1.7 var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;overflow-x:auto;white-space:pre}
-
-/* ---------- roles ---------- */
-.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.role{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 28px;box-shadow:var(--shadow-sm)}
-.role h3{font-size:18px;font-weight:650;margin:0 0 6px}
-.role .role-en{font-size:12.5px;letter-spacing:.06em;color:var(--green);font-family:var(--serif);display:block;margin-bottom:14px}
-.role p{margin:0;color:var(--muted);font-size:15px;line-height:1.75}
-
-/* ---------- features ---------- */
-.features{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
-.feature{padding:28px 30px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.feature:nth-child(-n+2){border-top:0}
-.feature:nth-child(odd){border-left:0}
-.feature h3{font-size:17px;font-weight:650;margin:0 0 8px}
-.feature p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.7}
+/* ---------- roles / features ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.role .role-en{display:block;font:700 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+.role h3{font-size:17px;margin-bottom:8px}
+.role p{color:var(--text-2);font-size:14.5px;line-height:1.7}
+.role-lead{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:clamp(18px,3vw,36px);align-items:start;margin-bottom:20px;border-color:var(--accent-line)}
+.role-lead .role-en{margin-bottom:10px}
+.role-lead h3{font-size:20px}
+.role-lead p{color:var(--text-2);font-size:15px;line-height:1.75;max-width:62ch}
+.feat h3{font-size:16px;margin:16px 0 8px}
+.feat p{color:var(--text-2);font-size:14px;line-height:1.7}
+.feat-shot{max-width:840px;margin:44px auto 0}
 
 /* ---------- budget ---------- */
-.budget-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
-.budget-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow-sm)}
-.budget-card h3{font-size:17px;font-weight:650;margin:0 0 16px}
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.budget-grid h3{font-size:17px;margin-bottom:16px}
 table{width:100%;border-collapse:collapse;font-size:14.5px}
-th{font-weight:600;text-align:left;color:var(--muted);font-size:13px;padding:9px 10px;border-bottom:1px solid var(--line)}
-td{padding:11px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th{font-weight:600;text-align:left;color:var(--text-3);font-size:12.5px;letter-spacing:.02em;padding:9px 10px;border-bottom:1px solid var(--border)}
+td{padding:11px 10px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
 tr:last-child td{border-bottom:0}
-td .num{font-family:var(--mono);font-size:14px}
-.budget-note{margin:18px 0 0;color:var(--muted);font-size:13.5px;line-height:1.7}
-
-/* ---------- limits ---------- */
-.limits{list-style:none;margin:0;padding:0;max-width:760px}
-.limits li{position:relative;padding:16px 0 16px 30px;border-bottom:1px solid var(--line);color:var(--muted);font-size:15px;line-height:1.75}
-.limits li:first-child{padding-top:0}
-.limits li:last-child{border-bottom:0}
-.limits li::before{content:"";position:absolute;left:6px;top:22px;width:6px;height:6px;border-radius:50%;background:var(--line)}
-.limits li:first-child::before{top:6px}
-.limits strong{color:var(--ink);font-weight:600}
+td .num{font-family:var(--mono);font-size:13.5px}
+.note{margin:18px 0 0;color:var(--text-3);font-size:13.5px;line-height:1.7}
 
 /* ---------- start ---------- */
-.start-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
-.codeblock{position:relative;background:var(--ink);border-radius:var(--radius);padding:22px 24px 24px;box-shadow:var(--shadow)}
-.codeblock .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.codeblock .dot{display:flex;gap:6px}
-.codeblock .dot i{width:10px;height:10px;border-radius:50%;background:oklch(0.5 0.02 159);display:block}
-.codeblock .dot i:first-child{background:oklch(0.5 0.02 159)}
-.codeblock .dot i:nth-child(2){background:oklch(0.55 0.02 159)}
-.codeblock .dot i:nth-child(3){background:oklch(0.6 0.02 159)}
-.codeblock pre{margin:0;overflow-x:auto}
-.codeblock code{font:14px/1.9 var(--mono);color:oklch(0.9 0.005 100);white-space:pre}
-.codeblock code .p{color:var(--green)}
-.copy-btn{background:oklch(1 0 0 / .08);border:1px solid oklch(1 0 0 / .16);color:oklch(0.92 0.005 100);font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--radius-sm);cursor:pointer}
-.copy-btn:hover{background:oklch(1 0 0 / .14)}
+.start-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:start}
+.terminal{background:var(--fg);border-radius:var(--r-lg);padding:22px 24px 24px;box-shadow:var(--shadow)}
+.terminal .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.terminal .dot{display:flex;gap:6px}
+.terminal .dot i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,#faf9f6 24%,#1e2320);display:block}
+.terminal pre{margin:0;overflow-x:auto}
+.terminal code{font:14px/1.9 var(--mono);color:#faf9f6;white-space:pre}
+.terminal code .p{color:var(--accent-light)}
+.copy-btn{background:color-mix(in srgb,#faf9f6 12%,#1e2320);border:1px solid color-mix(in srgb,#faf9f6 26%,#1e2320);color:#faf9f6;font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--r-sm);cursor:pointer;transition:background .15s ease}
+.copy-btn:hover{background:color-mix(in srgb,#faf9f6 20%,#1e2320);color:#faf9f6}
 .reqs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
-.reqs li{position:relative;padding-left:24px;color:var(--muted);font-size:15px;line-height:1.7}
-.reqs li::before{content:"—";position:absolute;left:0;top:0;color:var(--green)}
-.reqs strong{color:var(--ink);font-weight:600}
-.reqs .flags{display:block;font:13.5px/1.8 var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;margin-top:8px;overflow-x:auto;white-space:pre}
+.reqs li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.7}
+.reqs li::before{content:"—";position:absolute;left:0;top:0;color:var(--accent-2)}
+.reqs strong{color:var(--fg);font-weight:600}
+.reqs .flags{display:block;font:13.5px/1.8 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;margin-top:8px;overflow-x:auto;white-space:pre}
+
+/* ---------- final cta ---------- */
+.cta-band{background:var(--accent-2);border-radius:clamp(16px,2.4vw,24px);padding:clamp(48px,7vw,80px) clamp(24px,5vw,64px);text-align:center;position:relative;overflow:hidden}
+.cta-band .ring{position:absolute;border-radius:50%;border:1px solid color-mix(in srgb,#ffffff 26%,transparent)}
+.cta-band .ring.a{width:340px;height:340px;top:-140px;right:-100px}
+.cta-band .ring.b{width:260px;height:260px;bottom:-130px;left:-90px}
+.cta-band .inner{position:relative}
+.cta-band h2{color:#ffffff;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.025em;line-height:1.15;max-width:16em;margin:0 auto 12px;text-wrap:balance}
+.cta-band p{color:#ffffff;font-size:17px;max-width:52ch;margin:0 auto 28px}
+.cta-band .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+.btn-invert{background:#ffffff;color:var(--accent-2);border-color:#ffffff}
+.btn-invert:hover{background:#ffffff;color:var(--accent-2);box-shadow:0 8px 22px -8px color-mix(in srgb,#1e2320 30%,transparent);transform:translateY(-1px)}
+.cta-band .link-w{color:#ffffff;font-weight:600;font-size:15px;padding:0 6px}
+.cta-band .link-w:hover{color:#ffffff}
+.section-cta{padding:0 0 clamp(64px,8vw,96px)}
 
 /* ---------- footer ---------- */
-.footer{border-top:1px solid var(--line);padding:44px 0 56px}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.footer-brand{display:inline-flex;align-items:center;gap:9px;color:var(--muted);font-size:14px}
-.footer-brand svg{width:16px;height:16px;color:var(--green)}
-.footer-links{display:flex;flex-wrap:wrap;gap:20px}
-.footer-links a{color:var(--muted);font-size:14px}
-.footer-links a:hover{color:var(--ink)}
-.footer-note{color:var(--muted);font-size:13px;width:100%;margin-top:20px}
+.footer{border-top:1px solid var(--border);padding:clamp(48px,6vw,64px) 0 32px}
+.footer-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:17px;letter-spacing:-.02em}
+.footer-brand img{width:22px;height:22px}
+.footer-desc{color:var(--text-3);font-size:13.5px;max-width:34ch;margin-top:12px;line-height:1.7}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:16px}
+.footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.footer-col a{color:var(--text-2);font-size:14px}
+.footer-col a:hover{color:var(--fg)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
 
 /* ---------- responsive ---------- */
-@media (max-width:920px){
-  .arch-nodes{grid-template-columns:1fr;gap:10px}
-  .arch-arrow{justify-self:center;transform:rotate(90deg)}
-  .roles{grid-template-columns:1fr}
-  .start-grid{grid-template-columns:1fr;gap:40px}
-  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 20px 16px;margin:0;display:none}
+@media (max-width:960px){
+  .why,.grid-3,.grid-features{grid-template-columns:1fr 1fr}
+  .start-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:10px}
+  .step-arrow{justify-self:center;transform:rotate(90deg)}
+  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px 16px;margin:0;display:none}
   .nav-links.open{display:flex}
-  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--line)}
+  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--border)}
   .nav-links a:last-child{border-bottom:0}
   .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .footer-cols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:640px){
-  .features{grid-template-columns:1fr}
-  .feature{border-left:0}
-  .feature:nth-child(2){border-top:1px solid var(--line)}
-  .budget-grid{grid-template-columns:1fr}
-  .trace-list li{grid-template-columns:1fr;gap:6px}
-  .hero{padding:64px 0 56px}
-  .sec{padding:60px 0}
+  .why,.grid-3,.grid-features,.budget-grid{grid-template-columns:1fr}
+  .role-lead{grid-template-columns:1fr;gap:8px}
+  .trace li{grid-template-columns:1fr;gap:6px}
+  .hero-ctas .btn{width:100%}
   .nav-actions .btn-ghost{display:none}
 }
 </style>
@@ -222,21 +237,21 @@ td .num{font-family:var(--mono);font-size:14px}
 <header class="nav" data-od-id="site-header">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" data-od-id="nav-brand">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 9 A9 9 0 0 1 39 18 L39 30 A9 9 0 0 1 30 39 L18 39 A9 9 0 0 1 9 30 L9 18 A9 9 0 0 1 18 9" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.5 9 L18 12.6 L18 5.4 Z" fill="currentColor"/></svg>
+      <img src="assets/briefloop-mark.svg" alt="">
       <span>BriefLoop</span>
     </a>
     <nav class="nav-links" id="nav-links" aria-label="站点导航">
+      <a href="#why">为什么</a>
       <a href="#how">工作原理</a>
       <a href="#traceability">可追溯交付</a>
-      <a href="#roles">角色</a>
+      <a href="#features">能力</a>
       <a href="#budget">预算</a>
-      <a href="#limits">边界</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">立即开始</a>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
+      <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">开始使用</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
-        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
   </div>
@@ -246,16 +261,15 @@ td .num{font-family:var(--mono);font-size:14px}
   <!-- hero -->
   <section class="hero" data-od-id="hero">
     <div class="wrap">
-      <p class="eyebrow">
-        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 9 A9 9 0 0 1 39 18 L39 30 A9 9 0 0 1 30 39 L18 39 A9 9 0 0 1 9 30 L9 18 A9 9 0 0 1 18 9" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.5 9 L18 12.6 L18 5.4 Z" fill="currentColor"/></svg>
-        单人 · 本地 · 开源（MIT）· v0.17.1
-      </p>
-      <h1 data-od-id="hero-title">与材料<span class="mark">一起思考。</span></h1>
+      <span class="eyebrow" data-od-id="hero-eyebrow">
+        <img src="assets/briefloop-mark.svg" alt="" style="width:14px;height:14px">
+        本地 · 开源（MIT）· v0.17.1
+      </span>
+      <h1 data-od-id="hero-title">与材料一起思考。</h1>
       <p class="lead">BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕你的问题找来源、写出可编辑的报告、独立评分，再把反馈沉淀成下一次可用的经验。</p>
-      <p class="hero-note">不建多人平台，也不替模型的效果打包票——代码只做确定的事，交付由你拍板。</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#start" data-od-id="hero-cta-start">开始使用</a>
-        <a class="btn btn-ghost" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">查看 GitHub ↗</a>
+        <a class="btn btn-primary btn-lg" href="#start" data-od-id="hero-cta-start">开始使用</a>
+        <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">查看 GitHub ↗</a>
       </div>
       <div class="hero-meta" aria-label="运行环境">
         <span class="chip">macOS</span>
@@ -264,79 +278,108 @@ td .num{font-family:var(--mono);font-size:14px}
         <span class="chip">自定义 API 协议</span>
         <span class="chip">服务只监听本机</span>
       </div>
-      <figure class="shot hero-shot" data-od-id="hero-shot">
+      <figure class="shot" data-od-id="hero-shot">
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · BriefLoop 对话工作台</span></div>
         <img src="assets/workbench-chat.png" alt="BriefLoop 对话工作台界面：材料与需求、对话与报告、来源追溯同台（合成示例数据）" width="1600" height="1000" decoding="async">
         <figcaption><span class="badge">真实界面</span> 对话工作台 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- how it works -->
-  <section class="sec" id="how" data-od-id="section-how">
+  <!-- why -->
+  <section class="section" id="why" data-od-id="section-why">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">工作原理</p>
-        <h2>四步，把材料变成可追溯的报告。</h2>
+        <span class="kicker">为什么</span>
+        <h2 class="h2">不是又一个 AI 写作工具。</h2>
+        <p class="sub">材料不出机、结论可追问、评分独立于写稿——这三件事决定了报告能不能被核查。</p>
+      </div>
+      <div class="why">
+        <div class="card" data-od-id="why-local">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></svg></span>
+          <h3>材料不出机</h3>
+          <p>服务只监听本机，材料、稿件与评分都留在你的目录里；关闭网页不会停止正在执行的任务。</p>
+        </div>
+        <div class="card" data-od-id="why-trace">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
+          <h3>每条结论可追问</h3>
+          <p>重要结论挂到原文行、PDF 页、Excel 单元格与图像，不是一句「据我所知」。</p>
+        </div>
+        <div class="card" data-od-id="why-review">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <h3>评分独立于写稿</h3>
+          <p>Evaluator 独立评分、Reviewer 只读复核；低分或未通过，原稿与问题都摆出来让你决定。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="section" id="how" data-od-id="section-how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">工作原理</span>
+        <h2 class="h2">四步，把材料变成可追溯的报告。</h2>
         <p class="sub">点开每一步，看它替你做了什么；底部回路让每一次都比上一次更省心。</p>
       </div>
 
-      <div class="arch" data-od-id="arch-diagram">
-        <div class="arch-nodes" role="tablist" aria-label="工作步骤">
-          <button class="arch-node" id="arch-tab-1" role="tab" aria-selected="true" aria-controls="arch-panel" data-od-id="arch-node-input">
-            <span class="arch-num">01</span>
-            <span class="arch-title">需求与材料</span>
-            <span class="arch-sub">你交给它什么</span>
+      <div data-od-id="arch-diagram">
+        <div class="steps" role="tablist" aria-label="工作步骤">
+          <button class="step" id="arch-tab-1" role="tab" aria-selected="true" aria-controls="arch-panel" data-od-id="arch-node-input">
+            <span class="step-num">01</span>
+            <span class="step-title">需求与材料</span>
+            <span class="step-sub">你交给它什么</span>
           </button>
-          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <button class="arch-node" id="arch-tab-2" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-research">
-            <span class="arch-num">02</span>
-            <span class="arch-title">研究与写作</span>
-            <span class="arch-sub">它替你干什么</span>
+          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+          <button class="step" id="arch-tab-2" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-research">
+            <span class="step-num">02</span>
+            <span class="step-title">研究与写作</span>
+            <span class="step-sub">它替你干什么</span>
           </button>
-          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <button class="arch-node" id="arch-tab-3" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-review">
-            <span class="arch-num">03</span>
-            <span class="arch-title">独立复核</span>
-            <span class="arch-sub">谁来把关</span>
+          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+          <button class="step" id="arch-tab-3" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-review">
+            <span class="step-num">03</span>
+            <span class="step-title">独立复核</span>
+            <span class="step-sub">谁来把关</span>
           </button>
-          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <button class="arch-node" id="arch-tab-4" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-delivery">
-            <span class="arch-num">04</span>
-            <span class="arch-title">可追溯交付</span>
-            <span class="arch-sub">你拿到什么</span>
+          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+          <button class="step" id="arch-tab-4" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-delivery">
+            <span class="step-num">04</span>
+            <span class="step-title">可追溯交付</span>
+            <span class="step-sub">你拿到什么</span>
           </button>
         </div>
 
-        <button class="arch-loop" id="arch-tab-5" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-loop">
-          <svg class="arch-loopicon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7a7 7 0 1 0 0 10h1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 5l4-2 2 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="arch-num">05</span>
-          <span class="arch-loop-text">
-            <span class="arch-title">经验积累</span>
-            <span class="arch-sub">每次交付的反馈沉淀为 Wiki / Skill，回到下一次「需求与材料」</span>
+        <button class="loopbar" id="arch-tab-5" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-loop">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
+          <span class="step-num">05</span>
+          <span class="loopbar-text">
+            <span class="t">经验积累</span>
+            <span class="s">每次交付的反馈沉淀为 Wiki / Skill，回到下一次「需求与材料」</span>
           </span>
         </button>
 
-        <div class="arch-panel" id="arch-panel" role="tabpanel" aria-labelledby="arch-tab-1" data-od-id="arch-panel"></div>
+        <div class="panel" id="arch-panel" role="tabpanel" aria-labelledby="arch-tab-1" data-od-id="arch-panel"></div>
       </div>
     </div>
   </section>
 
   <!-- traceability -->
-  <section class="sec" id="traceability" data-od-id="section-traceability">
+  <section class="section" id="traceability" data-od-id="section-traceability">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">可追溯交付</p>
-        <h2>每一条重要结论，都能被追问。</h2>
+        <span class="kicker">可追溯交付</span>
+        <h2 class="h2">每一条重要结论，都能被追问。</h2>
         <p class="sub">正式交付不是「模型说写完了」，而是把结论钉回它来自的那一行原文、那一页 PDF、那一个单元格。</p>
       </div>
-      <ul class="trace-list">
+      <ul class="trace">
         <li data-od-id="trace-claim">
           <span class="trace-key">主张绑定</span>
           <span class="trace-val">重要结论挂到<strong>原文行、PDF 页、Excel 单元格与图像</strong>，不是一句「据我所知」。正文改过之后，相应绑定需要重新复核。</span>
         </li>
         <li data-od-id="trace-review">
           <span class="trace-key">只读复核</span>
-          <span class="trace-val">Reviewer 只读核对<strong>审计包内的实际产物</strong>，拒绝包外读取、shell 与写入；宿主不落实权限时直接失败，不降级冒充隔离。</span>
+          <span class="trace-val">Reviewer 只读核对<strong>审计包内的实际产物</strong>，拒绝包外读取、shell 与写入。</span>
         </li>
         <li data-od-id="trace-bundle">
           <span class="trace-key">审计包</span>
@@ -348,10 +391,11 @@ td .num{font-family:var(--mono);font-size:14px}
         </li>
       </ul>
       <figure class="shot trace-shot" data-od-id="trace-shot">
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 来源追溯</span></div>
         <img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async">
         <figcaption><span class="badge">真实界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
-      <div class="audit-cmd">
+      <div class="cmd">
         <p class="lbl">导出审计包</p>
         <code>python -m briefloop.audit_bundle /absolute/path/report-audit.zip</code>
       </div>
@@ -359,92 +403,112 @@ td .num{font-family:var(--mono);font-size:14px}
   </section>
 
   <!-- roles -->
-  <section class="sec" id="roles" data-od-id="section-roles">
+  <section class="section" id="roles" data-od-id="section-roles">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">三个角色</p>
-        <h2>评价与学习，各司其职。</h2>
-        <p class="sub">写稿的 Agent 无权宣告自己的稿子合格；评分的、整理的、提议的，各自独立。</p>
+        <span class="kicker">四个角色</span>
+        <h2 class="h2">一个主 Agent，三个独立角色。</h2>
+        <p class="sub">你只和 BriefLoop 对话；写稿的 Agent 无权宣告自己的稿子合格，评分、整理、提议各自独立。</p>
       </div>
-      <div class="roles">
-        <div class="role" data-od-id="role-card-evaluator">
+      <div class="card role role-lead" data-od-id="role-card-briefloop">
+        <div>
+          <span class="role-en">Main Agent</span>
+          <h3>BriefLoop</h3>
+        </div>
+        <p>你对它说话的那一个：接收需求与材料，调度 Scout 找来源、Analyst 写稿，再把可编辑的报告交到你手上。</p>
+      </div>
+      <div class="grid-3">
+        <div class="card role" data-od-id="role-card-evaluator">
           <span class="role-en">Evaluator</span>
           <h3>评价者</h3>
-          <p>给产物打分，比较候选是否真的改善；每次使用独立模型会话。分数不等于事实正确率。</p>
+          <p>给产物打分，比较候选是否真的改善；每次使用独立模型会话，评分与写稿互不干扰。</p>
         </div>
-        <div class="role" data-od-id="role-card-wiki">
+        <div class="card role" data-od-id="role-card-wiki">
           <span class="role-en">Wiki Maintainer</span>
           <h3>经验整理</h3>
-          <p>把反馈与执行观察整理成 Wiki。它是经验，不是当期事实来源。</p>
+          <p>把反馈与执行观察整理成 Wiki，下一次研究直接受益。</p>
         </div>
-        <div class="role" data-od-id="role-card-skill">
+        <div class="card role" data-od-id="role-card-skill">
           <span class="role-en">Skill Proposer</span>
           <h3>技能提议</h3>
-          <p>根据 Wiki 提出或改进 Skill；候选未通过验证不会自动启用。</p>
+          <p>根据 Wiki 提出或改进 Skill；候选经验证后才启用。</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- features -->
-  <section class="sec" id="features" data-od-id="section-features">
+  <section class="section" id="features" data-od-id="section-features">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">能力</p>
-        <h2>够用，而且每一步都透明。</h2>
+        <span class="kicker">能力</span>
+        <h2 class="h2">够用，而且每一步都透明。</h2>
         <p class="sub">从聊天到正式交付，同一套工作台里完成；公开工具与子 Agent 的活动始终可见。</p>
       </div>
-      <div class="features">
-        <div class="feature" data-od-id="feature-card-chat">
+      <div class="grid-features">
+        <div class="card feat" data-od-id="feature-card-chat">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H9l-5 4z"/></svg></span>
           <h3>对话工作台</h3>
           <p>发消息、上传材料、选模型、补要求；公开工具与子 Agent 活动可见。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-workspace">
+        <div class="card feat" data-od-id="feature-card-workspace">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
           <h3>工作区管理</h3>
           <p>打开已有目录或新建，各自保存对话、来源、稿件、评分与 Wiki。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-doc">
+        <div class="card feat" data-od-id="feature-card-doc">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6M9 13h6M9 17h4"/></svg></span>
           <h3>富文档</h3>
           <p>可编辑的富文档，格式与内容一起成版本；Markdown 兼容导入导出。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-industry">
+        <div class="card feat" data-od-id="feature-card-industry">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 15v-4M12 15V8M16 15v-6"/></svg></span>
           <h3>行业定期报告</h3>
           <p>六类章节按行业与任务裁剪，Word / WPS 导出，可选用户模板与企业背景。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-charts">
+        <div class="card feat" data-od-id="feature-card-charts">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M14 3.2A9 9 0 0 1 20.8 10H14z"/></svg></span>
           <h3>图表与 Excel</h3>
           <p>复用 XLSX 内嵌图与原生图表，Agent 可用真实数据生成新图并登记来源。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-media">
+        <div class="card feat" data-od-id="feature-card-media">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.4"/><path d="M4 17l4.5-4 3 2.5L15 12l5 5"/></svg></span>
           <h3>图片与 PDF 页</h3>
           <p>图片原件保存与预览，PDF 按需渲染指定页供视觉模型查看。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-archive">
+        <div class="card feat" data-od-id="feature-card-archive">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3H3z"/><path d="M5 9v10h14V9M10 13h4"/></svg></span>
           <h3>对话整理</h3>
           <p>归档、回收站、恢复、批量归档；报告与 Wiki 不随对话清理删除。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-learn">
+        <div class="card feat" data-od-id="feature-card-learn">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
           <h3>学习闭环</h3>
           <p>编辑后自动合并反馈，Maintainer 整理，Proposer 提议，Evaluator 比较决定。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-runtime">
+        <div class="card feat" data-od-id="feature-card-runtime">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 7H7a5 5 0 0 0 0 10h3M14 7h3a5 5 0 0 1 0 10h-3M9 12h6"/></svg></span>
           <h3>多运行时 · 统一桥接</h3>
           <p>自动发现本机 CLI 并统一接入：Codex、OpenCode、Claude Code、Kimi、Hermes、Reasonix、MiMo 已接入，Kilo、Kiro、Vibe 已接线待实机验证；模型目录统一读取，也可手填模型 ID。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-api">
+        <div class="card feat" data-od-id="feature-card-api">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg></span>
           <h3>自定义 API 协议</h3>
           <p>显式支持 Chat Completions、Responses、Anthropic Messages；保存与测试分开。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-settings">
+        <div class="card feat" data-od-id="feature-card-settings">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/></svg></span>
           <h3>独立设置页</h3>
           <p>模型、API 协议与执行时限集中配置，兼顾浏览器窗口与未来 Electron 共享界面。</p>
         </div>
-        <div class="feature" data-od-id="feature-card-example">
+        <div class="card feat" data-od-id="feature-card-example">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v6l-4.5 9h13L14 9V3z"/><path d="M9 3h6M6.6 15h10.8"/></svg></span>
           <h3>合成周报示例</h3>
           <p>examples/internal-weekly-report 用合成材料体验生成、改稿与 Word 导出，无需真实数据。</p>
         </div>
       </div>
-      <figure class="shot features-shot" data-od-id="feature-shot-doc">
+      <figure class="shot feat-shot" data-od-id="feature-shot-doc">
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 报告正文</span></div>
         <img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="1100" loading="lazy" decoding="async">
         <figcaption><span class="badge">真实界面</span> 报告正文细节 · 正文、表格与引用同稿编辑</figcaption>
       </figure>
@@ -452,15 +516,15 @@ td .num{font-family:var(--mono);font-size:14px}
   </section>
 
   <!-- budget -->
-  <section class="sec" id="budget" data-od-id="section-budget">
+  <section class="section" id="budget" data-od-id="section-budget">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">预算与篇幅</p>
-        <h2>额度明码标价，不花完也不强求。</h2>
+        <span class="kicker">预算与篇幅</span>
+        <h2 class="h2">额度明码标价，不花完也不强求。</h2>
         <p class="sub">整次报告的检索额度由 Scout 共享；字数目标与上限可直接修改。</p>
       </div>
       <div class="budget-grid">
-        <div class="budget-card" data-od-id="budget-table">
+        <div class="card" data-od-id="budget-table">
           <h3>研究预算</h3>
           <table>
             <thead><tr><th>预设</th><th>搜索</th><th>候选 URL</th><th>全文 URL</th></tr></thead>
@@ -469,9 +533,9 @@ td .num{font-family:var(--mono);font-size:14px}
               <tr><td>月报</td><td class="num">30</td><td class="num">200</td><td class="num">45</td></tr>
             </tbody>
           </table>
-          <p class="budget-note">额度适用于受控 Tavily 工具；原生 Codex 搜索无法精确计量，页面会明确区分。达到额度后保留材料、说明缺口，不自动加额。</p>
+          <p class="note">额度适用于受控 Tavily 工具；达到上限后保留材料并说明缺口。</p>
         </div>
-        <div class="budget-card" data-od-id="length-table">
+        <div class="card" data-od-id="length-table">
           <h3>正文篇幅</h3>
           <table>
             <thead><tr><th>预设</th><th>目标字数</th><th>字数上限</th></tr></thead>
@@ -481,42 +545,24 @@ td .num{font-family:var(--mono);font-size:14px}
               <tr><td>详细</td><td class="num">2,000</td><td class="num">2,500</td></tr>
             </tbody>
           </table>
-          <p class="budget-note">中文汉字每字计 1，连续英文或数字串计 1；格式与引用标记不计。旧稿未设置过字数要求时，如实显示「未设置」。</p>
+          <p class="note">中文汉字每字计 1，连续英文或数字串计 1；格式与引用标记不计。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- limits -->
-  <section class="sec" id="limits" data-od-id="section-limits">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">边界</p>
-        <h2>做不到的，我们如实写出来。</h2>
-        <p class="sub">不把离线测试说成质量提升证明，也不把模型的打分当成事实保证。</p>
-      </div>
-      <ul class="limits">
-        <li><strong>检索预算不保证覆盖完整</strong>；模型评分不等于事实正确率。</li>
-        <li>本版<strong>没有重跑效果或 Token 节省实验</strong>，不据此宣称改进。</li>
-        <li>0.17.0 是架构升级，<strong>旧工作区不自动迁移</strong>——保留旧目录，在新工作区按需导入原始材料；0.17.x 工作区继续保留来源、稿件版本与学习记录。</li>
-        <li>Opencode 没有每轮网络硬开关；图片附件<strong>仅视觉模型可读</strong>。</li>
-        <li>Codex 的同等只读受限审阅<strong>仍需完成能力验证</strong>，不把普通文件只读说成全面隔离。</li>
-      </ul>
-    </div>
-  </section>
-
   <!-- start -->
-  <section class="sec" id="start" data-od-id="section-start">
+  <section class="section" id="start" data-od-id="section-start">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">开始使用</p>
-        <h2>一个仓库，一条命令。</h2>
+        <span class="kicker">开始使用</span>
+        <h2 class="h2">一个仓库，一条命令。</h2>
         <p class="sub">首次启动自动建 .venv、装依赖与随仓库提供的 WikiSkill wheel，打开本机网页。</p>
       </div>
       <div class="start-grid">
-        <div class="codeblock" data-od-id="install-block">
+        <div class="terminal" data-od-id="install-block">
           <div class="bar">
-            <span class="dot"><i></i><i></i><i></i></span>
+            <span class="dot" aria-hidden="true"><i></i><i></i><i></i></span>
             <button class="copy-btn" id="copy-cmd" type="button">复制</button>
           </div>
           <pre><code id="install-cmd"><span class="p">$</span> git clone https://github.com/Stahl-G/briefloop.git
@@ -536,23 +582,61 @@ td .num{font-family:var(--mono);font-size:14px}
       </div>
     </div>
   </section>
+
+  <!-- final cta -->
+  <section class="section-cta" data-od-id="section-cta">
+    <div class="wrap">
+      <div class="cta-band" data-od-id="cta-band">
+        <span class="ring a" aria-hidden="true"></span>
+        <span class="ring b" aria-hidden="true"></span>
+        <div class="inner">
+          <h2>把下一份报告，写成可追溯的那种。</h2>
+          <p>克隆仓库、跑一条命令，在本机开始你的第一份 BriefLoop 简报。</p>
+          <div class="actions">
+            <a class="btn btn-invert btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="cta-github">前往 GitHub ↗</a>
+            <a class="link-w" href="#start">或看安装步骤</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="footer" data-od-id="site-footer">
   <div class="wrap">
-    <div class="footer-inner">
-      <span class="footer-brand">
-        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 9 A9 9 0 0 1 39 18 L39 30 A9 9 0 0 1 30 39 L18 39 A9 9 0 0 1 9 30 L9 18 A9 9 0 0 1 18 9" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.5 9 L18 12.6 L18 5.4 Z" fill="currentColor"/></svg>
-        BriefLoop 0.17.1 · MIT
-      </span>
-      <nav class="footer-links" aria-label="页脚导航">
-        <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">使用指南</a>
-        <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">升级说明</a>
-        <a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a>
-        <a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">来源与许可</a>
-      </nav>
-      <p class="footer-note">单人本地工具，服务企业内部可读、可核查的报告；不建设多人企业平台。</p>
+    <div class="footer-cols">
+      <div>
+        <span class="footer-brand"><img src="assets/briefloop-mark.svg" alt=""> BriefLoop</span>
+        <p class="footer-desc">本地 Agent 工作台，服务企业内部可读、可核查的报告。</p>
+      </div>
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="#how">工作原理</a></li>
+          <li><a href="#traceability">可追溯交付</a></li>
+          <li><a href="#features">能力</a></li>
+          <li><a href="#budget">预算与篇幅</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>文档</h4>
+        <ul>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">使用指南</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">升级说明</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>仓库</h4>
+        <ul>
+          <li><a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">来源与许可</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>BriefLoop 0.17.1 · MIT</span>
+      <span>与材料一起思考</span>
     </div>
   </div>
 </footer>
@@ -561,30 +645,34 @@ td .num{font-family:var(--mono);font-size:14px}
 (function(){
   var toggle=document.getElementById('menu-toggle');
   var links=document.querySelector('.nav-links');
-  toggle.addEventListener('click',function(){
-    var open=links.classList.toggle('open');
-    toggle.setAttribute('aria-expanded',open?'true':'false');
-  });
-  links.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      links.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
+  if(toggle&&links){
+    toggle.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
     });
-  });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
   var copyBtn=document.getElementById('copy-cmd');
   var cmd=document.getElementById('install-cmd');
-  copyBtn.addEventListener('click',function(){
-    var text=cmd.innerText.replace(/^\$\s*/gm,'').trim();
-    function done(){copyBtn.textContent='已复制';setTimeout(function(){copyBtn.textContent='复制';},1600);}
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done,function(){fallback();});
-    }else{fallback();}
-    function fallback(){
-      var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
-      try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='复制失败';setTimeout(function(){copyBtn.textContent='复制';},1600);}
-      document.body.removeChild(ta);
-    }
-  });
+  if(copyBtn&&cmd){
+    copyBtn.addEventListener('click',function(){
+      var text=cmd.innerText.replace(/^\$\s*/gm,'').trim();
+      function done(){copyBtn.textContent='已复制';setTimeout(function(){copyBtn.textContent='复制';},1600);}
+      function fallback(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='复制失败';setTimeout(function(){copyBtn.textContent='复制';},1600);}
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done,fallback);
+      }else{fallback();}
+    });
+  }
 })();
 </script>
 <script>
@@ -603,21 +691,22 @@ td .num{font-family:var(--mono);font-size:14px}
      bullets:['正式报告导出 <strong>Word / WPS</strong>，可编辑、可成版本。','审计包按需导出：<strong>原件、摘录或仅定位</strong>，可离线校验。','每条结论都能被追问：回到<strong>原文行、PDF 页、Excel 单元格</strong>。'],
      meta:['你拿到：正式报告 + 审计包','每条结论都有出处']},
     {num:'05',title:'经验积累',sub:'越用越好',
-     bullets:['每次交付后的<strong>反馈与修订</strong>，沉淀为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证才启用</strong>，不自动生效。','下一次研究自动受益——<strong>闭环，而不是从零开始</strong>。'],
+     bullets:['每次交付后的<strong>反馈与修订</strong>，沉淀为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证后才启用</strong>。','下一次研究自动受益——<strong>闭环，而不是从零开始</strong>。'],
      meta:['谁在干：Wiki Maintainer · Skill Proposer · Evaluator']}
   ];
   var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));
   var panel=document.getElementById('arch-panel');
+  if(!tabs.length||!panel)return;
   function select(tab){
     var idx=tabs.indexOf(tab);
     tabs.forEach(function(t,i){t.setAttribute('aria-selected',i===idx?'true':'false');});
-    if(!panel||idx<0)return;
+    if(idx<0)return;
     var s=stages[idx];
     panel.setAttribute('aria-labelledby',tab.id);
     panel.innerHTML=
-      '<div class="arch-panel-head"><span class="arch-num">'+s.num+'</span><h3>'+s.title+'</h3></div>'+
-      '<ul class="arch-bullets">'+s.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
-      '<div class="arch-meta">'+s.meta.map(function(m){return '<span class="chip">'+m+'</span>';}).join('')+'</div>';
+      '<div class="panel-head"><span class="step-num">'+s.num+'</span><h3>'+s.title+'</h3></div>'+
+      '<ul class="bullets">'+s.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
+      '<div class="panel-meta">'+s.meta.map(function(m){return '<span class="chip">'+m+'</span>';}).join('')+'</div>';
   }
   tabs.forEach(function(t){
     t.addEventListener('click',function(){select(t);});
