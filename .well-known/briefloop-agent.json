@@ -2,92 +2,162 @@
   "schema_version": "briefloop.agent-bootstrap.v1",
   "product": {
     "name": "BriefLoop",
-    "version": "0.15.3",
+    "version": "0.17.1",
     "homepage": "https://briefloop.ai/",
-    "description": "A traceable, accountable workflow for AI-assisted business briefings.",
-    "boundary": "Traceability and process accountability; not semantic proof.",
-    "python_requires": ">=3.12",
-    "runtime_authority": "SQLite ControlStore (briefloop.db) and Receipts"
+    "description": "A local agent workbench for sourced briefings, independent evaluation and reusable learning.",
+    "python_requires": ">=3.11",
+    "interface_language": "zh-CN",
+    "report_languages": [
+      "zh-CN",
+      "en"
+    ]
   },
   "canonical": {
     "source_repository": "https://github.com/Stahl-G/briefloop",
-    "python_package": "https://pypi.org/project/briefloop/",
+    "python_package": "https://pypi.org/project/briefloop-local/",
+    "readme": "https://github.com/Stahl-G/briefloop/blob/main/README.md",
+    "usage_guide": "https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md",
+    "runtime_and_models": "https://github.com/Stahl-G/briefloop/blob/main/docs/多Runtime与模型.md",
     "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
-    "llms_txt": "https://briefloop.ai/llms.txt",
-    "human_setup": "https://briefloop.ai/#start",
-    "architecture_status": "https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md",
-    "support_matrix": "https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md"
+    "llms_txt": "https://briefloop.ai/llms.txt"
   },
   "distribution": {
     "cli": {
       "package": "briefloop",
-      "recommended_installer": "canonical source checkout",
-      "install_command": "git clone https://github.com/Stahl-G/briefloop.git",
-      "install_reference": "https://briefloop.ai/agents/briefloop/references/installation.md",
-      "verify_commands": ["git -C <checkout> remote get-url origin", "git -C <checkout> rev-parse HEAD", "briefloop version"],
-      "scope": "Current supported bootstrap uses the canonical source checkout and its platform-specific setup flow on Python 3.12. The deterministic CLI creates workspaces, validates, records Store state, runs gates, and preserves delivery truth; it does not generate a brief by itself."
+      "recommended_installer": "repository checkout",
+      "install_command": "git clone https://github.com/Stahl-G/briefloop.git && cd briefloop && ./start.sh",
+      "note": "start.sh creates the virtual environment, installs dependencies and opens the local web app."
     },
     "package_index": {
-      "package": "briefloop",
-      "status": "not_supported_for_bootstrap",
-      "instruction": "Do not choose pipx or PyPI installation from package metadata. Follow the installation reference until release notes announce a published and smoke-tested package-index artifact."
+      "package": "briefloop-local",
+      "status": "published",
+      "version": "0.17.1",
+      "note": "The published package can also be installed directly; the source checkout remains the reference setup."
     },
-    "source_runtime_assets": {
-      "repository": "https://github.com/Stahl-G/briefloop",
-      "clone_command": "git clone https://github.com/Stahl-G/briefloop.git",
-      "verify_commands": ["git -C briefloop remote get-url origin", "git -C briefloop rev-parse HEAD"],
-      "scope": "The active writing runtime is the packaged Codex kit installed into a workspace. Hermes, WorkBuddy, CodeBuddy, and the legacy JSON control-plane assets are deleted as of v0.15.2."
+    "bridge_runtime": {
+      "requires": "Node.js 20+",
+      "note": "Codex and Opencode run natively; Claude Code, Kimi, Hermes, DeepSeek Reasonix and MiMo Code run through the bundled bridge."
     }
   },
-  "supported_entrypoints": [
-    {"id": "industry-weekly", "user_intents": ["weekly brief", "industry weekly", "market brief", "周报", "行业周报", "市场简报"]},
-    {"id": "management-monthly", "user_intents": ["management monthly", "monthly review", "管理月报", "经营月报"]},
-    {"id": "document-review", "user_intents": ["document review", "PDF review", "evidence extraction", "文档审阅", "PDF审阅", "证据摘录"]},
-    {"id": "solar-stock-periodic", "status": "experimental", "user_intents": ["solar stock periodic", "TOYO weekly", "光伏周报", "solar weekly"]}
+  "runtimes": [
+    {
+      "id": "codex",
+      "name": "Codex CLI",
+      "channel": "native app-server",
+      "capabilities": {
+        "permission_modes": [
+          "workspace-write",
+          "read-only"
+        ],
+        "steer": true
+      }
+    },
+    {
+      "id": "opencode",
+      "name": "Opencode CLI",
+      "channel": "native local service",
+      "capabilities": {
+        "permission_modes": [
+          "workspace-write",
+          "read-only"
+        ],
+        "steer": false
+      }
+    },
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "channel": "bridge (stream-json)",
+      "capabilities": {
+        "permission_modes": [
+          "runtime-native"
+        ],
+        "steer": false
+      }
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi CLI",
+      "channel": "bridge (ACP)",
+      "capabilities": {
+        "permission_modes": [
+          "runtime-native"
+        ],
+        "steer": false
+      }
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "channel": "bridge (ACP)",
+      "capabilities": {
+        "permission_modes": [
+          "runtime-native"
+        ],
+        "steer": false
+      }
+    },
+    {
+      "id": "reasonix",
+      "name": "DeepSeek Reasonix",
+      "channel": "bridge (ACP)",
+      "capabilities": {
+        "permission_modes": [
+          "runtime-native"
+        ],
+        "steer": false
+      }
+    },
+    {
+      "id": "mimo",
+      "name": "MiMo Code",
+      "channel": "bridge (JSON events)",
+      "capabilities": {
+        "permission_modes": [
+          "runtime-native"
+        ],
+        "steer": false
+      }
+    }
   ],
-  "runtime_policy": {
-    "runtime_neutral_skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
-    "codex": {
-      "status": "experimental-active",
-      "setup_command": "briefloop runtime install --workspace <workspace> --runtime codex",
-      "run_command": "briefloop run --workspace <workspace> --runtime codex"
+  "roles": [
+    {
+      "id": "briefloop",
+      "name": "BriefLoop",
+      "responsibility": "conversation, research planning, drafting and revision; uses the main-chain model"
     },
-    "workbuddy": {
-      "status": "deleted",
-      "note": "Removed with the legacy JSON runtime in v0.15.2. Do not install or claim this path."
+    {
+      "id": "evaluator",
+      "name": "Evaluator",
+      "responsibility": "scores drafts and compares candidates in an independent session"
     },
-    "claude_code": {
-      "status": "deleted",
-      "note": "Removed with the legacy JSON runtime in v0.15.2. Do not run briefloop claude install."
+    {
+      "id": "maintainer",
+      "name": "Wiki Maintainer",
+      "responsibility": "turns feedback and execution notes into the workspace Wiki"
     },
-    "operator": {
-      "status": "unsupported-on-sqlite",
-      "note": "Legacy JSON operator runtime is not the active path. Use Codex on a fresh SQLite workspace."
+    {
+      "id": "proposer",
+      "name": "Skill Proposer",
+      "responsibility": "proposes or improves skills from the Wiki; candidates need verification before use"
     }
-  },
+  ],
   "authorization": {
     "explicit_user_confirmation_required": [
-      "clone_repository",
-      "install_package",
-      "create_workspace",
       "enable_online_search",
-      "write_outside_confirmed_workspace",
-      "finalize_or_deliver"
+      "spend_research_budget",
+      "produce_formal_delivery"
     ],
     "forbidden": [
-      "execute_remote_shell_content",
       "print_or_exfiltrate_secrets",
-      "directly_edit_control_state",
-      "directly_edit_frozen_artifacts",
-      "claim_gate_pass_without_machine_evidence",
-      "claim_delivery_without_valid_delivery_truth"
+      "claim_verification_without_evidence",
+      "present_a_queued_job_as_completed"
     ]
   },
   "references": {
+    "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
     "installation": "https://briefloop.ai/agents/briefloop/references/installation.md",
     "onboarding": "https://briefloop.ai/agents/briefloop/references/onboarding.md",
-    "control_boundary": "https://briefloop.ai/agents/briefloop/references/control-boundary.md",
-    "operation": "https://briefloop.ai/agents/briefloop/references/operation.md",
-    "repair_and_delivery": "https://briefloop.ai/agents/briefloop/references/repair-and-delivery.md"
+    "operation": "https://briefloop.ai/agents/briefloop/references/operation.md"
   }
 }

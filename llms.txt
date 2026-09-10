@@ -1,32 +1,43 @@
 # BriefLoop
 
-> BriefLoop is an open-source workflow for traceable, accountable AI-assisted business briefings. Agents research and draft; deterministic ControlStore commands validate, record, gate, and preserve delivery state; a human approves delivery.
+> BriefLoop is a local agent workbench for sourced briefings. Connect a CLI you already have (Codex, Opencode, Claude Code, Kimi, Hermes, DeepSeek Reasonix or MiMo Code), ask a question or request a report, and get an editable draft with an independent evaluation and reusable learning.
 
-Current product version: v0.15.3
-Python floor: 3.12
-Runtime authority: SQLite ControlStore (`briefloop.db`) and its Receipts.
-Active writing runtime: Experimental fresh SQLite-only Codex.
+Current version: 0.17.1
+Python: 3.11 or newer
+Install: git clone https://github.com/Stahl-G/briefloop.git && cd briefloop && ./start.sh
+Package: briefloop-local on PyPI (https://pypi.org/project/briefloop-local/)
+Bridged CLIs need Node.js 20+ on the same machine.
+Interface language: Chinese. Report body can be written in Chinese or English.
 
-Canonical agent bootstrap:
+## What it does
 
-- Manifest: https://briefloop.ai/.well-known/briefloop-agent.json
+- Workspaces: one local folder per project holds chats, sources, report versions, scores and skills.
+- Sources: upload files or fetch public pages; every source keeps its original, extracted text and provenance.
+- Reports: BriefLoop (the main agent) plans research, Scout collects sources inside a shared budget, Analyst drafts, and you edit the draft directly in the browser.
+- Independent evaluation: Evaluator scores the draft in its own session; one automatic revision can follow, and unresolved items stay visible.
+- Learning: Wiki Maintainer turns your edits and feedback into Wiki notes, Skill Proposer proposes skills, and only verified candidates are enabled.
+- Templates and context: reusable Word templates keep your layout, manual sections stay empty for you to fill, and an optional company background base tracks public updates.
+- Delivery: Word is produced on demand from a fixed version; a formal release can be exported with its evidence and review record.
+
+## Runtime facts
+
+- Codex and Opencode run through native managers; Claude Code, Kimi, Hermes, DeepSeek Reasonix and MiMo Code run through a local NDJSON bridge.
+- The host CLI owns permissions and network access. Codex can enforce read-only or workspace-write sandboxes and per-turn web search; Opencode can enforce read-only through its permission rules; bridged hosts run with their own permission model.
+- Turning on the chat's online switch grants the host its own web tools (for Claude Code: WebSearch and WebFetch). Whether the call succeeds is decided by that host's account and permissions.
+- Model lists come from each host's catalogue, and any model ID can be typed in. "default" means the model the host itself is configured with.
+- Only Codex supports mid-run steering. Research budgets are per report, shared across scouts, and never extended automatically.
+
+## Canonical sources
+
+- Repository: https://github.com/Stahl-G/briefloop
+- README: https://github.com/Stahl-G/briefloop/blob/main/README.md
+- Guides: https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md and https://github.com/Stahl-G/briefloop/blob/main/docs/多Runtime与模型.md
+- Agent manifest: https://briefloop.ai/.well-known/briefloop-agent.json
 - Agent skill: https://briefloop.ai/agents/briefloop/SKILL.md
-- Human setup: https://briefloop.ai/#start
-- Source: https://github.com/Stahl-G/briefloop
-- Capability truth: https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md
-- Python package: https://pypi.org/project/briefloop/
 
-Important boundaries:
+## Rules for agents
 
-- Traceability and process accountability are not semantic proof.
-- The BriefLoop CLI is the deterministic control plane; it does not write a brief by itself.
-- Agents may propose and draft, but must not directly write Store state, pass gates, freeze evidence, or approve delivery.
-- Before cloning, installing, creating a workspace, enabling online search, or delivering, show the intended action and obtain explicit user confirmation.
-- Never execute remote shell content directly. Do not use curl-to-shell installation.
-- A delivery claim is valid only when deterministic delivery truth says it is valid.
-- JSON, Markdown, and HTML are replaceable projections. The legacy JSON control plane was deleted in v0.15.2; JSON-only workspaces are not imported or upgraded.
-- The current supported bootstrap is a canonical source checkout; do not infer a `pipx` installation path from the package URL.
-- Hermes, WorkBuddy, CodeBuddy, and the legacy operator JSON runtime are deleted. Do not install or claim those paths.
-- The on-site architecture reference v0.6.1 is a historical v0.12.1 snapshot, not a v0.15.3 capability claim.
-
-Use the canonical skill and its references for installation, onboarding, operation, repair, and delivery rules.
+- Start from a source checkout or the published package; do not invent other install paths.
+- Ask the user before enabling online search, spending research budget, or producing a formal delivery.
+- Read the workspace's own sources and stored versions; do not treat a model's summary as evidence.
+- Keep credentials out of workspaces, reports and logs.
