@@ -1,36 +1,29 @@
-# Control Boundary
+# Control boundary
 
-## Authority Model
+## Use the app's interfaces
 
-1. Agents understand, research, propose, draft, and revise content.
-2. Deterministic BriefLoop commands own persistent control state, validation,
-   hashes, stage transitions, gates, evidence freezing, and delivery truth.
-3. Humans approve consequential setup choices and final delivery.
+- Read and write through the web app, the loopback HTTP API, or `briefloop tool …`.
+- Do not edit `briefloop.db` or the files under `sources/`, `jobs/`, `exports/` and `wiki/` directly; the workspace owns their state, hashes and version links.
+- One service per workspace. Do not start a second process for the same folder.
 
-Agent output is a proposal until the deterministic control plane accepts and
-records the relevant transaction.
+## Versions and releases
 
-## Single Writer Rule
+- Editing a draft creates a new version; older versions stay readable.
+- A score, a Word export and a formal release are bound to one version. Never rewrite a version a release or an audit bundle points at.
+- Formal delivery is the user's action — confirm before producing it.
 
-Do not directly edit the SQLite ControlStore (`briefloop.db`) or overwrite
-frozen artifacts. JSON, Markdown, and HTML files next to a workspace are
-projections, not authority. Use sanctioned BriefLoop runtime commands for
-repair, supersede, new revision, or new run behavior. JSON-only workspaces
-are unsupported; start a fresh `init`.
+## Credentials
 
-## Evidence Boundary
+- Host credentials stay with the host CLI (`~/.codex`, `~/.claude`, `~/.config/opencode`, …); the Tavily key lives at `~/.config/briefloop/tavily.key` (0600) or in `TAVILY_API_KEY`.
+- Credentials never enter a workspace, a report, a Wiki note or a log.
 
-A registered source proves provenance, not truth. A link, search result,
-candidate source, or model summary does not prove that evidence semantically
-supports every word of a claim. Preserve limitations and route uncertain
-judgments to typed findings or human review.
+## Permissions belong to the host
 
-Allowed framing:
+- Codex enforces read-only / workspace-write sandboxes and per-turn web search; Opencode enforces read-only through its permission rules.
+- Bridged hosts (Claude Code, Kimi, Hermes, Reasonix, MiMo) run with their own permission model. BriefLoop cannot enforce a restriction the host does not offer — say so instead of implying one.
+- Switching runtime never rewrites an existing session; start a new one.
 
-> BriefLoop records provenance and process evidence, and deterministic gates
-> can block configured risks.
+## Evidence
 
-Disallowed framing:
-
-> BriefLoop proves claims are true, eliminates hallucinations, or guarantees
-> output quality.
+- Sources are the evidence: originals, extracted text, locators and dates. A model summary, a search snippet or a score is not evidence.
+- Keep unverified material visible as unverified instead of smoothing it over.

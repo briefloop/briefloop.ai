@@ -1,406 +1,482 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>运作原理 — BriefLoop.ai 治理模型、门禁模拟与开发者协作</title>
-    <meta name="description" content="BriefLoop 的治理模型、质量门禁模拟、演进环、责任边界、交付入口与开发者协作方式：AI 负责起草与提议，确定性控制面负责审计与记账，人类负责最终放行。">
-    <link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作原理 — BriefLoop 的多宿主报告工作台</title>
+<meta name="description" content="BriefLoop 工作原理：需求与材料、研究与写作、独立评价、交付与学习。七个宿主 CLI、共享研究预算、版本绑定与审计包。">
+<link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
+<style>
+:root{
+  --bg:#faf9f6;
+  --surface:#ffffff;
+  --fg:#1e2320;
+  --muted:#6a706b;
+  --border:#dedfd8;
+  --accent:#006838;
+  --accent-2:#006838;
+  --accent-hover:oklch(0.38 0.1136 154.4);
+  --accent-light:color-mix(in srgb,#006838 55%,#faf9f6);
+  --text-2:#5a615b;
+  --text-3:#6a706b;
+  --accent-soft:color-mix(in srgb,#006838 7%,#ffffff);
+  --accent-line:color-mix(in srgb,#006838 22%,#ffffff);
+  --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --r-xs:4px;
+  --r-sm:6px;
+  --r:8px;
+  --r-lg:12px;
+  --shadow-sm:0 1px 2px color-mix(in srgb,#1e2320 5%,transparent);
+  --shadow:0 1px 2px color-mix(in srgb,#1e2320 4%,transparent),0 12px 32px color-mix(in srgb,#1e2320 6%,transparent);
+  --shadow-lg:0 32px 80px -28px color-mix(in srgb,#1e2320 16%,transparent);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+section{scroll-margin-top:88px}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,#faf9f6 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:18px;letter-spacing:-.02em;flex:none}
+.brand:hover{color:var(--fg);text-decoration:none}
+.brand img{width:24px;height:24px;flex:none}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:8px}
+.nav-links a{color:var(--text-2);font-size:14.5px;padding:8px 12px;border-radius:var(--r-sm)}
+.nav-links a:hover{color:var(--fg);background:var(--surface);text-decoration:none}
+.nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.menu-toggle{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 10px;color:var(--fg);cursor:pointer}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);height:44px;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--accent-2);color:#ffffff;border-color:var(--accent-2)}
+.btn-primary:hover{background:var(--accent-hover);color:#ffffff;box-shadow:0 6px 18px -6px color-mix(in srgb,#006838 45%,transparent);transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0);box-shadow:none}
+.btn-ghost{background:transparent;color:var(--fg);border-color:var(--border)}
+.btn-ghost:hover{background:var(--surface);color:var(--fg);border-color:var(--muted)}
+.btn-sm{height:36px;padding:0 14px;font-size:14px}
+.btn-lg{height:52px;padding:0 26px;font-size:16.5px}
+
+/* ---------- shared ---------- */
+.section{padding:clamp(64px,8vw,100px) 0;border-top:1px solid var(--border)}
+.section.plain{border-top:0}
+.kicker{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px}
+.h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:12px;text-wrap:balance}
+.sub{color:var(--text-2);font-size:17px;max-width:64ch}
+.sec-head{max-width:680px;margin-bottom:clamp(32px,4vw,48px)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--surface)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 26px 28px}
+.card.soft{background:var(--bg)}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);flex:none}
+.ico svg{width:20px;height:20px}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(56px,8vw,96px) 0 0;text-align:center}
+.hero h1{font-size:clamp(40px,7vw,68px);letter-spacing:-.035em;line-height:1.06;margin:22px auto 20px;max-width:12em;text-wrap:balance}
+.lead{font-size:clamp(17px,1.6vw,19.5px);line-height:1.75;color:var(--text-2);max-width:60ch;margin:0 auto}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:32px 0 0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 0}
+.chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
+.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
+.shot .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.shot .dot{width:10px;height:10px;border-radius:50%;background:var(--border);display:block}
+.shot .dot:nth-child(2){background:color-mix(in srgb,#1e2320 22%,#faf9f6)}
+.shot .dot:nth-child(3){background:color-mix(in srgb,#1e2320 34%,#faf9f6)}
+.shot .url{flex:1;max-width:360px;margin-left:10px;height:24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:11.5px;color:var(--text-3);overflow:hidden;white-space:nowrap}
+.shot img{width:100%;height:auto}
+.shot figcaption{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
+.badge{font-size:12px;font-weight:600;color:var(--accent-2);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px;line-height:1.6;white-space:nowrap}
+
+/* ---------- why ---------- */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why .card h3{font-size:17px;margin:18px 0 8px}
+.why .card p{color:var(--text-2);font-size:14.5px;line-height:1.7}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.step{appearance:none;display:flex;flex-direction:column;gap:8px;text-align:left;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;cursor:pointer;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
+.step:hover{border-color:var(--muted);box-shadow:var(--shadow-sm)}
+.step[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft);box-shadow:var(--shadow-sm)}
+.step-num{font:700 13px/1 var(--mono);color:var(--accent-2);letter-spacing:.04em}
+.step-title{font-size:16px;font-weight:640;line-height:1.3}
+.step-sub{color:var(--text-3);font-size:13px;line-height:1.5}
+.step-arrow{display:inline-flex;align-items:center;align-self:center;color:var(--muted)}
+.step-arrow svg{width:20px;height:20px}
+.loopbar{appearance:none;display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--surface);border:1px dashed var(--border);border-radius:var(--r-lg);padding:14px 18px;margin-top:12px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.loopbar:hover{border-color:var(--muted)}
+.loopbar[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft)}
+.loopbar .ico{width:34px;height:34px;background:transparent;border:1px solid var(--accent-line)}
+.loopbar-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.loopbar .t{font-size:15px;font-weight:640}
+.loopbar .s{font-size:12.5px;color:var(--text-3)}
+.panel{margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;box-shadow:var(--shadow-sm)}
+.panel-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.panel-head h3{font-size:19px}
+.bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.bullets li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.75}
+.bullets li::before{content:"";position:absolute;left:2px;top:11px;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+.bullets strong{color:var(--fg);font-weight:600}
+.panel-meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}
+.panel-meta .chip{font-size:12.5px}
+
+/* ---------- trace ---------- */
+.trace{list-style:none;margin:0;padding:0;max-width:780px}
+.trace li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--border)}
+.trace li:first-child{padding-top:0}
+.trace li:last-child{border-bottom:0;padding-bottom:0}
+.trace-key{font-weight:640;font-size:15px;color:var(--fg)}
+.trace-val{color:var(--text-2);font-size:15px;line-height:1.75}
+.trace-val strong{color:var(--fg);font-weight:600}
+.trace-shot{margin:44px 0 0}
+.cmd{margin:32px 0 0;max-width:780px}
+.cmd .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.cmd code{display:block;font:13.5px/1.7 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;overflow-x:auto;white-space:pre}
+
+/* ---------- roles / features ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.role .role-en{display:block;font:700 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+.role h3{font-size:17px;margin-bottom:8px}
+.role p{color:var(--text-2);font-size:14.5px;line-height:1.7}
+.role-lead{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:clamp(18px,3vw,36px);align-items:start;margin-bottom:20px;border-color:var(--accent-line)}
+.role-lead .role-en{margin-bottom:10px}
+.role-lead h3{font-size:20px}
+.role-lead p{color:var(--text-2);font-size:15px;line-height:1.75;max-width:62ch}
+.feat h3{font-size:16px;margin:16px 0 8px}
+.feat p{color:var(--text-2);font-size:14px;line-height:1.7}
+.feat-shot{max-width:840px;margin:44px auto 0}
+
+/* ---------- budget ---------- */
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.budget-grid h3{font-size:17px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-weight:600;text-align:left;color:var(--text-3);font-size:12.5px;letter-spacing:.02em;padding:9px 10px;border-bottom:1px solid var(--border)}
+td{padding:11px 10px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td .num{font-family:var(--mono);font-size:13.5px}
+.note{margin:18px 0 0;color:var(--text-3);font-size:13.5px;line-height:1.7}
+
+/* ---------- start ---------- */
+.start-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:start}
+.terminal{background:var(--fg);border-radius:var(--r-lg);padding:22px 24px 24px;box-shadow:var(--shadow)}
+.terminal .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.terminal .dot{display:flex;gap:6px}
+.terminal .dot i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,#faf9f6 24%,#1e2320);display:block}
+.terminal pre{margin:0;overflow-x:auto}
+.terminal code{font:14px/1.9 var(--mono);color:#faf9f6;white-space:pre}
+.terminal code .p{color:var(--accent-light)}
+.copy-btn{background:color-mix(in srgb,#faf9f6 12%,#1e2320);border:1px solid color-mix(in srgb,#faf9f6 26%,#1e2320);color:#faf9f6;font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--r-sm);cursor:pointer;transition:background .15s ease}
+.copy-btn:hover{background:color-mix(in srgb,#faf9f6 20%,#1e2320);color:#faf9f6}
+.reqs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reqs li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.7}
+.reqs li::before{content:"—";position:absolute;left:0;top:0;color:var(--accent-2)}
+.reqs strong{color:var(--fg);font-weight:600}
+.reqs .flags{display:block;font:13.5px/1.8 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;margin-top:8px;overflow-x:auto;white-space:pre}
+
+/* ---------- final cta ---------- */
+.cta-band{background:var(--accent-2);border-radius:clamp(16px,2.4vw,24px);padding:clamp(48px,7vw,80px) clamp(24px,5vw,64px);text-align:center;position:relative;overflow:hidden}
+.cta-band .ring{position:absolute;border-radius:50%;border:1px solid color-mix(in srgb,#ffffff 26%,transparent)}
+.cta-band .ring.a{width:340px;height:340px;top:-140px;right:-100px}
+.cta-band .ring.b{width:260px;height:260px;bottom:-130px;left:-90px}
+.cta-band .inner{position:relative}
+.cta-band h2{color:#ffffff;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.025em;line-height:1.15;max-width:16em;margin:0 auto 12px;text-wrap:balance}
+.cta-band p{color:#ffffff;font-size:17px;max-width:52ch;margin:0 auto 28px}
+.cta-band .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+.btn-invert{background:#ffffff;color:var(--accent-2);border-color:#ffffff}
+.btn-invert:hover{background:#ffffff;color:var(--accent-2);box-shadow:0 8px 22px -8px color-mix(in srgb,#1e2320 30%,transparent);transform:translateY(-1px)}
+.cta-band .link-w{color:#ffffff;font-weight:600;font-size:15px;padding:0 6px}
+.cta-band .link-w:hover{color:#ffffff}
+.section-cta{padding:0 0 clamp(64px,8vw,96px)}
+
+/* ---------- footer ---------- */
+.footer{border-top:1px solid var(--border);padding:clamp(48px,6vw,64px) 0 32px}
+.footer-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:17px;letter-spacing:-.02em}
+.footer-brand img{width:22px;height:22px}
+.footer-desc{color:var(--text-3);font-size:13.5px;max-width:34ch;margin-top:12px;line-height:1.7}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:16px}
+.footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.footer-col a{color:var(--text-2);font-size:14px}
+.footer-col a:hover{color:var(--fg)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .why,.grid-3,.grid-features{grid-template-columns:1fr 1fr}
+  .start-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:10px}
+  .step-arrow{justify-self:center;transform:rotate(90deg)}
+  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px 16px;margin:0;display:none}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--border)}
+  .nav-links a:last-child{border-bottom:0}
+  .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .footer-cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .why,.grid-3,.grid-features,.budget-grid{grid-template-columns:1fr}
+  .role-lead{grid-template-columns:1fr;gap:8px}
+  .trace li{grid-template-columns:1fr;gap:6px}
+  .hero-ctas .btn{width:100%}
+  .nav-actions .btn-ghost{display:none}
+}
+</style>
 </head>
-<body>
+<body id="top">
+<header class="nav" data-od-id="site-header">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" data-od-id="nav-brand">
+      <img src="assets/briefloop-mark.svg" alt="">
+      <span>BriefLoop</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="站点导航">
+      <a href="index.html#why">为什么</a>
+      <a href="how-it-works.html">工作原理</a>
+      <a href="index.html#traceability">可追溯交付</a>
+      <a href="index.html#features">能力</a>
+      <a href="index.html#budget">预算</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
+      <a class="btn btn-ghost btn-sm" href="index.html#start" data-od-id="nav-cta-start">开始使用</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <!-- Header Navigation -->
-    <header class="app-header">
-        <div class="container header-container">
-            <div class="logo">
-                <a href="index.html" aria-label="BriefLoop.ai 首页">
-                    <img src="assets/briefloop-mark.svg" alt=""><span class="logo-text">BriefLoop</span>
-                </a>
-            </div>
-            <nav class="nav-links" id="site-nav">
-                <a href="index.html#how">典型场景</a>
-                <a href="#governance">治理模型</a>
-                <a href="#evolution">演进环</a>
-                <a href="#developers">开发者</a>
-                <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告</a>
-                <a href="#sandbox" class="btn-sandbox-nav">模拟演示</a>
-                <a href="how-it-works.en.html" class="lang-switch">EN</a>
-                <a class="nav-github-mobile" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">GitHub →</a>
-            </nav>
-            <div class="header-cta">
-                <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
-                    <span></span><span></span><span></span>
-                </button>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-github">
-                    <svg class="github-icon" viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                    GitHub
-                </a>
-            </div>
+  <main id="top">
+    <section class="hero" data-od-id="hiw-hero">
+      <div class="wrap">
+        <span class="kicker">工作原理</span>
+        <h1>从问题到交付，四步闭环。</h1>
+        <p class="lead">BriefLoop 把一个本地工作区变成可交付的报告流水线：你给目标和材料，它去研究、写作、独立评价，并把你的改稿沉淀成下一次的经验。</p>
+        <div class="hero-meta">
+          <span class="chip">七个宿主 CLI</span>
+          <span class="chip">共享研究预算</span>
+          <span class="chip">独立评价会话</span>
+          <span class="chip">按需生成 Word</span>
         </div>
-    </header>
-
-    <!-- Page hero -->
-    <section class="page-hero">
-        <div class="container">
-            <p class="crumb"><a href="index.html">BriefLoop.ai</a> / 运作原理</p>
-            <h1>AI 起草，控制面记账，人类放行</h1>
-            <p>首页的保管链演示回答“这句话从哪来”。这一页回答其余的问题：为什么要这样分权、发现问题以后会怎样、失败如何变成下一版的改进，以及开发者如何与 Agent 协作。当前产品版本是 v0.15.3；运行权威是 SQLite ControlStore。站内架构参考 v0.6.1 是 v0.12.1 代码快照，现行边界以 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md">architecture-status</a> 为准。</p>
-        </div>
+      </div>
     </section>
 
-    <!-- Governance Contrast -->
-    <section class="section" id="governance">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Governance · 治理模型</div>
-                <h2>给 AI 装一套「公司治理制度」</h2>
-                <p class="section-desc">AI 负责起草与提议，BriefLoop 确定性控制层负责审计与记账。各司其职，才有可信。</p>
-            </div>
-
-            <div class="grid-2 mt-40">
-                <div class="contrast-card bad reveal">
-                    <div class="contrast-icon">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg>
-                    </div>
-                    <h3>传统 AI 写作（黑箱）</h3>
-                    <ul>
-                        <li><strong>数据真实性存疑</strong>：大模型逻辑不稳定，改了几稿后，数据真实来源往往无从复查。</li>
-                        <li><strong>错误以讹传讹</strong>：草稿中的一个微小误读，在反复润色后被包装成高可信度的错误结论。</li>
-                        <li><strong>反馈凭空蒸发</strong>：人工提出的偏好与规则留在脑子里，AI 在下一次运行中极易遗忘重犯。</li>
-                        <li><strong>复核成本高昂</strong>：因为不了解修改和证据链路径，复核团队只能靠人力反复重核原始文档。</li>
-                    </ul>
-                </div>
-
-                <div class="contrast-card good reveal reveal-delay-1">
-                    <div class="contrast-icon">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-                    </div>
-                    <h3>BriefLoop 保管链（白盒可审计）</h3>
-                    <ul>
-                        <li><strong>事实账本登记</strong>：每一个写进交付物的核心断言和数据，必须在事实账本 (Claim Ledger) 有坐标。</li>
-                        <li><strong>确定性质量门禁</strong>：由 Python 逻辑执行时效、来源完整性门禁，防止模型自画自签。</li>
-                        <li><strong>改进账本固化</strong>：人工批准的写作偏好沉淀为持久记忆，并提供防污染的回滚记录。</li>
-                        <li><strong>交付真值单一记录</strong>：交付状态只认 ControlStore 中的交付真值与完成投影，reader-clean 未通过就不会晋升交付件——文件存在不等于交付。</li>
-                    </ul>
-                </div>
-            </div>
+    <section class="section" id="steps">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">工作流</span>
+          <h2 class="h2">四步，把材料变成可交付的报告。</h2>
+          <p class="sub">每一步都留下可查看的记录，任何一步都不会把"排队"说成"完成"。</p>
         </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="kicker">01 · 需求与材料</span>
+            <h3>说清读者、用途和篇幅</h3>
+            <p>标题、目标、读者、时间范围、目标字数写在一个表单里；上传材料或直接开启联网让宿主去找公开来源。人工填写的小节只留"待填充"。</p>
+          </article>
+          <article class="card">
+            <span class="kicker">02 · 研究与写作</span>
+            <h3>Scout 找来源，Analyst 写稿</h3>
+            <p>研究预算由这次报告共享，Scout 决定查什么、留下哪些原件；Analyst 在来源范围内写作，引用回到具体的来源与定位。</p>
+          </article>
+          <article class="card">
+            <span class="kicker">03 · 独立评价</span>
+            <h3>Evaluator 用独立会话评分</h3>
+            <p>评价不读作者的自我评价，评分绑定它评的那一版稿件。需要时可以安排一次自动修订并复核，剩余问题留给用户。</p>
+          </article>
+          <article class="card">
+            <span class="kicker">04 · 交付与学习</span>
+            <h3>Word 按需生成，改稿变成经验</h3>
+            <p>Word 从固定版本生成并显示进度；正式交付绑定版本、模板、来源与核查记录。你的修改和反馈由 Wiki Maintainer 整理，验证后的技能才会启用。</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Repair transaction simulation -->
-    <section class="section" id="sandbox">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="badge-demo">过程模拟 · 不调用真实运行时</div>
-                <h2>问题不会被润色掉，而会进入修复回路</h2>
-                <p class="section-desc">首页的保管链回答“这句话从哪来”；这里回答“发现问题以后会怎样”。门禁只负责阻断，Agent 或人完成修订后，由控制面重新检查。</p>
-            </div>
-
-            <div class="sandbox-app reveal">
-                <div class="sandbox-controls">
-                    <button class="btn-scenario active" data-scenario="hallucination">场景 1：数据与冻结事实冲突</button>
-                    <button class="btn-scenario" data-scenario="tampering">场景 2：草稿引入未登记主张</button>
-                </div>
-
-                <div class="sandbox-workspace">
-                    <div class="sandbox-panel">
-                        <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l4-1L19.5 7.5a2.1 2.1 0 0 0-3-3L5 16z"/><path d="M14.5 6.5l3 3"/></svg>AI 编辑草稿 (Analyst Draft)</span>
-                            <span class="status-marker editing" id="draft-revision">REVISION 1</span>
-                        </div>
-                        <div class="panel-body">
-                            <textarea id="sandbox-draft" class="sandbox-textarea" aria-label="可编辑的分析草稿"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="sandbox-panel">
-                        <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>冻结对照记录 (Control Record)</span>
-                            <span class="status-marker verified">已冻结</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="ledger-viewer">
-                                <div class="ledger-entry"><span class="entry-lbl">claim_id</span><span class="entry-val highlight-blue">CL-0045</span></div>
-                                <div class="ledger-entry"><span class="entry-lbl">statement</span><span class="entry-val highlight-green" id="sandbox-ledger-fact">组件现货均价环比下降 1.5%</span></div>
-                                <div class="ledger-entry"><span class="entry-lbl">source</span><span class="entry-val">SRC-009 (2026-06-05)</span></div>
-                                <div class="ledger-entry"><span class="entry-lbl">frozen_hash</span><span class="entry-val code-font">sha256_8f0a2e…</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sandbox-panel">
-                        <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>质量门禁 (Quality Gate)</span>
-                        </div>
-                        <div class="panel-body flex-col justify-between">
-                            <div id="gate-report" class="gate-report-box pending" aria-live="polite">
-                                <div class="gate-status-text">⏳ 等待质量检查运行…</div>
-                                <div class="gate-log">门禁会检查并阻断问题，但不会替 Agent 或人类修改草稿。</div>
-                            </div>
-                            <div class="gate-actions">
-                                <button id="btn-run-gate" class="btn-action-primary" type="button">运行质量审计 (Run Audit)</button>
-                                <button id="btn-show-repair" class="btn-action-success hidden" type="button">查看合法修复示例</button>
-                                <button id="btn-rerun-gate" class="btn-action-primary hidden" type="button">重新运行门禁</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="sandbox-boundary-note">模拟说明：修复示例代表 Agent 或人提交一个新 revision；门禁只记录、阻断和复检，旧版本与 finding 继续留痕。</p>
-            </div>
+    <section class="section" id="traceability">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">可追溯交付</span>
+          <h2 class="h2">每条结论都能回到它的来源和版本。</h2>
+          <p class="sub">追溯能力来自工作区保存的原件、定位和版本关系，不来自某一次模型回答。</p>
         </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>版本绑定</h3>
+            <p>评分、Word 导出和正式件都绑定具体稿件版本；继续编辑产生新版本，旧版本与已发布件保持可读。</p>
+          </article>
+          <article class="card">
+            <h3>来源即证据</h3>
+            <p>原件、提取正文、定位与日期存在工作区里；模型摘要、搜索片段和评分都不是证据。</p>
+          </article>
+          <article class="card">
+            <h3>数据与缺口</h3>
+            <p>"数据与缺口"按保存内容展示指标、计算和缺口，不调用模型；缺什么就列什么。</p>
+          </article>
+          <article class="card">
+            <h3>审计包</h3>
+            <p>由用户选择导出范围，包内保留材料定位与核查处理记录，凭据和隐藏推理不进入导出。</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Quality Panel -->
-    <section class="section" id="quality-panel">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Quality Panel · 质量面板</div>
-                <h2>Gate 之后，每次运行留下一张确定性投影</h2>
-                <p class="section-desc">v0.15.3 可从 Store/LAJ 数据导出一份自包含的只读 HTML：Brief、Quality、Market Data、LAJ advisory 与改进状态。它不是运行权威、质量评分或交付裁决，也不能触发工作流动作；LAJ 效用 NOT MEASURED，改进页如实显示 Improvement Ledger unavailable。</p>
-            </div>
-            <p class="quickstart-note">首页有<a href="index.html#traceability">合成数据预览</a>；网站演示全部只读，没有处置、写入、自动学习或“接受建议后改善下次运行”的能力。</p>
+    <section class="section" id="roles">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">角色</span>
+          <h2 class="h2">一个主 Agent，五个专职角色。</h2>
+          <p class="sub">写稿的不给自己打分，评分的、整理经验的、提技能的各自独立。</p>
         </div>
+        <div class="grid-3">
+          <article class="card role role-lead">
+            <span class="kicker">BriefLoop</span>
+            <h3>主 Agent</h3>
+            <p>与你对话、规划研究、安排写稿与修订，使用主链模型。它是你在工作台里对话的那一方。</p>
+          </article>
+          <article class="card role"><span class="kicker">Scout</span><h3>来源侦察</h3><p>在共享预算内检索、抓取并保存公开来源。</p></article>
+          <article class="card role"><span class="kicker">Analyst</span><h3>写稿</h3><p>依据来源写作，引用回到具体定位。</p></article>
+          <article class="card role"><span class="kicker">Evaluator</span><h3>评价</h3><p>独立会话评分，并比较候选是否真的更好。</p></article>
+          <article class="card role"><span class="kicker">Wiki Maintainer</span><h3>经验整理</h3><p>把改稿与反馈整理成工作区 Wiki。</p></article>
+          <article class="card role"><span class="kicker">Skill Proposer</span><h3>技能提议</h3><p>从 Wiki 提出或改进技能，验证通过才启用。</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Evolution Loop — governed improvement across runs -->
-    <section class="section" id="evolution">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Evolution Loop · 演进环</div>
-                <h2>0.14 的工程变更由 Codex 实现和测试，由人批准合并与发布</h2>
-                <p class="section-desc">这是一条软件工程责任链，不是运行中的自动学习。失败可以成为代码候选与回归测试，但不会进入当前或下一次简报运行；0.14 没有可用的 Store-native Improvement Ledger。</p>
-            </div>
-
-            <div class="evolution-shell reveal" data-evolution-loop>
-                <div class="evolution-track" role="tablist" aria-label="BriefLoop 演进环阶段">
-                    <button class="evolution-stage active" type="button" role="tab" aria-selected="true" data-evolution-step="finding">
-                        <span class="evolution-number">01</span><b>失败留痕</b><small>Finding</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="diagnose">
-                        <span class="evolution-number">02</span><b>归因候选</b><small>Diagnose</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="candidate">
-                        <span class="evolution-number">03</span><b>补丁与评测</b><small>Patch + Eval</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="approve">
-                        <span class="evolution-number">04</span><b>人类批准</b><small>Approve</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="release">
-                        <span class="evolution-number">05</span><b>版本化发布</b><small>Release</small>
-                    </button>
-                </div>
-
-                <div class="evolution-detail" role="tabpanel" aria-live="polite">
-                    <div class="evolution-detail-main">
-                        <span class="detail-kicker" id="evolution-kicker">RUN-152 · GATE BLOCKED</span>
-                        <h3 id="evolution-title">失败先变成可查询的控制记录</h3>
-                        <p id="evolution-copy">缺失引用映射不会被藏进正文说明，而会成为 finding、blocker 和 event，保留发生阶段、影响范围与修复责任。</p>
-                    </div>
-                    <dl class="evolution-facts">
-                        <div><dt>权威写者</dt><dd id="evolution-owner">Python control plane</dd></div>
-                        <div><dt>留下什么</dt><dd id="evolution-record">finding + event</dd></div>
-                        <div><dt>立即效果</dt><dd id="evolution-effect">阻断当前交付</dd></div>
-                    </dl>
-                </div>
-            </div>
-
-            <div class="evolution-boundary reveal">
-                <strong>不是自治“自我改进”</strong>
-                <span>Codex 在受限分支中实现并测试 0.14 工程变更；人类授权合并与发布。产品运行不会吸收建议、改写 prompt、gate 或 policy，Quality Panel 也不会让下一次运行自动变好。</span>
-                <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer">阅读 Lilian Weng 英文原文《Harness Engineering for Self-Improvement》→</a>
-            </div>
+    <section class="section" id="budget">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">预算与权限</span>
+          <h2 class="h2">花多少、能做多少，页面都写清楚。</h2>
+          <p class="sub">预算属于一次报告，由这次报告里的所有侦察共享；权限属于宿主 CLI，BriefLoop 不会假装越权。</p>
         </div>
+        <div class="budget-grid">
+          <article class="card">
+            <h3>周报预设</h3>
+            <p class="lbl">12 次搜索尝试 · 60 个候选 URL · 18 个全文来源</p>
+            <p>三个数字都可以改，0 表示不提供这类新增额度。失败的搜索同样计次，达到上限后保留已有材料并列出缺口，不会自动加额。</p>
+          </article>
+          <article class="card">
+            <h3>月报预设</h3>
+            <p class="lbl">30 次搜索尝试 · 200 个候选 URL · 45 个全文来源</p>
+            <p>行业定期报告共用同一套预算；同一 URL 的直接获取、回退提取与重试只占一个全文来源。</p>
+          </article>
+        </div>
+        <div class="grid-3" style="margin-top:18px">
+          <article class="card"><h3>Codex</h3><p>可以强制只读或读写沙箱，并按轮控制联网搜索。</p></article>
+          <article class="card"><h3>Opencode</h3><p>用权限规则实现只读；模型写 `provider/model`。</p></article>
+          <article class="card"><h3>桥接宿主</h3><p>Claude Code、Kimi、Hermes、Reasonix、MiMo 按各自的权限模型运行；打开"联网"会放行它们自己的联网工具。</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Responsibility boundary -->
-    <section class="section" id="boundary">
-        <div class="container">
-            <div class="grid-2 align-center gap-lg">
-                <div class="cli-info reveal">
-                    <div class="eyebrow">Governance Boundary · 治理边界</div>
-                    <h2>人类责任边界声明</h2>
-                    <p>任何自动化 AI 系统都不应当、也不能代替人类承担决策与把关的责任。BriefLoop 并不代替人类进行最终的批准决策，而是为人类提供一个<b>降低遗漏风险的证据链条</b>——可追溯性，而非语义证明。</p>
-                    <blockquote class="boundary-quote">
-                        "一旦数据存在冲突或缺失，系统将暴露痕迹并支持快速回溯定位。"
-                    </blockquote>
-                </div>
-
-                <div class="boundary-box reveal reveal-delay-1">
-                    <div class="boundary-badge">Responsibilities · 责任分层</div>
-                    <div class="boundary-content">
-                        <div class="boundary-roles" aria-label="BriefLoop 责任分层" data-disclosure-group>
-                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                                <span class="m-title">AI 智能体</span>
-                                <span class="m-desc">起草、分析和提出建议</span>
-                                <span class="card-chevron" aria-hidden="true">⌄</span>
-                                <div class="card-inline-detail" aria-hidden="true">可以找资料、拆分断言、写作和提出审计意见；不能冻结账本、通过门禁或批准交付。</div>
-                            </div>
-                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                                <span class="m-title">确定性控制面</span>
-                                <span class="m-desc">校验、记账、执行门禁并保留记录</span>
-                                <span class="card-chevron" aria-hidden="true">⌄</span>
-                                <div class="card-inline-detail" aria-hidden="true">检查 schema、哈希、阶段状态、门禁结果和归档完整性；不判断来源是否代表事实真理。</div>
-                            </div>
-                            <div class="boundary-metric highlight disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                                <span class="m-title">人类决策者</span>
-                                <span class="m-desc">最终批准交付并承担责任</span>
-                                <span class="card-chevron" aria-hidden="true">⌄</span>
-                                <div class="card-inline-detail" aria-hidden="true">复核重要推论和未决问题，决定降级、返工或交付；批准动作会被记录。</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="section" id="developers">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">开发者</span>
+          <h2 class="h2">单仓库，接入新宿主只做三件事。</h2>
+          <p class="sub">Python 负责存储、工具和确定计算；宿主 CLI 负责模型执行，两者通过已有的 jobs/events/Store 衔接。</p>
         </div>
+        <div class="grid-3">
+          <article class="card"><h3>一条命令起步</h3><p><code>git clone</code> 之后 <code>./start.sh</code> 创建虚拟环境、安装依赖并打开网页；没有第二个仓库要 clone。</p></article>
+          <article class="card"><h3>接入新宿主</h3><p>实现 bridge 协议、加一条 catalog 条目、声明能力（<code>permission_modes</code>、<code>steer</code>、<code>images</code>），输入区会自动跟随这些能力。</p></article>
+          <article class="card"><h3>测试与构建</h3><p><code>npm ci &amp;&amp; npm run build</code> 打包前端与 bridge，<code>pytest</code> 跑行为测试；测试不调用真实模型或付费搜索。</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Product Portals -->
-    <section class="section" id="portals">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Report Packs · 交付入口</div>
-                <h2>支持三大交付入口</h2>
-                <p class="section-desc">针对投研、合规、企业披露的不同任务，系统预置了高标准的拓扑与审计合同。</p>
-            </div>
-
-            <div class="grid-3 mt-40" data-disclosure-group>
-                <div class="portal-card reveal disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
-                    <h3>industry-weekly</h3>
-                    <p class="portal-meta">行业 / 市场周报追踪</p>
-                    <p class="portal-text">用于监测行业动态、竞品新闻与政策发布。抓取多源数据并进行实体坐标映射，生成可由人工每周交付的行业简报。</p>
-                    <div class="portal-tag-list">
-                        <span>多源抓取</span>
-                        <span>时效门禁</span>
-                        <span>实体对照</span>
-                    </div>
-                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail portal-detail" aria-hidden="true">
-                        <span class="detail-kicker">典型任务</span>
-                        <p><b>输入：</b>近 7 天行业材料、竞品动态、政策更新与关注主题。</p>
-                        <p><b>交付：</b>执行摘要、关键信号、竞品变化、风险观察和来源附录。</p>
-                    </div>
-                </div>
-
-                <div class="portal-card reveal reveal-delay-1 disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-                    <h3>management-monthly</h3>
-                    <p class="portal-meta">管理层汇报与经营分析</p>
-                    <p class="portal-text">支持输入公司内部财务数据与业务更新指标。在严格隔离的离线环境下建立锁定保护的事实账本 (Claim Ledger)，为决策提供可追溯的归因支撑。</p>
-                    <div class="portal-tag-list">
-                        <span>指标审计</span>
-                        <span>离线运行</span>
-                        <span>人机分权</span>
-                    </div>
-                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail portal-detail" aria-hidden="true">
-                        <span class="detail-kicker">典型任务</span>
-                        <p><b>输入：</b>月度经营更新、KPI 表、部门说明和上期材料。</p>
-                        <p><b>交付：</b>经营亮点、环比变化、原因说明、风险与行动项，并保留审计记录包。</p>
-                    </div>
-                </div>
-
-                <div class="portal-card reveal reveal-delay-2 disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 10.5h5M10.5 8v5"/></svg></div>
-                    <h3>document-review</h3>
-                    <p class="portal-meta">文档证据审阅</p>
-                    <p class="portal-text">对大批量招股书、审计报告、监管问询函等海量文档进行检索。提取的事实精准到具体页码与高亮段落，辅助尽调分析并提供完整的审计痕迹。</p>
-                    <div class="portal-tag-list">
-                        <span>段落高亮</span>
-                        <span>保管链留痕</span>
-                        <span>出处回溯</span>
-                    </div>
-                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail portal-detail" aria-hidden="true">
-                        <span class="detail-kicker">典型任务</span>
-                        <p><b>输入：</b>指定文件、锁定的审阅范围和需要回答的问题。</p>
-                        <p><b>交付：</b>证据摘录、来源锁定记录与可复核引用；不自动形成法律或披露结论。</p>
-                    </div>
-                </div>
-            </div>
+    <section class="cta-band">
+      <div class="wrap">
+        <h2 class="h2">先跑一份自己的报告。</h2>
+        <p class="sub">克隆仓库、接一个已登录的宿主 CLI，就能开始。</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="index.html#start">开始使用</a>
+          <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- CLI & Developer -->
-    <section class="section section-cli" id="developers">
-        <div class="container">
-            <div class="grid-2 align-center gap-lg">
-                <div class="cli-info reveal">
-                    <div class="eyebrow">Developers · 开发者</div>
-                    <h2>现代开发者与 Agent 协作</h2>
-                    <p>BriefLoop 把写作与控制分开：外部 Agent 负责研究和起草，Python CLI 负责建档、校验、状态事务、门禁与交付记录。CLI 不会单独调用模型生成简报。</p>
-
-                    <div class="integration-item">
-                        <div class="integration-header">
-                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
-                            <h4>确定性 CLI 交互</h4>
-                        </div>
-                        <p>新运行只支持 Experimental Codex SQLite 路径。<code>briefloop status</code> 与 <code>briefloop runtime next</code> 提供 Store 派生的只读视图和下一动作；finalize、批准与交付由 Codex runtime host 提交 typed Store action。SQLite ControlStore 是唯一运行权威，legacy JSON 控制面已删除；legacy JSON 控制文件与报告、status、Quality Panel、Markdown/JSON/JSONL/HTML 导出是非权威投影。strict action、envelope 与 human-request JSON 必须重新对照 ControlStore 校验，自身不构成权威。</p>
-                    </div>
-
-                    <div class="integration-item">
-                        <div class="integration-header">
-                            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
-                            <h4>Codex 配合</h4>
-                        </div>
-                        <p>安装 Codex runtime kit 后（<code>briefloop runtime install --workspace &lt;workspace&gt; --runtime codex</code>），在 Codex 中打开并信任该 workspace。Codex 只执行 <code>runtime next</code> 返回的精确动作及 Receipt-backed role invocation；不会回退到其他 runtime。</p>
-                    </div>
-                </div>
-
-                <div class="terminal-container reveal reveal-delay-1">
-                    <div class="terminal-header">
-                        <span class="terminal-title">bash — briefloop</span>
-                        <button class="btn-copy-terminal" id="btn-copy-code">复制命令</button>
-                    </div>
-                    <div class="terminal-body" id="terminal-demo">
-                        <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ./my-weekly --from-onboarding onboarding.json</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime install --workspace ./my-weekly --runtime codex</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime codex</div>
-                        <div class="terminal-line t-output">[created] workspace → ./my-weekly · briefloop.db (SQLite ControlStore)</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime next --workspace ./my-weekly</div>
-                        <div class="terminal-line t-comment"># 唯一顺序权威：Store 返回的 CoreRunNextAction</div>
-                    </div>
-                    <p class="terminal-note">当前支持的启动路径是源码安装（Python 3.12）：终端里执行上面的 <code>git clone</code> + <code>scripts/setup.sh</code>；Codex 路径随后在 workspace 里运行 <code>briefloop runtime install --runtime codex</code>，并在 Codex 中打开并信任该目录。Windows 请按 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a> 执行，不要把这组 Bash 命令改写到 Git Bash。软件包入口（<code>pipx install briefloop</code>）在发布说明明确完成全新环境冒烟前暂不作为启动路径。JSON-only workspace 不再被导入或升级，需要重新 <code>init</code>。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <div class="logo">
-                    <img src="assets/briefloop-mark.svg" alt=""><span class="logo-text">BriefLoop</span>
-                </div>
-                <p class="footer-desc">让每一行商业报告都有据可查，为 Enterprise AI 提供保管链基础设施。</p>
-                <p class="footer-boundary">Traceability, not semantic proof. · 可追溯性，而非语义证明。</p>
-            </div>
-            <div class="footer-links">
-                <h4>文档</h4>
-                <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告 v0.6.1</a>
-                <a href="agents/briefloop/SKILL.md" target="_blank" rel="noopener noreferrer">Agent 安装协议</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank">Getting Started</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/weekly-loop.md" target="_blank">Weekly Loop</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md" target="_blank">Support Matrix</a>
-            </div>
-            <div class="footer-links">
-                <h4>快速链接</h4>
-                <a href="index.html">首页</a>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank">GitHub 仓库</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.zh-CN.md" target="_blank">15 分钟尝鲜</a>
-                <a href="mailto:contact@briefloop.ai">商务合作</a>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; 2026 BriefLoop.ai · Open-sourced under the MIT License.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<footer class="footer" data-od-id="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <span class="footer-brand"><img src="assets/briefloop-mark.svg" alt=""> BriefLoop</span>
+        <p class="footer-desc">本地 Agent 工作台，服务企业内部可读、可核查的报告。</p>
+      </div>
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="how-it-works.html">工作原理</a></li>
+          <li><a href="index.html#traceability">可追溯交付</a></li>
+          <li><a href="index.html#features">能力</a></li>
+          <li><a href="index.html#budget">预算与篇幅</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>文档</h4>
+        <ul>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">使用指南</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">升级说明</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>仓库</h4>
+        <ul>
+          <li><a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">来源与许可</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>BriefLoop 0.17.1 · MIT</span>
+      <span>与材料一起思考</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var toggle=document.getElementById('menu-toggle');
+  var links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+  var copyBtn=document.getElementById('copy-cmd');
+  var cmd=document.getElementById('install-cmd');
+  if(copyBtn&&cmd){
+    copyBtn.addEventListener('click',function(){
+      var text=cmd.innerText.replace(/^\$\s*/gm,'').trim();
+      function done(){copyBtn.textContent='已复制';setTimeout(function(){copyBtn.textContent='复制';},1600);}
+      function fallback(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='复制失败';setTimeout(function(){copyBtn.textContent='复制';},1600);}
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done,fallback);
+      }else{fallback();}
+    });
+  }
+})();
+</script>
 </body>
 </html>

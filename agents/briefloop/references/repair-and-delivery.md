@@ -1,20 +1,16 @@
-# Repair And Delivery
+# Recover work, then deliver
 
-When a Gate or integrity check blocks progress, read `briefloop runtime next`
-and the Store-derived status view. Follow only the typed repair or human-review
-request returned there. Never edit `briefloop.db`, receipts, frozen artifacts,
-or projection files to make the run appear clean. If no sanctioned action is
-offered, stop.
+## Recover
 
-Finalize, package readiness, approval, and delivery are typed Store actions
-through the Codex runtime host. A draft, a generated file, a Quality Panel, or
-`package_ready=true` does not prove delivery. Claim delivery only when the
-Store-derived projection reports delivery for the current run and the human
-explicitly authorized it.
+1. `briefloop status --workspace <dir>` reports the workspace state and the jobs it knows about.
+2. `briefloop doctor` reports whether the host CLIs and helpers this machine needs are present.
+3. Job details live in `jobs/` and in the app's task list; a failure keeps its message and whatever artifacts were produced.
+4. Restart the service with `./start.sh` (or `briefloop serve`) after a crash. A workspace opened while the app was closed stays paused, so old queues are not re-run silently.
+5. If a host CLI is not authenticated, fix it in the host (for example `codex login`) and retry the message.
 
-The three-page HTML view is read-only. LAJ advice cannot trigger repair or
-delivery, and its utility is NOT MEASURED. The Improvement Ledger is unavailable;
-feedback cannot be accepted into next-run guidance or automatic learning.
+## Deliver
 
-Use only generated delivery or audit bundles. Never include credentials,
-`.env`, private planning material, or unrelated workspace files.
+1. Fix the version you want to deliver: 生成 Word writes the `.docx` and shows progress.
+2. 正式交付 binds that version with its template, sources and review record; unresolved items stay visible in the app.
+3. 审计包 exports the fixed material with evidence and review metadata when the user asks for it.
+4. Later edits create new versions; the release keeps pointing at the version it was built from.

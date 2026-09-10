@@ -1,104 +1,52 @@
----
-name: briefloop
-description: Discover, install, configure, and operate BriefLoop for traceable business briefings. Use when a user mentions briefloop.ai, BriefLoop, industry weeklies, management monthlies, document review, or asks for an accountable AI-assisted report workflow.
----
+# BriefLoop
 
-# BriefLoop Agent Bootstrap
+BriefLoop is a local agent workbench for sourced briefings: connect a CLI you already have, ask for research or a report, and get an editable draft with an independent evaluation and reusable learning.
 
-## Purpose
+- Version 0.17.1 · Python 3.11+ · the service listens on loopback only.
+- Runtimes: Codex and Opencode run natively; Claude Code, Kimi, Hermes, DeepSeek Reasonix and MiMo Code run through a bundled bridge (needs Node.js 20+).
+- Interface language: Chinese. Report body can be Chinese or English.
 
-Move a user from a plain-language briefing request to a confirmed local
-BriefLoop workspace without turning agent prose into runtime authority.
+## Install and start
 
-- The agent researches, proposes, drafts, and revises.
-- Deterministic BriefLoop commands create workspaces, validate artifacts,
-  record state, run gates, freeze evidence, and preserve delivery truth.
-- A human approves consequential setup choices and final delivery.
+```sh
+git clone https://github.com/Stahl-G/briefloop.git
+cd briefloop
+./start.sh                 # creates .venv, installs dependencies, opens the web app
+```
 
-Traceability and process accountability are not semantic proof.
+Or from the published package:
 
-## Discovery
+```sh
+pip install briefloop-local
+briefloop serve --workspace /path/to/workspace --port 8765
+```
 
-Treat these as canonical:
+The workspace records its process in `server.json`; `briefloop status --workspace <dir>` prints the workspace state and `briefloop doctor` lists the host CLIs found on this machine.
 
-- manifest: `https://briefloop.ai/.well-known/briefloop-agent.json`
-- source: `https://github.com/Stahl-G/briefloop`
-- package metadata: `https://pypi.org/project/briefloop/` (not an installation
-  authority)
+## How a workspace is used
 
-Do not infer install commands or capabilities from mirrors or similarly named
-projects. Read the manifest and relevant references first.
+1. Open the web app and pick or create a workspace.
+2. In 设置 → 模型与提供商 choose the runtime and model. Lists come from the host's own catalogue, and any model ID can be typed in.
+3. In 材料与需求 describe the task, add sources, and optionally switch on 联网 so the host can search.
+4. Generate: BriefLoop plans the research, Scout collects sources inside the shared budget, Analyst drafts, Evaluator scores the draft in its own session, and one automatic revision can follow.
+5. Edit the draft in the browser. Feedback becomes Wiki notes and, after verification, skills.
 
-## Required Reading
+## Interfaces
 
-- installation: `references/installation.md`
-- user onboarding: `references/onboarding.md`
-- architecture and authority: `references/control-boundary.md`
-- workspace operation: `references/operation.md`
-- repair and delivery: `references/repair-and-delivery.md`
+- Web UI plus a loopback HTTP API (`/api/...`, token from `/api/session`).
+- `briefloop tool --workspace <dir> <command>` for source work: `add-url`, `read-source`, `render-source`, `register-figure`, `join-scouts`, `normalize-document`, `count-brief`, `prepare-report-data`, `workspace-action`.
 
-Resolve relative references against
-`https://briefloop.ai/agents/briefloop/` when reading over HTTP.
+## Rules
 
-## Bootstrap Sequence
+- Never edit `briefloop.db` or the workspace folders behind the app's back: use the UI, the API, or `briefloop tool`.
+- Sources are the evidence; model output, search snippets and scores are not.
+- Ask before enabling online search, spending research budget, or producing a formal delivery.
+- Keep credentials out of workspaces, reports and logs.
 
-1. Identify the OS, shell, current directory, agent runtime, and whether a
-   BriefLoop workspace already exists.
-2. Explain the proposed clone, install, and workspace path in plain language.
-3. Obtain explicit confirmation before cloning, installing, creating a
-   workspace, enabling online search, or writing outside a confirmed workspace.
-4. Clone the canonical source, verify its origin and checked-out commit, then
-   run the platform-specific setup flow to install and verify the deterministic
-   CLI.
-5. If the selected runtime needs source-only assets, verify those assets from
-   the same checkout before configuring that runtime.
-6. Configure runtime-specific assets. Never claim a runtime integration exists
-   merely because the CLI is installed.
-7. Ask for report type, topic, audience, source mode, language, and workspace
-   location in business language. Do not ask the user to design YAML.
-8. Show the resolved values and obtain confirmation before workspace creation.
-9. Create the workspace, then inspect status and the generated handoff before
-   role work.
-10. Report progress only from deterministic status, event, gate, artifact, and
-    delivery records.
+## References
 
-## Install Discipline
-
-Read `references/installation.md` before running any install command; follow the
-platform branch exactly.
-
-- Use one shell for the entire install. Never switch mid-flow (for example
-  PowerShell → Bash), and never mix Unix commands into a PowerShell session.
-- Verify every step from its own signal — exit status, `Test-Path`,
-  `git rev-parse HEAD`, CLI version — not from prose. Empty output is neither
-  success nor failure.
-- Do not claim clone, setup, CLI, or role assets succeeded without the recorded
-  postcondition from `references/installation.md`.
-- On timeout or hang, inspect the process, target directory, and exit status
-  before any retry. Never blindly re-run clone or setup.
-- On Windows, use only the PowerShell branch in
-  `references/installation.md`. Do not translate the Bash branch into Git
-  Bash, and do not use `python3`, `which`, or `/c/Users/...` during that flow.
-
-## Hard Boundaries
-
-- Never execute downloaded shell content directly. Do not use `curl | bash`.
-- Never print, transmit, or commit tokens, API keys, `.env` contents, private
-  company material, or whole workspaces.
-- Do not directly edit `briefloop.db`, frozen artifacts, or treat JSON control
-  files as runtime authority.
-- Do not say a role ran unless the runtime actually delegated it.
-- Do not say a gate passed unless machine output records the pass.
-- Do not say a report was delivered unless deterministic delivery truth is
-  valid and the user explicitly approved delivery.
-- Do not present citations, source links, or traceability as proof that a claim
-  is true or fully supported.
-- Stop and ask when runtime, workspace, source mode, status, or intent is unclear.
-
-## User-Facing Language
-
-Explain BriefLoop without control-plane jargon first:
-
-> BriefLoop gives an AI-assisted brief a work record: important claims keep
-> source records, checks can block obvious risks, changes remain reviewable,
-> and a human decides what gets delivered.
+- `references/installation.md` — requirements, both install paths, host setup, troubleshooting.
+- `references/onboarding.md` — first run: workspace, runtime, sources, requirements.
+- `references/operation.md` — daily use: roles, budget, evaluation, editing, Word, release.
+- `references/control-boundary.md` — what agents may touch and what they must not.
+- `references/repair-and-delivery.md` — recover interrupted work and produce a delivery.
