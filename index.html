@@ -1,509 +1,636 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BriefLoop.ai — AI 先写，BriefLoop 对账，问题没处理完就不能交付</title>
-    <meta name="description" content="BriefLoop 不是又一个帮你写报告的 AI。它在 AI 写完之后，把没有出处、用错数据、说得过头和尚未确认的内容找出来；问题没处理完，报告就不能被当成最终稿。">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305351d'/%3E%3Cpath d='M8.2 13a8.3 8.3 0 0 1 13.3-4.1M20 6.8l2.1 2.4-3.1.9M23.8 19a8.3 8.3 0 0 1-13.3 4.1M12 25.2l-2.1-2.4 3.1-.9' fill='none' stroke='%234faf62' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.3' fill='none' stroke='%23f2f5f1' stroke-width='1.6'/%3E%3Cpath d='M14.5 16h3' stroke='%23f2f5f1' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>BriefLoop · 与材料一起思考 — 单人本地 Agent 工作台</title>
+<meta name="description" content="BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕问题找来源、写出可编辑的报告、独立评分，并把每条重要结论绑定回它来自的那一行原文。">
+<link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
+<style>
+:root{
+  --paper:#faf9f6;
+  --surface:#ffffff;
+  --ink:#1e2320;
+  --muted:#6a706b;
+  --line:#dedfd8;
+  --green:#006838;
+  --green-hover:oklch(0.38 0.1136 154.4);
+  --green-soft:oklch(0.9509 0.0098 125.7);
+  --green-softer:oklch(0.965 0.007 130);
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --serif:"Songti SC","Noto Serif SC","STSong","SimSun",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --radius:9px;
+  --radius-sm:6px;
+  --shadow-sm:0 1px 2px oklch(0.25 0.009 159 / .06);
+  --shadow:0 1px 2px oklch(0.25 0.009 159 / .05),0 12px 32px oklch(0.25 0.009 159 / .07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 var(--sans);font-feature-settings:"tnum" 1,"ss01" 0}
+a{color:var(--green);text-decoration:none}
+a:hover{color:var(--green-hover);text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4,p{margin-top:0}
+h1,h2,h3{font-family:var(--serif);color:var(--ink)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+section{scroll-margin-top:84px}
+
+/* ---------- header ---------- */
+.nav{position:sticky;top:0;z-index:50;background:oklch(0.982 0.0041 91.4 / .9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-size:20px;font-weight:650;color:var(--ink);letter-spacing:.01em}
+.brand:hover{color:var(--ink);text-decoration:none}
+.brand svg{width:20px;height:20px;color:var(--green);flex:none}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:12px}
+.nav-links a{color:var(--muted);padding:8px 12px;border-radius:var(--radius-sm);font-size:15px}
+.nav-links a:hover{color:var(--ink);background:var(--green-soft);text-decoration:none}
+.nav-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
+.menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:var(--radius-sm);padding:8px 10px;color:var(--ink);cursor:pointer}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);padding:13px 22px;border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease,transform .15s ease}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-hover);color:#fff;text-decoration:none}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--green-soft);border-color:var(--line);color:var(--ink);text-decoration:none}
+.btn-sm{padding:10px 16px;font-size:14px}
+.btn:active{transform:translateY(1px)}
+
+/* ---------- hero ---------- */
+.hero{padding:96px 0 72px}
+.hero .eyebrow{display:flex;align-items:center;gap:10px}
+.hero h1{font-size:clamp(2.6rem,6.4vw,4.4rem);line-height:1.12;font-weight:650;letter-spacing:.005em;margin:22px 0 22px;max-width:16ch}
+.hero h1 .mark{color:var(--green)}
+.lead{font-size:clamp(1.06rem,1.6vw,1.28rem);line-height:1.85;color:var(--ink);max-width:60ch;margin:0 0 12px}
+.hero-note{color:var(--muted);font-size:15px;max-width:60ch;margin:0}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:44px 0 0}
+.chip{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:var(--surface)}
+
+/* ---------- shared section scaffolding ---------- */
+.sec{padding:80px 0;border-top:1px solid var(--line)}
+.sec-head{max-width:60ch;margin-bottom:44px}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.eyebrow svg{width:12px;height:12px}
+.sec-head h2{font-size:clamp(1.72rem,3.2vw,2.3rem);line-height:1.25;font-weight:650;margin-bottom:14px}
+.sec-head .sub{color:var(--muted);margin:0;font-size:16px}
+
+/* ---------- how it works (interactive architecture) ---------- */
+.arch-nodes{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:14px;align-items:stretch}
+.arch-node{appearance:none;display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;cursor:pointer;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease,transform .15s ease}
+.arch-node:hover{border-color:var(--green);box-shadow:var(--shadow-sm)}
+.arch-node:focus-visible,.arch-loop:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.arch-node[aria-selected="true"]{border-color:var(--green);background:var(--green-soft);box-shadow:var(--shadow-sm)}
+.arch-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--green);color:var(--green);font:600 13px/1 var(--mono);flex:none;transition:background .15s ease,color .15s ease}
+.arch-node[aria-selected="true"] .arch-num{background:var(--green);color:#fff}
+.arch-title{font-family:var(--serif);font-weight:650;font-size:16.5px;line-height:1.3}
+.arch-sub{color:var(--muted);font-size:13px;line-height:1.5}
+.arch-arrow{display:inline-flex;align-items:center;align-self:center;justify-self:center;color:var(--green);flex:none}
+.arch-arrow svg{width:22px;height:22px}
+.arch-loop{appearance:none;display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--green-softer);border:1px dashed var(--line);border-radius:var(--radius);padding:13px 18px;margin:14px 0 0;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.arch-loop:hover{border-color:var(--green)}
+.arch-loop[aria-selected="true"]{border-color:var(--green);background:var(--green-soft)}
+.arch-loop .arch-num{width:26px;height:26px}
+.arch-loopicon{color:var(--green);flex:none}
+.arch-loop-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.arch-loop .arch-title{font-size:15.5px}
+.arch-loop .arch-sub{font-size:12.5px}
+.arch-panel{margin:20px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;box-shadow:var(--shadow-sm)}
+.arch-panel-head{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.arch-panel-head h3{margin:0;font-family:var(--serif);font-size:19px;font-weight:650}
+.arch-bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.arch-bullets li{position:relative;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75}
+.arch-bullets li::before{content:"";position:absolute;left:2px;top:12px;width:7px;height:7px;border-radius:2px;background:var(--green)}
+.arch-bullets strong{color:var(--ink);font-weight:600}
+.arch-meta{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
+.arch-meta .chip{font-size:12.5px}
+
+/* ---------- traceability ---------- */
+.trace-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;max-width:760px}
+.trace-list li{display:grid;grid-template-columns:132px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.trace-list li:first-child{padding-top:0}
+.trace-list li:last-child{border-bottom:0;padding-bottom:0}
+.trace-key{font-family:var(--serif);font-weight:650;font-size:15px;color:var(--ink)}
+.trace-val{color:var(--muted);font-size:15px;line-height:1.75}
+.trace-val strong{color:var(--ink);font-weight:600}
+
+/* ---------- product shots ---------- */
+.shot{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);box-shadow:var(--shadow);margin:0}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.shot .badge{font-size:12px;font-weight:600;color:var(--green);background:var(--green-soft);border:1px solid var(--line);border-radius:999px;padding:2px 10px;line-height:1.5;white-space:nowrap}
+.hero-shot{margin:44px 0 0}
+.trace-shot{margin:40px 0 0}
+.features-shot{max-width:820px;margin:40px auto 0}
+.audit-cmd{margin:28px 0 0}
+.audit-cmd .lbl{font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.audit-cmd code{display:block;font:13.5px/1.7 var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;overflow-x:auto;white-space:pre}
+
+/* ---------- roles ---------- */
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.role{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 28px;box-shadow:var(--shadow-sm)}
+.role h3{font-size:18px;font-weight:650;margin:0 0 6px}
+.role .role-en{font-size:12.5px;letter-spacing:.06em;color:var(--green);font-family:var(--serif);display:block;margin-bottom:14px}
+.role p{margin:0;color:var(--muted);font-size:15px;line-height:1.75}
+
+/* ---------- features ---------- */
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.feature{padding:28px 30px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.feature:nth-child(-n+2){border-top:0}
+.feature:nth-child(odd){border-left:0}
+.feature h3{font-size:17px;font-weight:650;margin:0 0 8px}
+.feature p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.7}
+
+/* ---------- budget ---------- */
+.budget-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.budget-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow-sm)}
+.budget-card h3{font-size:17px;font-weight:650;margin:0 0 16px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-weight:600;text-align:left;color:var(--muted);font-size:13px;padding:9px 10px;border-bottom:1px solid var(--line)}
+td{padding:11px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td .num{font-family:var(--mono);font-size:14px}
+.budget-note{margin:18px 0 0;color:var(--muted);font-size:13.5px;line-height:1.7}
+
+/* ---------- limits ---------- */
+.limits{list-style:none;margin:0;padding:0;max-width:760px}
+.limits li{position:relative;padding:16px 0 16px 30px;border-bottom:1px solid var(--line);color:var(--muted);font-size:15px;line-height:1.75}
+.limits li:first-child{padding-top:0}
+.limits li:last-child{border-bottom:0}
+.limits li::before{content:"";position:absolute;left:6px;top:22px;width:6px;height:6px;border-radius:50%;background:var(--line)}
+.limits li:first-child::before{top:6px}
+.limits strong{color:var(--ink);font-weight:600}
+
+/* ---------- start ---------- */
+.start-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+.codeblock{position:relative;background:var(--ink);border-radius:var(--radius);padding:22px 24px 24px;box-shadow:var(--shadow)}
+.codeblock .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.codeblock .dot{display:flex;gap:6px}
+.codeblock .dot i{width:10px;height:10px;border-radius:50%;background:oklch(0.5 0.02 159);display:block}
+.codeblock .dot i:first-child{background:oklch(0.5 0.02 159)}
+.codeblock .dot i:nth-child(2){background:oklch(0.55 0.02 159)}
+.codeblock .dot i:nth-child(3){background:oklch(0.6 0.02 159)}
+.codeblock pre{margin:0;overflow-x:auto}
+.codeblock code{font:14px/1.9 var(--mono);color:oklch(0.9 0.005 100);white-space:pre}
+.codeblock code .p{color:var(--green)}
+.copy-btn{background:oklch(1 0 0 / .08);border:1px solid oklch(1 0 0 / .16);color:oklch(0.92 0.005 100);font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--radius-sm);cursor:pointer}
+.copy-btn:hover{background:oklch(1 0 0 / .14)}
+.reqs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reqs li{position:relative;padding-left:24px;color:var(--muted);font-size:15px;line-height:1.7}
+.reqs li::before{content:"—";position:absolute;left:0;top:0;color:var(--green)}
+.reqs strong{color:var(--ink);font-weight:600}
+.reqs .flags{display:block;font:13.5px/1.8 var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;margin-top:8px;overflow-x:auto;white-space:pre}
+
+/* ---------- footer ---------- */
+.footer{border-top:1px solid var(--line);padding:44px 0 56px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer-brand{display:inline-flex;align-items:center;gap:9px;color:var(--muted);font-size:14px}
+.footer-brand svg{width:16px;height:16px;color:var(--green)}
+.footer-links{display:flex;flex-wrap:wrap;gap:20px}
+.footer-links a{color:var(--muted);font-size:14px}
+.footer-links a:hover{color:var(--ink)}
+.footer-note{color:var(--muted);font-size:13px;width:100%;margin-top:20px}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .arch-nodes{grid-template-columns:1fr;gap:10px}
+  .arch-arrow{justify-self:center;transform:rotate(90deg)}
+  .roles{grid-template-columns:1fr}
+  .start-grid{grid-template-columns:1fr;gap:40px}
+  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 20px 16px;margin:0;display:none}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--line)}
+  .nav-links a:last-child{border-bottom:0}
+  .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+}
+@media (max-width:640px){
+  .features{grid-template-columns:1fr}
+  .feature{border-left:0}
+  .feature:nth-child(2){border-top:1px solid var(--line)}
+  .budget-grid{grid-template-columns:1fr}
+  .trace-list li{grid-template-columns:1fr;gap:6px}
+  .hero{padding:64px 0 56px}
+  .sec{padding:60px 0}
+  .nav-actions .btn-ghost{display:none}
+}
+</style>
 </head>
-<body>
+<body id="top">
 
-    <!-- Header Navigation -->
-    <header class="app-header">
-        <div class="container header-container">
-            <div class="logo">
-                <span class="logo-text">BriefLoop</span><span class="logo-sq" aria-hidden="true"></span>
-            </div>
-            <nav class="nav-links" id="site-nav">
-                <a href="#product">产品</a>
-                <a href="#catch">看它抓错</a>
-                <a href="#compare">对比</a>
-                <a href="#quality-panel">质量面板</a>
-                <a href="#scenarios">使用场景</a>
-                <a href="#start">怎么开始</a>
-                <a href="how-it-works.html">文档</a>
-                <a href="en.html" class="lang-switch">EN</a>
-                <a class="nav-github-mobile" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">GitHub →</a>
-            </nav>
-            <div class="header-cta">
-                <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
-                    <span></span><span></span><span></span>
-                </button>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-github">
-                    <svg class="github-icon" viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                    GitHub
-                </a>
-            </div>
+<header class="nav" data-od-id="site-header">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" data-od-id="nav-brand">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 9 A9 9 0 0 1 39 18 L39 30 A9 9 0 0 1 30 39 L18 39 A9 9 0 0 1 9 30 L9 18 A9 9 0 0 1 18 9" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.5 9 L18 12.6 L18 5.4 Z" fill="currentColor"/></svg>
+      <span>BriefLoop</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="站点导航">
+      <a href="#how">工作原理</a>
+      <a href="#traceability">可追溯交付</a>
+      <a href="#roles">角色</a>
+      <a href="#budget">预算</a>
+      <a href="#limits">边界</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">立即开始</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- hero -->
+  <section class="hero" data-od-id="hero">
+    <div class="wrap">
+      <p class="eyebrow">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 9 A9 9 0 0 1 39 18 L39 30 A9 9 0 0 1 30 39 L18 39 A9 9 0 0 1 9 30 L9 18 A9 9 0 0 1 18 9" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.5 9 L18 12.6 L18 5.4 Z" fill="currentColor"/></svg>
+        单人 · 本地 · 开源（MIT）· v0.17.1
+      </p>
+      <h1 data-od-id="hero-title">与材料<span class="mark">一起思考。</span></h1>
+      <p class="lead">BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕你的问题找来源、写出可编辑的报告、独立评分，再把反馈沉淀成下一次可用的经验。</p>
+      <p class="hero-note">不建多人平台，也不替模型的效果打包票——代码只做确定的事，交付由你拍板。</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#start" data-od-id="hero-cta-start">开始使用</a>
+        <a class="btn btn-ghost" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">查看 GitHub ↗</a>
+      </div>
+      <div class="hero-meta" aria-label="运行环境">
+        <span class="chip">macOS</span>
+        <span class="chip">Python 3.11+</span>
+        <span class="chip">多运行时 · 自带 Key</span>
+        <span class="chip">自定义 API 协议</span>
+        <span class="chip">服务只监听本机</span>
+      </div>
+      <figure class="shot hero-shot" data-od-id="hero-shot">
+        <img src="assets/workbench-chat.png" alt="BriefLoop 对话工作台界面：材料与需求、对话与报告、来源追溯同台（合成示例数据）" width="1600" height="1000" decoding="async">
+        <figcaption><span class="badge">真实界面</span> 对话工作台 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="sec" id="how" data-od-id="section-how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">工作原理</p>
+        <h2>四步，把材料变成可追溯的报告。</h2>
+        <p class="sub">点开每一步，看它替你做了什么；底部回路让每一次都比上一次更省心。</p>
+      </div>
+
+      <div class="arch" data-od-id="arch-diagram">
+        <div class="arch-nodes" role="tablist" aria-label="工作步骤">
+          <button class="arch-node" id="arch-tab-1" role="tab" aria-selected="true" aria-controls="arch-panel" data-od-id="arch-node-input">
+            <span class="arch-num">01</span>
+            <span class="arch-title">需求与材料</span>
+            <span class="arch-sub">你交给它什么</span>
+          </button>
+          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <button class="arch-node" id="arch-tab-2" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-research">
+            <span class="arch-num">02</span>
+            <span class="arch-title">研究与写作</span>
+            <span class="arch-sub">它替你干什么</span>
+          </button>
+          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <button class="arch-node" id="arch-tab-3" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-review">
+            <span class="arch-num">03</span>
+            <span class="arch-title">独立复核</span>
+            <span class="arch-sub">谁来把关</span>
+          </button>
+          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <button class="arch-node" id="arch-tab-4" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-delivery">
+            <span class="arch-num">04</span>
+            <span class="arch-title">可追溯交付</span>
+            <span class="arch-sub">你拿到什么</span>
+          </button>
         </div>
-    </header>
 
-    <!-- ===== 第一屏 · 产品价值与一个可见的交付阻断 ===== -->
-    <section class="hero-section" id="product">
-        <div class="container hero-container">
-            <div class="hero-message hero-message-centered">
-                <span class="hero-version-pill"><span id="version-badge">v0.15.3</span> · Open-source · MIT License</span>
-                <h1 class="hero-title">
-                    AI 负责起草。<br>
-                    代码负责把关。<br>
-                    由你最终批准。
-                </h1>
-                <p class="hero-lede">一个开源治理 harness，在 AI 简报交付前识别知识冲突、<br>阻断错误版本，并保留可审计记录。</p>
-                <div class="hero-buttons">
-                    <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer" class="btn-primary">查看 GitHub</a>
-                    <a href="#start" class="btn-secondary">我想安装</a>
-                </div>
-                <p class="hero-meta">MIT License</p>
-            </div>
+        <button class="arch-loop" id="arch-tab-5" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-loop">
+          <svg class="arch-loopicon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7a7 7 0 1 0 0 10h1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 5l4-2 2 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="arch-num">05</span>
+          <span class="arch-loop-text">
+            <span class="arch-title">经验积累</span>
+            <span class="arch-sub">每次交付的反馈沉淀为 Wiki / Skill，回到下一次「需求与材料」</span>
+          </span>
+        </button>
 
-            <div class="audit-slip reveal visible" aria-label="审计单示例（合成数据）">
-                <div class="slip-head">
-                    <span>QUALITY PANEL — 审计单</span>
-                </div>
-                <div class="slip-row">
-                    <span class="slip-chip gate">门禁：通过</span>
-                    <span class="slip-chip advisory">AI：建议</span>
-                    <div class="slip-block">
-                        <span class="slip-block-label">已拦截：日期冲突</span>
-                        <p class="slip-strike">策略更新日期写为 2026-06-31，与事实不一致。</p>
-                    </div>
-                </div>
-                <div class="slip-dash"></div>
-                <div class="slip-foot">
-                    <span>RUN-2026-0824 · sha256:9c41f2… · python 3.12.8</span>
-                    <span>2026-07-17 21:46 UTC</span>
-                </div>
-            </div>
+        <div class="arch-panel" id="arch-panel" role="tabpanel" aria-labelledby="arch-tab-1" data-od-id="arch-panel"></div>
+      </div>
+    </div>
+  </section>
 
-            <div class="hero-principles" aria-label="BriefLoop 的三条原则">
-                <div class="principle">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                    <span>Agent 负责起草——没有交付权</span>
-                </div>
-                <div class="principle">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-                    <span>Python 负责把关——确定性执行</span>
-                </div>
-                <div class="principle">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></svg>
-                    <span>你来批准——每次如此</span>
-                </div>
-            </div>
+  <!-- traceability -->
+  <section class="sec" id="traceability" data-od-id="section-traceability">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">可追溯交付</p>
+        <h2>每一条重要结论，都能被追问。</h2>
+        <p class="sub">正式交付不是「模型说写完了」，而是把结论钉回它来自的那一行原文、那一页 PDF、那一个单元格。</p>
+      </div>
+      <ul class="trace-list">
+        <li data-od-id="trace-claim">
+          <span class="trace-key">主张绑定</span>
+          <span class="trace-val">重要结论挂到<strong>原文行、PDF 页、Excel 单元格与图像</strong>，不是一句「据我所知」。正文改过之后，相应绑定需要重新复核。</span>
+        </li>
+        <li data-od-id="trace-review">
+          <span class="trace-key">只读复核</span>
+          <span class="trace-val">Reviewer 只读核对<strong>审计包内的实际产物</strong>，拒绝包外读取、shell 与写入；宿主不落实权限时直接失败，不降级冒充隔离。</span>
+        </li>
+        <li data-od-id="trace-bundle">
+          <span class="trace-key">审计包</span>
+          <span class="trace-val">按来源选择<strong>原件、摘录或仅定位</strong>导出 zip，可离线校验结构与一致性；不含凭据与隐藏推理。</span>
+        </li>
+        <li data-od-id="trace-version">
+          <span class="trace-key">版本绑定</span>
+          <span class="trace-val">正式 Word 与<strong>独立审阅、证据版本绑定</strong>；旧正式件保留，更正或更新另建版本。</span>
+        </li>
+      </ul>
+      <figure class="shot trace-shot" data-od-id="trace-shot">
+        <img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async">
+        <figcaption><span class="badge">真实界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
+      </figure>
+      <div class="audit-cmd">
+        <p class="lbl">导出审计包</p>
+        <code>python -m briefloop.audit_bundle /absolute/path/report-audit.zip</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- roles -->
+  <section class="sec" id="roles" data-od-id="section-roles">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">三个角色</p>
+        <h2>评价与学习，各司其职。</h2>
+        <p class="sub">写稿的 Agent 无权宣告自己的稿子合格；评分的、整理的、提议的，各自独立。</p>
+      </div>
+      <div class="roles">
+        <div class="role" data-od-id="role-card-evaluator">
+          <span class="role-en">Evaluator</span>
+          <h3>评价者</h3>
+          <p>给产物打分，比较候选是否真的改善；每次使用独立模型会话。分数不等于事实正确率。</p>
         </div>
-    </section>
-
-    <!-- ===== 第二屏 · 三个对比演示（整站中心，含三种最常见的错误） ===== -->
-    <section class="section" id="catch">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">See it catch · 看它抓错</div>
-                <h2>三种最常见的错误：直接生成会溜进终稿，走 BriefLoop 会被挡下</h2>
-                <p class="section-desc">切换下面三个典型合成场景，看同一份材料两种交付方式的差别。</p>
-            </div>
-
-            <div class="cmp reveal" id="cmp" data-cmp-widget>
-                <div class="cmp-tabs" role="tablist" aria-label="选择案例">
-                    <button class="cmp-tab active" data-cmp="flip" role="tab" aria-selected="true">
-                        <span class="cmp-tab-label">行业周报</span><span class="cmp-tab-sub">数字被写反</span>
-                    </button>
-                    <button class="cmp-tab" data-cmp="status" role="tab" aria-selected="false">
-                        <span class="cmp-tab-label">管理层月报</span><span class="cmp-tab-sub">计划写成完成</span>
-                    </button>
-                    <button class="cmp-tab" data-cmp="stale" role="tab" aria-selected="false">
-                        <span class="cmp-tab-label">政策/市场跟踪</span><span class="cmp-tab-sub">旧数据冒充最新</span>
-                    </button>
-                </div>
-
-                <div class="cmp-source">
-                    <span class="cmp-source-tag">原始材料</span>
-                    <p id="cmp-source-text">…</p>
-                </div>
-
-                <div class="cmp-cols">
-                    <!-- 左：一次性直接生成 -->
-                    <div class="cmp-col oneshot">
-                        <div class="cmp-col-head">
-                            <span class="cmp-col-title">一次性直接生成</span>
-                            <span class="cmp-col-flag done">看起来已完成 ✓</span>
-                        </div>
-                        <div class="report-page" id="cmp-oneshot">…</div>
-                        <p class="cmp-col-foot muted">读起来通顺、自信——错误就藏在里面，没有任何提示。</p>
-                    </div>
-
-                    <!-- 右：使用 BriefLoop -->
-                    <div class="cmp-col briefloop">
-                        <div class="cmp-col-head">
-                            <span class="cmp-col-title">使用 BriefLoop</span>
-                            <span class="cmp-col-flag" id="cmp-rev">草稿 · revision 1</span>
-                        </div>
-                        <div class="report-page draft" id="cmp-draft">…</div>
-                        <div class="cmp-findings" id="cmp-findings"></div>
-                        <div class="cmp-deliver">
-                            <button class="deliver-btn" id="cmp-deliver" disabled>交付</button>
-                            <button class="repair-btn" id="cmp-repair">按提示修复，再看一次 →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 每个案例固定回答四个问题 -->
-                <div class="cmp-questions">
-                    <div class="q-item"><span class="q-k">哪里错了？</span><span class="q-v" id="q-where">…</span></div>
-                    <div class="q-item"><span class="q-k">根据什么发现？</span><span class="q-v" id="q-how">…</span></div>
-                    <div class="q-item"><span class="q-k">为什么不能交付？</span><span class="q-v" id="q-why">…</span></div>
-                    <div class="q-item"><span class="q-k">修复后应该怎么写？</span><span class="q-v" id="q-fixed">…</span></div>
-                    <div class="q-item not-proven"><span class="q-k">BriefLoop 没有证明什么？</span><span class="q-v" id="q-notproven">…</span></div>
-                </div>
-
-                <details class="cmp-tech">
-                    <summary>查看审计详情（开发者视角）</summary>
-                    <pre class="cmp-tech-pre"><code id="cmp-tech-code">…</code></pre>
-                </details>
-            </div>
-
-            <p class="cmp-disclaimer">合成案例，用于解释工作流，不代表自动事实核查基准。</p>
+        <div class="role" data-od-id="role-card-wiki">
+          <span class="role-en">Wiki Maintainer</span>
+          <h3>经验整理</h3>
+          <p>把反馈与执行观察整理成 Wiki。它是经验，不是当期事实来源。</p>
         </div>
-    </section>
-
-    <!-- ===== 为什么不只是提示词 · BriefLoop vs ChatGPT / Runtime / Skill ===== -->
-    <section class="section" id="compare">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">Compare · 对比</div>
-                <h2>不是更长的 Prompt，而是 AI 之外的交付规则</h2>
-                <p class="section-desc">Prompt 和 Skill 告诉 Agent「应该怎么做」；BriefLoop 记录它「实际做了什么」，并决定哪一版有资格交付。</p>
-            </div>
-
-            <p class="compare-callout reveal">最大的区别不是多一个审稿 Agent，而是<b>写稿的 Agent 没有权把自己的稿子直接宣布为「可以交付」</b>。</p>
-
-            <div class="role-ledger reveal">
-                <div class="role-row">
-                    <span class="role-tag">负责「写」</span>
-                    <h3 class="role-name">ChatGPT + 长 Prompt</h3>
-                    <p class="role-analogy">写得好，但规则只活在这一次对话里。</p>
-                </div>
-                <div class="role-row">
-                    <span class="role-tag">负责「跑」</span>
-                    <h3 class="role-name">Agent Runtime + Skill.md</h3>
-                    <p class="role-analogy">能调工具、跑多步，但写稿和裁判还是同一个。</p>
-                </div>
-                <div class="role-row is-briefloop">
-                    <span class="role-tag">负责「管住交付」</span>
-                    <h3 class="role-name">BriefLoop</h3>
-                    <p class="role-analogy">把关键事实、检查和批准放到 Agent 之外。</p>
-                </div>
-            </div>
-
-            <div class="compare-table-wrap reveal">
-                <table class="compare-table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>ChatGPT + 长 Prompt</th>
-                            <th>Agent Runtime + Skill.md</th>
-                            <th class="col-brand">BriefLoop</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>主要作用</th><td>生成内容</td><td>自动执行任务</td><td class="col-brand">管理报告从草稿到交付</td></tr>
-                        <tr><th>规则如何生效</th><td>Agent 按 Prompt 理解遵守</td><td>Agent 按 Skill 和 Runtime 执行</td><td class="col-brand">关键边界由外部状态、程序检查和权限控制</td></tr>
-                        <tr><th>谁判断任务完成</th><td>通常是模型或用户</td><td>通常是 Agent 或 Runtime 流程</td><td class="col-brand">写稿 Agent 无权单独宣布可交付</td></tr>
-                        <tr><th>关键数字如何保存</th><td>存在于材料和对话中</td><td>可能保存在中间文件中</td><td class="col-brand">关键事实单独登记，改动必须留痕</td></tr>
-                        <tr><th>发现错误后</th><td>继续对话、重新生成</td><td>Agent 重试或重跑步骤</td><td class="col-brand">问题入账，阻断交付，修复后重新检查</td></tr>
-                        <tr><th>哪一版算最终稿</th><td>最后一次回答或生成的文件</td><td>Agent 标记完成的结果</td><td class="col-brand">通过检查并获批准的版本</td></tr>
-                        <tr><th>运行中断后</th><td>依赖聊天记录和上下文</td><td>取决于 Runtime 是否存状态</td><td class="col-brand">根据工件和运行记录恢复</td></tr>
-                        <tr><th>最适合</th><td>一次性、低风险写作</td><td>多步骤自动化</td><td class="col-brand">重复、高风险、多人复核的正式报告</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="compare-summary reveal">ChatGPT 负责想和写，Skill 负责教它怎么做，Runtime 负责让它跑起来，<b>BriefLoop 负责记账、拦截和放行</b>。</p>
-
-            <div class="compare-boundary reveal">
-                <span class="cb-kicker">诚实说明</span>
-                <p>这些能力 Agent Runtime 自己也能实现——但都做完，其实就是在重建 BriefLoop。区别不是别人做不到，而是<b>你不必每个团队再用 Prompt 和脚本各拼一遍</b>。</p>
-            </div>
-
-            <p class="compare-punch reveal">Skill 是「请你这样做」，<b>BriefLoop 是「没做到这一步，就过不去」。</b></p>
+        <div class="role" data-od-id="role-card-skill">
+          <span class="role-en">Skill Proposer</span>
+          <h3>技能提议</h3>
+          <p>根据 Wiki 提出或改进 Skill；候选未通过验证不会自动启用。</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ===== 第四屏 · 四步说明它怎么工作 ===== -->
-    <section class="section" id="how">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">How it works · 工作方式</div>
-                <h2>四步，把 AI 草稿变成敢交付的最终稿</h2>
-            </div>
-            <div class="steps-grid reveal mt-40">
-                <div class="step-card">
-                    <span class="step-num">01</span>
-                    <h3>把资料交给 AI</h3>
-                    <p>本地文件、报告、表格，或已登记的网页材料。</p>
-                </div>
-                <div class="step-card">
-                    <span class="step-num">02</span>
-                    <h3>AI 起草报告</h3>
-                    <p>目前通过 Codex 起草。</p>
-                </div>
-                <div class="step-card">
-                    <span class="step-num">03</span>
-                    <h3>BriefLoop 对照来源和规则检查</h3>
-                    <p>看数字有没有出处、材料是否过期、是否突然多出新的重要结论。</p>
-                </div>
-                <div class="step-card">
-                    <span class="step-num">04</span>
-                    <h3>问题退回修改，人确认后交付</h3>
-                    <p>未处理的问题不会被当成最终稿。放行的永远是人，且留有记录。</p>
-                </div>
-            </div>
-            <details class="tech-disclosure reveal">
-                <summary>查看技术细节</summary>
-                <div class="tech-disclosure-body">
-                    <p>v0.15.3 的新运行只走 Experimental Codex SQLite 路径。SQLite ControlStore（<code>briefloop.db</code>）及其收据、账本关系是唯一运行权威；Agent 只能写 invocation scratch 提案，确定性服务才可接受并生效。旧 JSON 控制面已删除，不能导入或双写。legacy JSON 控制文件与报告、status、Quality Panel、Markdown/JSON/JSONL/HTML 导出是非权威投影。strict action、envelope 与 human-request JSON 只是写边界载体，必须重新对照 ControlStore 校验，自身不构成权威。完整机制见 <a href="how-it-works.html">运作原理</a>。</p>
-                </div>
-            </details>
+  <!-- features -->
+  <section class="sec" id="features" data-od-id="section-features">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">能力</p>
+        <h2>够用，而且每一步都透明。</h2>
+        <p class="sub">从聊天到正式交付，同一套工作台里完成；公开工具与子 Agent 的活动始终可见。</p>
+      </div>
+      <div class="features">
+        <div class="feature" data-od-id="feature-card-chat">
+          <h3>对话工作台</h3>
+          <p>发消息、上传材料、选模型、补要求；公开工具与子 Agent 活动可见。</p>
         </div>
-    </section>
-
-    <!-- ===== 第五屏 · 用户最后得到什么 ===== -->
-    <section class="section" id="artifacts">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">What you get · 交付物</div>
-                <h2>不只是一份报告，而是一套「可以被追问」的交付</h2>
-                <p class="section-desc">先看它有什么用，文件名点开再看。</p>
-            </div>
-            <div class="grid-2 outcome-grid mt-40" data-disclosure-group>
-                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>一份可以直接阅读的最终简报</h3><p>通过全部检查、经人工批准后才成为最终稿的报告。</p></div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>brief.md · brief.docx</code></div>
-                </div>
-                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>一张关键数字和出处的来源地图</h3><p>每个关键数字对应哪份材料、第几页，一眼可查。</p></div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>claim_ledger.json · source_appendix.md</code></div>
-                </div>
-                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>一份需要人工处理的问题清单</h3><p>哪些地方还没出处、还在冲突、还需人来判断，都列在这里。</p></div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>findings · audit bundle</code></div>
-                </div>
-                <div class="outcome-card disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div><h3>一条谁在什么时候批准交付的记录</h3><p>放行是谁、什么时间、基于哪一版，全程留痕。</p></div>
-                    <span class="card-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail" aria-hidden="true"><span class="detail-kicker">开发者查看</span><code>briefloop.db · Store receipts</code></div>
-                </div>
-            </div>
+        <div class="feature" data-od-id="feature-card-workspace">
+          <h3>工作区管理</h3>
+          <p>打开已有目录或新建，各自保存对话、来源、稿件、评分与 Wiki。</p>
         </div>
-    </section>
-
-    <!-- ===== 质量面板 · 每次运行的确定性投影 ===== -->
-    <section class="section" id="quality-panel">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">Quality Panel · 质量面板</div>
-                <h2>支持的运行可以生成一张 Quality Panel</h2>
-                <p class="section-desc">v0.15.3 可导出一份自包含的只读 HTML：Brief、Quality、Market Data、LAJ 建议、改进状态。它只是 Store/LAJ 的展示投影，不是运行权威、质量评分或交付裁决；LAJ 为 Experimental，效用 NOT MEASURED。</p>
-            </div>
-            <div class="qp-demo reveal" data-qp-widget></div>
-            <p class="qp-demo-note">合成数据 · 只读展示。第三页会如实显示 Improvement Ledger unavailable；页面没有处置、写入或“接受建议后改善下次运行”的能力。</p>
+        <div class="feature" data-od-id="feature-card-doc">
+          <h3>富文档</h3>
+          <p>可编辑的富文档，格式与内容一起成版本；Markdown 兼容导入导出。</p>
         </div>
-    </section>
-
-    <!-- ===== 同一任务 · 三种方法 · 作者手工放置 ===== -->
-    <!--
-      给作者：真实对照完成后，把每个 article 换成链接卡片，并补上：
-        1) 报告 / 运行包链接；2) 标题和摘要；3) 时间窗、来源包和运行标识。
-      在没有可复核产物前，不要删除 is-placeholder，也不要把本区写成已完成结果。
-    -->
-    <section class="section" id="samples">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">Controlled comparison · 对照实验</div>
-                <h2>同一项周报任务，三种方法</h2>
-                <p class="section-desc">相同时间窗、来源包、模型与交付要求。真实运行完成并核验后，这里会公开三份成品、问题记录与运行包；不把“看起来最好”的一次挑出来当结论。</p>
-            </div>
-            <div class="grid-3 sample-grid reveal mt-40">
-                <article class="sample-card is-placeholder" aria-label="筹备中的长 Prompt 直出对照">
-                    <span class="sample-tag">A0 · 筹备中</span>
-                    <h3>长 Prompt 直出</h3>
-                    <p>相同来源包与报告要求下，一次性生成的周报及其原始运行记录。</p>
-                    <div class="sample-meta"><span>同一来源</span><span>同一模型</span><span>待公开</span></div>
-                    <span class="sample-cta">运行包准备中</span>
-                </article>
-                <article class="sample-card is-placeholder" aria-label="筹备中的 Skill 加 Agent Runtime 对照">
-                    <span class="sample-tag">A1 · 筹备中</span>
-                    <h3>Skill + Agent Runtime</h3>
-                    <p>相同来源包与报告要求下，Agent 使用公开 Skill 完成的周报与运行记录。</p>
-                    <div class="sample-meta"><span>同一来源</span><span>同一模型</span><span>待公开</span></div>
-                    <span class="sample-cta">运行包准备中</span>
-                </article>
-                <article class="sample-card is-placeholder" aria-label="筹备中的 BriefLoop 工作流对照">
-                    <span class="sample-tag">A2 · 筹备中</span>
-                    <h3>BriefLoop 工作流</h3>
-                    <p>相同来源包与报告要求下，附事实登记、问题记录、修复与人工放行状态。</p>
-                    <div class="sample-meta"><span>同一来源</span><span>同一模型</span><span>待公开</span></div>
-                    <span class="sample-cta">运行包准备中</span>
-                </article>
-            </div>
+        <div class="feature" data-od-id="feature-card-industry">
+          <h3>行业定期报告</h3>
+          <p>六类章节按行业与任务裁剪，Word / WPS 导出，可选用户模板与企业背景。</p>
         </div>
-    </section>
-
-    <!-- ===== 第六屏 · 适用场景 ===== -->
-    <section class="section" id="scenarios">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">Use cases · 使用场景</div>
-                <h2>你每周要交什么，BriefLoop 就帮你守住那一份</h2>
-                <p class="section-desc">三类最常见的定期交付，各自最容易出的问题。</p>
-            </div>
-            <div class="grid-3 mt-40">
-                <div class="usecase-item reveal">
-                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
-                    <div class="usecase-detail">
-                        <h3>行业与竞品周报</h3>
-                        <p class="usecase-problem"><strong>要交</strong>：每周的行业动向和竞品跟踪。</p>
-                        <p class="usecase-solution"><strong>常拦住</strong>：多轮改稿后混入的未证实数据和观点；核心数字先冻结再润色。</p>
-                    </div>
-                </div>
-                <div class="usecase-item reveal reveal-delay-1">
-                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.5-5.5 6-5.5s6 2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16.5 14.6c2.8.3 4.5 2 4.5 4.9"/></svg></div>
-                    <div class="usecase-detail">
-                        <h3>管理层月报</h3>
-                        <p class="usecase-problem"><strong>要交</strong>：给管理层的月度经营与决策简报。</p>
-                        <p class="usecase-solution"><strong>常拦住</strong>：把「预计」写成「已完成」、过于绝对且缺乏归因的结论。</p>
-                    </div>
-                </div>
-                <div class="usecase-item reveal reveal-delay-2">
-                    <div class="usecase-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M5 7l7-4 7 4M5 7v4c0 2 1.5 3.5 3.5 3.5S12 13 12 11M19 7v4c0 2-1.5 3.5-3.5 3.5S12 13 12 11"/><path d="M8 21h8"/></svg></div>
-                    <div class="usecase-detail">
-                        <h3>文档证据审阅</h3>
-                        <p class="usecase-problem"><strong>要交</strong>：对 AI 草稿做出处与合规复核的结论。</p>
-                        <p class="usecase-solution"><strong>常拦住</strong>：过期或无依据的陈述被标记并阻断，复核只看例外。</p>
-                    </div>
-                </div>
-            </div>
+        <div class="feature" data-od-id="feature-card-charts">
+          <h3>图表与 Excel</h3>
+          <p>复用 XLSX 内嵌图与原生图表，Agent 可用真实数据生成新图并登记来源。</p>
         </div>
-    </section>
-
-    <!-- ===== 第七屏 · 诚实说明边界 ===== -->
-    <section class="section" id="boundary">
-        <div class="container">
-            <div class="boundary-inner reveal">
-                <div class="eyebrow on-dark">Boundary · 边界</div>
-                <h2>帮你查清楚，但不替你拍板</h2>
-                <p>BriefLoop 不会自动证明某句话绝对正确，也不会替代法律、合规或管理层判断。它做的是把出处、冲突、过期材料和未解决问题摆到你面前，并防止这些问题被悄悄当成最终稿。</p>
-                <p class="boundary-note">举个例子：它不会证明「需求一定没有回暖」；它只是指出，当前提供的材料不足以支持这个结论。</p>
-            </div>
+        <div class="feature" data-od-id="feature-card-media">
+          <h3>图片与 PDF 页</h3>
+          <p>图片原件保存与预览，PDF 按需渲染指定页供视觉模型查看。</p>
         </div>
-    </section>
-
-    <!-- ===== 当前版本体验 ===== -->
-    <section class="section" id="roadmap">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">v0.15.3 · 已发布</div>
-                <h2>体验当前版本</h2>
-                <p class="section-desc">以下页面展示 v0.15.3 的产品边界；均为合成数据，只用于说明界面，不构成能力测量结果。</p>
-            </div>
-            <div class="roadmap-grid reveal mt-40">
-                <div class="roadmap-card">
-                    <span class="roadmap-tag">v0.15.3 · READ-ONLY DEMO</span>
-                    <h3>交互式向导 init</h3>
-                    <p>真实 <code>briefloop init --web</code> 是 Experimental 的本地一次性向导；本站页面只是只读界面预览，不创建工作区、不提交事务。</p>
-                    <a class="roadmap-link" href="demos/interactive-init/">打开设计预览 →</a>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-tag">EXPERIMENTAL · NOT MEASURED</span>
-                    <h3>AI Second Opinion</h3>
-                    <p>终稿后的 advisory 第二意见，不影响 Gate、交付、批准、下一动作或事实支持结论；效用 NOT MEASURED。</p>
-                    <a class="roadmap-link" href="demos/quality-panel/#review">打开设计预览 →</a>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-tag">UNAVAILABLE ON THIS PAGE</span>
-                    <h3>改进页</h3>
-                    <p>HTML 的 Improvement 页只读显示不可用。没有自动学习。v0.15.3 的人工观察与批准指导走 Store Receipt，下一轮只有显式 <code>--include-approved-guidance</code> 才会带入。</p>
-                    <a class="roadmap-link" href="demos/quality-panel/#improvement">打开只读预览 →</a>
-                </div>
-            </div>
+        <div class="feature" data-od-id="feature-card-archive">
+          <h3>对话整理</h3>
+          <p>归档、回收站、恢复、批量归档；报告与 Wiki 不随对话清理删除。</p>
         </div>
-    </section>
-
-    <!-- ===== 怎么开始 ===== -->
-    <section class="section" id="start">
-        <div class="container">
-            <div class="section-header">
-                <div class="eyebrow">Get started · 怎么开始</div>
-                <h2>两种方式，几分钟开始用</h2>
-                <p class="section-desc">不用装任何东西也能先看它抓错；想本地跑起来，下面二选一。</p>
-            </div>
-            <div class="grid-2 install-methods reveal mt-40">
-                <div class="install-method recommended">
-                    <span class="install-tag">方式一 · 最简单</span>
-                    <h3>对 Agent 说一句话</h3>
-                    <p>在 Codex 中说：</p>
-                    <p class="install-say">「我想用 briefloop.ai 做周报」</p>
-                    <div class="agent-instructions" aria-label="给 Agent 的启动指令">
-                        <span class="agent-instructions-kicker">给 Agent 的指令</span>
-                        <p>执行任何动作前，请先读取：</p>
-                        <a href="/.well-known/briefloop-agent.json"><code>https://briefloop.ai/.well-known/briefloop-agent.json</code></a>
-                        <p>然后读取 manifest 指定的 canonical Skill。不要从本首页自行推断仓库、安装方式、runtime 或能力边界。</p>
-                    </div>
-                    <button type="button" class="btn-copy-agent" data-copy-text="请先读取 https://briefloop.ai/.well-known/briefloop-agent.json&#10;及其中指定的 canonical Skill，识别当前 runtime，并向我说明拟执行的&#10;clone、安装和 workspace 路径。在我明确确认前不要执行任何修改。">复制给 Agent</button>
-                    <p class="install-note">它应先读取安装说明、向你确认目录和权限，再按你的系统路径逐步验证安装；不要把对话里的“完成”当成安装成功。</p>
-                </div>
-                <div class="install-method">
-                    <span class="install-tag">方式二 · 源码安装</span>
-                    <h3>粘贴到 macOS / Linux 终端</h3>
-                    <div class="install-cmds">
-                        <code>git clone https://github.com/Stahl-G/briefloop.git</code>
-                        <code>cd briefloop &amp;&amp; bash scripts/setup.sh</code>
-                    </div>
-                    <button type="button" class="btn-copy-install" data-copy-text="git clone https://github.com/Stahl-G/briefloop.git&#10;cd briefloop &amp;&amp; bash scripts/setup.sh">复制命令</button>
-                    <p class="install-note">需要 Python 3.12。装好后 <code>source .venv/bin/activate</code>，可先跑 <code>bash scripts/demo.sh</code>。建工作区用 <code>briefloop new industry-weekly ./my-weekly</code>，或先 <code>briefloop onboard</code> 再 <code>init --from-onboarding</code>。Windows 请使用 <a href="agents/briefloop/references/installation.md">PowerShell 安装路径</a>，不要把这两行 Bash 改写到 Git Bash。<code>pipx install briefloop</code> 目前不是启动路径。</p>
-                </div>
-            </div>
-            <p class="quickstart-note">想先在线体验？<a href="#catch">看三个抓错演示</a>。完整安装与治理细节见 <a href="agents/briefloop/SKILL.md">Agent 安装说明</a> 与 <a href="how-it-works.html">运作原理</a>。当前能力边界以仓库里的 <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md" target="_blank" rel="noopener noreferrer">architecture-status</a> 为准；页面上的 <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">架构参考 v0.6.1</a> 是 v0.12.1 代码快照，不是 v0.15.3 能力声明。</p>
+        <div class="feature" data-od-id="feature-card-learn">
+          <h3>学习闭环</h3>
+          <p>编辑后自动合并反馈，Maintainer 整理，Proposer 提议，Evaluator 比较决定。</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <div class="logo">
-                    <span class="logo-text">BriefLoop</span><span class="logo-sq" aria-hidden="true"></span>
-                </div>
-                <p class="footer-desc">AI 先写，BriefLoop 对账；问题没处理完，就不能交付。</p>
-                <p class="footer-boundary">帮你查清出处，但不替你判断真假。</p>
-            </div>
-            <div class="footer-links">
-                <h4>文档与研究</h4>
-                <a href="how-it-works.html">运作原理</a>
-                <a href="reports/briefloop-architecture-reference-v0.6.1.zh-CN.html" target="_blank" rel="noopener noreferrer">技术报告 v0.6.1</a>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>
-                <a href="mailto:contact@briefloop.ai">商务合作</a>
-            </div>
-            <div class="footer-links">
-                <h4>产品</h4>
-                <a href="#catch">看它抓错</a>
-                <a href="#compare">对比</a>
-                <a href="#quality-panel">质量面板</a>
-                <a href="#scenarios">使用场景</a>
-                <a href="#start">怎么开始</a>
-                <a href="#boundary">能力边界</a>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; 2026 BriefLoop.ai · Open-sourced under the MIT License.</p>
-            </div>
+        <div class="feature" data-od-id="feature-card-runtime">
+          <h3>多运行时</h3>
+          <p>Codex、OpenCode、Claude、Kimi、Hermes、Reasonix、MiMo 统一模型目录，也可手填模型 ID。</p>
         </div>
-    </footer>
+        <div class="feature" data-od-id="feature-card-api">
+          <h3>自定义 API 协议</h3>
+          <p>显式支持 Chat Completions、Responses、Anthropic Messages；保存与测试分开。</p>
+        </div>
+        <div class="feature" data-od-id="feature-card-settings">
+          <h3>独立设置页</h3>
+          <p>模型、API 协议与执行时限集中配置，兼顾浏览器窗口与未来 Electron 共享界面。</p>
+        </div>
+        <div class="feature" data-od-id="feature-card-example">
+          <h3>合成周报示例</h3>
+          <p>examples/internal-weekly-report 用合成材料体验生成、改稿与 Word 导出，无需真实数据。</p>
+        </div>
+      </div>
+      <figure class="shot features-shot" data-od-id="feature-shot-doc">
+        <img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="1100" loading="lazy" decoding="async">
+        <figcaption><span class="badge">真实界面</span> 报告正文细节 · 正文、表格与引用同稿编辑</figcaption>
+      </figure>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- budget -->
+  <section class="sec" id="budget" data-od-id="section-budget">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">预算与篇幅</p>
+        <h2>额度明码标价，不花完也不强求。</h2>
+        <p class="sub">整次报告的检索额度由 Scout 共享；字数目标与上限可直接修改。</p>
+      </div>
+      <div class="budget-grid">
+        <div class="budget-card" data-od-id="budget-table">
+          <h3>研究预算</h3>
+          <table>
+            <thead><tr><th>预设</th><th>搜索</th><th>候选 URL</th><th>全文 URL</th></tr></thead>
+            <tbody>
+              <tr><td>周报</td><td class="num">12</td><td class="num">60</td><td class="num">18</td></tr>
+              <tr><td>月报</td><td class="num">30</td><td class="num">200</td><td class="num">45</td></tr>
+            </tbody>
+          </table>
+          <p class="budget-note">额度适用于受控 Tavily 工具；原生 Codex 搜索无法精确计量，页面会明确区分。达到额度后保留材料、说明缺口，不自动加额。</p>
+        </div>
+        <div class="budget-card" data-od-id="length-table">
+          <h3>正文篇幅</h3>
+          <table>
+            <thead><tr><th>预设</th><th>目标字数</th><th>字数上限</th></tr></thead>
+            <tbody>
+              <tr><td>简短</td><td class="num">800</td><td class="num">1,000</td></tr>
+              <tr><td>标准</td><td class="num">1,500</td><td class="num">2,000</td></tr>
+              <tr><td>详细</td><td class="num">2,000</td><td class="num">2,500</td></tr>
+            </tbody>
+          </table>
+          <p class="budget-note">中文汉字每字计 1，连续英文或数字串计 1；格式与引用标记不计。旧稿未设置过字数要求时，如实显示「未设置」。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- limits -->
+  <section class="sec" id="limits" data-od-id="section-limits">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">边界</p>
+        <h2>做不到的，我们如实写出来。</h2>
+        <p class="sub">不把离线测试说成质量提升证明，也不把模型的打分当成事实保证。</p>
+      </div>
+      <ul class="limits">
+        <li><strong>检索预算不保证覆盖完整</strong>；模型评分不等于事实正确率。</li>
+        <li>本版<strong>没有重跑效果或 Token 节省实验</strong>，不据此宣称改进。</li>
+        <li>0.17.0 是架构升级，<strong>旧工作区不自动迁移</strong>——保留旧目录，在新工作区按需导入原始材料；0.17.x 工作区继续保留来源、稿件版本与学习记录。</li>
+        <li>Opencode 没有每轮网络硬开关；图片附件<strong>仅视觉模型可读</strong>。</li>
+        <li>Codex 的同等只读受限审阅<strong>仍需完成能力验证</strong>，不把普通文件只读说成全面隔离。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- start -->
+  <section class="sec" id="start" data-od-id="section-start">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">开始使用</p>
+        <h2>一个仓库，一条命令。</h2>
+        <p class="sub">首次启动自动建 .venv、装依赖与随仓库提供的 WikiSkill wheel，打开本机网页。</p>
+      </div>
+      <div class="start-grid">
+        <div class="codeblock" data-od-id="install-block">
+          <div class="bar">
+            <span class="dot"><i></i><i></i><i></i></span>
+            <button class="copy-btn" id="copy-cmd" type="button">复制</button>
+          </div>
+          <pre><code id="install-cmd"><span class="p">$</span> git clone https://github.com/Stahl-G/briefloop.git
+<span class="p">$</span> cd briefloop
+<span class="p">$</span> ./start.sh</code></pre>
+        </div>
+        <div>
+          <ul class="reqs">
+            <li>需要 <strong>macOS</strong> 与 <strong>Python 3.11+</strong>，以及已安装并完成认证的至少一个受支持 CLI：<strong>Codex / OpenCode / Claude / Kimi / Hermes / Reasonix / MiMo</strong>。</li>
+            <li>首次安装依赖需要网络；多运行时桥接需要 <strong>Node.js 20+</strong>；使用 Tavily 时另行配置自己的 <strong>Tavily Key</strong>。</li>
+            <li>服务<strong>只监听本机</strong>；关闭网页不会停止正在执行的任务。</li>
+            <li>可选参数：
+              <code class="flags">./start.sh --workspace ~/my-brief --port 8765 --no-open --backend opencode</code>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" data-od-id="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="footer-brand">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 9 A9 9 0 0 1 39 18 L39 30 A9 9 0 0 1 30 39 L18 39 A9 9 0 0 1 9 30 L9 18 A9 9 0 0 1 18 9" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.5 9 L18 12.6 L18 5.4 Z" fill="currentColor"/></svg>
+        BriefLoop 0.17.1 · MIT
+      </span>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">使用指南</a>
+        <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">升级说明</a>
+        <a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a>
+        <a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">来源与许可</a>
+      </nav>
+      <p class="footer-note">单人本地工具，服务企业内部可读、可核查的报告；不建设多人企业平台。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle=document.getElementById('menu-toggle');
+  var links=document.querySelector('.nav-links');
+  toggle.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+  var copyBtn=document.getElementById('copy-cmd');
+  var cmd=document.getElementById('install-cmd');
+  copyBtn.addEventListener('click',function(){
+    var text=cmd.innerText.replace(/^\$\s*/gm,'').trim();
+    function done(){copyBtn.textContent='已复制';setTimeout(function(){copyBtn.textContent='复制';},1600);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,function(){fallback();});
+    }else{fallback();}
+    function fallback(){
+      var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='复制失败';setTimeout(function(){copyBtn.textContent='复制';},1600);}
+      document.body.removeChild(ta);
+    }
+  });
+})();
+</script>
+<script>
+(function(){
+  var stages=[
+    {num:'01',title:'需求与材料',sub:'你交给它什么',
+     bullets:['写清<strong>目的、读者、时间范围</strong>与目标篇幅。','上传 PDF、Excel、图片作为材料，也可以<strong>只开联网</strong>检索。','企业背景与模板可选，<strong>自动带入</strong>每一份报告。'],
+     meta:['谁在干：你 + 任务模板','交付物：一份明确的任务要求']},
+    {num:'02',title:'研究与写作',sub:'它替你干什么',
+     bullets:['Scout 按预算<strong>找来源、筛选、去重</strong>，额度明码标价。','Analyst 写出<strong>可编辑的富文档</strong>，图表、表格、引用同稿保存。','重要结论当场<strong>绑定回它来自的那一行原文</strong>。'],
+     meta:['谁在干：Scout 找来源 · Analyst 写稿','交付物：可编辑的报告初稿']},
+    {num:'03',title:'独立复核',sub:'谁来把关',
+     bullets:['Evaluator <strong>独立评分</strong>，比较候选是否真的更好。','Reviewer <strong>只读核对</strong>审计包里的实际产物，不改稿、不补搜。','低分或未通过<strong>不隐藏原稿</strong>，问题摆出来让你决定。'],
+     meta:['谁在干：Evaluator · 只读 Reviewer','交付物：评分与核对结论']},
+    {num:'04',title:'可追溯交付',sub:'你拿到什么',
+     bullets:['正式报告导出 <strong>Word / WPS</strong>，可编辑、可成版本。','审计包按需导出：<strong>原件、摘录或仅定位</strong>，可离线校验。','每条结论都能被追问：回到<strong>原文行、PDF 页、Excel 单元格</strong>。'],
+     meta:['你拿到：正式报告 + 审计包','每条结论都有出处']},
+    {num:'05',title:'经验积累',sub:'越用越好',
+     bullets:['每次交付后的<strong>反馈与修订</strong>，沉淀为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证才启用</strong>，不自动生效。','下一次研究自动受益——<strong>闭环，而不是从零开始</strong>。'],
+     meta:['谁在干：Wiki Maintainer · Skill Proposer · Evaluator']}
+  ];
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));
+  var panel=document.getElementById('arch-panel');
+  function select(tab){
+    var idx=tabs.indexOf(tab);
+    tabs.forEach(function(t,i){t.setAttribute('aria-selected',i===idx?'true':'false');});
+    if(!panel||idx<0)return;
+    var s=stages[idx];
+    panel.setAttribute('aria-labelledby',tab.id);
+    panel.innerHTML=
+      '<div class="arch-panel-head"><span class="arch-num">'+s.num+'</span><h3>'+s.title+'</h3></div>'+
+      '<ul class="arch-bullets">'+s.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
+      '<div class="arch-meta">'+s.meta.map(function(m){return '<span class="chip">'+m+'</span>';}).join('')+'</div>';
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){select(t);});
+    t.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(t),n=tabs.length;
+      if(e.key==='ArrowRight'){e.preventDefault();var nx=tabs[(i+1)%n];nx.focus();select(nx);}
+      else if(e.key==='ArrowLeft'){e.preventDefault();var pv=tabs[(i-1+n)%n];pv.focus();select(pv);}
+      else if(e.key==='Home'){e.preventDefault();tabs[0].focus();select(tabs[0]);}
+      else if(e.key==='End'){e.preventDefault();tabs[n-1].focus();select(tabs[n-1]);}
+    });
+  });
+  select(tabs[0]);
+})();
+</script>
 </body>
 </html>
