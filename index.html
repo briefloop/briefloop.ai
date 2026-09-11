@@ -7,6 +7,9 @@
 <title>BriefLoop · 与材料一起思考 — 本地 Agent 工作台</title>
 <meta name="description" content="BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕问题找来源、写出可编辑的报告、独立评分，并把每条重要结论绑定回它来自的那一行原文。">
 <link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
+<link rel="alternate" hreflang="zh-CN" href="https://briefloop.ai/index.html">
+<link rel="alternate" hreflang="en" href="https://briefloop.ai/en.html">
+<link rel="alternate" hreflang="x-default" href="https://briefloop.ai/">
 <style>
 :root{
   --bg:#faf9f6;
@@ -228,7 +231,16 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .role-lead{grid-template-columns:1fr;gap:8px}
   .trace li{grid-template-columns:1fr;gap:6px}
   .hero-ctas .btn{width:100%}
-  .nav-actions .btn-ghost{display:none}
+  .nav-actions .btn-ghost:not(.lang-btn){display:none}
+}
+/* ---------- wide desktop: spend the width instead of leaving it blank ---------- */
+@media (min-width:1440px){
+  .wrap{max-width:1280px}
+  .shot{max-width:1160px}
+}
+@media (min-width:1800px){
+  .wrap{max-width:1420px}
+  .shot{max-width:1300px}
 }
 </style>
 </head>
@@ -246,9 +258,9 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <a href="#traceability">可追溯交付</a>
       <a href="#features">能力</a>
       <a href="#budget">预算</a>
-      <a href="en.html" data-od-id="nav-lang">EN</a>
     </nav>
     <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm lang-btn" href="en.html" data-od-id="nav-lang" aria-label="切换到英文版">EN</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
       <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">开始使用</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">

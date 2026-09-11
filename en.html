@@ -7,6 +7,9 @@
 <title>BriefLoop · Think with your material — a local Agent workbench</title>
 <meta name="description" content="BriefLoop is an Agent workbench that runs on your own machine: it finds sources around your question, drafts an editable report, scores it independently, and pins every important claim back to the exact line it came from.">
 <link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
+<link rel="alternate" hreflang="zh-CN" href="https://briefloop.ai/index.html">
+<link rel="alternate" hreflang="en" href="https://briefloop.ai/en.html">
+<link rel="alternate" hreflang="x-default" href="https://briefloop.ai/">
 <style>
 :root{
   --bg:#faf9f6;
@@ -228,7 +231,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .role-lead{grid-template-columns:1fr;gap:8px}
   .trace li{grid-template-columns:1fr;gap:6px}
   .hero-ctas .btn{width:100%}
-  .nav-actions .btn-ghost{display:none}
+  .nav-actions .btn-ghost:not(.lang-btn){display:none}
 }
 
 /* ---------- en nav: the labels are wider than the zh ones ---------- */
@@ -239,6 +242,15 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .nav-links a{padding:12px 8px;border-bottom:1px solid var(--border)}
   .nav-links a:last-child{border-bottom:0}
   .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+}
+/* ---------- wide desktop: spend the width instead of leaving it blank ---------- */
+@media (min-width:1440px){
+  .wrap{max-width:1280px}
+  .shot{max-width:1160px}
+}
+@media (min-width:1800px){
+  .wrap{max-width:1420px}
+  .shot{max-width:1300px}
 }
 </style>
 </head>
@@ -256,9 +268,9 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <a href="#traceability">Traceable delivery</a>
       <a href="#features">Capabilities</a>
       <a href="#budget">Budget</a>
-      <a href="index.html" data-od-id="nav-lang">中文</a>
     </nav>
     <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm lang-btn" href="index.html" data-od-id="nav-lang" aria-label="Switch to Chinese">中文</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
       <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">Get started</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
