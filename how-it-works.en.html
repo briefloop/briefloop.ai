@@ -1,406 +1,494 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How it works — BriefLoop.ai governance, gate simulation, and developer workflow</title>
-    <meta name="description" content="BriefLoop's governance model, quality-gate simulation, evolution loop, responsibility boundary, report packs, and developer workflow: AI drafts and proposes, the deterministic control plane audits and keeps the books, humans sign off.">
-    <link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How it works — BriefLoop, the multi-host report workbench</title>
+<meta name="description" content="How BriefLoop works: requirements and material, research and writing, independent evaluation, delivery and learning. Seven host CLIs, a shared research budget, version binding and audit bundles.">
+<link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
+<style>
+:root{
+  --bg:#faf9f6;
+  --surface:#ffffff;
+  --fg:#1e2320;
+  --muted:#6a706b;
+  --border:#dedfd8;
+  --accent:#006838;
+  --accent-2:#006838;
+  --accent-hover:oklch(0.38 0.1136 154.4);
+  --accent-light:color-mix(in srgb,#006838 55%,#faf9f6);
+  --text-2:#5a615b;
+  --text-3:#6a706b;
+  --accent-soft:color-mix(in srgb,#006838 7%,#ffffff);
+  --accent-line:color-mix(in srgb,#006838 22%,#ffffff);
+  --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --r-xs:4px;
+  --r-sm:6px;
+  --r:8px;
+  --r-lg:12px;
+  --shadow-sm:0 1px 2px color-mix(in srgb,#1e2320 5%,transparent);
+  --shadow:0 1px 2px color-mix(in srgb,#1e2320 4%,transparent),0 12px 32px color-mix(in srgb,#1e2320 6%,transparent);
+  --shadow-lg:0 32px 80px -28px color-mix(in srgb,#1e2320 16%,transparent);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+section{scroll-margin-top:88px}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,#faf9f6 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:18px;letter-spacing:-.02em;flex:none}
+.brand:hover{color:var(--fg);text-decoration:none}
+.brand img{width:24px;height:24px;flex:none}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:8px}
+.nav-links a{color:var(--text-2);font-size:14.5px;padding:8px 12px;border-radius:var(--r-sm)}
+.nav-links a:hover{color:var(--fg);background:var(--surface);text-decoration:none}
+.nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.menu-toggle{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 10px;color:var(--fg);cursor:pointer}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);height:44px;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--accent-2);color:#ffffff;border-color:var(--accent-2)}
+.btn-primary:hover{background:var(--accent-hover);color:#ffffff;box-shadow:0 6px 18px -6px color-mix(in srgb,#006838 45%,transparent);transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0);box-shadow:none}
+.btn-ghost{background:transparent;color:var(--fg);border-color:var(--border)}
+.btn-ghost:hover{background:var(--surface);color:var(--fg);border-color:var(--muted)}
+.btn-sm{height:36px;padding:0 14px;font-size:14px}
+.btn-lg{height:52px;padding:0 26px;font-size:16.5px}
+
+/* ---------- shared ---------- */
+.section{padding:clamp(64px,8vw,100px) 0;border-top:1px solid var(--border)}
+.section.plain{border-top:0}
+.kicker{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px}
+.h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:12px;text-wrap:balance}
+.sub{color:var(--text-2);font-size:17px;max-width:64ch}
+.sec-head{max-width:680px;margin-bottom:clamp(32px,4vw,48px)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--surface)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 26px 28px}
+.card.soft{background:var(--bg)}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);flex:none}
+.ico svg{width:20px;height:20px}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(56px,8vw,96px) 0 0;text-align:center}
+.hero h1{font-size:clamp(40px,7vw,68px);letter-spacing:-.035em;line-height:1.06;margin:22px auto 20px;max-width:12em;text-wrap:balance}
+.lead{font-size:clamp(17px,1.6vw,19.5px);line-height:1.75;color:var(--text-2);max-width:60ch;margin:0 auto}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:32px 0 0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 0}
+.chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
+.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
+.shot .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.shot .dot{width:10px;height:10px;border-radius:50%;background:var(--border);display:block}
+.shot .dot:nth-child(2){background:color-mix(in srgb,#1e2320 22%,#faf9f6)}
+.shot .dot:nth-child(3){background:color-mix(in srgb,#1e2320 34%,#faf9f6)}
+.shot .url{flex:1;max-width:360px;margin-left:10px;height:24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:11.5px;color:var(--text-3);overflow:hidden;white-space:nowrap}
+.shot img{width:100%;height:auto}
+.shot figcaption{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
+.badge{font-size:12px;font-weight:600;color:var(--accent-2);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px;line-height:1.6;white-space:nowrap}
+
+/* ---------- why ---------- */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why .card h3{font-size:17px;margin:18px 0 8px}
+.why .card p{color:var(--text-2);font-size:14.5px;line-height:1.7}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.step{appearance:none;display:flex;flex-direction:column;gap:8px;text-align:left;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;cursor:pointer;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
+.step:hover{border-color:var(--muted);box-shadow:var(--shadow-sm)}
+.step[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft);box-shadow:var(--shadow-sm)}
+.step-num{font:700 13px/1 var(--mono);color:var(--accent-2);letter-spacing:.04em}
+.step-title{font-size:16px;font-weight:640;line-height:1.3}
+.step-sub{color:var(--text-3);font-size:13px;line-height:1.5}
+.step-arrow{display:inline-flex;align-items:center;align-self:center;color:var(--muted)}
+.step-arrow svg{width:20px;height:20px}
+.loopbar{appearance:none;display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--surface);border:1px dashed var(--border);border-radius:var(--r-lg);padding:14px 18px;margin-top:12px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.loopbar:hover{border-color:var(--muted)}
+.loopbar[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft)}
+.loopbar .ico{width:34px;height:34px;background:transparent;border:1px solid var(--accent-line)}
+.loopbar-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.loopbar .t{font-size:15px;font-weight:640}
+.loopbar .s{font-size:12.5px;color:var(--text-3)}
+.panel{margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;box-shadow:var(--shadow-sm)}
+.panel-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.panel-head h3{font-size:19px}
+.bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.bullets li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.75}
+.bullets li::before{content:"";position:absolute;left:2px;top:11px;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+.bullets strong{color:var(--fg);font-weight:600}
+.panel-meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}
+.panel-meta .chip{font-size:12.5px}
+
+/* ---------- trace ---------- */
+.trace{list-style:none;margin:0;padding:0;max-width:780px}
+.trace li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--border)}
+.trace li:first-child{padding-top:0}
+.trace li:last-child{border-bottom:0;padding-bottom:0}
+.trace-key{font-weight:640;font-size:15px;color:var(--fg)}
+.trace-val{color:var(--text-2);font-size:15px;line-height:1.75}
+.trace-val strong{color:var(--fg);font-weight:600}
+.trace-shot{margin:44px 0 0}
+.cmd{margin:32px 0 0;max-width:780px}
+.cmd .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.cmd code{display:block;font:13.5px/1.7 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;overflow-x:auto;white-space:pre}
+
+/* ---------- roles / features ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.role .role-en{display:block;font:700 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+.role h3{font-size:17px;margin-bottom:8px}
+.role p{color:var(--text-2);font-size:14.5px;line-height:1.7}
+.role-lead{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:clamp(18px,3vw,36px);align-items:start;margin-bottom:20px;border-color:var(--accent-line)}
+.role-lead .role-en{margin-bottom:10px}
+.role-lead h3{font-size:20px}
+.role-lead p{color:var(--text-2);font-size:15px;line-height:1.75;max-width:62ch}
+.feat h3{font-size:16px;margin:16px 0 8px}
+.feat p{color:var(--text-2);font-size:14px;line-height:1.7}
+.feat-shot{max-width:840px;margin:44px auto 0}
+
+/* ---------- budget ---------- */
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.budget-grid h3{font-size:17px;margin-bottom:16px}
+.budget-grid .lbl{font:600 13px/1.7 var(--mono);color:var(--fg);margin:0 0 12px;text-wrap:balance}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-weight:600;text-align:left;color:var(--text-3);font-size:12.5px;letter-spacing:.02em;padding:9px 10px;border-bottom:1px solid var(--border)}
+td{padding:11px 10px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td .num{font-family:var(--mono);font-size:13.5px}
+.note{margin:18px 0 0;color:var(--text-3);font-size:13.5px;line-height:1.7}
+
+/* ---------- start ---------- */
+.start-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:start}
+.terminal{background:var(--fg);border-radius:var(--r-lg);padding:22px 24px 24px;box-shadow:var(--shadow)}
+.terminal .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.terminal .dot{display:flex;gap:6px}
+.terminal .dot i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,#faf9f6 24%,#1e2320);display:block}
+.terminal pre{margin:0;overflow-x:auto}
+.terminal code{font:14px/1.9 var(--mono);color:#faf9f6;white-space:pre}
+.terminal code .p{color:var(--accent-light)}
+.copy-btn{background:color-mix(in srgb,#faf9f6 12%,#1e2320);border:1px solid color-mix(in srgb,#faf9f6 26%,#1e2320);color:#faf9f6;font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--r-sm);cursor:pointer;transition:background .15s ease}
+.copy-btn:hover{background:color-mix(in srgb,#faf9f6 20%,#1e2320);color:#faf9f6}
+.reqs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reqs li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.7}
+.reqs li::before{content:"—";position:absolute;left:0;top:0;color:var(--accent-2)}
+.reqs strong{color:var(--fg);font-weight:600}
+.reqs .flags{display:block;font:13.5px/1.8 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;margin-top:8px;overflow-x:auto;white-space:pre}
+
+/* ---------- final cta ---------- */
+.cta-band{background:var(--accent-2);border-radius:clamp(16px,2.4vw,24px);padding:clamp(48px,7vw,80px) clamp(24px,5vw,64px);text-align:center;position:relative;overflow:hidden}
+.cta-band .ring{position:absolute;border-radius:50%;border:1px solid color-mix(in srgb,#ffffff 26%,transparent)}
+.cta-band .ring.a{width:340px;height:340px;top:-140px;right:-100px}
+.cta-band .ring.b{width:260px;height:260px;bottom:-130px;left:-90px}
+.cta-band .inner{position:relative}
+.cta-band h2{color:#ffffff;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.025em;line-height:1.15;max-width:16em;margin:0 auto 12px;text-wrap:balance}
+.cta-band p{color:#ffffff;font-size:17px;max-width:52ch;margin:0 auto 28px}
+.cta-band .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+.btn-invert{background:#ffffff;color:var(--accent-2);border-color:#ffffff}
+.btn-invert:hover{background:#ffffff;color:var(--accent-2);box-shadow:0 8px 22px -8px color-mix(in srgb,#1e2320 30%,transparent);transform:translateY(-1px)}
+.cta-band .link-w{color:#ffffff;font-weight:600;font-size:15px;padding:0 6px}
+.cta-band .link-w:hover{color:#ffffff}
+.section-cta{padding:0 0 clamp(64px,8vw,96px)}
+
+/* ---------- footer ---------- */
+.footer{border-top:1px solid var(--border);padding:clamp(48px,6vw,64px) 0 32px}
+.footer-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:17px;letter-spacing:-.02em}
+.footer-brand img{width:22px;height:22px}
+.footer-desc{color:var(--text-3);font-size:13.5px;max-width:34ch;margin-top:12px;line-height:1.7}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:16px}
+.footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.footer-col a{color:var(--text-2);font-size:14px}
+.footer-col a:hover{color:var(--fg)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .why,.grid-3,.grid-features{grid-template-columns:1fr 1fr}
+  .start-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:10px}
+  .step-arrow{justify-self:center;transform:rotate(90deg)}
+  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px 16px;margin:0;display:none}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--border)}
+  .nav-links a:last-child{border-bottom:0}
+  .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .footer-cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .why,.grid-3,.grid-features,.budget-grid{grid-template-columns:1fr}
+  .role-lead{grid-template-columns:1fr;gap:8px}
+  .trace li{grid-template-columns:1fr;gap:6px}
+  .hero-ctas .btn{width:100%}
+  .nav-actions .btn-ghost{display:none}
+}
+
+/* ---------- en nav: the labels are wider than the zh ones ---------- */
+.nav-links a{white-space:nowrap}
+@media (max-width:1120px){
+  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px 16px;margin:0;display:none}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--border)}
+  .nav-links a:last-child{border-bottom:0}
+  .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+}
+</style>
 </head>
-<body>
+<body id="top">
+<header class="nav" data-od-id="site-header">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" data-od-id="nav-brand">
+      <img src="assets/briefloop-mark.svg" alt="">
+      <span>BriefLoop</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Site navigation">
+      <a href="index.html#why">Why</a>
+      <a href="how-it-works.en.html">How it works</a>
+      <a href="index.html#traceability">Traceable delivery</a>
+      <a href="index.html#features">Capabilities</a>
+      <a href="index.html#budget">Budget</a>
+      <a href="how-it-works.html" data-od-id="nav-lang">中文</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
+      <a class="btn btn-ghost btn-sm" href="index.html#start" data-od-id="nav-cta-start">Get started</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <!-- Header Navigation -->
-    <header class="app-header">
-        <div class="container header-container">
-            <div class="logo">
-                <a href="en.html" aria-label="BriefLoop.ai home">
-                    <img src="assets/briefloop-mark.svg" alt=""><span class="logo-text">BriefLoop</span>
-                </a>
-            </div>
-            <nav class="nav-links" id="site-nav">
-                <a href="en.html#scenarios">Scenarios</a>
-                <a href="#governance">Governance</a>
-                <a href="#evolution">Evolution</a>
-                <a href="#developers">Developers</a>
-                <a href="reports/briefloop-architecture-reference-v0.6.1.en.html" target="_blank" rel="noopener noreferrer">Tech Report</a>
-                <a href="#sandbox" class="btn-sandbox-nav">Live Demo</a>
-                <a href="how-it-works.html" class="lang-switch">中文</a>
-                <a class="nav-github-mobile" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener noreferrer">GitHub →</a>
-            </nav>
-            <div class="header-cta">
-                <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
-                    <span></span><span></span><span></span>
-                </button>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank" class="btn-github">
-                    <svg class="github-icon" viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                    GitHub
-                </a>
-            </div>
+  <main>
+    <section class="hero" data-od-id="hiw-hero">
+      <div class="wrap">
+        <span class="kicker">How it works</span>
+        <h1>From question to delivery, a four-step loop.</h1>
+        <p class="lead">BriefLoop turns a local workspace into a delivery pipeline for reports: you give it the goal and the material, it researches, writes and evaluates independently, and your edits settle into experience for the next run.</p>
+        <div class="hero-meta">
+          <span class="chip">Seven host CLIs</span>
+          <span class="chip">Shared research budget</span>
+          <span class="chip">Independent evaluation session</span>
+          <span class="chip">Word on demand</span>
         </div>
-    </header>
-
-    <!-- Page hero -->
-    <section class="page-hero">
-        <div class="container">
-            <p class="crumb"><a href="en.html">BriefLoop.ai</a> / How it works</p>
-            <h1>AI drafts. The control plane keeps the books. Humans sign off.</h1>
-            <p>The chain-of-custody demo on the homepage answers “where did this claim come from?” This page answers the rest: why the duties are separated, what happens after a problem is found, how failures become the next version's tests, and how developers work with agents. The current product is v0.15.3; runtime authority is the SQLite ControlStore. The on-site architecture reference v0.6.1 is a v0.12.1 code snapshot. Current boundaries live in <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/architecture-status.md">architecture-status</a>.</p>
-        </div>
+      </div>
     </section>
 
-    <!-- Governance Contrast -->
-    <section class="section" id="governance">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Governance</div>
-                <h2>Corporate governance, for your AI</h2>
-                <p class="section-desc">AI drafts and proposes. BriefLoop's deterministic control layer audits and keeps the books. Separation of duties is what makes the output trustworthy.</p>
-            </div>
-
-            <div class="grid-2 mt-40">
-                <div class="contrast-card bad reveal">
-                    <div class="contrast-icon">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg>
-                    </div>
-                    <h3>Traditional AI writing (black box)</h3>
-                    <ul>
-                        <li><strong>Unverifiable data</strong>: after a few revision rounds, the true origin of a number is often impossible to re-check.</li>
-                        <li><strong>Errors compound</strong>: one small misreading in a draft gets polished into a confident, wrong conclusion.</li>
-                        <li><strong>Feedback evaporates</strong>: reviewer preferences live in someone's head; the model forgets them on the next run.</li>
-                        <li><strong>Expensive review</strong>: with no evidence trail, review teams re-verify source documents by hand, every time.</li>
-                    </ul>
-                </div>
-
-                <div class="contrast-card good reveal reveal-delay-1">
-                    <div class="contrast-icon">
-                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-                    </div>
-                    <h3>BriefLoop chain of custody (auditable)</h3>
-                    <ul>
-                        <li><strong>Ledger-registered facts</strong>: every material claim and number in the deliverable has coordinates in the Claim Ledger.</li>
-                        <li><strong>Deterministic quality gates</strong>: Python logic enforces freshness and source-integrity gates — the model cannot grade its own homework.</li>
-                        <li><strong>Approved preferences persist</strong>: human-approved writing preferences become durable memory with contamination-safe rollback records.</li>
-                        <li><strong>One delivery-truth record</strong>: delivery status comes only from the delivery truth in the ControlStore and its completion projection. A failed reader-clean never promotes the bundle — file existence is not delivery.</li>
-                    </ul>
-                </div>
-            </div>
+    <section class="section" id="steps">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">Workflow</span>
+          <h2 class="h2">Four steps turn material into a deliverable report.</h2>
+          <p class="sub">Every step leaves a record you can inspect, and no step reports “queued” as “done”.</p>
         </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="kicker">01 · Requirements &amp; material</span>
+            <h3>State the reader, the purpose and the length</h3>
+            <p>Title, goal, reader, time range and word target live in one form; upload material, or simply switch search on and let the host go find public sources. Sections meant to be filled in by hand stay marked “to be filled”.</p>
+          </article>
+          <article class="card">
+            <span class="kicker">02 · Research &amp; writing</span>
+            <h3>Scout finds the sources, Analyst writes</h3>
+            <p>The research budget is shared across this report; Scout decides what to search and which originals to keep, and Analyst writes inside those sources, with citations back to a specific source and location.</p>
+          </article>
+          <article class="card">
+            <span class="kicker">03 · Independent evaluation</span>
+            <h3>The Evaluator scores in a separate session</h3>
+            <p>The evaluation does not read the author’s self-assessment, and the score binds to the version it scored. Where it helps, one automatic revision and re-check can be scheduled; whatever is left goes back to you.</p>
+          </article>
+          <article class="card">
+            <span class="kicker">04 · Delivery &amp; learning</span>
+            <h3>Word on demand, and edits become experience</h3>
+            <p>Word is generated from a frozen version and reports its progress; final delivery binds that version, the template, the sources and the review record. Your edits and feedback are curated by the Wiki Maintainer, and a skill is enabled only once it has been validated.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Repair transaction simulation -->
-    <section class="section" id="sandbox">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="badge-demo">Process simulation · no live runtime</div>
-                <h2>Problems enter a repair loop instead of being polished away</h2>
-                <p class="section-desc">The chain of custody on the homepage answers “where did this claim come from?” This trace answers “what happens after a problem is found?” Gates block; an agent or human revises; the control plane checks again.</p>
-            </div>
-
-            <div class="sandbox-app reveal">
-                <div class="sandbox-controls">
-                    <button class="btn-scenario active" data-scenario="hallucination">Scenario 1: draft conflicts with frozen facts</button>
-                    <button class="btn-scenario" data-scenario="tampering">Scenario 2: draft introduces an unregistered claim</button>
-                </div>
-
-                <div class="sandbox-workspace">
-                    <div class="sandbox-panel">
-                        <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l4-1L19.5 7.5a2.1 2.1 0 0 0-3-3L5 16z"/><path d="M14.5 6.5l3 3"/></svg>Analyst Draft</span>
-                            <span class="status-marker editing" id="draft-revision">REVISION 1</span>
-                        </div>
-                        <div class="panel-body">
-                            <textarea id="sandbox-draft" class="sandbox-textarea" aria-label="Editable analyst draft"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="sandbox-panel">
-                        <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>Frozen Control Record</span>
-                            <span class="status-marker verified">FROZEN</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="ledger-viewer">
-                                <div class="ledger-entry"><span class="entry-lbl">claim_id</span><span class="entry-val highlight-blue">CL-0045</span></div>
-                                <div class="ledger-entry"><span class="entry-lbl">statement</span><span class="entry-val highlight-green" id="sandbox-ledger-fact">Component average spot price dropped 1.5%</span></div>
-                                <div class="ledger-entry"><span class="entry-lbl">source</span><span class="entry-val">SRC-009 (2026-06-05)</span></div>
-                                <div class="ledger-entry"><span class="entry-lbl">frozen_hash</span><span class="entry-val code-font">sha256_8f0a2e…</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sandbox-panel">
-                        <div class="panel-header">
-                            <span><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5C7.5 20.5 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Quality Gate</span>
-                        </div>
-                        <div class="panel-body flex-col justify-between">
-                            <div id="gate-report" class="gate-report-box pending" aria-live="polite">
-                                <div class="gate-status-text">⏳ Waiting for gate check…</div>
-                                <div class="gate-log">The gate detects and blocks problems. It does not rewrite the draft for the agent or human.</div>
-                            </div>
-                            <div class="gate-actions">
-                                <button id="btn-run-gate" class="btn-action-primary" type="button">Run Audit</button>
-                                <button id="btn-show-repair" class="btn-action-success hidden" type="button">Show sanctioned repair example</button>
-                                <button id="btn-rerun-gate" class="btn-action-primary hidden" type="button">Run Gate Again</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="sandbox-boundary-note">Simulation boundary: the repair example represents a new revision submitted by an agent or human. The gate records, blocks, and re-checks; the old revision and finding remain in the audit trail.</p>
-            </div>
+    <section class="section" id="traceability">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">Traceable delivery</span>
+          <h2 class="h2">Every claim goes back to its source and its version.</h2>
+          <p class="sub">Traceability comes from the originals, locations and version relations the workspace keeps — not from any single model answer.</p>
         </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Version binding</h3>
+            <p>Scores, Word exports and final documents all bind to a specific draft version; further edits create a new version, while earlier versions and already-released documents stay readable.</p>
+          </article>
+          <article class="card">
+            <h3>Sources are the evidence</h3>
+            <p>Originals, extracted text, locations and dates live in the workspace; model summaries, search snippets and scores are not evidence.</p>
+          </article>
+          <article class="card">
+            <h3>Data and gaps</h3>
+            <p>“Data and gaps” shows metrics, calculations and gaps from what is stored, without calling a model; whatever is missing is listed as missing.</p>
+          </article>
+          <article class="card">
+            <h3>Audit bundle</h3>
+            <p>You choose the export scope; the bundle keeps material locations and a record of how each issue was handled, and credentials and hidden reasoning are not part of the export.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Quality Panel -->
-    <section class="section" id="quality-panel">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Quality Panel</div>
-                <h2>After the gates, every run leaves a deterministic projection</h2>
-                <p class="section-desc">v0.15.3 can export one self-contained read-only HTML from Store/LAJ data: Brief, Quality, Market Data, LAJ advice, and improvement status. It is not runtime authority, a quality score, or a delivery verdict and cannot trigger workflow action. LAJ utility is NOT MEASURED; the improvement page honestly reports Improvement Ledger unavailable.</p>
-            </div>
-            <p class="quickstart-note">The homepage has a <a href="en.html#quality-panel">synthetic preview</a>. All site demos are read-only: no dispositions, writes, automatic learning, or “accept suggestion to improve the next run” capability.</p>
+    <section class="section" id="roles">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">Roles</span>
+          <h2 class="h2">One main Agent, five dedicated roles.</h2>
+          <p class="sub">The one who writes does not score itself; scoring, curating experience and proposing skills each stand apart.</p>
         </div>
+        <div class="grid-3">
+          <article class="card role role-lead">
+            <span class="kicker">BriefLoop</span>
+            <h3>Main Agent</h3>
+            <p>Talks with you, plans the research and schedules drafting and revision, running on the main-chain model. It is the party you talk to inside the workbench.</p>
+          </article>
+          <article class="card role"><span class="kicker">Scout</span><h3>Source scouting</h3><p>Searches, fetches and keeps public sources within the shared budget.</p></article>
+          <article class="card role"><span class="kicker">Analyst</span><h3>Writing</h3><p>Writes inside the sources, with citations back to a specific location.</p></article>
+          <article class="card role"><span class="kicker">Evaluator</span><h3>Evaluation</h3><p>Scores in a separate session and compares whether a candidate is genuinely better.</p></article>
+          <article class="card role"><span class="kicker">Wiki Maintainer</span><h3>Curating experience</h3><p>Turns edits and feedback into the workspace Wiki.</p></article>
+          <article class="card role"><span class="kicker">Skill Proposer</span><h3>Proposing skills</h3><p>Proposes or improves skills from the Wiki, enabled only after they are validated.</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Evolution Loop — governed improvement across runs -->
-    <section class="section" id="evolution">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Evolution Loop</div>
-                <h2>Codex implements and tests 0.14 engineering changes; humans authorize merge and release</h2>
-                <p class="section-desc">This is a software-engineering responsibility chain, not automatic learning inside a run. A failure may become a code candidate and regression test, but it is not consumed by the current or next brief run. No Store-native Improvement Ledger is available in 0.14.</p>
-            </div>
-
-            <div class="evolution-shell reveal" data-evolution-loop>
-                <div class="evolution-track" role="tablist" aria-label="BriefLoop evolution stages">
-                    <button class="evolution-stage active" type="button" role="tab" aria-selected="true" data-evolution-step="finding">
-                        <span class="evolution-number">01</span><b>Record failure</b><small>Finding</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="diagnose">
-                        <span class="evolution-number">02</span><b>Propose cause</b><small>Diagnose</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="candidate">
-                        <span class="evolution-number">03</span><b>Patch &amp; evaluate</b><small>Patch + Eval</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="approve">
-                        <span class="evolution-number">04</span><b>Human approval</b><small>Approve</small>
-                    </button>
-                    <button class="evolution-stage" type="button" role="tab" aria-selected="false" data-evolution-step="release">
-                        <span class="evolution-number">05</span><b>Versioned release</b><small>Release</small>
-                    </button>
-                </div>
-
-                <div class="evolution-detail" role="tabpanel" aria-live="polite">
-                    <div class="evolution-detail-main">
-                        <span class="detail-kicker" id="evolution-kicker">RUN-152 · GATE BLOCKED</span>
-                        <h3 id="evolution-title">A failure becomes a queryable control record first</h3>
-                        <p id="evolution-copy">A missing citation mapping is not hidden in prose. It becomes a finding, blocker, and event with stage, scope, and repair ownership.</p>
-                    </div>
-                    <dl class="evolution-facts">
-                        <div><dt>Authority</dt><dd id="evolution-owner">Python control plane</dd></div>
-                        <div><dt>Record</dt><dd id="evolution-record">finding + event</dd></div>
-                        <div><dt>Immediate effect</dt><dd id="evolution-effect">block this delivery</dd></div>
-                    </dl>
-                </div>
-            </div>
-
-            <div class="evolution-boundary reveal">
-                <strong>Not autonomous “self-improvement”</strong>
-                <span>Codex implements and tests bounded 0.14 engineering changes on reviewed branches; humans authorize merge and release. Product runs do not absorb suggestions or rewrite prompts, gates, or policy, and the Quality Panel cannot make the next run better automatically.</span>
-                <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer">Read Lilian Weng's original essay: Harness Engineering for Self-Improvement →</a>
-            </div>
+    <section class="section" id="budget">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">Budget and permissions</span>
+          <h2 class="h2">What it costs and what it can do, written down on the page.</h2>
+          <p class="sub">The budget belongs to one report and is shared by every scouting run inside it; permissions belong to the host CLI, and BriefLoop does not pretend to exceed them.</p>
         </div>
+        <div class="budget-grid">
+          <article class="card">
+            <h3>Weekly preset</h3>
+            <p class="lbl">12 search attempts · 60 candidate URLs · 18 full-text sources</p>
+            <p>All three numbers are editable, and 0 means no extra allowance of that kind. A failed search still counts; once the cap is reached the material already gathered is kept and the gaps are listed, and the allowance is not topped up automatically.</p>
+          </article>
+          <article class="card">
+            <h3>Monthly preset</h3>
+            <p class="lbl">30 search attempts · 200 candidate URLs · 45 full-text sources</p>
+            <p>Recurring industry reports share the same budget; a direct fetch, a fallback extraction and a retry of the same URL together count as one full-text source.</p>
+          </article>
+        </div>
+        <div class="grid-3" style="margin-top:18px">
+          <article class="card"><h3>Codex</h3><p>Can be forced into a read-only or read-write sandbox, with online search controlled per turn.</p></article>
+          <article class="card"><h3>Opencode</h3><p>Read-only through permission rules; the model is written as <code>provider/model</code>.</p></article>
+          <article class="card"><h3>Bridged hosts</h3><p>Claude Code, Kimi, Hermes, Reasonix and MiMo run under their own permission models; turning on “online” releases their own web tools.</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Responsibility boundary -->
-    <section class="section" id="boundary">
-        <div class="container">
-            <div class="grid-2 align-center gap-lg">
-                <div class="cli-info reveal">
-                    <div class="eyebrow">Governance Boundary</div>
-                    <h2>Human responsibility statement</h2>
-                    <p>No automated AI system should — or can — take over human responsibility for decisions and sign-off. BriefLoop does not approve delivery for you; it gives you an <b>evidence chain that reduces the risk of missing something</b> — traceability, not semantic proof.</p>
-                    <blockquote class="boundary-quote">
-                        "When data conflicts or goes missing, the system exposes the trail and supports fast trace-back."
-                    </blockquote>
-                </div>
-
-                <div class="boundary-box reveal reveal-delay-1">
-                    <div class="boundary-badge">Responsibilities</div>
-                    <div class="boundary-content">
-                        <div class="boundary-roles" aria-label="BriefLoop responsibility layers" data-disclosure-group>
-                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                                <span class="m-title">AI agents</span>
-                                <span class="m-desc">draft, analyze, and propose</span>
-                                <span class="card-chevron" aria-hidden="true">⌄</span>
-                                <div class="card-inline-detail" aria-hidden="true">May find sources, decompose claims, draft, and propose audit findings; may not freeze ledgers, pass gates, or approve delivery.</div>
-                            </div>
-                            <div class="boundary-metric disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                                <span class="m-title">Deterministic control plane</span>
-                                <span class="m-desc">validates, records, enforces gates, and preserves the trace</span>
-                                <span class="card-chevron" aria-hidden="true">⌄</span>
-                                <div class="card-inline-detail" aria-hidden="true">Checks schemas, hashes, stage state, gate results, and archive integrity; it does not determine whether a source is ultimately true.</div>
-                            </div>
-                            <div class="boundary-metric highlight disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                                <span class="m-title">Human decision-maker</span>
-                                <span class="m-desc">approves delivery and bears responsibility</span>
-                                <span class="card-chevron" aria-hidden="true">⌄</span>
-                                <div class="card-inline-detail" aria-hidden="true">Reviews material inferences and unresolved issues, then chooses downgrade, repair, or delivery; the approval is recorded.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="section" id="developers">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">Developers</span>
+          <h2 class="h2">One repository, and three things to add a new host.</h2>
+          <p class="sub">Python owns storage, tools and deterministic computation; the host CLI owns model execution, and the two meet through the existing jobs/events/Store.</p>
         </div>
+        <div class="grid-3">
+          <article class="card"><h3>Start with one command</h3><p><code>git clone</code> then <code>./start.sh</code> creates the virtual environment, installs dependencies and opens the web app; there is no second repository to clone.</p></article>
+          <article class="card"><h3>Add a host</h3><p>Implement the bridge protocol, add one catalog entry and declare the capabilities (<code>permission_modes</code>, <code>steer</code>, <code>images</code>); the input area then follows those capabilities automatically.</p></article>
+          <article class="card"><h3>Tests and build</h3><p><code>npm ci &amp;&amp; npm run build</code> bundles the frontend and the bridge, and <code>pytest</code> runs behaviour tests; the tests call neither real models nor paid search.</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Product Portals -->
-    <section class="section" id="portals">
-        <div class="container">
-            <div class="section-header text-center reveal">
-                <div class="eyebrow">Report Packs</div>
-                <h2>Three delivery entry points</h2>
-                <p class="section-desc">Preconfigured topologies and audit contracts for research, compliance, and corporate disclosure work.</p>
-            </div>
-
-            <div class="grid-3 mt-40" data-disclosure-group>
-                <div class="portal-card reveal disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg></div>
-                    <h3>industry-weekly</h3>
-                    <p class="portal-meta">Industry / market weekly tracking</p>
-                    <p class="portal-text">Monitor industry news, competitor moves, and policy releases. Multi-source collection with entity mapping, producing a weekly brief a human can deliver.</p>
-                    <div class="portal-tag-list">
-                        <span>multi-source</span>
-                        <span>freshness gate</span>
-                        <span>entity mapping</span>
-                    </div>
-                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail portal-detail" aria-hidden="true">
-                        <span class="detail-kicker">Typical task</span>
-                        <p><b>Input:</b> the last seven days of industry materials, competitor moves, policy updates, and watch topics.</p>
-                        <p><b>Delivery:</b> executive summary, key signals, competitor changes, risk watchlist, and source appendix.</p>
-                    </div>
-                </div>
-
-                <div class="portal-card reveal reveal-delay-1 disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-                    <h3>management-monthly</h3>
-                    <p class="portal-meta">Executive reporting &amp; business analysis</p>
-                    <p class="portal-text">Bring internal financial data and business metrics. Build a frozen, protected Claim Ledger in a strictly isolated offline environment, with traceable attribution for decisions.</p>
-                    <div class="portal-tag-list">
-                        <span>metric audit</span>
-                        <span>offline runs</span>
-                        <span>human/machine split</span>
-                    </div>
-                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail portal-detail" aria-hidden="true">
-                        <span class="detail-kicker">Typical task</span>
-                        <p><b>Input:</b> monthly operating updates, KPI tables, department notes, and the prior report.</p>
-                        <p><b>Delivery:</b> operating highlights, period changes, attributed explanations, risks, actions, and an audit bundle.</p>
-                    </div>
-                </div>
-
-                <div class="portal-card reveal reveal-delay-2 disclosure-card" role="button" tabindex="0" aria-expanded="false">
-                    <div class="portal-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 10.5h5M10.5 8v5"/></svg></div>
-                    <h3>document-review</h3>
-                    <p class="portal-meta">Document evidence review</p>
-                    <p class="portal-text">Search across prospectuses, audit reports, and regulator letters at scale. Extracted facts anchor to exact pages and highlighted passages, with a complete audit trail for diligence.</p>
-                    <div class="portal-tag-list">
-                        <span>passage highlight</span>
-                        <span>chain of custody</span>
-                        <span>source trace-back</span>
-                    </div>
-                    <span class="card-chevron portal-chevron" aria-hidden="true">⌄</span>
-                    <div class="card-inline-detail portal-detail" aria-hidden="true">
-                        <span class="detail-kicker">Typical task</span>
-                        <p><b>Input:</b> specified files, a locked review scope, and explicit questions.</p>
-                        <p><b>Delivery:</b> evidence extracts, source-lock records, and reviewable citations; no automatic legal or disclosure conclusion.</p>
-                    </div>
-                </div>
-            </div>
+    <section class="cta-band">
+      <div class="wrap">
+        <h2 class="h2">Run your own first report.</h2>
+        <p class="sub">Clone the repository, connect one authenticated host CLI, and start.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-invert btn-lg" href="index.html#start">Get started</a>
+          <a class="link-w" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">or read the repository ↗</a>
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- CLI & Developer -->
-    <section class="section section-cli" id="developers">
-        <div class="container">
-            <div class="grid-2 align-center gap-lg">
-                <div class="cli-info reveal">
-                    <div class="eyebrow">Developers</div>
-                    <h2>Built for developers and agents</h2>
-                    <p>BriefLoop separates writing from control. An external agent researches and drafts; the Python CLI creates workspaces, validates artifacts, records transactions, runs gates, and preserves delivery state. The CLI does not generate a brief by itself.</p>
-
-                    <div class="integration-item">
-                        <div class="integration-header">
-                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
-                            <h4>Deterministic CLI</h4>
-                        </div>
-                        <p>New runs support only the Experimental Codex SQLite path. <code>briefloop status</code> and <code>briefloop runtime next</code> expose Store-derived read-only state and the next action. Finalize, approval, and delivery are typed Store actions through the Codex runtime host. SQLite ControlStore is the sole runtime authority, and the legacy JSON control plane has been deleted. Legacy JSON control files and report, status, Quality Panel, Markdown/JSON/JSONL/HTML exports are non-authoritative projections. Strict action, envelope, and human-request JSON payloads are revalidated against ControlStore and are not authority by themselves.</p>
-                    </div>
-
-                    <div class="integration-item">
-                        <div class="integration-header">
-                            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><path d="M9 12h.01M15 12h.01M9.5 15.5c.8.7 4.2.7 5 0"/></svg>
-                            <h4>Codex</h4>
-                        </div>
-                        <p>After installing the Codex runtime kit (<code>briefloop runtime install --workspace &lt;workspace&gt; --runtime codex</code>), open and trust the workspace in Codex. Codex performs only the exact action returned by <code>runtime next</code> and its Receipt-backed role invocation; it never falls back to another runtime.</p>
-                    </div>
-                </div>
-
-                <div class="terminal-container reveal reveal-delay-1">
-                    <div class="terminal-header">
-                        <span class="terminal-title">bash — briefloop</span>
-                        <button class="btn-copy-terminal" id="btn-copy-code">Copy commands</button>
-                    </div>
-                    <div class="terminal-body" id="terminal-demo">
-                        <div class="terminal-line"><span class="t-prompt">$</span> git clone https://github.com/Stahl-G/briefloop.git &amp;&amp; cd briefloop</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> bash scripts/setup.sh</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop onboard</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop init ./my-weekly --from-onboarding onboarding.json</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime install --workspace ./my-weekly --runtime codex</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop run --workspace ./my-weekly --runtime codex</div>
-                        <div class="terminal-line t-output">[created] workspace → ./my-weekly · briefloop.db (SQLite ControlStore)</div>
-                        <div class="terminal-line"><span class="t-prompt">$</span> briefloop runtime next --workspace ./my-weekly</div>
-                        <div class="terminal-line t-comment"># Sole sequence authority: the Store-derived CoreRunNextAction</div>
-                    </div>
-                    <p class="terminal-note">The current supported bootstrap is this source checkout on Python 3.12: it installs the deterministic CLI and keeps source runtime assets together. The Codex path then runs <code>briefloop runtime install --runtime codex</code> inside the workspace — open and trust that directory in Codex afterwards. On Windows, follow the <a href="agents/briefloop/references/installation.md">PowerShell installation path</a>; do not translate these Bash commands into Git Bash. <code>pipx install briefloop</code> is not the launch path until release notes say a package-index artifact has been published and smoked. JSON-only workspaces are not imported or upgraded; start a fresh <code>init</code>.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <div class="logo">
-                    <img src="assets/briefloop-mark.svg" alt=""><span class="logo-text">BriefLoop</span>
-                </div>
-                <p class="footer-desc">Every line of a business report, accounted for. Chain-of-custody infrastructure for enterprise AI.</p>
-                <p class="footer-boundary">Traceability, not semantic proof.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Docs</h4>
-                <a href="reports/briefloop-architecture-reference-v0.6.1.en.html" target="_blank" rel="noopener noreferrer">Technical Report v0.6.1</a>
-                <a href="agents/briefloop/SKILL.md" target="_blank" rel="noopener noreferrer">Agent setup protocol</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/getting-started.md" target="_blank">Getting Started</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/weekly-loop.md" target="_blank">Weekly Loop</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/support-matrix.md" target="_blank">Support Matrix</a>
-            </div>
-            <div class="footer-links">
-                <h4>Links</h4>
-                <a href="en.html">Home</a>
-                <a href="https://github.com/Stahl-G/briefloop" target="_blank">GitHub</a>
-                <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/15-minute-pilot.md" target="_blank">15-minute pilot</a>
-                <a href="mailto:contact@briefloop.ai">Contact</a>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; 2026 BriefLoop.ai · Open-sourced under the MIT License.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<footer class="footer" data-od-id="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <span class="footer-brand"><img src="assets/briefloop-mark.svg" alt=""> BriefLoop</span>
+        <p class="footer-desc">A local Agent workbench for reports your company can read and check.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="how-it-works.en.html">How it works</a></li>
+          <li><a href="index.html#traceability">Traceable delivery</a></li>
+          <li><a href="index.html#features">Capabilities</a></li>
+          <li><a href="index.html#budget">Budget and length</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">User guide</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">Upgrade notes</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Repository</h4>
+        <ul>
+          <li><a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">Sources &amp; licences</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>BriefLoop 0.17.1 · MIT</span>
+      <span>Think with your material</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var toggle=document.getElementById('menu-toggle');
+  var links=document.querySelector('.nav-links');
+  if(toggle&&links){
+    toggle.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+  var copyBtn=document.getElementById('copy-cmd');
+  var cmd=document.getElementById('install-cmd');
+  if(copyBtn&&cmd){
+    copyBtn.addEventListener('click',function(){
+      var text=cmd.innerText.replace(/^\$\s*/gm,'').trim();
+      function done(){copyBtn.textContent='Copied';setTimeout(function(){copyBtn.textContent='Copy';},1600);}
+      function fallback(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='Copy failed';setTimeout(function(){copyBtn.textContent='Copy';},1600);}
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done,fallback);
+      }else{fallback();}
+    });
+  }
+})();
+</script>
 </body>
 </html>

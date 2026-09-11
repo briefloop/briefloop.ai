@@ -158,6 +158,7 @@ section{scroll-margin-top:88px}
 /* ---------- budget ---------- */
 .budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .budget-grid h3{font-size:17px;margin-bottom:16px}
+.budget-grid .lbl{font:600 13px/1.7 var(--mono);color:var(--fg);margin:0 0 12px;text-wrap:balance}
 table{width:100%;border-collapse:collapse;font-size:14.5px}
 th{font-weight:600;text-align:left;color:var(--text-3);font-size:12.5px;letter-spacing:.02em;padding:9px 10px;border-bottom:1px solid var(--border)}
 td{padding:11px 10px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
@@ -244,6 +245,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <a href="index.html#traceability">可追溯交付</a>
       <a href="index.html#features">能力</a>
       <a href="index.html#budget">预算</a>
+      <a href="how-it-works.en.html" data-od-id="nav-lang">EN</a>
     </nav>
     <div class="nav-actions">
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
@@ -255,7 +257,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   </div>
 </header>
 
-  <main id="top">
+  <main>
     <section class="hero" data-od-id="hiw-hero">
       <div class="wrap">
         <span class="kicker">工作原理</span>
@@ -373,7 +375,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         </div>
         <div class="grid-3" style="margin-top:18px">
           <article class="card"><h3>Codex</h3><p>可以强制只读或读写沙箱，并按轮控制联网搜索。</p></article>
-          <article class="card"><h3>Opencode</h3><p>用权限规则实现只读；模型写 `provider/model`。</p></article>
+          <article class="card"><h3>Opencode</h3><p>用权限规则实现只读；模型写 <code>provider/model</code>。</p></article>
           <article class="card"><h3>桥接宿主</h3><p>Claude Code、Kimi、Hermes、Reasonix、MiMo 按各自的权限模型运行；打开"联网"会放行它们自己的联网工具。</p></article>
         </div>
       </div>
@@ -399,8 +401,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <h2 class="h2">先跑一份自己的报告。</h2>
         <p class="sub">克隆仓库、接一个已登录的宿主 CLI，就能开始。</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-lg" href="index.html#start">开始使用</a>
-          <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn-invert btn-lg" href="index.html#start">开始使用</a>
+          <a class="link-w" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">或看 GitHub 仓库 ↗</a>
         </div>
       </div>
     </section>
