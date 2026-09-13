@@ -272,7 +272,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="nav-actions">
       <a class="btn btn-ghost btn-sm lang-btn" href="index.html" data-od-id="nav-lang" aria-label="Switch to Chinese">中文</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
-      <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">Get started</a>
+      <a class="btn btn-ghost btn-sm" href="downloads.en.html" data-od-id="nav-cta-start">Download</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
@@ -291,9 +291,10 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <h1 data-od-id="hero-title">Think with your material.</h1>
       <p class="lead">BriefLoop is an Agent workbench that runs on your machine: it finds the sources around your question, drafts an editable report, scores it independently, and turns the feedback into experience the next run can use.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="#start" data-od-id="hero-cta-start">Get started</a>
+        <a class="btn btn-primary btn-lg" href="downloads.en.html" data-od-id="hero-cta-start" data-auto-download>Download desktop app</a>
         <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">View on GitHub ↗</a>
       </div>
+      <p style="margin-top:16px"><a href="downloads.en.html">Other platforms & installation notes</a></p>
       <div class="hero-meta" aria-label="Runtime">
         <span class="chip">macOS</span>
         <span class="chip">Python 3.11+</span>
@@ -579,9 +580,11 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">Get started</span>
-        <h2 class="h2">One repository, one command.</h2>
-        <p class="sub">The first launch creates the .venv, installs the dependencies and the WikiSkill wheel shipped with the repository, then opens the local web app.</p>
+        <h2 class="h2">Start with the desktop app.</h2>
+        <p class="sub">Choose the installer for your computer, or use the source installation below.</p>
       </div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:28px"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.en.html">Download desktop app</a><a href="downloads.en.html">Other platforms & installation notes</a></div>
+      <h3 style="margin-bottom:16px">Install from source</h3>
       <div class="start-grid">
         <div class="terminal" data-od-id="install-block">
           <div class="bar">
@@ -744,5 +747,6 @@ td .num{font-family:var(--mono);font-size:13.5px}
   select(tabs[0]);
 })();
 </script>
+<script src="downloads.js" defer></script>
 </body>
 </html>

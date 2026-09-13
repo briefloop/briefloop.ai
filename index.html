@@ -262,7 +262,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="nav-actions">
       <a class="btn btn-ghost btn-sm lang-btn" href="en.html" data-od-id="nav-lang" aria-label="切换到英文版">EN</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
-      <a class="btn btn-ghost btn-sm" href="#start" data-od-id="nav-cta-start">开始使用</a>
+      <a class="btn btn-ghost btn-sm" href="downloads.html" data-od-id="nav-cta-start">下载桌面版</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
@@ -281,9 +281,10 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <h1 data-od-id="hero-title">与材料一起思考。</h1>
       <p class="lead">BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕你的问题找来源、写出可编辑的报告、独立评分，再把反馈沉淀成下一次可用的经验。</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="#start" data-od-id="hero-cta-start">开始使用</a>
+        <a class="btn btn-primary btn-lg" href="downloads.html" data-od-id="hero-cta-start" data-auto-download>下载桌面版</a>
         <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">查看 GitHub ↗</a>
       </div>
+      <p style="margin-top:16px"><a href="downloads.html">其他平台与安装说明</a></p>
       <div class="hero-meta" aria-label="运行环境">
         <span class="chip">macOS</span>
         <span class="chip">Python 3.11+</span>
@@ -569,9 +570,11 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">开始使用</span>
-        <h2 class="h2">一个仓库，一条命令。</h2>
-        <p class="sub">首次启动自动建 .venv、装依赖与随仓库提供的 WikiSkill wheel，打开本机网页。</p>
+        <h2 class="h2">从桌面应用开始。</h2>
+        <p class="sub">选择适合这台电脑的安装包，也可以使用下方的源码安装方式。</p>
       </div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:28px"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.html">下载桌面版</a><a href="downloads.html">其他平台与安装说明</a></div>
+      <h3 style="margin-bottom:16px">也可以从源码安装</h3>
       <div class="start-grid">
         <div class="terminal" data-od-id="install-block">
           <div class="bar">
@@ -734,5 +737,6 @@ td .num{font-family:var(--mono);font-size:13.5px}
   select(tabs[0]);
 })();
 </script>
+<script src="downloads.js" defer></script>
 </body>
 </html>
