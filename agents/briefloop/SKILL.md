@@ -1,52 +1,62 @@
-# BriefLoop
+---
+name: briefloop-external
+description: Use an existing local BriefLoop workspace from WorkBuddy or another shell-capable agent to submit report tasks, inspect saved sources and drafts, revise a specific version, and download Word files.
+---
 
-BriefLoop is a local agent workbench for sourced briefings: connect a CLI you already have, ask for research or a report, and get an editable draft with an independent evaluation and reusable learning.
+# BriefLoop 外部报告入口
 
-- Version 0.17.1 · Python 3.11+ · the service listens on loopback only.
-- Runtimes: Codex and Opencode run natively; Claude Code, Kimi, Hermes, DeepSeek Reasonix and MiMo Code run through a bundled bridge (needs Node.js 20+).
-- Interface language: Chinese. Report body can be Chinese or English.
+适用于用户明确选择的本地 BriefLoop 工作区。通过已运行的 BriefLoop 完成研究和报告生产；保留其模型、企业背景选择、模板与独立审阅要求。
 
-## Install and start
+## 连接与提交
 
-```sh
-git clone https://github.com/Stahl-G/briefloop.git
-cd briefloop
-./start.sh                 # creates .venv, installs dependencies, opens the web app
-```
-
-Or from the published package:
+使用已安装的 `briefloop`，或同一 Python 环境中的 `python -m briefloop`。先执行：
 
 ```sh
-pip install briefloop-local
-briefloop serve --workspace /path/to/workspace --port 8765
+briefloop external --workspace "/absolute/workspace" discover
 ```
 
-The workspace records its process in `server.json`; `briefloop status --workspace <dir>` prints the workspace state and `briefloop doctor` lists the host CLIs found on this machine.
+该命令不会创建目录、数据库或启动服务。`ready=false` 时将实际原因告诉用户；需要先在 BriefLoop 打开该工作区。不要改连其他工作区。无需读取、复制或展示 API Key。
 
-## How a workspace is used
+将请求保存为 UTF-8 JSON 文件，然后执行：
 
-1. Open the web app and pick or create a workspace.
-2. In 设置 → 模型与提供商 choose the runtime and model. Lists come from the host's own catalogue, and any model ID can be typed in.
-3. In 材料与需求 describe the task, add sources, and optionally switch on 联网 so the host can search.
-4. Generate: BriefLoop plans the research, Scout collects sources inside the shared budget, Analyst drafts, Evaluator scores the draft in its own session, and one automatic revision can follow.
-5. Edit the draft in the browser. Feedback becomes Wiki notes and, after verification, skills.
+```sh
+briefloop external --workspace "/absolute/workspace" request --file request.json
+```
 
-## Interfaces
+可用请求：
 
-- Web UI plus a loopback HTTP API (`/api/...`, token from `/api/session`).
-- `briefloop tool --workspace <dir> <command>` for source work: `add-url`, `read-source`, `render-source`, `register-figure`, `join-scouts`, `normalize-document`, `count-brief`, `prepare-report-data`, `workspace-action`.
+| action | 字段 | 返回内容 |
+|---|---|---|
+| inspect | 无 | 最近来源与稿件 ID；列表有数量上限 |
+| source | source_id | 保存的来源正文与出处 |
+| submit | request_id、requirements、source_ids | job_id、run_id |
+| query | job_id | 状态、错误、对应版本和文件是否可用 |
+| read | version_id | 保存的 Markdown 与 editor_document |
+| revise | request_id、base_version、editor_document | 新 version_id |
+| export | request_id、version_id | Word 导出 job_id |
 
-## Rules
+先 `inspect` / `source` 确认所选材料，再提交用户要求。例如：
 
-- Never edit `briefloop.db` or the workspace folders behind the app's back: use the UI, the API, or `briefloop tool`.
-- Sources are the evidence; model output, search snippets and scores are not.
-- Ask before enabling online search, spending research budget, or producing a formal delivery.
-- Keep credentials out of workspaces, reports and logs.
+```json
+{"action":"submit","request_id":"report-unique-id","source_ids":["src_actual_id"],"requirements":{"title":"本期简报","objective":"概括已上传材料的变化及影响","allow_web":false,"writing_mode":"general","target_words":500,"max_words":700}}
+```
 
-## References
+ID 必须来自实际响应。企业内报告使用 `writing_mode: "internal_report"`；若系统要求先选择企业背景维护方式，应在 BriefLoop 完成选择，不能改成 general 绕过。`requirements` 使用 BriefLoop 既有需求字段；模型沿用工作区设置，接口不暗改配置。
 
-- `references/installation.md` — requirements, both install paths, host setup, troubleshooting.
-- `references/onboarding.md` — first run: workspace, runtime, sources, requirements.
-- `references/operation.md` — daily use: roles, budget, evaluation, editing, Word, release.
-- `references/control-boundary.md` — what agents may touch and what they must not.
-- `references/repair-and-delivery.md` — recover interrupted work and produce a delivery.
+## 重试与进度
+
+每次新的写操作生成一个唯一 `request_id`，保存完整请求和返回 ID。响应丢失时，用**原 ID、原内容**重试；`replayed=true` 表示返回既有结果。同一 ID 改内容会报冲突。不要靠换 ID 恢复未知结果，否则会新建任务。
+
+提交后向用户报告任务已接收，并用 `query` 查询原 job；无需一次调用等完整报告。查询间隔适当退避，例如 5 秒到 30 秒。失败、取消、中断是明确状态，报告实际错误及已保存稿件，不自动重建任务。`latest_version_id` 是该报告的最新稿件，可能来自后续修订；导出必须明确选定版本。
+
+## 改稿与 Word
+
+先 `read` 精确版本，保留完整 `editor_document` 的图、表、引用和格式，仅修改用户要求的部分；用该版本作 `base_version`。发生“已有更新”冲突时重新读取并合并，不能覆盖新稿或丢掉未修改节点。保存成功后再次读取新版本。
+
+`export` 只排队生成指定版本的**工作稿**，不代表正式交付审核通过。查询导出 job 至 `artifact_available=true`，再下载：
+
+```sh
+briefloop external --workspace "/absolute/workspace" download --job job_actual_id --output "/existing/output/report.docx"
+```
+
+客户端校验 SHA256，已存在的相同文件直接复用，不覆盖不同文件。导出文件缺失时原请求不会自动重建；用户决定重新导出后再用新 request_id。交付给用户版本 ID、实际文件路径和剩余问题；不要把排队或生成文件写成已通过独立审阅。

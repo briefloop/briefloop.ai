@@ -29,7 +29,13 @@ for name in ('downloads.html','downloads.en.html'):
 for en in (False,True):
  suffix='.en' if en else ''
  index=json.loads((root/f'docs/search-index{suffix}.json').read_text())
- if len(index)!=8:errors.append('Expected eight searchable guides per language')
+ if len(index)!=len(json.loads((root/'content/docs.json').read_text())):errors.append('Search index does not match guide catalog')
+agent=json.loads((root/'.well-known/briefloop-agent.json').read_text())
+if agent['product']['version']!=release['desktop_version'] or agent['distribution']['package_index']['version']!=release['pypi_version']:errors.append('Agent discovery release metadata differs from release catalog')
+for name in ('llms.txt','agents/briefloop/SKILL.md','.well-known/briefloop-agent.json'):
+ text=(root/name).read_text()
+ if 'briefloop-local' in text:errors.append(f'{name}: retired Python package')
+ if 'briefloop external' not in text:errors.append(f'{name}: missing external CLI discovery')
 for error in errors:print(error)
 print(f'{len(pages)} built pages checked; {len(errors)} errors.')
 raise SystemExit(bool(errors))

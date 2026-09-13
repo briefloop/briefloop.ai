@@ -21,6 +21,7 @@ for en in (False,True):
   title=eng if en else zh;desc=descen if en else desczh;steps=stepsen if en else stepszh;ok=oken if en else okzh;err=erren if en else errzh
   scope=(f'Applies to desktop {desktop} and the 0.20.x service. Labels and capabilities vary by channel; the installer version is authoritative. Development features are not implied.' if en else f'适用于桌面 {desktop} 与 0.20.x 服务的基本流程。按钮与能力因渠道不同，以所装版本为准；不代表开发中功能已经随安装包发布。')
   body=f'<p class="eyebrow">BRIEFLOOP / {"GUIDES" if en else "使用指南"}</p><h1>{e(title)}</h1><p class="lead">{e(desc)}</p><p class="scope">{scope}</p><h2>{"Before you start" if en else "前置条件"}</h2><p>{"Use a workspace you can back up. Model tasks require an authenticated runtime and permission to process the chosen materials." if en else "准备可备份的工作区；需要模型的操作须先完成宿主认证，并确认材料允许交给所选服务处理。"}</p><h2>{"Steps" if en else "操作步骤"}</h2><ol>'+''.join(f'<li>{e(s)}</li>' for s in steps)+f'</ol><h2>{"What success looks like" if en else "成功后应该看到什么"}</h2><p>{e(ok)}</p><h2>{"If something goes wrong" if en else "失败与边界"}</h2><p>{e(err)}</p><p class="next"><a href="{link("index")}">← {"All guides" if en else "全部文档"}</a> · <a href="../downloads{suffix}.html">{"Installation options" if en else "选择安装方式"} →</a></p>'
+  if slug=='external-agent':body=body.replace('<p class="next">',(ROOT/f'content/external-agent{suffix}.html').read_text()+'<p class="next">')
   (out/link(slug)).write_text(shell(title,body,slug))
   search.append({'title':title,'url':link(slug),'text':' '.join([desc,*steps,ok,err])})
  cards=''.join(f'<li data-guide><a href="{link(x[0])}"><h2>{e(x[2 if en else 1])}</h2><p>{e(x[4 if en else 3])}</p></a></li>' for x in items)
@@ -28,4 +29,4 @@ for en in (False,True):
  body=f'<p class="eyebrow">BRIEFLOOP / {"GET STARTED" if en else "从第一份报告开始"}</p><h1>{title}</h1><p class="lead">{"Install, create a draft, check its sources and export a document. Start with the task you need to complete." if en else "安装、成稿、看依据、导出。按你现在要完成的事情查找步骤。"}</p><div data-search hidden><label for="guide-search">{"Search these guides" if en else "搜索使用文档"}</label><input id="guide-search" type="search" placeholder="{"Python, Word, costs…" if en else "Python、Word、费用…"}" autocomplete="off"><p class="muted">{"Search runs locally in this browser. No queries are sent to a service." if en else "搜索在浏览器本地进行，不向服务发送关键词。"}</p><p id="search-status" role="status"></p><ul id="search-results"></ul></div><ul class="guide-grid">{cards}</ul>'
  (out/link('index')).write_text(shell(title,body))
  (out/f'search-index{suffix}.json').write_text(json.dumps(search,ensure_ascii=False))
-print('Built 18 guide pages and two local search indexes.')
+print(f'Built {2*(len(items)+1)} guide pages and two local search indexes.')

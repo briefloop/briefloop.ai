@@ -22,5 +22,12 @@
       "path": "docs/证据与结论追溯.md",
       "sha256": "0d74b17cd32fca90f2cce122334711dbf552d2180c32d432767c14eb35add3ca"
     }
-  ]
+  ],
+  "external_agent_sources": {
+    "commit": "4b38e68b12690bddc62f72d4d28955a472dedb4d",
+    "files": [
+      "src/briefloop/skill_assets/briefloop-external/SKILL.md",
+      "docs/WorkBuddy外部入口.md"
+    ]
+  }
 }

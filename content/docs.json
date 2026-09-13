@@ -198,5 +198,28 @@
     "Saved drafts and sources should remain accessible after failure. Deleting local copies does not delete data already received by third parties; their retention rules depend on the service and account configuration.",
     "HTTP 403、下载失败或依赖失败应按具体阶段排查，不要反复卸载并删除工作区。优先记录版本和错误，使用官方发行页及宿主诊断；公开求助前删去凭据和敏感材料。",
     "Diagnose HTTP 403, download and dependency errors by stage rather than repeatedly uninstalling and deleting workspaces. Record the version and error, use official releases and runtime diagnostics, and remove credentials and sensitive content before public support requests."
+  ],
+  [
+    "external-agent",
+    "外部 Agent 与 CLI",
+    "External agents and CLI",
+    "让已有 Agent 调用 BriefLoop，提交报告、保存修订并下载指定版本的 Word。",
+    "Let your agent submit reports, save revisions and download version-bound Word files.",
+    [
+      "安装 briefloop CLI；在同一台机器打开目标工作区，配置模型、材料与企业背景选择。",
+      "执行 discover，只有 ready=true 才继续；执行 skill 获取与所装版本一致的协议说明。",
+      "先 inspect 确认来源 ID，再用稳定 request_id 提交 submit。以 query 查询返回的 job_id，保留失败和已保存草稿。",
+      "用 read 获取明确版本；改稿通过完整 editor_document 和 base_version 保存。export 排队后，查询 artifact_available，再 download。"
+    ],
+    [
+      "Install the briefloop CLI and open the intended workspace on the same machine. Configure its model, sources and company-context choice.",
+      "Run discover and proceed only when ready=true. Run skill to obtain the protocol shipped with your installed version.",
+      "Inspect source IDs, submit with a stable request_id, and query the returned job_id. Preserve failures and any saved drafts.",
+      "Read a specific version. Revise with the complete editor_document and base_version. Export, query artifact_available, then download."
+    ],
+    "返回真实任务和版本 ID；下载的 Word 由 CLI 核对哈希。原稿、修订和任务状态保持关联。",
+    "Real job and version IDs are returned; the CLI verifies the downloaded Word hash. Drafts, revisions and task state stay linked.",
+    "仅连接本机已有服务，不是远程 MCP Server。submit 使用 BriefLoop 配置的模型及额度；revise 保存外部 Agent 的修改。正式交付仍需原有审核。不要直接改 SQLite 或用新 request_id 重发结果未知的请求。",
+    "This connects to an existing local service, not a remote MCP server. Submit uses the workspace model and its billing; revise saves edits made by the external agent. Formal delivery still uses existing checks. Do not edit SQLite directly or retry an unknown result with a new request_id."
   ]
 ]

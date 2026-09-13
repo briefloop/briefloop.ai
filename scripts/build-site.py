@@ -14,3 +14,9 @@ for source in (root/'content/templates').iterdir():
  (root/source.name).write_text(text)
 runpy.run_path(str(root/'scripts/build-docs.py'),run_name='__main__')
 print('Built static pages from content/templates and content/releases.json.')
+
+manifest=root/'.well-known/briefloop-agent.json'
+agent=json.loads(manifest.read_text())
+agent['product']['version']=data['desktop_version']
+agent['distribution']['package_index']['version']=data['pypi_version']
+manifest.write_text(json.dumps(agent,ensure_ascii=False,indent=2)+'\n')

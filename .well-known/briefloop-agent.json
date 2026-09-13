@@ -2,7 +2,7 @@
   "schema_version": "briefloop.agent-bootstrap.v1",
   "product": {
     "name": "BriefLoop",
-    "version": "0.17.1",
+    "version": "0.20.3",
     "homepage": "https://briefloop.ai/",
     "description": "A local agent workbench for sourced briefings, independent evaluation and reusable learning.",
     "python_requires": ">=3.11",
@@ -14,25 +14,26 @@
   },
   "canonical": {
     "source_repository": "https://github.com/Stahl-G/briefloop",
-    "python_package": "https://pypi.org/project/briefloop-local/",
+    "python_package": "https://pypi.org/project/briefloop/",
     "readme": "https://github.com/Stahl-G/briefloop/blob/main/README.md",
     "usage_guide": "https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md",
     "runtime_and_models": "https://github.com/Stahl-G/briefloop/blob/main/docs/多Runtime与模型.md",
     "skill": "https://briefloop.ai/agents/briefloop/SKILL.md",
-    "llms_txt": "https://briefloop.ai/llms.txt"
+    "llms_txt": "https://briefloop.ai/llms.txt",
+    "external_guide": "https://briefloop.ai/docs/external-agent.html"
   },
   "distribution": {
     "cli": {
       "package": "briefloop",
-      "recommended_installer": "repository checkout",
-      "install_command": "git clone https://github.com/Stahl-G/briefloop.git && cd briefloop && ./start.sh",
-      "note": "start.sh creates the virtual environment, installs dependencies and opens the local web app."
+      "recommended_installer": "PyPI",
+      "install_command": "python -m pip install --upgrade briefloop",
+      "note": "Install the CLI on the same machine as the selected workspace service."
     },
     "package_index": {
-      "package": "briefloop-local",
+      "package": "briefloop",
       "status": "published",
-      "version": "0.17.1",
-      "note": "The published package can also be installed directly; the source checkout remains the reference setup."
+      "version": "0.20.3",
+      "note": "Published package; version follows the release catalog."
     },
     "bridge_runtime": {
       "requires": "Node.js 20+",
@@ -143,11 +144,7 @@
     }
   ],
   "authorization": {
-    "explicit_user_confirmation_required": [
-      "enable_online_search",
-      "spend_research_budget",
-      "produce_formal_delivery"
-    ],
+    "required": "User authorization for the task, chosen materials and budget; existing in-scope authorization persists.",
     "forbidden": [
       "print_or_exfiltrate_secrets",
       "claim_verification_without_evidence",
@@ -159,5 +156,23 @@
     "installation": "https://briefloop.ai/agents/briefloop/references/installation.md",
     "onboarding": "https://briefloop.ai/agents/briefloop/references/onboarding.md",
     "operation": "https://briefloop.ai/agents/briefloop/references/operation.md"
+  },
+  "external": {
+    "transport": "local CLI",
+    "requires": "existing workspace and running local service",
+    "discover": "briefloop external --workspace \"/absolute/workspace\" discover",
+    "skill": "briefloop external --workspace \"/absolute/workspace\" skill",
+    "request": "briefloop external --workspace \"/absolute/workspace\" request --file request.json",
+    "actions": [
+      "inspect",
+      "source",
+      "submit",
+      "query",
+      "read",
+      "revise",
+      "export"
+    ],
+    "generation_model": "workspace configuration",
+    "writes": "stable request_id; revise requires base_version"
   }
 }

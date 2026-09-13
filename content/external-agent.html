@@ -1,0 +1,30 @@
+<h2>可复制的命令与请求</h2><pre><code>python -m pip install --upgrade briefloop
+briefloop external --workspace &quot;/absolute/workspace&quot; discover
+briefloop external --workspace &quot;/absolute/workspace&quot; skill
+briefloop external --workspace &quot;/absolute/workspace&quot; request --file request.json</code></pre><p>每次把一条 JSON 请求保存为 request.json，再执行上面的 request 命令。示例 ID 必须替换为实际响应中的 ID，不能直接提交占位符。</p><h3>inspect</h3><pre><code>{
+  &quot;action&quot;: &quot;inspect&quot;
+}</code></pre><h3>submit</h3><pre><code>{
+  &quot;action&quot;: &quot;submit&quot;,
+  &quot;request_id&quot;: &quot;report-unique-id&quot;,
+  &quot;source_ids&quot;: [
+    &quot;src_actual_id&quot;
+  ],
+  &quot;requirements&quot;: {
+    &quot;title&quot;: &quot;本期简报&quot;,
+    &quot;objective&quot;: &quot;概括已上传材料的变化及影响&quot;,
+    &quot;allow_web&quot;: false,
+    &quot;writing_mode&quot;: &quot;general&quot;,
+    &quot;target_words&quot;: 500,
+    &quot;max_words&quot;: 700
+  }
+}</code></pre><h3>query</h3><pre><code>{
+  &quot;action&quot;: &quot;query&quot;,
+  &quot;job_id&quot;: &quot;job_actual_id&quot;
+}</code></pre><h3>read</h3><pre><code>{
+  &quot;action&quot;: &quot;read&quot;,
+  &quot;version_id&quot;: &quot;brief_actual_id&quot;
+}</code></pre><h3>export</h3><pre><code>{
+  &quot;action&quot;: &quot;export&quot;,
+  &quot;request_id&quot;: &quot;export-unique-id&quot;,
+  &quot;version_id&quot;: &quot;brief_actual_id&quot;
+}</code></pre><pre><code>briefloop external --workspace "/absolute/workspace" download --job job_export_id --output "/existing/output/report.docx"</code></pre><p>企业内报告使用 internal_report，并先完成企业背景维护选择；不能改写作模式绕过。改稿先读取完整文档，再用 revise、新的 request_id 和准确 base_version 保存。响应丢失时保留原 ID 与原内容重试。</p><p><a href="../agents/briefloop/SKILL.md">Agent Skill 与完整协议</a> · <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/WorkBuddy%E5%A4%96%E9%83%A8%E5%85%A5%E5%8F%A3.md">GitHub</a></p>
