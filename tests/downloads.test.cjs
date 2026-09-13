@@ -14,9 +14,10 @@ test('Windows x64 and ARM stay distinct; hints with no bitness do not invent x64
   assert.equal(detectArchitecture({}, {architecture:'x86'}),'unknown');
 });
 test('unpublished assets never produce a download URL', () => {
+  const pending = {mac:{ready:false,url:null,architecture:'arm64'},windows:{ready:false,url:null,architecture:'x64'}};
   for (const platform of ['mac','windows']) {
-    assert.match(selection(platform,release[platform].architecture,false).href,/^downloads\.html#/);
-    assert.match(selection(platform,release[platform].architecture,false).label,/准备中/);
+    assert.match(selection(platform,pending[platform].architecture,false,pending).href,/^downloads\.html#/);
+    assert.match(selection(platform,pending[platform].architecture,false,pending).label,/准备中/);
   }
 });
 test('accepted published assets select the exact package only on matching architecture', () => {
