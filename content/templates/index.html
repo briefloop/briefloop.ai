@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>BriefLoop · Think with your material — a local Agent workbench</title>
-<meta name="description" content="BriefLoop is an Agent workbench that runs on your own machine: it finds sources around your question, drafts an editable report, scores it independently, and pins every important claim back to the exact line it came from.">
+<title>BriefLoop · 与材料一起思考 — 本地 Agent 工作台</title>
+<meta name="description" content="BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕问题找来源、写出可编辑的报告、独立评分，并把每条重要结论绑定回它来自的那一行原文。">
 <link rel="icon" type="image/svg+xml" href="assets/briefloop-icon.svg">
 <link rel="alternate" hreflang="zh-CN" href="https://briefloop.ai/index.html">
 <link rel="alternate" hreflang="en" href="https://briefloop.ai/en.html">
@@ -233,16 +233,6 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .hero-ctas .btn{width:100%}
   .nav-actions .btn-ghost:not(.lang-btn){display:none}
 }
-
-/* ---------- en nav: the labels are wider than the zh ones ---------- */
-.nav-links a{white-space:nowrap}
-@media (max-width:1120px){
-  .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px 16px;margin:0;display:none}
-  .nav-links.open{display:flex}
-  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--border)}
-  .nav-links a:last-child{border-bottom:0}
-  .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
-}
 /* ---------- wide desktop: spend the width instead of leaving it blank ---------- */
 @media (min-width:1440px){
   .wrap{max-width:1280px}
@@ -262,12 +252,12 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <img src="assets/briefloop-mark.svg" alt="">
       <span>BriefLoop</span>
     </a>
-    <nav class="nav-links" id="nav-links" aria-label="Site navigation"><a href="#why">Product</a><a href="docs/index.en.html">User guides</a><a href="reports/technical-report-v2/technical-report.html">Technical report v2</a><a href="https://github.com/Stahl-G/briefloop/releases">Release notes</a></nav>
+    <nav class="nav-links" id="nav-links" aria-label="站点导航"><a href="#why">产品</a><a href="docs/index.html">使用文档</a><a href="reports/technical-report-v2/technical-report.html">技术报告 v2</a><a href="https://github.com/Stahl-G/briefloop/releases">更新日志</a></nav>
     <div class="nav-actions">
-      <a class="btn btn-ghost btn-sm lang-btn" href="index.html" data-od-id="nav-lang" aria-label="Switch to Chinese">中文</a>
+      <a class="btn btn-ghost btn-sm lang-btn" href="en.html" data-od-id="nav-lang" aria-label="切换到英文版">EN</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
-      <a class="btn btn-ghost btn-sm" href="downloads.en.html" data-od-id="nav-cta-start">Download</a>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <a class="btn btn-ghost btn-sm" href="downloads.html" data-od-id="nav-cta-start">下载桌面版</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
@@ -280,57 +270,57 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <span class="eyebrow" data-od-id="hero-eyebrow">
         <img src="assets/briefloop-mark.svg" alt="" style="width:14px;height:14px">
-        Local · Open source (MIT) · <span data-release-version>v0.20.3</span>
+        本地 · 开源（MIT）· <span data-release-version>v{{desktop_version}}</span>
       </span>
-      <h1 data-od-id="hero-title">Turn scattered material into<br>reports you can edit and check.</h1>
-      <p class="lead">A local report workbench for industry research, strategy and IR. Research a question, draft with sources, preserve revisions and export to Word.</p>
+      <h1 data-od-id="hero-title">把分散的材料，<br>做成能修改、能核查的报告。</h1>
+      <p class="lead">为行业研究、战略与 IR 工作准备的本地报告工作台。围绕问题查资料、写初稿，把关键结论与来源放在一起，保留修改，并导出 Word。</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="downloads.en.html" data-od-id="hero-cta-start" data-auto-download>Download desktop app</a>
-        <a class="btn btn-ghost btn-lg" href="docs/index.en.html">Read the guides</a>
+        <a class="btn btn-primary btn-lg" href="downloads.html" data-od-id="hero-cta-start" data-auto-download>下载桌面版</a>
+        <a class="btn btn-ghost btn-lg" href="docs/index.html">查看使用文档</a>
       </div>
-      <p style="margin-top:16px"><a href="downloads.en.html">Other platforms & installation notes</a></p>
-      <div class="hero-meta" aria-label="Runtime">
+      <p style="margin-top:16px"><a href="downloads.html">其他平台与安装说明</a></p>
+      <div class="hero-meta" aria-label="运行环境">
         <span class="chip">macOS · Windows</span>
         <span class="chip">Python 3.11+</span>
-        <span class="chip">Multiple runtimes · bring your own key</span>
-        <span class="chip">Custom API protocols</span>
-        <span class="chip">Server listens on localhost only</span>
+        <span class="chip">多运行时 · 自带 Key</span>
+        <span class="chip">自定义 API 协议</span>
+        <span class="chip">服务只监听本机</span>
       </div>
       <figure class="shot" data-od-id="hero-shot">
-        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · BriefLoop chat workbench</span></div>
-        <img src="assets/workbench-chat.png" alt="The BriefLoop chat workbench: material and requirements, chat and report, and source tracing on one screen (synthetic sample data)" width="1600" height="1000" decoding="async">
-        <figcaption><span class="badge">Real interface</span> Chat workbench · synthetic sample data, no API keys or real business material</figcaption>
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · BriefLoop 对话工作台</span></div>
+        <img src="assets/workbench-chat.png" alt="BriefLoop 对话工作台界面：材料与需求、对话与报告、来源追溯同台（合成示例数据）" width="1600" height="1000" decoding="async">
+        <figcaption><span class="badge">真实界面</span> 对话工作台 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">Saved example</span><h2 class="h2">A real report, generated by BriefLoop</h2><p>An August 2026 Tencent executive reading scenario, based on five public sources. Preserved report text, generation record and review limits. Not an official Tencent report.</p><a class="btn btn-primary" href="reports/tencent-2026-08.en.html">Read the saved report</a></div><figure class="shot"><img src="assets/tencent-report-workbench.png" alt="Actual BriefLoop editor showing the saved Tencent report" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"><figcaption>Real UI · reviewed working draft; Word native-reader verification pending</figcaption></figure></div></section>
+  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot"><img src="assets/tencent-report-workbench.png" alt="BriefLoop 中已保存的腾讯报告实际界面" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"><figcaption>真实界面 · 经独立审阅的工作稿；Word 原生阅读器验收待完成</figcaption></figure></div></section>
 
-  <section class="section" id="technical-report"><div class="wrap"><div class="sec-head"><span class="kicker">Engineering</span><h2 class="h2">Technical report v2</h2><p>Read how BriefLoop preserves research, revisions and evidence. The 0.21.0 engineering report is a prerelease snapshot, with its evidence index and architecture diagram.</p><a class="btn btn-ghost" href="reports/technical-report-v2/technical-report.html">Read the report (Chinese) ↗</a></div></div></section>
+  <section class="section" id="technical-report"><div class="wrap"><div class="sec-head"><span class="kicker">工程与证据</span><h2 class="h2">技术报告 v2</h2><p>了解研究、修订与证据追溯如何实现。0.21.0 工程技术报告为预发布快照，附证据索引、架构图与核验边界。</p><a class="btn btn-ghost" href="reports/technical-report-v2/technical-report.html">阅读技术报告 v2 ↗</a></div></div></section>
 
   <!-- why -->
   <section class="section" id="why" data-od-id="section-why">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker">Why</span>
-        <h2 class="h2">Sources, drafts and review in one place.</h2>
-        <p class="sub">Keep a local workspace, inspect evidence for important claims, and evaluate a specific draft. Cloud models and search services still receive relevant content.</p>
+        <span class="kicker">为什么</span>
+        <h2 class="h2">把材料、稿件与核查放在一起。</h2>
+        <p class="sub">工作区保存在本地，重要结论可追问依据，评分与写稿分开。云端模型和搜索仍会接收相关内容。</p>
       </div>
       <div class="why">
         <div class="card" data-od-id="why-local">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></svg></span>
-          <h3>A local workspace</h3>
-          <p>Workspaces and records are stored locally. Cloud models and search services receive relevant content when used. Disabling search does not stop model data transfers.</p>
+          <h3>工作区保存在本地</h3>
+          <p>工作区与记录保存在本地；调用云端模型或搜索时，相关内容会发送给你选择的服务。关闭检索不等于停止模型外发。</p>
         </div>
         <div class="card" data-od-id="why-trace">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
-          <h3>Every claim can be questioned</h3>
-          <p>Important claims are pinned to a line of source text, a PDF page, an Excel cell or an image — never a bare “as far as I know”.</p>
+          <h3>重要结论可追问</h3>
+          <p>重要结论挂到原文行、PDF 页、Excel 单元格与图像，不是一句「据我所知」。</p>
         </div>
         <div class="card" data-od-id="why-review">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <h3>Scoring is separate from drafting</h3>
-          <p>Evaluation and review apply to specific draft versions. A low score does not hide the working draft. Reviewer isolation depends on the runtime and release.</p>
+          <h3>评分独立于写稿</h3>
+          <p>评价与核查针对具体稿件版本；低分不隐藏工作稿。Reviewer 的只读隔离能力依宿主和发行版本而异。</p>
         </div>
       </div>
     </div>
@@ -340,35 +330,35 @@ td .num{font-family:var(--mono);font-size:13.5px}
   <section class="section" id="how" data-od-id="section-how">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker">How it works</span>
-        <h2 class="h2">Four steps, from material to a traceable report.</h2>
-        <p class="sub">Open each step to see what it does for you; the loop at the bottom makes every run easier than the last.</p>
+        <span class="kicker">工作原理</span>
+        <h2 class="h2">四步，把材料变成可追溯的报告。</h2>
+        <p class="sub">查看从要求、写稿到核查与导出的步骤；反馈学习单独开启并检查结果。</p>
       </div>
 
       <div data-od-id="arch-diagram">
-        <div class="steps" role="tablist" aria-label="Workflow steps">
+        <div class="steps" role="tablist" aria-label="工作步骤">
           <button class="step" id="arch-tab-1" role="tab" aria-selected="true" aria-controls="arch-panel" data-od-id="arch-node-input">
             <span class="step-num">01</span>
-            <span class="step-title">Requirements &amp; material</span>
-            <span class="step-sub">What you hand over</span>
+            <span class="step-title">需求与材料</span>
+            <span class="step-sub">你交给它什么</span>
           </button>
           <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
           <button class="step" id="arch-tab-2" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-research">
             <span class="step-num">02</span>
-            <span class="step-title">Research &amp; writing</span>
-            <span class="step-sub">What it does for you</span>
+            <span class="step-title">研究与写作</span>
+            <span class="step-sub">它替你干什么</span>
           </button>
           <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
           <button class="step" id="arch-tab-3" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-review">
             <span class="step-num">03</span>
-            <span class="step-title">Independent review</span>
-            <span class="step-sub">Who signs off</span>
+            <span class="step-title">独立复核</span>
+            <span class="step-sub">谁来把关</span>
           </button>
           <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
           <button class="step" id="arch-tab-4" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-delivery">
             <span class="step-num">04</span>
-            <span class="step-title">Traceable delivery</span>
-            <span class="step-sub">What you get</span>
+            <span class="step-title">可追溯交付</span>
+            <span class="step-sub">你拿到什么</span>
           </button>
         </div>
 
@@ -376,8 +366,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
           <span class="step-num">05</span>
           <span class="loopbar-text">
-            <span class="t">Experience accrues</span>
-            <span class="s">Feedback from every delivery settles into Wiki entries and Skills, and returns to the next “requirements and material”</span>
+            <span class="t">经验积累</span>
+            <span class="s">开启学习后，反馈可整理为经验；查看比较、采用与回退记录</span>
           </span>
         </button>
 
@@ -390,34 +380,34 @@ td .num{font-family:var(--mono);font-size:13.5px}
   <section class="section" id="traceability" data-od-id="section-traceability">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker">Traceable delivery</span>
-        <h2 class="h2">Every important claim can be questioned.</h2>
-        <p class="sub">Delivery is not “the model says it is finished” — it means pinning each claim back to the line of source text, the PDF page or the cell it came from.</p>
+        <span class="kicker">可追溯交付</span>
+        <h2 class="h2">每一条重要结论，都能被追问。</h2>
+        <p class="sub">正式交付不是「模型说写完了」，而是把结论钉回它来自的那一行原文、那一页 PDF、那一个单元格。</p>
       </div>
       <ul class="trace">
         <li data-od-id="trace-claim">
-          <span class="trace-key">Claim binding</span>
-          <span class="trace-val">Important claims are pinned to a <strong>line of source text, PDF page, Excel cell or image</strong> — never a bare “as far as I know”. Once the body text changes, the affected bindings are re-checked.</span>
+          <span class="trace-key">主张绑定</span>
+          <span class="trace-val">重要结论挂到<strong>原文行、PDF 页、Excel 单元格与图像</strong>，不是一句「据我所知」。正文改过之后，相应绑定需要重新复核。</span>
         </li>
         <li data-od-id="trace-review">
-          <span class="trace-key">Read-only review</span>
-          <span class="trace-val">The Reviewer checks <strong>fixed versions of artifacts and sources</strong>. Read-only isolation depends on runtime support; a prompt alone does not establish isolation.</span>
+          <span class="trace-key">只读复核</span>
+          <span class="trace-val">Reviewer 核对<strong>固定版本的产物和材料</strong>。只读隔离依宿主能力落实，缺少支持时不能声称强隔离。</span>
         </li>
         <li data-od-id="trace-bundle">
-          <span class="trace-key">Audit bundle</span>
-          <span class="trace-val">Export a zip that carries <strong>originals, excerpts or pointers only</strong>, chosen per source; it verifies offline against structure and consistency, and holds no credentials or hidden reasoning.</span>
+          <span class="trace-key">审计包</span>
+          <span class="trace-val">按来源选择<strong>原件、摘录或仅定位</strong>导出 zip，可离线校验结构与一致性；不含凭据与隐藏推理。</span>
         </li>
         <li data-od-id="trace-version">
-          <span class="trace-key">Version binding</span>
-          <span class="trace-val">The final Word file is <strong>bound to its independent review and evidence version</strong>; earlier finals are kept, and a correction or update becomes a new version.</span>
+          <span class="trace-key">版本绑定</span>
+          <span class="trace-val">正式 Word 与<strong>独立审阅、证据版本绑定</strong>；旧正式件保留，更正或更新另建版本。</span>
         </li>
       </ul>
       <figure class="shot trace-shot" data-od-id="trace-shot">
-        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · source tracing</span></div>
-        <img src="assets/source-evidence.png" alt="BriefLoop source tracing: a citation in the report resolves back to its original source and evidence (synthetic sample data)" width="1600" height="1000" loading="lazy" decoding="async">
-        <figcaption><span class="badge">Real interface</span> Citations back to their source · synthetic sample data, no API keys or real business material</figcaption>
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 来源追溯</span></div>
+        <img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async">
+        <figcaption><span class="badge">真实界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
-      <p><a href="docs/evidence-review.en.html">How to inspect evidence and review findings</a></p>
+      <p><a href="docs/evidence-review.html">如何查看依据与处理审阅问题</a></p>
     </div>
   </section>
 
@@ -425,16 +415,16 @@ td .num{font-family:var(--mono);font-size:13.5px}
   <section class="section" id="features" data-od-id="section-features">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker">Capabilities</span>
-        <h2 class="h2">Enough, and transparent at every step.</h2>
-        <p class="sub">From chat to final delivery inside one workbench; the activity of public tools and sub-agents stays visible throughout.</p>
+        <span class="kicker">能力</span>
+        <h2 class="h2">够用，而且每一步都透明。</h2>
+        <p class="sub">从聊天到正式交付，同一套工作台里完成；公开工具与子 Agent 的活动始终可见。</p>
       </div>
-      <div class="grid-features"><div class="card feat"><h3>Find sources</h3><p>Upload original files, search public information and use explicitly authorized connector materials.</p><p><a href="docs/faq-data.en.html">Sources and data</a></p></div><div class="card feat"><h3>Write and revise</h3><p>Keep text, tables and citations in an editable draft. Save revisions and export to Word.</p><p><a href="docs/write-edit.en.html">Editing and export</a></p></div><div class="card feat"><h3>Check and reuse</h3><p>Inspect review findings and source scope. Turn feedback into candidate experience and check adoption or rollback.</p><p><a href="docs/feedback-learning.en.html">Review and feedback</a></p></div></div>
+      <div class="grid-features"><div class="card feat"><h3>找资料</h3><p>上传原件、搜索公开资料，使用明确授权的连接器材料；保留来源与日期。</p><p><a href="docs/faq-data.html">材料与数据去向</a></p></div><div class="card feat"><h3>写和改</h3><p>把正文、表格与引用保存在可编辑稿件中，保留修订版本，并导出 Word。</p><p><a href="docs/write-edit.html">编辑与导出步骤</a></p></div><div class="card feat"><h3>核查与复用</h3><p>查看问题与来源支持范围，把反馈整理为候选经验，核对采用或回退结果。</p><p><a href="docs/feedback-learning.html">反馈与下一次报告</a></p></div></div>
 
       <figure class="shot feat-shot" data-od-id="feature-shot-doc">
-        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · report body</span></div>
-        <img src="assets/report-document.png" alt="BriefLoop report body in detail: editable prose, tables and positioned citations (synthetic sample data)" width="1053" height="1100" loading="lazy" decoding="async">
-        <figcaption><span class="badge">Real interface</span> Report body · prose, tables and citations edited in one document</figcaption>
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 报告正文</span></div>
+        <img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="1100" loading="lazy" decoding="async">
+        <figcaption><span class="badge">真实界面</span> 报告正文细节 · 正文、表格与引用同稿编辑</figcaption>
       </figure>
     </div>
   </section>
@@ -443,19 +433,19 @@ td .num{font-family:var(--mono);font-size:13.5px}
   <section class="section" id="budget" data-od-id="section-budget">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker">Budget and length</span>
-        <h2 class="h2">Control research volume and report length.</h2>
-        <p class="sub">Search quota is shared by Scout across the whole report; the word target and the cap are yours to edit.</p>
+        <span class="kicker">预算与篇幅</span>
+        <h2 class="h2">控制本次检索量与篇幅。</h2>
+        <p class="sub">检索量与篇幅限制不等于完整费用上限。模型与搜索由你选择的服务计费，宿主自带搜索的计量能力不同。</p>
       </div>
       <div class="budget-grid">
-        <div class="card" data-od-id="budget-table"><h3>Research limits and costs</h3><p>Set limits for the current report in the app. Controlled retrieval and runtime-native search have different metering boundaries.</p><a href="docs/models-costs.en.html">Read the cost guide</a></div>
-        <div class="card" data-od-id="length-table"><h3>Write for the reader</h3><p>Set the target length and cap for the task. Preserve necessary evidence and state gaps rather than filling the report to a quota.</p></div>
+        <div class="card" data-od-id="budget-table"><h3>检索量与费用</h3><p>在应用中为当前报告设置限额。受控检索与宿主自带搜索的计量边界不同，不以来源数量代表已核验数量。</p><a href="docs/models-costs.html">查看模型与费用说明</a></div>
+        <div class="card" data-od-id="length-table"><h3>按读者需要控制篇幅</h3><p>为任务设置目标篇幅与上限。保留必要依据和待补信息，不为凑字数增加无关内容。</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="faq"><div class="wrap"><div class="sec-head"><h2 class="h2">Before you start</h2></div><div style="max-width:760px;margin:auto"><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">Do I need a model subscription?</summary><p style="line-height:1.8;margin-top:12px">Actual generation needs an authenticated runtime and an available model. Model and search providers charge for their services; BriefLoop does not include their credits.</p><a href="docs/models-costs.en.html">Read the guide</a></details><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">Will my materials leave this computer?</summary><p style="line-height:1.8;margin-top:12px">Workspaces and records are local. Cloud-model requests may include relevant sources, drafts and feedback. Search and connectors also send requests to their configured services.</p><a href="docs/faq-data.en.html">Read the guide</a></details><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">Does a high score mean the report is ready to deliver?</summary><p style="line-height:1.8;margin-top:12px">A score is one signal for a specific version. Inspect evidence, scope and unresolved findings. A downloadable working draft is not automatically a formally verified deliverable.</p><a href="docs/evidence-review.en.html">Read the guide</a></details></div></div></section>
-<section class="section" id="start"><div class="wrap"><div class="sec-head"><span class="kicker">GET STARTED</span><h2 class="h2">Install, then create your first report.</h2><p class="sub">Apple silicon Mac and Windows x64 installers are available. Use a compatible Python 3.11+ installation and an authenticated model runtime.</p></div><div class="hero-ctas"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.en.html">Download desktop app</a><a class="btn btn-ghost btn-lg" href="docs/first-report.en.html">Create your first report</a></div><p class="sub" style="margin-top:24px">Initial dependency preparation requires a network connection. Model and search usage is billed by your chosen providers. Workspaces are local, but relevant content is sent to cloud services when used.</p><p style="text-align:center"><a href="https://github.com/Stahl-G/briefloop#readme">Source and CLI installation</a></p></div></section>
+  <section class="section" id="faq"><div class="wrap"><div class="sec-head"><h2 class="h2">开始前，先说清楚</h2></div><div style="max-width:760px;margin:auto"><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">需要购买模型服务吗？</summary><p style="line-height:1.8;margin-top:12px">实际生成需要已认证的宿主与可用模型。模型和搜索由对应提供方计费，BriefLoop 不包含它们的额度。</p><a href="docs/models-costs.html">查看详细说明</a></details><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">材料会发送到电脑之外吗？</summary><p style="line-height:1.8;margin-top:12px">工作区与记录保存在本地。云端模型请求可能包含相关材料、稿件与反馈；搜索和连接器也会向所配置的服务发送请求。</p><a href="docs/faq-data.html">查看详细说明</a></details><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">评分高就能正式交付吗？</summary><p style="line-height:1.8;margin-top:12px">分数只针对某个版本，仍要查看依据、核查范围与未决问题。能下载普通工作稿，不等于已满足正式交付条件。</p><a href="docs/evidence-review.html">查看详细说明</a></details></div></div></section>
+<section class="section" id="start"><div class="wrap"><div class="sec-head"><span class="kicker">开始使用</span><h2 class="h2">安装后，做出自己的第一份报告。</h2><p class="sub">提供 Apple 芯片 Mac 与 Windows x64 安装包。需要兼容的 Python 3.11+ 和已认证的模型宿主；已有 Python 3.12 可以使用。</p></div><div class="hero-ctas"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.html">下载桌面版</a><a class="btn btn-ghost btn-lg" href="docs/first-report.html">第一份报告的步骤</a></div><p class="sub" style="margin-top:24px">首次准备依赖需要联网。模型与搜索用量由所选提供方计费。工作区保存在本地，但使用云端服务时会发送相关内容。</p><p style="text-align:center"><a href="https://github.com/Stahl-G/briefloop#readme">源码与 CLI 安装说明</a></p></div></section>
 <!-- final cta -->
   <section class="section-cta" data-od-id="section-cta">
     <div class="wrap">
@@ -463,11 +453,11 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <span class="ring a" aria-hidden="true"></span>
         <span class="ring b" aria-hidden="true"></span>
         <div class="inner">
-          <h2>Make your next report the traceable kind.</h2>
-          <p>Choose the installer for your computer and follow the guides to create an editable report.</p>
+          <h2>把下一份报告，写成可追溯的那种。</h2>
+          <p>选择电脑对应的安装包，按使用文档完成第一份可编辑的报告。</p>
           <div class="actions">
-            <a class="btn btn-invert btn-lg" data-auto-download href="downloads.en.html">Download desktop app</a>
-            <a class="link-w" href="#start">or read the install steps</a>
+            <a class="btn btn-invert btn-lg" data-auto-download href="downloads.html">下载桌面版</a>
+            <a class="link-w" href="#start">或看安装步骤</a>
           </div>
         </div>
       </div>
@@ -480,37 +470,37 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="footer-cols">
       <div>
         <span class="footer-brand"><img src="assets/briefloop-mark.svg" alt=""> BriefLoop</span>
-        <p class="footer-desc">A local Agent workbench for reports your company can read and check.</p>
+        <p class="footer-desc">本地 Agent 工作台，服务企业内部可读、可核查的报告。</p>
       </div>
       <div class="footer-col">
-        <h4>Product</h4>
+        <h4>产品</h4>
         <ul>
-          <li><a href="#how">How it works</a></li>
-          <li><a href="#traceability">Traceable delivery</a></li>
-          <li><a href="#features">Capabilities</a></li>
-          <li><a href="#budget">Budget and length</a></li>
+          <li><a href="#how">工作原理</a></li>
+          <li><a href="#traceability">可追溯交付</a></li>
+          <li><a href="#features">能力</a></li>
+          <li><a href="#budget">预算与篇幅</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Docs</h4>
+        <h4>文档</h4>
         <ul>
-          <li><a href="reports/technical-report-v2/technical-report.html">Technical report v2 · Chinese</a></li>
-          <li><a href="docs/index.en.html" target="_blank" rel="noopener">User guide</a></li>
-          <li><a href="docs/install-update.en.html" target="_blank" rel="noopener">Upgrade notes</a></li>
-          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+          <li><a href="reports/technical-report-v2/technical-report.html">技术报告 v2</a></li>
+          <li><a href="docs/index.html" target="_blank" rel="noopener">使用指南</a></li>
+          <li><a href="docs/install-update.html" target="_blank" rel="noopener">升级说明</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Repository</h4>
+        <h4>仓库</h4>
         <ul>
           <li><a href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">Sources &amp; licences</a></li>
+          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">来源与许可</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>BriefLoop 0.20.3 · MIT</span>
-      <span>Think with your material</span>
+      <span>BriefLoop {{desktop_version}} · MIT</span>
+      <span>与材料一起思考</span>
     </div>
   </div>
 </footer>
@@ -537,10 +527,10 @@ td .num{font-family:var(--mono);font-size:13.5px}
   if(copyBtn&&cmd){
     copyBtn.addEventListener('click',function(){
       var text=cmd.innerText.replace(/^\$\s*/gm,'').trim();
-      function done(){copyBtn.textContent='Copied';setTimeout(function(){copyBtn.textContent='Copy';},1600);}
+      function done(){copyBtn.textContent='已复制';setTimeout(function(){copyBtn.textContent='复制';},1600);}
       function fallback(){
         var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
-        try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='Copy failed';setTimeout(function(){copyBtn.textContent='Copy';},1600);}
+        try{document.execCommand('copy');done();}catch(e){copyBtn.textContent='复制失败';setTimeout(function(){copyBtn.textContent='复制';},1600);}
         document.body.removeChild(ta);
       }
       if(navigator.clipboard&&navigator.clipboard.writeText){
@@ -553,21 +543,21 @@ td .num{font-family:var(--mono);font-size:13.5px}
 <script>
 (function(){
   var stages=[
-    {num:'01',title:'Requirements &amp; material',sub:'What you hand over',
-     bullets:['State the <strong>purpose, the reader and the time range</strong>, and the target length.','Upload PDFs, Excel files and images as material, or <strong>go online-only</strong> for sourcing.','Company background and templates are optional and are <strong>carried into</strong> every report.'],
-     meta:['Who runs it: you + the task template','What you get: one clear statement of the task']},
-    {num:'02',title:'Research &amp; writing',sub:'What it does for you',
-     bullets:['Scout <strong>finds, filters and de-duplicates</strong> sources within budget; usage limits and service prices are separate.','Analyst writes an <strong>editable rich document</strong>, keeping charts, tables and citations in the same file.','Important claims are <strong>pinned back to the line of source text</strong> as they are written.'],
-     meta:['Who runs it: Scout finds sources · Analyst drafts','What you get: an editable draft report']},
-    {num:'03',title:'Independent review',sub:'Who signs off',
-     bullets:['The Evaluator <strong>scores independently</strong> and compares whether a candidate is genuinely better.','The Reviewer <strong>checks the actual artifacts read-only</strong> inside the audit bundle, without rewriting or extra searching.','A low score or a failed check <strong>never hides the draft</strong>; the issues are laid out for you to decide.'],
-     meta:['Who runs it: Evaluator · read-only Reviewer','What you get: a score and a review verdict']},
-    {num:'04',title:'Traceable delivery',sub:'What you get',
-     bullets:['Export the final report to <strong>Word / WPS</strong> — editable and versioned.','Export an audit bundle on demand: <strong>originals, excerpts or pointers only</strong>, verifiable offline.','Every claim can be questioned: back to the <strong>line of source text, PDF page or Excel cell</strong>.'],
-     meta:['What you get: the final report + the audit bundle','Every claim has a source']},
-    {num:'05',title:'Experience accrues',sub:'Better every time',
-     bullets:['<strong>Feedback and revisions</strong> after each delivery settle into Wiki entries and Skill candidates.','A candidate is <strong>enabled only once comparison validates it</strong>.','Inspect actual comparison and adoption results; <strong>improvement in the next run is not guaranteed</strong>.'],
-     meta:['Who runs it: Wiki Maintainer · Skill Proposer · Evaluator']}
+    {num:'01',title:'需求与材料',sub:'你交给它什么',
+     bullets:['写清<strong>目的、读者、时间范围</strong>与目标篇幅。','上传 PDF、Excel、图片作为材料，也可以<strong>只开联网</strong>检索。','企业背景与模板可选，<strong>自动带入</strong>每一份报告。'],
+     meta:['谁在干：你 + 任务模板','交付物：一份明确的任务要求']},
+    {num:'02',title:'研究与写作',sub:'它替你干什么',
+     bullets:['Scout 按预算<strong>找来源、筛选、去重</strong>，调用量与服务价格分别说明。','Analyst 写出<strong>可编辑的富文档</strong>，图表、表格、引用同稿保存。','重要结论当场<strong>绑定回它来自的那一行原文</strong>。'],
+     meta:['谁在干：Scout 找来源 · Analyst 写稿','交付物：可编辑的报告初稿']},
+    {num:'03',title:'独立复核',sub:'谁来把关',
+     bullets:['Evaluator <strong>独立评分</strong>，比较候选是否真的更好。','Reviewer <strong>只读核对</strong>审计包里的实际产物，不改稿、不补搜。','低分或未通过<strong>不隐藏原稿</strong>，问题摆出来让你决定。'],
+     meta:['谁在干：Evaluator · 只读 Reviewer','交付物：评分与核对结论']},
+    {num:'04',title:'可追溯交付',sub:'你拿到什么',
+     bullets:['正式报告导出 <strong>Word / WPS</strong>，可编辑、可成版本。','审计包按需导出：<strong>原件、摘录或仅定位</strong>，可离线校验。','每条结论都能被追问：回到<strong>原文行、PDF 页、Excel 单元格</strong>。'],
+     meta:['你拿到：正式报告 + 审计包','每条结论都有出处']},
+    {num:'05',title:'经验积累',sub:'保留可复用的反馈',
+     bullets:['开启学习后，<strong>反馈与修订</strong>可整理为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证后才启用</strong>。','查看实际比较和采用结果，<strong>不保证下一轮必然提高</strong>。'],
+     meta:['谁在干：Wiki Maintainer · Skill Proposer · Evaluator']}
   ];
   var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));
   var panel=document.getElementById('arch-panel');

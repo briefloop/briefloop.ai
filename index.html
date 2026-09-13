@@ -243,7 +243,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .shot{max-width:1300px}
 }
 </style>
-</head>
+<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript></head>
 <body id="top">
 
 <header class="nav" data-od-id="site-header">
@@ -252,13 +252,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <img src="assets/briefloop-mark.svg" alt="">
       <span>BriefLoop</span>
     </a>
-    <nav class="nav-links" id="nav-links" aria-label="站点导航">
-      <a href="#why">为什么</a>
-      <a href="#how">工作原理</a>
-      <a href="#traceability">可追溯交付</a>
-      <a href="#features">能力</a>
-      <a href="#budget">预算</a>
-    </nav>
+    <nav class="nav-links" id="nav-links" aria-label="站点导航"><a href="#why">产品</a><a href="docs/index.html">使用文档</a><a href="reports/technical-report-v2/technical-report.html">技术报告 v2</a><a href="https://github.com/Stahl-G/briefloop/releases">更新日志</a></nav>
     <div class="nav-actions">
       <a class="btn btn-ghost btn-sm lang-btn" href="en.html" data-od-id="nav-lang" aria-label="切换到英文版">EN</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
@@ -276,13 +270,13 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <span class="eyebrow" data-od-id="hero-eyebrow">
         <img src="assets/briefloop-mark.svg" alt="" style="width:14px;height:14px">
-        本地 · 开源（MIT）· v0.20.0
+        本地 · 开源（MIT）· <span data-release-version>v0.20.3</span>
       </span>
-      <h1 data-od-id="hero-title">与材料一起思考。</h1>
-      <p class="lead">BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕你的问题找来源、写出可编辑的报告、独立评分，再把反馈沉淀成下一次可用的经验。</p>
+      <h1 data-od-id="hero-title">把分散的材料，<br>做成能修改、能核查的报告。</h1>
+      <p class="lead">为行业研究、战略与 IR 工作准备的本地报告工作台。围绕问题查资料、写初稿，把关键结论与来源放在一起，保留修改，并导出 Word。</p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-lg" href="downloads.html" data-od-id="hero-cta-start" data-auto-download>下载桌面版</a>
-        <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">查看 GitHub ↗</a>
+        <a class="btn btn-ghost btn-lg" href="docs/index.html">查看使用文档</a>
       </div>
       <p style="margin-top:16px"><a href="downloads.html">其他平台与安装说明</a></p>
       <div class="hero-meta" aria-label="运行环境">
@@ -300,29 +294,33 @@ td .num{font-family:var(--mono);font-size:13.5px}
     </div>
   </section>
 
+  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot"><img src="assets/tencent-report-workbench.png" alt="BriefLoop 中已保存的腾讯报告实际界面" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"><figcaption>真实界面 · 经独立审阅的工作稿；Word 原生阅读器验收待完成</figcaption></figure></div></section>
+
+  <section class="section" id="technical-report"><div class="wrap"><div class="sec-head"><span class="kicker">工程与证据</span><h2 class="h2">技术报告 v2</h2><p>了解研究、修订与证据追溯如何实现。0.21.0 工程技术报告为预发布快照，附证据索引、架构图与核验边界。</p><a class="btn btn-ghost" href="reports/technical-report-v2/technical-report.html">阅读技术报告 v2 ↗</a></div></div></section>
+
   <!-- why -->
   <section class="section" id="why" data-od-id="section-why">
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">为什么</span>
-        <h2 class="h2">不是又一个 AI 写作工具。</h2>
-        <p class="sub">材料不出机、结论可追问、评分独立于写稿——这三件事决定了报告能不能被核查。</p>
+        <h2 class="h2">把材料、稿件与核查放在一起。</h2>
+        <p class="sub">工作区保存在本地，重要结论可追问依据，评分与写稿分开。云端模型和搜索仍会接收相关内容。</p>
       </div>
       <div class="why">
         <div class="card" data-od-id="why-local">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></svg></span>
-          <h3>材料不出机</h3>
-          <p>服务只监听本机，材料、稿件与评分都留在你的目录里；关闭网页不会停止正在执行的任务。</p>
+          <h3>工作区保存在本地</h3>
+          <p>工作区与记录保存在本地；调用云端模型或搜索时，相关内容会发送给你选择的服务。关闭检索不等于停止模型外发。</p>
         </div>
         <div class="card" data-od-id="why-trace">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
-          <h3>每条结论可追问</h3>
+          <h3>重要结论可追问</h3>
           <p>重要结论挂到原文行、PDF 页、Excel 单元格与图像，不是一句「据我所知」。</p>
         </div>
         <div class="card" data-od-id="why-review">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <h3>评分独立于写稿</h3>
-          <p>Evaluator 独立评分、Reviewer 只读复核；低分或未通过，原稿与问题都摆出来让你决定。</p>
+          <p>评价与核查针对具体稿件版本；低分不隐藏工作稿。Reviewer 的只读隔离能力依宿主和发行版本而异。</p>
         </div>
       </div>
     </div>
@@ -334,7 +332,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <div class="sec-head">
         <span class="kicker">工作原理</span>
         <h2 class="h2">四步，把材料变成可追溯的报告。</h2>
-        <p class="sub">点开每一步，看它替你做了什么；底部回路让每一次都比上一次更省心。</p>
+        <p class="sub">查看从要求、写稿到核查与导出的步骤；反馈学习单独开启并检查结果。</p>
       </div>
 
       <div data-od-id="arch-diagram">
@@ -369,7 +367,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
           <span class="step-num">05</span>
           <span class="loopbar-text">
             <span class="t">经验积累</span>
-            <span class="s">每次交付的反馈沉淀为 Wiki / Skill，回到下一次「需求与材料」</span>
+            <span class="s">开启学习后，反馈可整理为经验；查看比较、采用与回退记录</span>
           </span>
         </button>
 
@@ -393,7 +391,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         </li>
         <li data-od-id="trace-review">
           <span class="trace-key">只读复核</span>
-          <span class="trace-val">Reviewer 只读核对<strong>审计包内的实际产物</strong>，拒绝包外读取、shell 与写入。</span>
+          <span class="trace-val">Reviewer 核对<strong>固定版本的产物和材料</strong>。只读隔离依宿主能力落实，缺少支持时不能声称强隔离。</span>
         </li>
         <li data-od-id="trace-bundle">
           <span class="trace-key">审计包</span>
@@ -409,45 +407,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async">
         <figcaption><span class="badge">真实界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
-      <div class="cmd">
-        <p class="lbl">导出审计包</p>
-        <code>python -m briefloop.audit_bundle /absolute/path/report-audit.zip</code>
-      </div>
-    </div>
-  </section>
-
-  <!-- roles -->
-  <section class="section" id="roles" data-od-id="section-roles">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">四个角色</span>
-        <h2 class="h2">一个主 Agent，三个独立角色。</h2>
-        <p class="sub">你只和 BriefLoop 对话；写稿的 Agent 无权宣告自己的稿子合格，评分、整理、提议各自独立。</p>
-      </div>
-      <div class="card role role-lead" data-od-id="role-card-briefloop">
-        <div>
-          <span class="role-en">Main Agent</span>
-          <h3>BriefLoop</h3>
-        </div>
-        <p>你对它说话的那一个：接收需求与材料，调度 Scout 找来源、Analyst 写稿，再把可编辑的报告交到你手上。</p>
-      </div>
-      <div class="grid-3">
-        <div class="card role" data-od-id="role-card-evaluator">
-          <span class="role-en">Evaluator</span>
-          <h3>评价者</h3>
-          <p>给产物打分，比较候选是否真的改善；每次使用独立模型会话，评分与写稿互不干扰。</p>
-        </div>
-        <div class="card role" data-od-id="role-card-wiki">
-          <span class="role-en">Wiki Maintainer</span>
-          <h3>经验整理</h3>
-          <p>把反馈与执行观察整理成 Wiki，下一次研究直接受益。</p>
-        </div>
-        <div class="card role" data-od-id="role-card-skill">
-          <span class="role-en">Skill Proposer</span>
-          <h3>技能提议</h3>
-          <p>根据 Wiki 提出或改进 Skill；候选经验证后才启用。</p>
-        </div>
-      </div>
+      <p><a href="docs/evidence-review.html">如何查看依据与处理审阅问题</a></p>
     </div>
   </section>
 
@@ -459,68 +419,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <h2 class="h2">够用，而且每一步都透明。</h2>
         <p class="sub">从聊天到正式交付，同一套工作台里完成；公开工具与子 Agent 的活动始终可见。</p>
       </div>
-      <div class="grid-features">
-        <div class="card feat" data-od-id="feature-card-chat">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H9l-5 4z"/></svg></span>
-          <h3>对话工作台</h3>
-          <p>发消息、上传材料、选模型、补要求；公开工具与子 Agent 活动可见。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-workspace">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
-          <h3>工作区管理</h3>
-          <p>打开已有目录或新建，各自保存对话、来源、稿件、评分与 Wiki。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-doc">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6M9 13h6M9 17h4"/></svg></span>
-          <h3>富文档</h3>
-          <p>可编辑的富文档，格式与内容一起成版本；Markdown 兼容导入导出。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-industry">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 15v-4M12 15V8M16 15v-6"/></svg></span>
-          <h3>行业定期报告</h3>
-          <p>六类章节按行业与任务裁剪，Word / WPS 导出，可选用户模板与企业背景。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-charts">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M14 3.2A9 9 0 0 1 20.8 10H14z"/></svg></span>
-          <h3>图表与 Excel</h3>
-          <p>复用 XLSX 内嵌图与原生图表，Agent 可用真实数据生成新图并登记来源。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-media">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.4"/><path d="M4 17l4.5-4 3 2.5L15 12l5 5"/></svg></span>
-          <h3>图片与 PDF 页</h3>
-          <p>图片原件保存与预览，PDF 按需渲染指定页供视觉模型查看。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-archive">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3H3z"/><path d="M5 9v10h14V9M10 13h4"/></svg></span>
-          <h3>对话整理</h3>
-          <p>归档、回收站、恢复、批量归档；报告与 Wiki 不随对话清理删除。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-learn">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
-          <h3>学习闭环</h3>
-          <p>编辑后自动合并反馈，Maintainer 整理，Proposer 提议，Evaluator 比较决定。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-runtime">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 7H7a5 5 0 0 0 0 10h3M14 7h3a5 5 0 0 1 0 10h-3M9 12h6"/></svg></span>
-          <h3>多运行时 · 统一桥接</h3>
-          <p>自动发现本机 CLI 并统一接入：Codex、OpenCode、Claude Code、Kimi、Hermes、Reasonix、MiMo 已接入，Kilo、Kiro、Vibe 已接线待实机验证；模型目录统一读取，也可手填模型 ID。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-api">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg></span>
-          <h3>自定义 API 协议</h3>
-          <p>显式支持 Chat Completions、Responses、Anthropic Messages；保存与测试分开。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-settings">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/></svg></span>
-          <h3>独立设置页</h3>
-          <p>模型、API 协议与执行时限集中配置，兼顾浏览器窗口与未来 Electron 共享界面。</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-example">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v6l-4.5 9h13L14 9V3z"/><path d="M9 3h6M6.6 15h10.8"/></svg></span>
-          <h3>合成周报示例</h3>
-          <p>examples/internal-weekly-report 用合成材料体验生成、改稿与 Word 导出，无需真实数据。</p>
-        </div>
-      </div>
+      <div class="grid-features"><div class="card feat"><h3>找资料</h3><p>上传原件、搜索公开资料，使用明确授权的连接器材料；保留来源与日期。</p><p><a href="docs/faq-data.html">材料与数据去向</a></p></div><div class="card feat"><h3>写和改</h3><p>把正文、表格与引用保存在可编辑稿件中，保留修订版本，并导出 Word。</p><p><a href="docs/write-edit.html">编辑与导出步骤</a></p></div><div class="card feat"><h3>核查与复用</h3><p>查看问题与来源支持范围，把反馈整理为候选经验，核对采用或回退结果。</p><p><a href="docs/feedback-learning.html">反馈与下一次报告</a></p></div></div>
+
       <figure class="shot feat-shot" data-od-id="feature-shot-doc">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 报告正文</span></div>
         <img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="1100" loading="lazy" decoding="async">
@@ -534,72 +434,19 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">预算与篇幅</span>
-        <h2 class="h2">额度明码标价，不花完也不强求。</h2>
-        <p class="sub">整次报告的检索额度由 Scout 共享；字数目标与上限可直接修改。</p>
+        <h2 class="h2">控制本次检索量与篇幅。</h2>
+        <p class="sub">检索量与篇幅限制不等于完整费用上限。模型与搜索由你选择的服务计费，宿主自带搜索的计量能力不同。</p>
       </div>
       <div class="budget-grid">
-        <div class="card" data-od-id="budget-table">
-          <h3>研究预算</h3>
-          <table>
-            <thead><tr><th>预设</th><th>搜索</th><th>候选 URL</th><th>全文 URL</th></tr></thead>
-            <tbody>
-              <tr><td>周报</td><td class="num">12</td><td class="num">60</td><td class="num">18</td></tr>
-              <tr><td>月报</td><td class="num">30</td><td class="num">200</td><td class="num">45</td></tr>
-            </tbody>
-          </table>
-          <p class="note">额度适用于受控 Tavily 工具；达到上限后保留材料并说明缺口。</p>
-        </div>
-        <div class="card" data-od-id="length-table">
-          <h3>正文篇幅</h3>
-          <table>
-            <thead><tr><th>预设</th><th>目标字数</th><th>字数上限</th></tr></thead>
-            <tbody>
-              <tr><td>简短</td><td class="num">800</td><td class="num">1,000</td></tr>
-              <tr><td>标准</td><td class="num">1,500</td><td class="num">2,000</td></tr>
-              <tr><td>详细</td><td class="num">2,000</td><td class="num">2,500</td></tr>
-            </tbody>
-          </table>
-          <p class="note">中文汉字每字计 1，连续英文或数字串计 1；格式与引用标记不计。</p>
-        </div>
+        <div class="card" data-od-id="budget-table"><h3>检索量与费用</h3><p>在应用中为当前报告设置限额。受控检索与宿主自带搜索的计量边界不同，不以来源数量代表已核验数量。</p><a href="docs/models-costs.html">查看模型与费用说明</a></div>
+        <div class="card" data-od-id="length-table"><h3>按读者需要控制篇幅</h3><p>为任务设置目标篇幅与上限。保留必要依据和待补信息，不为凑字数增加无关内容。</p></div>
       </div>
     </div>
   </section>
 
-  <!-- start -->
-  <section class="section" id="start" data-od-id="section-start">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">开始使用</span>
-        <h2 class="h2">从桌面应用开始。</h2>
-        <p class="sub">选择适合这台电脑的安装包，也可以使用下方的源码安装方式。</p>
-      </div>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:28px"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.html">下载桌面版</a><a href="downloads.html">其他平台与安装说明</a></div>
-      <h3 style="margin-bottom:16px">也可以从源码安装</h3>
-      <div class="start-grid">
-        <div class="terminal" data-od-id="install-block">
-          <div class="bar">
-            <span class="dot" aria-hidden="true"><i></i><i></i><i></i></span>
-            <button class="copy-btn" id="copy-cmd" type="button">复制</button>
-          </div>
-          <pre><code id="install-cmd"><span class="p">$</span> git clone https://github.com/Stahl-G/briefloop.git
-<span class="p">$</span> cd briefloop
-<span class="p">$</span> ./start.sh</code></pre>
-        </div>
-        <div>
-          <ul class="reqs">
-            <li>需要 <strong>macOS</strong> 与 <strong>Python 3.11+</strong>，以及已安装并完成认证的至少一个受支持 CLI（<strong>Codex、OpenCode、Claude Code、Kimi、Hermes、Reasonix、MiMo</strong> 已接入；<strong>Kilo、Kiro、Vibe</strong> 已接线待实机验证）。</li>
-            <li>首次安装依赖需要网络；多运行时桥接需要 <strong>Node.js 20+</strong>；使用 Tavily 时另行配置自己的 <strong>Tavily Key</strong>。</li>
-            <li>服务<strong>只监听本机</strong>；关闭网页不会停止正在执行的任务。</li>
-            <li>可选参数：
-              <code class="flags">./start.sh --workspace ~/my-brief --port 8765 --no-open --backend opencode</code>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- final cta -->
+  <section class="section" id="faq"><div class="wrap"><div class="sec-head"><h2 class="h2">开始前，先说清楚</h2></div><div style="max-width:760px;margin:auto"><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">需要购买模型服务吗？</summary><p style="line-height:1.8;margin-top:12px">实际生成需要已认证的宿主与可用模型。模型和搜索由对应提供方计费，BriefLoop 不包含它们的额度。</p><a href="docs/models-costs.html">查看详细说明</a></details><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">材料会发送到电脑之外吗？</summary><p style="line-height:1.8;margin-top:12px">工作区与记录保存在本地。云端模型请求可能包含相关材料、稿件与反馈；搜索和连接器也会向所配置的服务发送请求。</p><a href="docs/faq-data.html">查看详细说明</a></details><details style="border-bottom:1px solid var(--border);padding:18px 0"><summary style="cursor:pointer;min-height:44px;font-weight:600">评分高就能正式交付吗？</summary><p style="line-height:1.8;margin-top:12px">分数只针对某个版本，仍要查看依据、核查范围与未决问题。能下载普通工作稿，不等于已满足正式交付条件。</p><a href="docs/evidence-review.html">查看详细说明</a></details></div></div></section>
+<section class="section" id="start"><div class="wrap"><div class="sec-head"><span class="kicker">开始使用</span><h2 class="h2">安装后，做出自己的第一份报告。</h2><p class="sub">提供 Apple 芯片 Mac 与 Windows x64 安装包。需要兼容的 Python 3.11+ 和已认证的模型宿主；已有 Python 3.12 可以使用。</p></div><div class="hero-ctas"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.html">下载桌面版</a><a class="btn btn-ghost btn-lg" href="docs/first-report.html">第一份报告的步骤</a></div><p class="sub" style="margin-top:24px">首次准备依赖需要联网。模型与搜索用量由所选提供方计费。工作区保存在本地，但使用云端服务时会发送相关内容。</p><p style="text-align:center"><a href="https://github.com/Stahl-G/briefloop#readme">源码与 CLI 安装说明</a></p></div></section>
+<!-- final cta -->
   <section class="section-cta" data-od-id="section-cta">
     <div class="wrap">
       <div class="cta-band" data-od-id="cta-band">
@@ -607,9 +454,9 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <span class="ring b" aria-hidden="true"></span>
         <div class="inner">
           <h2>把下一份报告，写成可追溯的那种。</h2>
-          <p>克隆仓库、跑一条命令，在本机开始你的第一份 BriefLoop 简报。</p>
+          <p>选择电脑对应的安装包，按使用文档完成第一份可编辑的报告。</p>
           <div class="actions">
-            <a class="btn btn-invert btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="cta-github">前往 GitHub ↗</a>
+            <a class="btn btn-invert btn-lg" data-auto-download href="downloads.html">下载桌面版</a>
             <a class="link-w" href="#start">或看安装步骤</a>
           </div>
         </div>
@@ -637,8 +484,9 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <div class="footer-col">
         <h4>文档</h4>
         <ul>
-          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">使用指南</a></li>
-          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">升级说明</a></li>
+          <li><a href="reports/technical-report-v2/technical-report.html">技术报告 v2</a></li>
+          <li><a href="docs/index.html" target="_blank" rel="noopener">使用指南</a></li>
+          <li><a href="docs/install-update.html" target="_blank" rel="noopener">升级说明</a></li>
           <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a></li>
         </ul>
       </div>
@@ -651,7 +499,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>BriefLoop 0.20.0 · MIT</span>
+      <span>BriefLoop 0.20.3 · MIT</span>
       <span>与材料一起思考</span>
     </div>
   </div>
@@ -662,6 +510,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   var toggle=document.getElementById('menu-toggle');
   var links=document.querySelector('.nav-links');
   if(toggle&&links){
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&links.classList.contains('open')){links.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.focus();}});
     toggle.addEventListener('click',function(){
       var open=links.classList.toggle('open');
       toggle.setAttribute('aria-expanded',open?'true':'false');
@@ -698,7 +547,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
      bullets:['写清<strong>目的、读者、时间范围</strong>与目标篇幅。','上传 PDF、Excel、图片作为材料，也可以<strong>只开联网</strong>检索。','企业背景与模板可选，<strong>自动带入</strong>每一份报告。'],
      meta:['谁在干：你 + 任务模板','交付物：一份明确的任务要求']},
     {num:'02',title:'研究与写作',sub:'它替你干什么',
-     bullets:['Scout 按预算<strong>找来源、筛选、去重</strong>，额度明码标价。','Analyst 写出<strong>可编辑的富文档</strong>，图表、表格、引用同稿保存。','重要结论当场<strong>绑定回它来自的那一行原文</strong>。'],
+     bullets:['Scout 按预算<strong>找来源、筛选、去重</strong>，调用量与服务价格分别说明。','Analyst 写出<strong>可编辑的富文档</strong>，图表、表格、引用同稿保存。','重要结论当场<strong>绑定回它来自的那一行原文</strong>。'],
      meta:['谁在干：Scout 找来源 · Analyst 写稿','交付物：可编辑的报告初稿']},
     {num:'03',title:'独立复核',sub:'谁来把关',
      bullets:['Evaluator <strong>独立评分</strong>，比较候选是否真的更好。','Reviewer <strong>只读核对</strong>审计包里的实际产物，不改稿、不补搜。','低分或未通过<strong>不隐藏原稿</strong>，问题摆出来让你决定。'],
@@ -706,8 +555,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
     {num:'04',title:'可追溯交付',sub:'你拿到什么',
      bullets:['正式报告导出 <strong>Word / WPS</strong>，可编辑、可成版本。','审计包按需导出：<strong>原件、摘录或仅定位</strong>，可离线校验。','每条结论都能被追问：回到<strong>原文行、PDF 页、Excel 单元格</strong>。'],
      meta:['你拿到：正式报告 + 审计包','每条结论都有出处']},
-    {num:'05',title:'经验积累',sub:'越用越好',
-     bullets:['每次交付后的<strong>反馈与修订</strong>，沉淀为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证后才启用</strong>。','下一次研究自动受益——<strong>闭环，而不是从零开始</strong>。'],
+    {num:'05',title:'经验积累',sub:'保留可复用的反馈',
+     bullets:['开启学习后，<strong>反馈与修订</strong>可整理为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证后才启用</strong>。','查看实际比较和采用结果，<strong>不保证下一轮必然提高</strong>。'],
      meta:['谁在干：Wiki Maintainer · Skill Proposer · Evaluator']}
   ];
   var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));

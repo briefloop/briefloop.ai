@@ -1,0 +1,688 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BriefLoop 0.21.0 · 证据索引</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f5f1;color:#263329;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.85;font-size:16px}header{background:#fff;border-bottom:1px solid #dce1d8;padding:20px max(24px,calc((100vw - 1240px)/2));display:flex;gap:22px;align-items:center}header b{color:#006838}header a{color:#516455;text-decoration:none;font-size:14px}.layout{max-width:1240px;margin:38px auto;display:grid;grid-template-columns:235px minmax(0,900px);gap:40px;padding:0 24px}aside{position:sticky;top:24px;align-self:start;max-height:90vh;overflow:auto;font-size:13px}aside a{display:block;color:#5e6f60;text-decoration:none;border-left:2px solid #dce1d8;padding:5px 12px}aside a:hover{border-color:#006838;color:#006838}article{background:white;padding:48px 56px;border:1px solid #e0e4dc;border-radius:12px;min-width:0}h1{font-size:32px;line-height:1.35;margin:0 0 24px;letter-spacing:-.5px}h2{font-size:23px;line-height:1.5;margin:44px 0 20px;padding-top:10px;border-top:1px solid #e3e8df;color:#005a31;scroll-margin-top:20px}h3{font-size:18px;margin:28px 0 12px}p{margin:0 0 18px}a{color:#006838;text-underline-offset:3px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.6;margin:24px 0;display:block;overflow:auto}th,td{padding:11px 12px;border:1px solid #dde3d9;vertical-align:top;text-align:left;min-width:95px}th{background:#eef4ec}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.86em;overflow-wrap:anywhere;background:#f1f4ef;padding:2px 4px;border-radius:3px}pre{padding:18px;background:#f1f4ef;overflow:auto;line-height:1.6}pre code{padding:0;background:transparent}li{margin-bottom:10px}blockquote{margin:20px 0;border-left:3px solid #006838;padding:8px 20px;background:#f6f8f4}hr{border:0;border-top:1px solid #dce1d8;margin:30px 0}.diagram{border:1px solid #dce1d8;border-radius:10px;overflow:hidden;margin:24px 0}.diagram iframe{border:0;width:100%;height:750px;display:block}.caption{padding:10px 16px;color:#60705f;font-size:13px;background:#f5f7f2}footer{max-width:1240px;margin:32px auto;padding:0 24px;color:#697667;font-size:13px}@media(max-width:900px){.layout{display:block;margin:18px auto;padding:0 14px}aside{position:static;max-height:220px;margin-bottom:24px}article{padding:28px 22px}h1{font-size:26px}header{flex-wrap:wrap;padding:16px}.diagram iframe{height:700px}}@media print{body{background:white;font-size:10.5pt;line-height:1.7}header,aside,footer{display:none}.layout{display:block;margin:0;padding:0;max-width:none}article{padding:0;border:0}h1{font-size:23pt}h2{font-size:16pt;break-after:avoid}h3{break-after:avoid}table{font-size:9pt;display:table}tr{break-inside:avoid}a{color:inherit;text-decoration:none}.diagram{display:none}@page{size:A4;margin:18mm 17mm}}</style><link rel="canonical" href="https://briefloop.ai/reports/technical-report-v2/evidence-index.html"><link rel="icon" href="../../assets/briefloop-icon.svg"></head><body><header><a href="../../index.html">← BriefLoop 首页</a><b>BriefLoop / 技术报告</b><a href="technical-report.html">全文</a><a href="evidence-index.html">证据索引</a><a href="architecture.html">架构图</a><span>0.21.0 · 预发布稿</span></header><div class="layout"><aside aria-label="目录"><a href="#e01">E01 · 任务与企业背景入口</a><a href="#e02">E02 · 程序与 Agent 的职责</a><a href="#e03">E03 · 读者约定和企业内部写作</a><a href="#e04">E04 · 内容方法快照</a><a href="#e05">E05 · DOCX 模板准备与导出</a><a href="#e06">E06 · 研究档位和轮次状态</a><a href="#e07">E07 · 共享预算</a><a href="#e08">E08 · Scout 结果与轮间摘要</a><a href="#e09">E09 · 搜索接口与 DDG</a><a href="#e10">E10 · MCP 报告授权与来源接纳</a><a href="#e11">E11 · 写前证据对照</a><a href="#e12">E12 · 版本化审阅包</a><a href="#e13">E13 · 正式交付规则</a><a href="#e14">E14 · 富文档模型</a><a href="#e15">E15 · 版本绑定的 Word 作业</a><a href="#e16">E16 · 学习比较的条件</a><a href="#e17">E17 · 外部 Agent 操作</a><a href="#e18">E18 · 并行维护分支的集成与验收</a><a href="#e19">E19 · W5 同条件学习单例</a><a href="#e20">E20 · J2 历史实验与勘误</a><a href="#e21">E21 · 本文作者的离线执行</a><a href="#e22">E22 · 桌面所属服务与停止</a><a href="#e23">E23 · 运行时协议与目录</a><a href="#e24">E24 · 冲突处理与复核接纳</a><a href="#e25">E25 · OpenCode Reviewer 工具权限</a><a href="#e26">E26 · 审计包投射与离线校验</a><a href="#e27">E27 · 外部 Word 修订导入</a><a href="#e28">E28 · 人类反馈、机器 pattern 与 scorer trust</a><a href="#e29">E29 · 明确人类要求的维护分支策略</a><a href="#e30">E30 · Windows 环境准备进程归属</a><a href="#e31">E31 · 对照路径的官方资料</a><a href="#section-32">公开与私有材料</a></aside><article><h1>BriefLoop 0.21.0 技术报告：证据索引</h1>
+<p>文档版本：预发布 v1，2026-09-14。每一项区分实现、执行和可得结论。源码位置按写作时冻结副本定位，不能直接套用变化中的 main 行号。</p>
+<p>基线提交：<code>17c43de3755dabff47895828d4ab331c99e340a0</code>。基线叠加未提交开发改动；完整文件集合摘要：<code>6637862988e0e7441b391773032cd00215bb1e5005115b69513171cb255c5e94</code>。公开安全的所引源码哈希另存 <a href="source-manifest.json">source-manifest.json</a>。最终发行时应绑定可获取的冻结提交；当前哈希用于文稿取证，不声称发行可重建。</p>
+<h2 id="e01">E01 · 任务与企业背景入口</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>任务约束、冻结内容方法和稿件接纳路径；不据此判断模型实际完成质量。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/store.py</code></td>
+<td><code>def create_run</code> · 200</td>
+</tr>
+<tr>
+<td><code>src/briefloop/runtime.py</code></td>
+<td><code>def generate(</code> · 677</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e02">E02 · 程序与 Agent 的职责</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>生成输入与受控操作接纳；宿主原生能力不等于统一受控接口。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/runtime.py</code></td>
+<td><code>def generation_prompt</code> · 151</td>
+</tr>
+<tr>
+<td><code>src/briefloop/research_plan.py</code></td>
+<td><code>def admission</code> · 152</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e03">E03 · 读者约定和企业内部写作</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>本轮约定及写作指令；指令存在不等于产物已遵守。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/deliverable_spec.py</code></td>
+<td><code>def resolve</code> · 55</td>
+</tr>
+<tr>
+<td><code>src/briefloop/deliverable_spec.py</code></td>
+<td><code>def instructions</code> · 146</td>
+</tr>
+<tr>
+<td><code>src/briefloop/workflow_assets/business_report/writing.md</code></td>
+<td><code>先完成</code> · 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e04">E04 · 内容方法快照</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>四种方法家族、角色投射与快照哈希；学习 trial 的一致性另见 E16。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/document_workflows.py</code></td>
+<td><code>def resolve_workflow</code> · 22</td>
+</tr>
+<tr>
+<td><code>src/briefloop/document_workflows.py</code></td>
+<td><code>def freeze_workflow</code> · 45</td>
+</tr>
+<tr>
+<td><code>src/briefloop/document_workflows.py</code></td>
+<td><code>def workflow_context</code> · 61</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e05">E05 · DOCX 模板准备与导出</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>从准备底稿加载、校验原件、按章节和样式渲染。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/templates.py</code></td>
+<td><code>def import_template</code> · 28</td>
+</tr>
+<tr>
+<td><code>src/briefloop/templates.py</code></td>
+<td><code>def prepare(</code> · 249</td>
+</tr>
+<tr>
+<td><code>src/briefloop/templates.py</code></td>
+<td><code>def export_template</code> · 333</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e06">E06 · 研究档位和轮次状态</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>当前工作树预设、预分配与 rev 比较更新；不得直接移用维护分支并发验收。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/research_plan.py</code></td>
+<td><code>PRESETS =</code> · 19</td>
+</tr>
+<tr>
+<td><code>src/briefloop/research_plan.py</code></td>
+<td><code>def freeze(</code> · 84</td>
+</tr>
+<tr>
+<td><code>src/briefloop/research_plan.py</code></td>
+<td><code>def _save_plan</code> · 209</td>
+</tr>
+<tr>
+<td><code>src/briefloop/research_plan.py</code></td>
+<td><code>def begin_round</code> · 257</td>
+</tr>
+<tr>
+<td><code>src/briefloop/progress.py</code></td>
+<td><code>def </code> · 13</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e07">E07 · 共享预算</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>受控搜索和正文页的预算；不度量整任务模型 Token 或全部原生网络。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/research_budget.py</code></td>
+<td><code>def reserve_search</code> · 70</td>
+</tr>
+<tr>
+<td><code>src/briefloop/research_budget.py</code></td>
+<td><code>def reserve_pages</code> · 109</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e08">E08 · Scout 结果与轮间摘要</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>来源归属和字段检查；locator 未被解析，不能称为原文定位已核验。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/scout_tools.py</code></td>
+<td><code>def join_scouts</code> · 7</td>
+</tr>
+<tr>
+<td><code>src/briefloop/scout_tools.py</code></td>
+<td><code>def check_handoff</code> · 67</td>
+</tr>
+<tr>
+<td><code>src/briefloop/scout_tools.py</code></td>
+<td><code>def read_source</code> · 107</td>
+</tr>
+<tr>
+<td><code>src/briefloop/runtime.py</code></td>
+<td><code>def _research_handoff</code> · 124</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e09">E09 · 搜索接口与 DDG</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>冻结提供方、统一记录、失败分类及 HTML 搜索适配。本文没有实时调用提供方。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/websearch.py</code></td>
+<td><code>def provider_for_run</code> · 74</td>
+</tr>
+<tr>
+<td><code>src/briefloop/websearch.py</code></td>
+<td><code>def search(</code> · 90</td>
+</tr>
+<tr>
+<td><code>src/briefloop/websearch.py</code></td>
+<td><code>def extract(</code> · 152</td>
+</tr>
+<tr>
+<td><code>src/briefloop/duckduckgo.py</code></td>
+<td><code>def validate_search</code> · 91</td>
+</tr>
+<tr>
+<td><code>src/briefloop/duckduckgo.py</code></td>
+<td><code>def call_search</code> · 109</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e10">E10 · MCP 报告授权与来源接纳</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>资源/工具选择与结果存储；存在接口不代表某供应商已通过真实业务测试。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/connectors/materials.py</code></td>
+<td><code>def freeze(</code> · 69</td>
+</tr>
+<tr>
+<td><code>src/briefloop/connectors/materials.py</code></td>
+<td><code>def revoke(</code> · 113</td>
+</tr>
+<tr>
+<td><code>src/briefloop/connectors/materials.py</code></td>
+<td><code>def _acquire</code> · 139</td>
+</tr>
+<tr>
+<td><code>src/briefloop/connectors/materials.py</code></td>
+<td><code>def _admit</code> · 171</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e11">E11 · 写前证据对照</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>九种关系、examined/unexamined 划分和输入身份；语义关系由 Agent 判断。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/reconciliation.py</code></td>
+<td><code>RELATIONS =</code> · 16</td>
+</tr>
+<tr>
+<td><code>src/briefloop/reconciliation.py</code></td>
+<td><code>def candidates</code> · 45</td>
+</tr>
+<tr>
+<td><code>src/briefloop/reconciliation.py</code></td>
+<td><code>def save(</code> · 131</td>
+</tr>
+<tr>
+<td><code>src/briefloop/reconciliation.py</code></td>
+<td><code>def read(</code> · 189</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e12">E12 · 版本化审阅包</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>snapshot_version=6、对照和来源陈述；不将未到达 Reviewer 记成已执行。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/review.py</code></td>
+<td><code>def _snapshot</code> · 248</td>
+</tr>
+<tr>
+<td><code>src/briefloop/review.py</code></td>
+<td><code>def build_packet</code> · 450</td>
+</tr>
+<tr>
+<td><code>src/briefloop/review.py</code></td>
+<td><code>def validate_applicable_review</code> · 206</td>
+</tr>
+<tr>
+<td><code>src/briefloop/review.py</code></td>
+<td><code>def run_review</code> · 713</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e13">E13 · 正式交付规则</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>blockers/notices、核心主张与数值检查；当前基线未包含维护分支全部修复。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/release.py</code></td>
+<td><code>def decision</code> · 60</td>
+</tr>
+<tr>
+<td><code>src/briefloop/deliverable_spec.py</code></td>
+<td><code>def requirement_severity</code> · 20</td>
+</tr>
+<tr>
+<td><code>src/briefloop/release.py</code></td>
+<td><code>def eligibility</code> · 243</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e14">E14 · 富文档模型</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>受限 Tiptap JSON 与 Markdown 投影；富文档转换保护按最终集成重新核对。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/document_model.py</code></td>
+<td><code>BLOCKS =</code> · 9</td>
+</tr>
+<tr>
+<td><code>src/briefloop/document_model.py</code></td>
+<td><code>def normalize_document</code> · 60</td>
+</tr>
+<tr>
+<td><code>src/briefloop/document_model.py</code></td>
+<td><code>def brief_document</code> · 269</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e15">E15 · 版本绑定的 Word 作业</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>输入身份、缓存检查、确定性制作和文件哈希；当前普通入队尚非原子查询加插入。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/export_jobs.py</code></td>
+<td><code>def export_input</code> · 11</td>
+</tr>
+<tr>
+<td><code>src/briefloop/export_jobs.py</code></td>
+<td><code>def enqueue_export</code> · 31</td>
+</tr>
+<tr>
+<td><code>src/briefloop/export_jobs.py</code></td>
+<td><code>def generate_word</code> · 60</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e16">E16 · 学习比较的条件</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>当前 trial 重新冻结 workflow 的风险；改善方案及 W5 位于另一分支。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/learning.py</code></td>
+<td><code>def _generate_trial</code> · 109</td>
+</tr>
+<tr>
+<td><code>src/briefloop/learning.py</code></td>
+<td><code>def _baseline_for_attempt</code> · 201</td>
+</tr>
+<tr>
+<td><code>src/briefloop/learning.py</code></td>
+<td><code>def learn(</code> · 224</td>
+</tr>
+<tr>
+<td><code>src/briefloop/store.py</code></td>
+<td><code>def create_run</code> · 200</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e17">E17 · 外部 Agent 操作</h2>
+<p><strong>证据类型：</strong> 本文作者读取冻结源码。</p>
+<p>request_id、事务回执、base_version 与工作稿导出；不是远程 MCP 服务端。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／起始行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/external_requests.py</code></td>
+<td><code>def capabilities</code> · 47</td>
+</tr>
+<tr>
+<td><code>src/briefloop/external_requests.py</code></td>
+<td><code>def _operation</code> · 52</td>
+</tr>
+<tr>
+<td><code>src/briefloop/external_requests.py</code></td>
+<td><code>def dispatch</code> · 125</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e18">E18 · 并行维护分支的集成与验收</h2>
+<p><strong>证据类型：</strong> PM 提供、本文作者读取的实际验收记录；本次未亲验。</p>
+<p>维护分支记录涉及条款 ID、导出并发接纳、学习比较条件、桌面所属服务、MCP 取消、富文档转换与图文来源等。写作时 PM 先给出 <code>b27c4ddd</code> 集成身份，其后记录继续增加。本文固定源码仍是 E01–E17 的 0.21.0 开发副本，不能把维护记录全部算作本副本测试。</p>
+<p>原始记录含机器路径、运行身份及图文样例，只在 PM 私有交接包保存；公开正文只描述具体范围。正式发行需生成一个最终提交到实际证据的映射。</p>
+<h2 id="e19">E19 · W5 同条件学习单例</h2>
+<p><strong>证据类型：</strong> 开发任务已保存的真实模型记录；本文作者核对 verification.json，未重跑模型。</p>
+<ul>
+<li>原记录源码身份：<code>b84ef3ad</code>。</li>
+<li>模型回执：<code>deepseek/deepseek-flash</code>；原生会话数 12。</li>
+<li>基线正文 SHA256：<code>0f1d5b43ea126892af5540a03aaf5345e7bbe724bca01957d3c60acd6931c14a</code>。</li>
+<li>候选正文 SHA256：<code>612323165f4c5a6f8995732a82e479800900d1c5280a79a2abfa1d17ebc92941</code>。</li>
+<li>比较条件 SHA256：<code>18fda1cb9a95d77a09a4153cd2f3acd5d26dd0c62230241c5802199fc4ea0263</code>。</li>
+<li>内容方法 SHA256：<code>d7f503e9df1cb48c51edd10f033fb37a755f726e420ae71642b5a534e538fd81</code>。</li>
+<li>判定：better，accepted=true；一个合成案例，无统计效果结论。</li>
+<li>OpenCode 自报成本 0.153116226；不是提供方账单，正文不据此推算成本优势。</li>
+</ul>
+<h2 id="e20">E20 · J2 历史实验与勘误</h2>
+<p><strong>证据类型：</strong> 原运行后的辅助审计及单包 pilot 归档；本次读取，未重跑。</p>
+<p>旧四包 A/C 原标题包含实验类别线索，辅助判读者已见条件和预期，不能称盲评。ind-08 初稿有 compatible 对照，自动修订丢失绑定，旧汇总已被新增审计勘误；不覆写原记录。</p>
+<p>2026-09-13 CodeBuddy pilot 固定单包材料 SHA256 <code>bf3e5bd1a2de0aa35fe2c2f800c0dc19b0d2facf614f9d35c4c6ce8bdaeabd7f</code>，CodeBuddy 2.150.0，deepseek-v4.1-flash，effort 未指定，学习关闭。A=<code>d7995ebe2526fe405b324e3ce841fbb3e9282423</code>；B=<code>93d471dbdd7a949cc7456973d2fbcf53bc49ca23</code>；C=<code>b74c2365b48de8765026e2e62fdd86f17427b079</code>。</p>
+<p>A/B 取消且无稿；C 超时失败，但保存草稿及 different_scope 对照。A/B/C 均未进入评价、修订或独立 Reviewer。C 墙钟 1803.23 秒，记录授权等待 1512.20 秒；不是模型速度数据。子任务用量未完整分账，整任务 Token 未知；不把 parent 可见输入量作为完整计费量。无法形成有效净收益结论。</p>
+<h2 id="e21">E21 · 本文作者的离线执行</h2>
+<p><strong>证据类型：</strong> 本次在冻结源码副本执行，无模型与实时提供方调用。</p>
+<pre><code class="language-sh">PYTHONPATH=src &lt;existing-python&gt; -m pytest \
+  tests/test_research_plan.py \
+  tests/test_research_handoff.py \
+  tests/test_websearch.py -q
+</code></pre>
+<p>实际输出：<code>24 passed in 1.42s</code>。日志保存为 <a href="offline-tests.txt">offline-tests.txt</a>。测试包含网络 monkeypatch 与模拟运行时，不能代替真实供应商、浏览器或 Word/WPS 验收。</p>
+<h2 id="e22">E22 · 桌面所属服务与停止</h2>
+<p><strong>证据类型：</strong> 本文作者读取当前冻结副本；维护分支修复与实测见 E18。</p>
+<p><code>desktop/electron/service.cjs</code> 的 <code>WorkspaceService.start</code> 启动 Python 服务并校验 PID、launch_id 与回环服务身份；<code>stop</code> 请求 <code>/api/service-stop</code> 后等待所属子进程退出。当前副本以忽略 stdin 的方式启动服务，没有 owner-pipe。<code>src/briefloop/server.py</code> 的停止路径与 <code>runtime.py::stop_job</code> 是取消顺序检查入口。本文未在该副本强杀 Electron，也未运行真实 MCP 故障注入。</p>
+<h2 id="e23">E23 · 运行时协议与目录</h2>
+<p><strong>证据类型：</strong> 本次静态核对。目录项不等于已验证宿主；通用桥的权限能力不能从其他宿主继承。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/harness.py</code></td>
+<td>class  · 12</td>
+</tr>
+<tr>
+<td><code>src/briefloop/opencode_harness.py</code></td>
+<td>class OpencodeHarness · 91</td>
+</tr>
+<tr>
+<td><code>runtime-bridge/main.ts</code></td>
+<td>network_control · 63</td>
+</tr>
+<tr>
+<td><code>runtime-bridge/catalog.json</code></td>
+<td>&quot;id&quot; · 3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e24">E24 · 冲突处理与复核接纳</h2>
+<p><strong>证据类型：</strong> 本次静态核对。用户 respond 保存 addressed_pending_review；accept_check 按裁决及预期状态更新，未解决裁决保留 open。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/conflicts.py</code></td>
+<td>def create · 11；def respond · 44；def accept_check · 67</td>
+</tr>
+<tr>
+<td><code>src/briefloop/company_context.py</code></td>
+<td>def  · 6</td>
+</tr>
+<tr>
+<td><code>src/briefloop/source_updates.py</code></td>
+<td>def  · 31</td>
+</tr>
+<tr>
+<td><code>src/briefloop/review.py</code></td>
+<td>accept_check · 621</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e25">E25 · OpenCode Reviewer 工具权限</h2>
+<p><strong>证据类型：</strong> 本次静态核对。全工具 deny 与逐文件 read allow 由宿主执行；符号链接拒绝。不是 OS 级物理断网证明。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/opencode_harness.py</code></td>
+<td>def _permission_rules · 50</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e26">E26 · 审计包投射与离线校验</h2>
+<p><strong>证据类型：</strong> 本次静态核对。校验 ZIP 路径、文件集合、哈希与内部关联；结果范围为 structure_and_consistency。不执行包内代码、不判断世界事实，也不提供独立签名真实性证明。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/audit_bundle.py</code></td>
+<td>def _project_records · 43；def permissions_for · 103；def _scrub · 142；def generate_bundle · 173；def verify_bundle · 354；def _check_relationships · 604</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e27">E27 · 外部 Word 修订导入</h2>
+<p><strong>证据类型：</strong> 本次静态核对。基准版本、原件保存、顺序引用映射、章节对齐及 needs_alignment 分支均有实现。新图登记不等于图中数值已核验；不承诺任意 DOCX 无损回流。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/briefloop/word_import.py</code></td>
+<td>def import_revision · 16；def text_nodes · 45；def table · 102；needs_alignment · 147</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e28">E28 · 人类反馈、机器 pattern 与 scorer trust</h2>
+<p><strong>证据类型：</strong> 本次静态核对。人类反馈原文保存；机器 pattern 的来源白名单只验证归属。评分器正常宿主权限执行，指纹覆盖直接文件与工作目录路径，不覆盖全部依赖与目录内容。旧 Changelog 的 human-only guidance 属于 v0.7 历史规则，不能替换当前 WikiSkill 行为。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/wikiskill/resources/product/entry-skill/SKILL.md</code></td>
+<td>Human suggestions · 68</td>
+</tr>
+<tr>
+<td><code>src/wikiskill/product.py</code></td>
+<td>def learn · 373；def feedback · 411；def record · 327</td>
+</tr>
+<tr>
+<td><code>src/wikiskill/scorer_trust.py</code></td>
+<td>def describe · 16；def approve · 56；def require · 73</td>
+</tr>
+<tr>
+<td><code>src/wikiskill/feedback_loop.py</code></td>
+<td>def begin · 11；def finish · 33</td>
+</tr>
+<tr>
+<td><code>CHANGELOG.md</code></td>
+<td>0.7.0 · 1679</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e29">E29 · 明确人类要求的维护分支策略</h2>
+<p><strong>证据类型：</strong> 本次读取维护代码，并从 Git 提交 <code>85bc3e017db7f82b13eff7214d223681eac78526</code> 固定保存三个文件；未运行新的模型比较。该来源独立于本文 0.21.0 开发副本。</p>
+<p><code>explicit_human_requirement</code> 验证人类来源集合、逐对 requirement_checks、fulfilled 与非空证据。接受条件含全部满足、无 worse 和无 regressions；不要求一定 better，tie 可以接受。未通过的有效比较保留 REVISION_REQUIRED 与 requirements_pending，依配置轮次推进；不等于无限重试，格式无效可能直接被拒绝。原开发副本仍为 lightweight_pairwise。</p>
+<p>文件哈希单列于 <a href="source-manifest.json">源码清单</a> 的 maintenance_supplement，不纳入开发副本集合哈希。最终集成前仍需核对策略是否进入发行代码。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/wikiskill/feedback_loop.py</code></td>
+<td>def begin · 11；def finish · 83</td>
+</tr>
+<tr>
+<td><code>src/wikiskill/product.py</code></td>
+<td>explicit_requirement · 135；requirements_pending · 140</td>
+</tr>
+<tr>
+<td><code>src/briefloop/learning.py</code></td>
+<td>explicit_requirement · 71；requirements_pending · 77</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e30">E30 · Windows 环境准备进程归属</h2>
+<p><strong>证据类型：</strong> 本次静态核对。Job Object 覆盖 environment.cjs 的受监督环境准备命令；工作区服务启动是独立路径。没有在本次文稿修订中运行 Windows 原生崩溃试验。</p>
+<p>文件哈希见 <a href="source-manifest.json">源码清单</a>，均属于本文冻结副本。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>符号／行号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>desktop/electron/windows-process.cs</code></td>
+<td>public static class · 11；KILL_ON_JOB_CLOSE · 80；CreateProcess · 34；AssignProcessToJobObject · 29；ResumeThread · 35</td>
+</tr>
+<tr>
+<td><code>desktop/electron/environment.cjs</code></td>
+<td>async function runWindowsOwnedProcess · 25；function runOwnedProcess · 99</td>
+</tr>
+<tr>
+<td><code>desktop/electron/service.cjs</code></td>
+<td>async start · 51；spawn( · 64</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e31">E31 · 对照路径的官方资料</h2>
+<p><strong>证据类型：</strong> 2026-09-14 读取的官方项目与产品文档；非第三方测评，未运行这些工具的完整比较试验。</p>
+<ul>
+<li><a href="https://github.com/stanford-oval/storm">STORM／Co-STORM 官方 README</a>：多视角提问、人机协作知识探索及用户材料检索。不能概括为只拼装一次性长文。</li>
+<li><a href="https://github.com/assafelovic/gpt-researcher">GPT‑Researcher 官方 README</a>：本地材料、多个 Agent 的研究路径、PDF／Word／Markdown 导出。不能声称只输出不可编辑 Markdown。</li>
+<li><a href="https://help.openai.com/en/articles/10500283-deep-research-faq">OpenAI Deep Research 官方说明</a>：研究计划调整、过程引导、后续迭代及 Word 下载。</li>
+</ul>
+<p>本文据此说明功能交集；没有逐项审计上述产品的 blockId、原件哈希、审阅隔离、冲突与交付机制，未核实能力不写作“没有”。第 1.1 节表格是工程职责比较，不是功能缺失矩阵或性能排名。文档会更新，正式发行前可复核本节引用。</p>
+<h2 id="section-32">公开与私有材料</h2>
+<p>本索引及源码哈希清单不包含本机绝对路径、用户原件、密钥或原始宿主日志。原始取证副本、完整运行记录位置和 PM 交接意见保留在私有目录；发布本站时只选明确列出的报告文件，禁止复制整个取证目录。</p>
+</article></div><footer>2026-09-14 · 文稿 v2 · 发行冻结前需同步源码和实际工件身份</footer></body></html>

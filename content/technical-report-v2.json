@@ -1,0 +1,16 @@
+{
+  "document": "工程技术报告 · 预发布稿 v2",
+  "report_version": "0.21.0 development snapshot",
+  "publication_does_not_indicate_software_release": true,
+  "source_file_sha256": {
+    "technical-report.md": "79def40634840003b78afd1e1322b1cae3ecdcd2188708ca8d050ae4c3036848",
+    "technical-report.html": "13a7c442de7ae66a23ae24f86457c8dd01e68f9f862fe624e4b7ec2fc0cc134c",
+    "evidence-index.md": "3b812b9a09c69453fcee3756d3776c3e4095f5c3628fa945042c6815e5ad3c99",
+    "evidence-index.html": "592eec1aa2600661b30d25d6739c9fe6baa333377161073f2130d699e6f3341e",
+    "architecture.architecture.json": "35fc6a53cc798140a93b1769cd10b16fd5650659478f7c739359e855a9e58fec",
+    "architecture.html": "b7570867efc357f311a9f79ebdd47462b8b4d618985e29af47db02eee66d517f",
+    "source-manifest.json": "763804fcaa485826e068290d1fca21d9b4fdbd87dc37bf8ae966686d2aaa7bb2",
+    "offline-tests.txt": "468a173ea444fa3a86c2e2690baae204cf042bacb8a95a51bc90b1f4f4744fb5"
+  },
+  "public_changes": "Added homepage links, canonical URLs and favicon to the HTML wrappers; report prose preserved."
+}
