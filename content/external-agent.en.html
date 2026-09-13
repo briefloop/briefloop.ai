@@ -1,0 +1,30 @@
+<h2>Copyable commands and requests</h2><pre><code>python -m pip install --upgrade briefloop
+briefloop external --workspace &quot;/absolute/workspace&quot; discover
+briefloop external --workspace &quot;/absolute/workspace&quot; skill
+briefloop external --workspace &quot;/absolute/workspace&quot; request --file request.json</code></pre><p>Write one JSON object to request.json per operation. Replace example IDs with values returned by the service; do not submit these placeholders unchanged.</p><h3>inspect</h3><pre><code>{
+  &quot;action&quot;: &quot;inspect&quot;
+}</code></pre><h3>submit</h3><pre><code>{
+  &quot;action&quot;: &quot;submit&quot;,
+  &quot;request_id&quot;: &quot;report-unique-id&quot;,
+  &quot;source_ids&quot;: [
+    &quot;src_actual_id&quot;
+  ],
+  &quot;requirements&quot;: {
+    &quot;title&quot;: &quot;本期简报&quot;,
+    &quot;objective&quot;: &quot;概括已上传材料的变化及影响&quot;,
+    &quot;allow_web&quot;: false,
+    &quot;writing_mode&quot;: &quot;general&quot;,
+    &quot;target_words&quot;: 500,
+    &quot;max_words&quot;: 700
+  }
+}</code></pre><h3>query</h3><pre><code>{
+  &quot;action&quot;: &quot;query&quot;,
+  &quot;job_id&quot;: &quot;job_actual_id&quot;
+}</code></pre><h3>read</h3><pre><code>{
+  &quot;action&quot;: &quot;read&quot;,
+  &quot;version_id&quot;: &quot;brief_actual_id&quot;
+}</code></pre><h3>export</h3><pre><code>{
+  &quot;action&quot;: &quot;export&quot;,
+  &quot;request_id&quot;: &quot;export-unique-id&quot;,
+  &quot;version_id&quot;: &quot;brief_actual_id&quot;
+}</code></pre><pre><code>briefloop external --workspace "/absolute/workspace" download --job job_export_id --output "/existing/output/report.docx"</code></pre><p>For internal reports, use internal_report and finish the company-context choice first; do not switch writing mode to bypass it. For edits, read the full document and use revise with a fresh request_id and the exact base_version. Keep the same ID and body when retrying a lost response.</p><p><a href="../agents/briefloop/SKILL.md">Agent Skill and full protocol</a> · <a href="https://github.com/Stahl-G/briefloop/blob/main/docs/WorkBuddy%E5%A4%96%E9%83%A8%E5%85%A5%E5%8F%A3.md">GitHub</a></p>
