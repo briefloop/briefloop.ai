@@ -1,11 +1,7 @@
 /* Enable an asset only after native acceptance and publication of its exact URL. */
 (function () {
   'use strict';
-  const release = {
-    version: '{{desktop_version}}',
-    mac: {ready: true, url: "https://github.com/Stahl-G/briefloop/releases/download/v{{desktop_version}}/BriefLoop-{{desktop_version}}-arm64.dmg", architecture: 'arm64'},
-    windows: {ready: true, url: "https://github.com/Stahl-G/briefloop/releases/download/v{{desktop_version}}/BriefLoop-Setup-{{desktop_version}}-x64.exe", architecture: 'x64'},
-  };
+  const release = {{release_catalog}};
   function detectPlatform(nav) {
     const ua = nav.userAgent || '';
     const platform = nav.userAgentData?.platform || nav.platform || '';
