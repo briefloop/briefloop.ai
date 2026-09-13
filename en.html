@@ -253,7 +253,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .shot{max-width:1300px}
 }
 </style>
-</head>
+<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript></head>
 <body id="top">
 
 <header class="nav" data-od-id="site-header">
@@ -262,13 +262,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <img src="assets/briefloop-mark.svg" alt="">
       <span>BriefLoop</span>
     </a>
-    <nav class="nav-links" id="nav-links" aria-label="Site navigation">
-      <a href="#why">Why</a>
-      <a href="#how">How it works</a>
-      <a href="#traceability">Traceable delivery</a>
-      <a href="#features">Capabilities</a>
-      <a href="#budget">Budget</a>
-    </nav>
+    <nav class="nav-links" id="nav-links" aria-label="Site navigation"><a href="#why">Product</a><a href="docs/index.en.html">User guides</a><a href="https://github.com/Stahl-G/briefloop/releases">Release notes</a></nav>
     <div class="nav-actions">
       <a class="btn btn-ghost btn-sm lang-btn" href="index.html" data-od-id="nav-lang" aria-label="Switch to Chinese">中文</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
@@ -286,13 +280,13 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <span class="eyebrow" data-od-id="hero-eyebrow">
         <img src="assets/briefloop-mark.svg" alt="" style="width:14px;height:14px">
-        Local · Open source (MIT) · v0.20.0
+        Local · Open source (MIT) · <span data-release-version>v0.20.0</span>
       </span>
-      <h1 data-od-id="hero-title">Think with your material.</h1>
-      <p class="lead">BriefLoop is an Agent workbench that runs on your machine: it finds the sources around your question, drafts an editable report, scores it independently, and turns the feedback into experience the next run can use.</p>
+      <h1 data-od-id="hero-title">Turn scattered material into<br>reports you can edit and check.</h1>
+      <p class="lead">A local report workbench for industry research, strategy and IR. Research a question, draft with sources, preserve revisions and export to Word.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-lg" href="downloads.en.html" data-od-id="hero-cta-start" data-auto-download>Download desktop app</a>
-        <a class="btn btn-ghost btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="hero-cta-github">View on GitHub ↗</a>
+        <a class="btn btn-ghost btn-lg" href="docs/index.en.html">Read the guides</a>
       </div>
       <p style="margin-top:16px"><a href="downloads.en.html">Other platforms & installation notes</a></p>
       <div class="hero-meta" aria-label="Runtime">
@@ -315,14 +309,14 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">Why</span>
-        <h2 class="h2">Not another AI writing tool.</h2>
-        <p class="sub">Material that stays on your machine, claims you can question, and a score kept separate from the draft — those three decide whether a report can be checked at all.</p>
+        <h2 class="h2">Sources, drafts and review in one place.</h2>
+        <p class="sub">Keep a local workspace, inspect evidence for important claims, and evaluate a specific draft. Cloud models and search services still receive relevant content.</p>
       </div>
       <div class="why">
         <div class="card" data-od-id="why-local">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></svg></span>
-          <h3>Material stays on your machine</h3>
-          <p>The server listens on your machine only, so material, drafts and scores stay in your own directory. Closing the browser does not stop a running task.</p>
+          <h3>A local workspace</h3>
+          <p>Workspaces and records are stored locally. Cloud models and search services receive relevant content when used. Disabling search does not stop model data transfers.</p>
         </div>
         <div class="card" data-od-id="why-trace">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
@@ -332,7 +326,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <div class="card" data-od-id="why-review">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <h3>Scoring is separate from drafting</h3>
-          <p>The Evaluator scores independently and the Reviewer re-checks read-only. On a low score or a failed check, the draft and the issues are laid out for you to decide.</p>
+          <p>Evaluation and review apply to specific draft versions. A low score does not hide the working draft. Reviewer isolation depends on the runtime and release.</p>
         </div>
       </div>
     </div>
@@ -403,7 +397,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         </li>
         <li data-od-id="trace-review">
           <span class="trace-key">Read-only review</span>
-          <span class="trace-val">The Reviewer checks the <strong>actual artifacts inside the audit bundle</strong>, read-only. Reads outside the bundle, shell access and writes are refused.</span>
+          <span class="trace-val">The Reviewer checks <strong>fixed versions of artifacts and sources</strong>. Read-only isolation depends on runtime support; a prompt alone does not establish isolation.</span>
         </li>
         <li data-od-id="trace-bundle">
           <span class="trace-key">Audit bundle</span>
@@ -419,45 +413,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <img src="assets/source-evidence.png" alt="BriefLoop source tracing: a citation in the report resolves back to its original source and evidence (synthetic sample data)" width="1600" height="1000" loading="lazy" decoding="async">
         <figcaption><span class="badge">Real interface</span> Citations back to their source · synthetic sample data, no API keys or real business material</figcaption>
       </figure>
-      <div class="cmd">
-        <p class="lbl">Export an audit bundle</p>
-        <code>python -m briefloop.audit_bundle /absolute/path/report-audit.zip</code>
-      </div>
-    </div>
-  </section>
-
-  <!-- roles -->
-  <section class="section" id="roles" data-od-id="section-roles">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">Four roles</span>
-        <h2 class="h2">One main Agent, three independent roles.</h2>
-        <p class="sub">You only talk to BriefLoop; the agent that writes cannot declare its own draft acceptable — scoring, curation and proposals each stand apart.</p>
-      </div>
-      <div class="card role role-lead" data-od-id="role-card-briefloop">
-        <div>
-          <span class="role-en">Main Agent</span>
-          <h3>BriefLoop</h3>
-        </div>
-        <p>The one you talk to: it takes requirements and material, dispatches Scout to find sources and Analyst to write, then hands you an editable report.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card role" data-od-id="role-card-evaluator">
-          <span class="role-en">Evaluator</span>
-          <h3>Evaluator</h3>
-          <p>Scores the artifacts and compares whether a candidate is a real improvement; each run uses a separate model session, so scoring never interferes with drafting.</p>
-        </div>
-        <div class="card role" data-od-id="role-card-wiki">
-          <span class="role-en">Wiki Maintainer</span>
-          <h3>Wiki maintainer</h3>
-          <p>Turns feedback and execution observations into Wiki entries that the next research run benefits from directly.</p>
-        </div>
-        <div class="card role" data-od-id="role-card-skill">
-          <span class="role-en">Skill Proposer</span>
-          <h3>Skill proposer</h3>
-          <p>Proposes or improves Skills from the Wiki; a candidate is enabled only after it has been validated.</p>
-        </div>
-      </div>
+      <p><a href="docs/evidence-review.en.html">How to inspect evidence and review findings</a></p>
     </div>
   </section>
 
@@ -469,68 +425,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <h2 class="h2">Enough, and transparent at every step.</h2>
         <p class="sub">From chat to final delivery inside one workbench; the activity of public tools and sub-agents stays visible throughout.</p>
       </div>
-      <div class="grid-features">
-        <div class="card feat" data-od-id="feature-card-chat">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H9l-5 4z"/></svg></span>
-          <h3>Chat workbench</h3>
-          <p>Send messages, upload material, choose a model, add requirements; public tools and sub-agent activity are visible.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-workspace">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
-          <h3>Workspace management</h3>
-          <p>Open an existing directory or create one; each keeps its own conversations, sources, drafts, scores and Wiki.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-doc">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6M9 13h6M9 17h4"/></svg></span>
-          <h3>Rich documents</h3>
-          <p>Editable rich documents where format and content are versioned together; Markdown import and export included.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-industry">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 15v-4M12 15V8M16 15v-6"/></svg></span>
-          <h3>Recurring industry reports</h3>
-          <p>Six section types trimmed to the industry and the task, exported to Word / WPS, with optional user templates and company background.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-charts">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M14 3.2A9 9 0 0 1 20.8 10H14z"/></svg></span>
-          <h3>Charts and Excel</h3>
-          <p>Reuse charts embedded in XLSX files or native charts; the Agent can build new ones from real data and register where they came from.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-media">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.4"/><path d="M4 17l4.5-4 3 2.5L15 12l5 5"/></svg></span>
-          <h3>Images and PDF pages</h3>
-          <p>Image originals are kept and previewed; individual PDF pages render on demand for vision models.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-archive">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3H3z"/><path d="M5 9v10h14V9M10 13h4"/></svg></span>
-          <h3>Conversation housekeeping</h3>
-          <p>Archive, trash, restore, bulk archive; reports and the Wiki survive any conversation cleanup.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-learn">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
-          <h3>Learning loop</h3>
-          <p>Feedback merges automatically after an edit; the Maintainer curates, the Proposer proposes, the Evaluator compares and decides.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-runtime">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 7H7a5 5 0 0 0 0 10h3M14 7h3a5 5 0 0 1 0 10h-3M9 12h6"/></svg></span>
-          <h3>Multiple runtimes, one bridge</h3>
-          <p>Discovers the CLIs on your machine and bridges them uniformly: Codex, OpenCode, Claude Code, Kimi, Hermes, Reasonix and MiMo are connected; Kilo, Kiro and Vibe are wired and awaiting real-machine validation. One shared model catalogue, or type a model ID by hand.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-api">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg></span>
-          <h3>Custom API protocols</h3>
-          <p>Chat Completions, Responses and Anthropic Messages are explicitly supported; saving and testing stay separate.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-settings">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/></svg></span>
-          <h3>Dedicated settings page</h3>
-          <p>Models, API protocols and execution time limits configured in one place, serving both the browser window and a future shared Electron interface.</p>
-        </div>
-        <div class="card feat" data-od-id="feature-card-example">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v6l-4.5 9h13L14 9V3z"/><path d="M9 3h6M6.6 15h10.8"/></svg></span>
-          <h3>Synthetic weekly sample</h3>
-          <p>examples/internal-weekly-report walks through generation, revision and Word export on synthetic material — no real data needed.</p>
-        </div>
-      </div>
+      <div class="grid-features"><div class="card feat"><h3>Find sources</h3><p>Upload original files, search public information and use explicitly authorized connector materials.</p><p><a href="docs/faq-data.en.html">Sources and data</a></p></div><div class="card feat"><h3>Write and revise</h3><p>Keep text, tables and citations in an editable draft. Save revisions and export to Word.</p><p><a href="docs/write-edit.en.html">Editing and export</a></p></div><div class="card feat"><h3>Check and reuse</h3><p>Inspect review findings and source scope. Turn feedback into candidate experience and check adoption or rollback.</p><p><a href="docs/feedback-learning.en.html">Review and feedback</a></p></div></div>
+
       <figure class="shot feat-shot" data-od-id="feature-shot-doc">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · report body</span></div>
         <img src="assets/report-document.png" alt="BriefLoop report body in detail: editable prose, tables and positioned citations (synthetic sample data)" width="1053" height="1100" loading="lazy" decoding="async">
@@ -544,72 +440,18 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">Budget and length</span>
-        <h2 class="h2">Quotas are priced up front, and you never have to spend them all.</h2>
+        <h2 class="h2">Control research volume and report length.</h2>
         <p class="sub">Search quota is shared by Scout across the whole report; the word target and the cap are yours to edit.</p>
       </div>
       <div class="budget-grid">
-        <div class="card" data-od-id="budget-table">
-          <h3>Research budget</h3>
-          <table>
-            <thead><tr><th>Preset</th><th>Searches</th><th>Candidate URLs</th><th>Full-text URLs</th></tr></thead>
-            <tbody>
-              <tr><td>Weekly</td><td class="num">12</td><td class="num">60</td><td class="num">18</td></tr>
-              <tr><td>Monthly</td><td class="num">30</td><td class="num">200</td><td class="num">45</td></tr>
-            </tbody>
-          </table>
-          <p class="note">Quota applies to the governed Tavily tools; when the cap is reached, the material already gathered is kept and the gap is stated.</p>
-        </div>
-        <div class="card" data-od-id="length-table">
-          <h3>Body length</h3>
-          <table>
-            <thead><tr><th>Preset</th><th>Target words</th><th>Word cap</th></tr></thead>
-            <tbody>
-              <tr><td>Short</td><td class="num">800</td><td class="num">1,000</td></tr>
-              <tr><td>Standard</td><td class="num">1,500</td><td class="num">2,000</td></tr>
-              <tr><td>Detailed</td><td class="num">2,000</td><td class="num">2,500</td></tr>
-            </tbody>
-          </table>
-          <p class="note">Counting follows the product rule: each CJK character counts as 1 and a run of Latin letters or digits counts as 1; formatting and citation markers are not counted.</p>
-        </div>
+        <div class="card" data-od-id="budget-table"><h3>Research limits and costs</h3><p>Set limits for the current report in the app. Controlled retrieval and runtime-native search have different metering boundaries.</p><a href="docs/models-costs.en.html">Read the cost guide</a></div>
+        <div class="card" data-od-id="length-table"><h3>Write for the reader</h3><p>Set the target length and cap for the task. Preserve necessary evidence and state gaps rather than filling the report to a quota.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- start -->
-  <section class="section" id="start" data-od-id="section-start">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">Get started</span>
-        <h2 class="h2">Start with the desktop app.</h2>
-        <p class="sub">Choose the installer for your computer, or use the source installation below.</p>
-      </div>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:28px"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.en.html">Download desktop app</a><a href="downloads.en.html">Other platforms & installation notes</a></div>
-      <h3 style="margin-bottom:16px">Install from source</h3>
-      <div class="start-grid">
-        <div class="terminal" data-od-id="install-block">
-          <div class="bar">
-            <span class="dot" aria-hidden="true"><i></i><i></i><i></i></span>
-            <button class="copy-btn" id="copy-cmd" type="button">Copy</button>
-          </div>
-          <pre><code id="install-cmd"><span class="p">$</span> git clone https://github.com/Stahl-G/briefloop.git
-<span class="p">$</span> cd briefloop
-<span class="p">$</span> ./start.sh</code></pre>
-        </div>
-        <div>
-          <ul class="reqs">
-            <li>Needs <strong>macOS</strong> and <strong>Python 3.11+</strong>, plus at least one supported CLI installed and authenticated (<strong>Codex, OpenCode, Claude Code, Kimi, Hermes, Reasonix and MiMo</strong> are connected; <strong>Kilo, Kiro and Vibe</strong> are wired and awaiting real-machine validation).</li>
-            <li>The first dependency install needs network access; the multi-runtime bridge needs <strong>Node.js 20+</strong>; using Tavily means configuring your own <strong>Tavily key</strong>.</li>
-            <li>The server listens on <strong>localhost only</strong>; closing the browser does not stop a running task.</li>
-            <li>Optional flags:
-              <code class="flags">./start.sh --workspace ~/my-brief --port 8765 --no-open --backend opencode</code>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- final cta -->
+  <section class="section" id="start"><div class="wrap"><div class="sec-head"><span class="kicker">GET STARTED</span><h2 class="h2">Install, then create your first report.</h2><p class="sub">Apple silicon Mac and Windows x64 installers are available. Use a compatible Python 3.11+ installation and an authenticated model runtime.</p></div><div class="hero-ctas"><a class="btn btn-primary btn-lg" data-auto-download href="downloads.en.html">Download desktop app</a><a class="btn btn-ghost btn-lg" href="docs/first-report.en.html">Create your first report</a></div><p class="sub" style="margin-top:24px">Initial dependency preparation requires a network connection. Model and search usage is billed by your chosen providers. Workspaces are local, but relevant content is sent to cloud services when used.</p><p style="text-align:center"><a href="https://github.com/Stahl-G/briefloop#readme">Source and CLI installation</a></p></div></section>
+<!-- final cta -->
   <section class="section-cta" data-od-id="section-cta">
     <div class="wrap">
       <div class="cta-band" data-od-id="cta-band">
@@ -617,9 +459,9 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <span class="ring b" aria-hidden="true"></span>
         <div class="inner">
           <h2>Make your next report the traceable kind.</h2>
-          <p>Clone the repository, run one command, and start your first BriefLoop brief on your own machine.</p>
+          <p>Choose the installer for your computer and follow the guides to create an editable report.</p>
           <div class="actions">
-            <a class="btn btn-invert btn-lg" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="cta-github">Go to GitHub ↗</a>
+            <a class="btn btn-invert btn-lg" data-auto-download href="downloads.en.html">Download desktop app</a>
             <a class="link-w" href="#start">or read the install steps</a>
           </div>
         </div>
@@ -647,8 +489,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <div class="footer-col">
         <h4>Docs</h4>
         <ul>
-          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/使用指南.md" target="_blank" rel="noopener">User guide</a></li>
-          <li><a href="https://github.com/Stahl-G/briefloop/blob/main/docs/升级说明.md" target="_blank" rel="noopener">Upgrade notes</a></li>
+          <li><a href="docs/index.en.html" target="_blank" rel="noopener">User guide</a></li>
+          <li><a href="docs/install-update.en.html" target="_blank" rel="noopener">Upgrade notes</a></li>
           <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
         </ul>
       </div>
@@ -672,6 +514,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   var toggle=document.getElementById('menu-toggle');
   var links=document.querySelector('.nav-links');
   if(toggle&&links){
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&links.classList.contains('open')){links.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.focus();}});
     toggle.addEventListener('click',function(){
       var open=links.classList.toggle('open');
       toggle.setAttribute('aria-expanded',open?'true':'false');
@@ -708,7 +551,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
      bullets:['State the <strong>purpose, the reader and the time range</strong>, and the target length.','Upload PDFs, Excel files and images as material, or <strong>go online-only</strong> for sourcing.','Company background and templates are optional and are <strong>carried into</strong> every report.'],
      meta:['Who runs it: you + the task template','What you get: one clear statement of the task']},
     {num:'02',title:'Research &amp; writing',sub:'What it does for you',
-     bullets:['Scout <strong>finds, filters and de-duplicates</strong> sources within budget; the quota is priced up front.','Analyst writes an <strong>editable rich document</strong>, keeping charts, tables and citations in the same file.','Important claims are <strong>pinned back to the line of source text</strong> as they are written.'],
+     bullets:['Scout <strong>finds, filters and de-duplicates</strong> sources within budget; usage limits and service prices are separate.','Analyst writes an <strong>editable rich document</strong>, keeping charts, tables and citations in the same file.','Important claims are <strong>pinned back to the line of source text</strong> as they are written.'],
      meta:['Who runs it: Scout finds sources · Analyst drafts','What you get: an editable draft report']},
     {num:'03',title:'Independent review',sub:'Who signs off',
      bullets:['The Evaluator <strong>scores independently</strong> and compares whether a candidate is genuinely better.','The Reviewer <strong>checks the actual artifacts read-only</strong> inside the audit bundle, without rewriting or extra searching.','A low score or a failed check <strong>never hides the draft</strong>; the issues are laid out for you to decide.'],
@@ -717,7 +560,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
      bullets:['Export the final report to <strong>Word / WPS</strong> — editable and versioned.','Export an audit bundle on demand: <strong>originals, excerpts or pointers only</strong>, verifiable offline.','Every claim can be questioned: back to the <strong>line of source text, PDF page or Excel cell</strong>.'],
      meta:['What you get: the final report + the audit bundle','Every claim has a source']},
     {num:'05',title:'Experience accrues',sub:'Better every time',
-     bullets:['<strong>Feedback and revisions</strong> after each delivery settle into Wiki entries and Skill candidates.','A candidate is <strong>enabled only once comparison validates it</strong>.','The next research run benefits automatically — <strong>a closed loop, not a fresh start</strong>.'],
+     bullets:['<strong>Feedback and revisions</strong> after each delivery settle into Wiki entries and Skill candidates.','A candidate is <strong>enabled only once comparison validates it</strong>.','Inspect actual comparison and adoption results; <strong>improvement in the next run is not guaranteed</strong>.'],
      meta:['Who runs it: Wiki Maintainer · Skill Proposer · Evaluator']}
   ];
   var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));

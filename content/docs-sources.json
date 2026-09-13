@@ -1,0 +1,26 @@
+{
+  "source_commit": "99b38932f125d45f83ec81e805c0d462e53f496e",
+  "note": "Curated task-oriented summaries; source file hashes capture the exact consulted content, which may include local edits. Development-specific features are excluded or labeled.",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "62189d1c5db9854faeb0e377cdbf009b6b2b1129e1910635aecd5a009e520deb"
+    },
+    {
+      "path": "docs/桌面安装与更新.md",
+      "sha256": "48a60c2b345583bb6aa634944b77c8543c07a2eb2ff3d8f5645d5d7092bf4bb7"
+    },
+    {
+      "path": "docs/使用指南.md",
+      "sha256": "29ace1cc8e54637573ad11a18d8f5991780b34aa96f40b06eeb2c5bc7a4827db"
+    },
+    {
+      "path": "docs/报告编辑与模板.md",
+      "sha256": "931d5472ed72dc4a40f938636d365ba59d755f7c8fa7b65d496a05854c1d785c"
+    },
+    {
+      "path": "docs/证据与结论追溯.md",
+      "sha256": "0d74b17cd32fca90f2cce122334711dbf552d2180c32d432767c14eb35add3ca"
+    }
+  ]
+}
