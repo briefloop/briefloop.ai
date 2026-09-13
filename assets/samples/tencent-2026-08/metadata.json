@@ -1,0 +1,18 @@
+{
+  "title": "腾讯2026年8月经营观察月报",
+  "version_id": "brief_d95217c2da434fa9",
+  "model": "OpenCode · deepseek/deepseek-flash",
+  "source_commit": "生成：0bad65dc；修订与审阅：38b70d6d（开发快照，非发行证明）",
+  "generation": "由 BriefLoop 从 5 份腾讯公开材料生成，经独立审阅、自动修订及人工反馈后的 Agent 局部修订保存。网页只渲染已导出的 Markdown，不另写报告。",
+  "human_changes": "人工设定读者、时间窗口和材料，并指出期间措辞、原文数值差异与绑定问题；报告正文修订由 BriefLoop 执行。",
+  "review_status": "最新版本独立审阅：达到要求；仍有两项轻微问题，涉及对照记录覆盖一致性和部分管理判断未直接绑定。属于工作稿，不是正式交付。",
+  "limitations": "报告非腾讯官方出品；季度数据不代表8月单月表现。PDF核对基于提取文本，未完整验证原件版式与页码；来源列表行号指提取文本。原文一般及行政开支388.08亿元与387亿元差异保留。Word已导出，WPS原生打开验收尚未完成。",
+  "exports": {
+    "report.md": {
+      "sha256": "b755d403890a3228a1eea90f97375bfacfe313bc81f240d760aabd937436bc02"
+    },
+    "report.docx": {
+      "sha256": "a56dec1c9141014bd0378fb19e87c49ab675fe30eb9d936c035358c401068b19"
+    }
+  }
+}

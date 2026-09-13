@@ -11,7 +11,7 @@ class Page(HTMLParser):
   for k,v in attrs:
    if k in ('href','src') and v:self.links.append(v)
    if k=='id':self.ids.add(v)
-pages=[root/x for x in ('index.html','en.html','downloads.html','downloads.en.html')]+list((root/'docs').glob('*.html'))
+pages=[root/x for x in ('index.html','en.html','downloads.html','downloads.en.html')]+list((root/'docs').glob('*.html'))+list((root/'reports/technical-report-v2').glob('*.html'))+list((root/'reports').glob('tencent-*.html'))
 errors=[]
 for p in pages:
  parsed=Page();parsed.feed(p.read_text())
