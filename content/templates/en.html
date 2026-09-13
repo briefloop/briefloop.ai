@@ -253,7 +253,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .shot{max-width:1300px}
 }
 </style>
-<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript></head>
+<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript><link rel="stylesheet" href="architecture-section.css">
+</head>
 <body id="top">
 
 <header class="nav" data-od-id="site-header">
@@ -336,54 +337,24 @@ td .num{font-family:var(--mono);font-size:13.5px}
   </section>
 
   <!-- how it works -->
-  <section class="section" id="how" data-od-id="section-how">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">How it works</span>
-        <h2 class="h2">Four steps, from material to a traceable report.</h2>
-        <p class="sub">Open each step to see what it does for you; the loop at the bottom makes every run easier than the last.</p>
-      </div>
-
-      <div data-od-id="arch-diagram">
-        <div class="steps" role="tablist" aria-label="Workflow steps">
-          <button class="step" id="arch-tab-1" role="tab" aria-selected="true" aria-controls="arch-panel" data-od-id="arch-node-input">
-            <span class="step-num">01</span>
-            <span class="step-title">Requirements &amp; material</span>
-            <span class="step-sub">What you hand over</span>
-          </button>
-          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          <button class="step" id="arch-tab-2" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-research">
-            <span class="step-num">02</span>
-            <span class="step-title">Research &amp; writing</span>
-            <span class="step-sub">What it does for you</span>
-          </button>
-          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          <button class="step" id="arch-tab-3" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-review">
-            <span class="step-num">03</span>
-            <span class="step-title">Independent review</span>
-            <span class="step-sub">Who signs off</span>
-          </button>
-          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          <button class="step" id="arch-tab-4" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-delivery">
-            <span class="step-num">04</span>
-            <span class="step-title">Traceable delivery</span>
-            <span class="step-sub">What you get</span>
-          </button>
-        </div>
-
-        <button class="loopbar" id="arch-tab-5" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-loop">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
-          <span class="step-num">05</span>
-          <span class="loopbar-text">
-            <span class="t">Experience accrues</span>
-            <span class="s">Feedback from every delivery settles into Wiki entries and Skills, and returns to the next “requirements and material”</span>
-          </span>
-        </button>
-
-        <div class="panel" id="arch-panel" role="tabpanel" aria-labelledby="arch-tab-1" data-od-id="arch-panel"></div>
-      </div>
-    </div>
-  </section>
+  <section class="section architecture-section" id="how" data-od-id="section-how">
+ <div class="wrap">
+  <div class="architecture-heading"><span class="kicker">How it works</span><h2>Complex work, coordinated.<br>Clear reports, for you.</h2><p>Bring your materials. Get an editable report with evidence you can follow.</p></div>
+  <ol class="report-journey"><li><span class="journey-number">01</span><h3>Set the brief</h3><p>A question and its materials.</p></li><li><span class="journey-number">02</span><h3>Research & write</h3><p>Evidence into a first draft.</p></li><li><span class="journey-number">03</span><h3>Review independently</h3><p>Check quality and sources.</p></li><li><span class="journey-number">04</span><h3>Edit & deliver</h3><p>Keep revisions. Export Word.</p></li></ol>
+  <p class="journey-note">When useful, turn feedback into experience for the next report.</p>
+  <details class="architecture-disclosure">
+   <summary><span class="architecture-action"><span class="when-closed">Explore the architecture</span><span class="when-open">Close the architecture</span><span class="architecture-plus" aria-hidden="true">+</span></span><span class="architecture-hint">See how the agents work together</span></summary>
+   <div class="architecture-expanded">
+    <header><span class="kicker">BRIEFLOOP</span><h3>One report. Distinct responsibilities.</h3><p>The main agent researches and revises. Evaluation and evidence checks run independently.</p></header>
+    <div class="architecture-flow"><article class="architecture-node"><span class="journey-number">01</span><h4>Brief & materials</h4><p>Audience · goals · requirements</p><ul><li>Uploaded files</li><li>Public sources · authorised MCP</li></ul></article><article class="architecture-node"><span class="journey-number">02</span><h4>BriefLoop main agent</h4><p>Plan → research → write</p><ul><li>Scout · retrieve evidence</li><li>Analyst · analyse materials</li></ul></article><article class="architecture-node"><span class="journey-number">03</span><h4>Independent review</h4><p>Fixed draft and source versions</p><ul><li>Evaluator · report quality</li><li>Reviewer · read-only evidence checks</li></ul></article><article class="architecture-node"><span class="journey-number">04</span><h4>Edit & deliver</h4><p>Working drafts stay editable</p><ul><li>Web revisions · saved versions</li><li>Word export · source locations</li></ul></article></div>
+    <p class="architecture-return">↶ Findings return to the main agent for targeted revision</p>
+    <section class="architecture-learning"><div class="learning-title"><h4>Feedback & learning</h4><span>Optional</span></div><ol><li><strong>Human requests / findings</strong><span>Preserve the original feedback</span></li><li><strong>Wiki Maintainer</strong><span>Organise reusable experience</span></li><li><strong>Skill Proposer</strong><span>Propose skill candidates</span></li><li><strong>Compare & revise</strong><span>Record adoption and rollback</span></li></ol><p class="learning-back">↶ Wiki / Skills inform the next research task</p><p class="learning-boundary">Wiki is experience, not current factual evidence. Explicit human requirements remain; candidate results still need checking.</p></section>
+    <ul class="architecture-foundation"><li>Local workspace · draft & source versions</li><li>Runtime · models & permissions</li><li>Task records · saving & recovery</li></ul>
+    <footer><p>Workspaces stay local; cloud calls use your chosen services. Read-only review depends on the actual runtime.</p><a href="reports/technical-report-v2/technical-report.html">Read technical report v2 ↗</a></footer>
+   </div>
+  </details>
+ </div>
+</section>
 
   <!-- traceability -->
   <section class="section" id="traceability" data-od-id="section-traceability">
@@ -549,52 +520,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   }
 })();
 </script>
-<script>
-(function(){
-  var stages=[
-    {num:'01',title:'Requirements &amp; material',sub:'What you hand over',
-     bullets:['State the <strong>purpose, the reader and the time range</strong>, and the target length.','Upload PDFs, Excel files and images as material, or <strong>go online-only</strong> for sourcing.','Company background and templates are optional and are <strong>carried into</strong> every report.'],
-     meta:['Who runs it: you + the task template','What you get: one clear statement of the task']},
-    {num:'02',title:'Research &amp; writing',sub:'What it does for you',
-     bullets:['Scout <strong>finds, filters and de-duplicates</strong> sources within budget; usage limits and service prices are separate.','Analyst writes an <strong>editable rich document</strong>, keeping charts, tables and citations in the same file.','Important claims are <strong>pinned back to the line of source text</strong> as they are written.'],
-     meta:['Who runs it: Scout finds sources · Analyst drafts','What you get: an editable draft report']},
-    {num:'03',title:'Independent review',sub:'Who signs off',
-     bullets:['The Evaluator <strong>scores independently</strong> and compares whether a candidate is genuinely better.','The Reviewer <strong>checks the actual artifacts read-only</strong> inside the audit bundle, without rewriting or extra searching.','A low score or a failed check <strong>never hides the draft</strong>; the issues are laid out for you to decide.'],
-     meta:['Who runs it: Evaluator · read-only Reviewer','What you get: a score and a review verdict']},
-    {num:'04',title:'Traceable delivery',sub:'What you get',
-     bullets:['Export the final report to <strong>Word / WPS</strong> — editable and versioned.','Export an audit bundle on demand: <strong>originals, excerpts or pointers only</strong>, verifiable offline.','Every claim can be questioned: back to the <strong>line of source text, PDF page or Excel cell</strong>.'],
-     meta:['What you get: the final report + the audit bundle','Every claim has a source']},
-    {num:'05',title:'Experience accrues',sub:'Better every time',
-     bullets:['<strong>Feedback and revisions</strong> after each delivery settle into Wiki entries and Skill candidates.','A candidate is <strong>enabled only once comparison validates it</strong>.','Inspect actual comparison and adoption results; <strong>improvement in the next run is not guaranteed</strong>.'],
-     meta:['Who runs it: Wiki Maintainer · Skill Proposer · Evaluator']}
-  ];
-  var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));
-  var panel=document.getElementById('arch-panel');
-  if(!tabs.length||!panel)return;
-  function select(tab){
-    var idx=tabs.indexOf(tab);
-    tabs.forEach(function(t,i){t.setAttribute('aria-selected',i===idx?'true':'false');});
-    if(idx<0)return;
-    var s=stages[idx];
-    panel.setAttribute('aria-labelledby',tab.id);
-    panel.innerHTML=
-      '<div class="panel-head"><span class="step-num">'+s.num+'</span><h3>'+s.title+'</h3></div>'+
-      '<ul class="bullets">'+s.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
-      '<div class="panel-meta">'+s.meta.map(function(m){return '<span class="chip">'+m+'</span>';}).join('')+'</div>';
-  }
-  tabs.forEach(function(t){
-    t.addEventListener('click',function(){select(t);});
-    t.addEventListener('keydown',function(e){
-      var i=tabs.indexOf(t),n=tabs.length;
-      if(e.key==='ArrowRight'){e.preventDefault();var nx=tabs[(i+1)%n];nx.focus();select(nx);}
-      else if(e.key==='ArrowLeft'){e.preventDefault();var pv=tabs[(i-1+n)%n];pv.focus();select(pv);}
-      else if(e.key==='Home'){e.preventDefault();tabs[0].focus();select(tabs[0]);}
-      else if(e.key==='End'){e.preventDefault();tabs[n-1].focus();select(tabs[n-1]);}
-    });
-  });
-  select(tabs[0]);
-})();
-</script>
+
 <script src="downloads.js" defer></script>
 </body>
 </html>

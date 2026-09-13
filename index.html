@@ -243,7 +243,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .shot{max-width:1300px}
 }
 </style>
-<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript></head>
+<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript><link rel="stylesheet" href="architecture-section.css">
+</head>
 <body id="top">
 
 <header class="nav" data-od-id="site-header">
@@ -326,54 +327,24 @@ td .num{font-family:var(--mono);font-size:13.5px}
   </section>
 
   <!-- how it works -->
-  <section class="section" id="how" data-od-id="section-how">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">工作原理</span>
-        <h2 class="h2">四步，把材料变成可追溯的报告。</h2>
-        <p class="sub">查看从要求、写稿到核查与导出的步骤；反馈学习单独开启并检查结果。</p>
-      </div>
-
-      <div data-od-id="arch-diagram">
-        <div class="steps" role="tablist" aria-label="工作步骤">
-          <button class="step" id="arch-tab-1" role="tab" aria-selected="true" aria-controls="arch-panel" data-od-id="arch-node-input">
-            <span class="step-num">01</span>
-            <span class="step-title">需求与材料</span>
-            <span class="step-sub">你交给它什么</span>
-          </button>
-          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          <button class="step" id="arch-tab-2" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-research">
-            <span class="step-num">02</span>
-            <span class="step-title">研究与写作</span>
-            <span class="step-sub">它替你干什么</span>
-          </button>
-          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          <button class="step" id="arch-tab-3" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-review">
-            <span class="step-num">03</span>
-            <span class="step-title">独立复核</span>
-            <span class="step-sub">谁来把关</span>
-          </button>
-          <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          <button class="step" id="arch-tab-4" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-delivery">
-            <span class="step-num">04</span>
-            <span class="step-title">可追溯交付</span>
-            <span class="step-sub">你拿到什么</span>
-          </button>
-        </div>
-
-        <button class="loopbar" id="arch-tab-5" role="tab" aria-selected="false" aria-controls="arch-panel" data-od-id="arch-node-loop">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></span>
-          <span class="step-num">05</span>
-          <span class="loopbar-text">
-            <span class="t">经验积累</span>
-            <span class="s">开启学习后，反馈可整理为经验；查看比较、采用与回退记录</span>
-          </span>
-        </button>
-
-        <div class="panel" id="arch-panel" role="tabpanel" aria-labelledby="arch-tab-1" data-od-id="arch-panel"></div>
-      </div>
-    </div>
-  </section>
+  <section class="section architecture-section" id="how" data-od-id="section-how">
+ <div class="wrap">
+  <div class="architecture-heading"><span class="kicker">工作原理</span><h2>把复杂留给协作。<br>把清晰留给你。</h2><p>交给它材料，拿回可修改、可追问依据的报告。</p></div>
+  <ol class="report-journey"><li><span class="journey-number">01</span><h3>需求与材料</h3><p>明确问题，带上资料。</p></li><li><span class="journey-number">02</span><h3>研究与写作</h3><p>找依据，形成初稿。</p></li><li><span class="journey-number">03</span><h3>独立审阅</h3><p>检查质量，核对来源。</p></li><li><span class="journey-number">04</span><h3>编辑与交付</h3><p>保留修改，导出 Word。</p></li></ol>
+  <p class="journey-note">需要时，再把反馈整理成下一次可用的经验。</p>
+  <details class="architecture-disclosure">
+   <summary><span class="architecture-action"><span class="when-closed">展开完整架构</span><span class="when-open">收起架构</span><span class="architecture-plus" aria-hidden="true">+</span></span><span class="architecture-hint">看看各个 Agent 如何分工</span></summary>
+   <div class="architecture-expanded">
+    <header><span class="kicker">BRIEFLOOP</span><h3>一份报告，如何一起完成。</h3><p>主 Agent 负责研究与修订；评价和依据核对独立进行。</p></header>
+    <div class="architecture-flow"><article class="architecture-node"><span class="journey-number">01</span><h4>需求与材料</h4><p>读者 · 目标 · 要求</p><ul><li>上传文件</li><li>公开资料 · 已授权 MCP</li></ul></article><article class="architecture-node"><span class="journey-number">02</span><h4>BriefLoop 主 Agent</h4><p>规划 → 研究 → 写稿</p><ul><li>Scout · 检索取证</li><li>Analyst · 分析整理</li></ul></article><article class="architecture-node"><span class="journey-number">03</span><h4>独立审阅</h4><p>固定稿件与来源版本</p><ul><li>Evaluator · 质量评价</li><li>Reviewer · 只读依据核对</li></ul></article><article class="architecture-node"><span class="journey-number">04</span><h4>编辑与交付</h4><p>普通工作稿始终可编辑</p><ul><li>网页修订 · 版本保存</li><li>Word 导出 · 来源定位</li></ul></article></div>
+    <p class="architecture-return">↶ 审阅发现的问题，交回主 Agent 针对性修订</p>
+    <section class="architecture-learning"><div class="learning-title"><h4>反馈与学习</h4><span>按需开启</span></div><ol><li><strong>人类要求 / 审阅发现</strong><span>保留原始要求与反馈</span></li><li><strong>Wiki Maintainer</strong><span>整理可复用经验</span></li><li><strong>Skill Proposer</strong><span>提出技能候选</span></li><li><strong>比较与修订</strong><span>记录采用与回退</span></li></ol><p class="learning-back">↶ Wiki / Skills 用于下一次研究</p><p class="learning-boundary">Wiki 是经验，不替代本期事实。明确的人类要求保留，候选结果仍需检查。</p></section>
+    <ul class="architecture-foundation"><li>本地工作区 · 稿件与来源版本</li><li>执行宿主 · 模型与权限</li><li>任务记录 · 保存与恢复</li></ul>
+    <footer><p>工作区保存在本地；云端调用依所选服务。Reviewer 的只读能力由实际宿主落实。</p><a href="reports/technical-report-v2/technical-report.html">阅读技术报告 v2 ↗</a></footer>
+   </div>
+  </details>
+ </div>
+</section>
 
   <!-- traceability -->
   <section class="section" id="traceability" data-od-id="section-traceability">
@@ -539,52 +510,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
   }
 })();
 </script>
-<script>
-(function(){
-  var stages=[
-    {num:'01',title:'需求与材料',sub:'你交给它什么',
-     bullets:['写清<strong>目的、读者、时间范围</strong>与目标篇幅。','上传 PDF、Excel、图片作为材料，也可以<strong>只开联网</strong>检索。','企业背景与模板可选，<strong>自动带入</strong>每一份报告。'],
-     meta:['谁在干：你 + 任务模板','交付物：一份明确的任务要求']},
-    {num:'02',title:'研究与写作',sub:'它替你干什么',
-     bullets:['Scout 按预算<strong>找来源、筛选、去重</strong>，调用量与服务价格分别说明。','Analyst 写出<strong>可编辑的富文档</strong>，图表、表格、引用同稿保存。','重要结论当场<strong>绑定回它来自的那一行原文</strong>。'],
-     meta:['谁在干：Scout 找来源 · Analyst 写稿','交付物：可编辑的报告初稿']},
-    {num:'03',title:'独立复核',sub:'谁来把关',
-     bullets:['Evaluator <strong>独立评分</strong>，比较候选是否真的更好。','Reviewer <strong>只读核对</strong>审计包里的实际产物，不改稿、不补搜。','低分或未通过<strong>不隐藏原稿</strong>，问题摆出来让你决定。'],
-     meta:['谁在干：Evaluator · 只读 Reviewer','交付物：评分与核对结论']},
-    {num:'04',title:'可追溯交付',sub:'你拿到什么',
-     bullets:['正式报告导出 <strong>Word / WPS</strong>，可编辑、可成版本。','审计包按需导出：<strong>原件、摘录或仅定位</strong>，可离线校验。','每条结论都能被追问：回到<strong>原文行、PDF 页、Excel 单元格</strong>。'],
-     meta:['你拿到：正式报告 + 审计包','每条结论都有出处']},
-    {num:'05',title:'经验积累',sub:'保留可复用的反馈',
-     bullets:['开启学习后，<strong>反馈与修订</strong>可整理为 Wiki 经验与 Skill 候选。','候选<strong>经比较验证后才启用</strong>。','查看实际比较和采用结果，<strong>不保证下一轮必然提高</strong>。'],
-     meta:['谁在干：Wiki Maintainer · Skill Proposer · Evaluator']}
-  ];
-  var tabs=Array.prototype.slice.call(document.querySelectorAll('#arch-diagram [role="tab"]'));
-  var panel=document.getElementById('arch-panel');
-  if(!tabs.length||!panel)return;
-  function select(tab){
-    var idx=tabs.indexOf(tab);
-    tabs.forEach(function(t,i){t.setAttribute('aria-selected',i===idx?'true':'false');});
-    if(idx<0)return;
-    var s=stages[idx];
-    panel.setAttribute('aria-labelledby',tab.id);
-    panel.innerHTML=
-      '<div class="panel-head"><span class="step-num">'+s.num+'</span><h3>'+s.title+'</h3></div>'+
-      '<ul class="bullets">'+s.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
-      '<div class="panel-meta">'+s.meta.map(function(m){return '<span class="chip">'+m+'</span>';}).join('')+'</div>';
-  }
-  tabs.forEach(function(t){
-    t.addEventListener('click',function(){select(t);});
-    t.addEventListener('keydown',function(e){
-      var i=tabs.indexOf(t),n=tabs.length;
-      if(e.key==='ArrowRight'){e.preventDefault();var nx=tabs[(i+1)%n];nx.focus();select(nx);}
-      else if(e.key==='ArrowLeft'){e.preventDefault();var pv=tabs[(i-1+n)%n];pv.focus();select(pv);}
-      else if(e.key==='Home'){e.preventDefault();tabs[0].focus();select(tabs[0]);}
-      else if(e.key==='End'){e.preventDefault();tabs[n-1].focus();select(tabs[n-1]);}
-    });
-  });
-  select(tabs[0]);
-})();
-</script>
+
 <script src="downloads.js" defer></script>
 </body>
 </html>
