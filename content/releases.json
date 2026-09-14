@@ -18,11 +18,11 @@
     "windows": {
       "ready": true,
       "architecture": "x64",
-      "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.21.0/BriefLoop-Setup-0.21.0-x64.exe",
-      "bytes": 114123538,
-      "sha256": "5821951cf2a3dcb8c22c624759b3fd5eba69b7b4d84dc7f291ce0405583c0c31",
+      "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.21.1/BriefLoop-Setup-0.21.1-x64.exe",
+      "bytes": 114126284,
+      "sha256": "5e0ed9683e6a1a772895514a24812285a7fb688763b3c6a0d122a64f09ecc6cf",
       "signed": false,
-      "version": "0.21.0"
+      "version": "0.21.1"
     }
   }
 }
