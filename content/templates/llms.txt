@@ -2,7 +2,7 @@
 
 > Local report workspace callable by shell-capable agents.
 
-Published CLI/PyPI: {{pypi_version}}. Desktop: {{desktop_version}}.
+Published CLI/PyPI: {{pypi_version}}. Mac: {{mac_version}}. Windows: {{windows_version}}.
 Python 3.11+. Install: python -m pip install --upgrade briefloop
 Package: https://pypi.org/project/briefloop/
 
