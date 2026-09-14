@@ -9,14 +9,14 @@
       "安装桌面版并打开一个独立工作区。工作区保存材料、稿件、对话和运行记录。",
       "在设置中选择已安装并完成认证的宿主与模型。先确认材料允许发送给该服务。",
       "新建报告，写清读者、日期范围、需要回答的问题及目标篇幅；加入一份公开材料。",
-      "启动生成，在任务对话查看实际进度。保存后打开正文、检查引用，再尝试编辑并保存。",
+      "启动生成，在“我的报告”查看当前阶段、实际耗时和最近进展。已有稿件时可提前打开；保存后检查引用，再尝试编辑。",
       "从导出菜单生成 Word；完成后下载并用 Word 或 WPS 打开。"
     ],
     [
       "Install the desktop app and open a separate workspace for sources, drafts, conversations and task records.",
       "In settings, select an installed, authenticated runtime and model. Confirm that your source may be sent to that service.",
       "Create a report. Specify the audience, date range, questions and target length, then add one public source.",
-      "Start generation and follow progress in its task conversation. Open the saved draft, check citations, edit and save.",
+      "Start generation. In My reports, follow the current stage, elapsed time and latest activity. Open a draft as soon as one is saved, then check citations and try editing.",
       "Generate Word from the export menu. Download the completed file and open it in Word or WPS."
     ],
     "成功时能看到已保存的稿件版本和可打开的 Word 文件。排队、开始生成或出现下载按钮本身都不代表文件已完成。",
@@ -75,20 +75,45 @@
     "For quota errors, 429, 503 or an unknown model, inspect the task error and runtime authentication. Matching model names do not imply shared subscriptions. Read-only and network controls vary by runtime."
   ],
   [
+    "search-progress",
+    "搜索与任务进度",
+    "Search and task progress",
+    "0.22.0：选择搜索渠道，明确报告期间，跟踪实际进展。",
+    "0.22.0: choose search channels, fix the reporting period and follow actual progress.",
+    [
+      "在“设置 → 运行与搜索”选择首选和允许的补充渠道。新工作区默认 Tavily 优先，并允许宿主自带搜索补充；博查和智谱需主动启用并配置 Key。",
+      "选择“检查跨市场覆盖并补缺”“仅在发现缺口时补查”或“只用首选”。Tavily、博查和智谱使用各自账户；没有搜索 Key 时，可选 DuckDuckGo 或宿主已有能力。",
+      "新建报告时检查截至日期、时间范围和时区。开始后保留本轮搜索策略与时间窗口；改设置影响新任务。定时报告每期重新计算相对时间。",
+      "在“我的报告”查看当前阶段、实际耗时、成功与失败搜索、已保存材料、研究轮次及审阅和修订进展。已有稿件可先打开；需要停止或恢复时沿用原任务。",
+      "在“研究预算 → 查看搜索记录”查看渠道、用途、耗时和错误；在“数据源”按发现渠道筛选材料。"
+    ],
+    [
+      "In Settings → Run and search, choose a preferred channel and allowed supplements. New workspaces prefer Tavily and allow runtime-native search to supplement it. Enable Bocha or Zhipu explicitly and configure their keys.",
+      "Choose cross-market coverage checks, gap-only supplementation or preferred-channel only. Tavily, Bocha and Zhipu use separate accounts. Without a search key, choose DuckDuckGo or capabilities already available in your runtime.",
+      "Check the cutoff, date range and time zone before starting. The run retains its search policy and time window; later settings apply to new tasks. Scheduled reports recalculate relative dates for each run.",
+      "In My reports, follow the current stage, elapsed time, successful and failed searches, saved sources, research rounds, review and revisions. Open saved drafts early; stop or resume the original task when needed.",
+      "Open Research budget → Search records for channels, purpose, duration and errors. Filter sources by their discovery channel."
+    ],
+    "阶段和数量来自已记录的执行与产物，不显示估算完成百分比。搜索失败会保留记录，并且消耗搜索尝试额度。",
+    "Stages and counts come from recorded execution and artifacts, without an estimated completion percentage. Failed searches remain visible and consume search-attempt quota.",
+    "宿主原生搜索无法精确计量时显示未知，不混入受控 API 次数。搜索摘要、已保存材料和成功查询都不代表事实核实；公众号、小红书没有专门接入。",
+    "Unmetered runtime-native search is shown as unknown rather than included in controlled API counts. Search snippets, saved sources and successful queries do not establish factual accuracy. There are no dedicated WeChat or Xiaohongshu connectors."
+  ],
+  [
     "write-edit",
     "制作和修改报告",
     "Write and edit reports",
     "从材料、要求到可持续修改的正文。",
     "Move from sources and requirements to an editable draft.",
     [
-      "新建报告，明确读者、用途、期间与必须回答的问题。历史财报与当月动态应分别标注期间。",
+      "新建报告，明确读者、用途与必答问题。0.22.0 会预览并冻结报告截至日期、时间范围和时区；开始前可修改，历史材料仍按各自期间使用。",
       "加入原始材料；搜索摘要仅作为发现线索。核对来源的日期、主体和口径。",
       "生成后先阅读结论与表格，再检查关键引用。低分或审阅未通过的工作稿仍可查看和下载。",
       "在正文编辑后保存，或把具体修改要求发给 BriefLoop。保留原稿，确认修改形成新版本。",
       "保存后生成 Word。导出固定点击时的已保存版本，之后的修改需要再次导出。"
     ],
     [
-      "Create a report with its audience, purpose, period and required questions. Distinguish historical financial periods from current-month events.",
+      "Create a report with its audience, purpose and required questions. Version 0.22.0 previews and freezes the cutoff, date range and time zone; adjust them before starting and keep historical sources tied to their own periods.",
       "Add original sources; use search snippets only as discovery leads. Check dates, entities and definitions.",
       "Read conclusions and tables, then inspect key citations. Working drafts remain visible and downloadable even with low scores or unresolved review issues.",
       "Edit and save the body, or give BriefLoop specific revision instructions. Preserve the original and confirm that changes create a new version.",

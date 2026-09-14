@@ -29,5 +29,22 @@
       "src/briefloop/skill_assets/briefloop-external/SKILL.md",
       "docs/WorkBuddy外部入口.md"
     ]
+  },
+  "release_0220_sources": {
+    "commit": "4533eff9a7a124f385acb917b2122e761d3cf525",
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "sha256": "4ed4402f0fd930d4744c7f359b99fcb3b295bfedefda497333ccc0c4f73720aa"
+      },
+      {
+        "path": "docs/使用指南.md",
+        "sha256": "622b8a2f6850234cc28946fc012be97936fc5d99ad8b65caedd85e58e990287c"
+      },
+      {
+        "path": "docs/report-time-window.md",
+        "sha256": "8b504684c9639f2caaf0fdbec267374bc3be2c44472fcde65021ed71037bdbf7"
+      }
+    ]
   }
 }
