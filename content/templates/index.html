@@ -253,7 +253,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <img src="assets/briefloop-mark.svg" alt="">
       <span>BriefLoop</span>
     </a>
-    <nav class="nav-links" id="nav-links" aria-label="站点导航"><a href="#why">产品</a><a href="docs/index.html">使用文档</a><a href="reports/technical-report-v2/technical-report.html">技术报告 v2</a><a href="https://github.com/Stahl-G/briefloop/releases">更新日志</a></nav>
+    <nav class="nav-links" id="nav-links" aria-label="站点导航"><a href="#why">产品</a><a href="docs/index.html">使用文档</a><a href="https://github.com/Stahl-G/briefloop/releases">更新日志</a></nav>
     <div class="nav-actions">
       <a class="btn btn-ghost btn-sm lang-btn" href="en.html" data-od-id="nav-lang" aria-label="切换到英文版">EN</a>
       <a class="btn btn-ghost btn-sm" href="https://github.com/Stahl-G/briefloop" target="_blank" rel="noopener" data-od-id="nav-github">GitHub ↗</a>
@@ -296,7 +296,6 @@ td .num{font-family:var(--mono);font-size:13.5px}
 
   <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot"><img src="assets/tencent-report-workbench.png" alt="BriefLoop 中已保存的腾讯报告实际界面" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"><figcaption>真实界面 · 经独立审阅的工作稿；Word 原生阅读器验收待完成</figcaption></figure></div></section>
 
-  <section class="section" id="technical-report"><div class="wrap"><div class="sec-head"><span class="kicker">工程与证据</span><h2 class="h2">技术报告 v2</h2><p>了解研究、修订与证据追溯如何实现。0.21.0 工程技术报告为预发布快照，附证据索引、架构图与核验边界。</p><a class="btn btn-ghost" href="reports/technical-report-v2/technical-report.html">阅读技术报告 v2 ↗</a></div></div></section>
 
   <!-- why -->
   <section class="section" id="why" data-od-id="section-why">
@@ -340,7 +339,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <p class="architecture-return">↶ 审阅发现的问题，交回主 Agent 针对性修订</p>
     <section class="architecture-learning"><div class="learning-title"><h4>反馈与学习</h4><span>按需开启</span></div><ol><li><strong>人类要求 / 审阅发现</strong><span>保留原始要求与反馈</span></li><li><strong>Wiki Maintainer</strong><span>整理可复用经验</span></li><li><strong>Skill Proposer</strong><span>提出技能候选</span></li><li><strong>比较与修订</strong><span>记录采用与回退</span></li></ol><p class="learning-back">↶ Wiki / Skills 用于下一次研究</p><p class="learning-boundary">Wiki 是经验，不替代本期事实。明确的人类要求保留，候选结果仍需检查。</p></section>
     <ul class="architecture-foundation"><li>本地工作区 · 稿件与来源版本</li><li>执行宿主 · 模型与权限</li><li>任务记录 · 保存与恢复</li></ul>
-    <footer><p>工作区保存在本地；云端调用依所选服务。Reviewer 的只读能力由实际宿主落实。</p><a href="reports/technical-report-v2/technical-report.html">阅读技术报告 v2 ↗</a></footer>
+    <footer><p>工作区保存在本地；云端调用依所选服务。Reviewer 的只读能力由实际宿主落实。</p></footer>
    </div>
   </details>
  </div>
@@ -433,6 +432,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       </div>
     </div>
   </section>
+  <section class="section" id="technical-report"><div class="wrap"><div class="sec-head"><span class="kicker">工程与证据</span><h2 class="h2">技术报告 v3</h2><p>了解研究、修订与证据追溯如何实现。基于已发布的 0.21.0，涵盖事实核查、定时报告与反馈学习，附证据索引、架构图和实际验收范围。</p><a class="btn btn-ghost" href="reports/technical-report-v3/technical-report.html">阅读技术报告 v3 ↗</a></div></div></section>
 </main>
 
 <footer class="footer" data-od-id="site-footer">
@@ -454,7 +454,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       <div class="footer-col">
         <h4>文档</h4>
         <ul>
-          <li><a href="reports/technical-report-v2/technical-report.html">技术报告 v2</a></li>
+          <li><a href="reports/technical-report-v3/technical-report.html">技术报告 v3</a></li>
           <li><a href="docs/index.html" target="_blank" rel="noopener">使用指南</a></li>
           <li><a href="docs/install-update.html" target="_blank" rel="noopener">升级说明</a></li>
           <li><a href="https://github.com/Stahl-G/briefloop/blob/main/CHANGELOG.md" target="_blank" rel="noopener">变更记录</a></li>

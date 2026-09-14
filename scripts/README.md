@@ -10,6 +10,6 @@ Run `python3 scripts/build-site.py`, then `python3 scripts/check-site.py` and `n
 
 Preview: `python3 -m http.server 8143 --bind 127.0.0.1`. A local preview or build does not publish to GitHub Pages.
 
-Technical report v2 publishes only the eight files enumerated in its reviewed public manifest; source hashes are recorded in `content/technical-report-v2.json`. HTML wrappers add homepage navigation and canonical URLs.
+Technical report v3 publishes only the nine reviewed public files from the main-repository report; source and published hashes are recorded in `content/technical-report-v3.json`. Historical v2 URLs remain available. Home-page report sections are the final sections before the site footer; edit their source templates to preserve this order. HTML wrappers add homepage navigation and canonical URLs.
 
 Saved sample pages use `scripts/render-sample.py INPUT --slug SLUG` with markdown-it-py 4.2.0. This optional renderer copies the original Markdown/Word bytes and requires generation/review metadata; it does not author report prose.

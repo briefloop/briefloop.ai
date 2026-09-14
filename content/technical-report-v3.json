@@ -1,0 +1,29 @@
+{
+  "document": "工程技术报告 · 正式版 v3",
+  "report_version": "0.21.0",
+  "source_repository": "https://github.com/Stahl-G/briefloop",
+  "source_document_commit": "4a6dfb9cf7cf599336aa1dcd773567cf79203f36",
+  "source_file_sha256": {
+    "technical-report.md": "1c3bc1da991d4ff6f9dd50210f9153f3d3eb57c78da55dd87975c6595f78136e",
+    "technical-report.html": "9677f31636615512bb54d3913df742847d01125e74f22812835c427e1be35eed",
+    "evidence-index.md": "a01c8336afb54e87e82378e4323949098f8c41f7f7c9aaba894e41a6aa69e582",
+    "evidence-index.html": "7ed44f60f85a64156fc87b6d33f18188a96c61eeda2a29399c726b748e883294",
+    "architecture.architecture.json": "2d5bd8dc12fd8eedee14e9dce87b1b562de0e5a855e282659669b5b74ea46fbd",
+    "architecture.html": "dc5fec2eb3bce2299cd5a4f2193ecc0c8f5b19ca1d7b1b9ff10901056fad6231",
+    "source-manifest.json": "d0c4a77251d4080a9f93397d995e586a34683913cc498787573a717a0330b6a6",
+    "offline-tests.txt": "14c0e9f7d6dc431b9f2cd6efb8267ec5a9afd2e8978e5f09f66cec50b3c45dcc",
+    "release-verification.json": "9ae1e4116194d5891c84ee0efdf7bffe72854047ffe9532f3d4b48bada3f9ba6"
+  },
+  "published_file_sha256": {
+    "technical-report.md": "1c3bc1da991d4ff6f9dd50210f9153f3d3eb57c78da55dd87975c6595f78136e",
+    "technical-report.html": "b7be2823e00982f7a98baee4c9c07869ec83388006b711828dcb4ff05708f7d5",
+    "evidence-index.md": "a01c8336afb54e87e82378e4323949098f8c41f7f7c9aaba894e41a6aa69e582",
+    "evidence-index.html": "46c9c765604ed7a3cb6439dda263f87a5b6ff1fd0f81919935764cf0c5e8e924",
+    "architecture.architecture.json": "2d5bd8dc12fd8eedee14e9dce87b1b562de0e5a855e282659669b5b74ea46fbd",
+    "architecture.html": "92641aae03e656d0efcc863581ecf7e7d7461ea03f5b1aa6d591129fbf3ea1f0",
+    "source-manifest.json": "d0c4a77251d4080a9f93397d995e586a34683913cc498787573a717a0330b6a6",
+    "offline-tests.txt": "14c0e9f7d6dc431b9f2cd6efb8267ec5a9afd2e8978e5f09f66cec50b3c45dcc",
+    "release-verification.json": "9ae1e4116194d5891c84ee0efdf7bffe72854047ffe9532f3d4b48bada3f9ba6"
+  },
+  "public_changes": "Added homepage navigation, canonical URLs and favicon to HTML wrappers; report prose preserved."
+}
