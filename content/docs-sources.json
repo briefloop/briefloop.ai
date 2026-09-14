@@ -30,12 +30,12 @@
       "docs/WorkBuddy外部入口.md"
     ]
   },
-  "release_0220_sources": {
-    "commit": "4533eff9a7a124f385acb917b2122e761d3cf525",
+  "release_0221_sources": {
+    "commit": "f49e55b33b99940db55c0aa1c752deb918d6d26f",
     "files": [
       {
         "path": "CHANGELOG.md",
-        "sha256": "4ed4402f0fd930d4744c7f359b99fcb3b295bfedefda497333ccc0c4f73720aa"
+        "sha256": "430aecae119d4dee8b283cd6321a0fa54e8ff047bc6d37783f818125bf58ce6b"
       },
       {
         "path": "docs/使用指南.md",
