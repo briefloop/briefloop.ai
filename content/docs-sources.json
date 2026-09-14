@@ -46,5 +46,22 @@
         "sha256": "8b504684c9639f2caaf0fdbec267374bc3be2c44472fcde65021ed71037bdbf7"
       }
     ]
+  },
+  "release_0222_sources": {
+    "commit": "571c8a27d7497830fe481f85483cdeae15dd3975",
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "sha256": "51856989c5ccb5527e232ecc5dd093d906078a562e391134533be8e6d40c8e4c"
+      },
+      {
+        "path": "src/briefloop/models.py",
+        "sha256": "33f6a0611898d4b88252f493dd804e4dc46073a8a3dde2d8f5e8d2d875e0a03a"
+      },
+      {
+        "path": "frontend/app.js",
+        "sha256": "1cb16cd58fa3402bb656871290961a588a8069a0c6ed7b0dff1d0ff0603c2b9c"
+      }
+    ]
   }
 }
