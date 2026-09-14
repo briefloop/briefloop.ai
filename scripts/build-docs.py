@@ -6,6 +6,8 @@ ROOT=Path(__file__).resolve().parents[1]
 e=html.escape
 release=json.loads((ROOT/'content/releases.json').read_text())
 desktop=e(release['desktop_version'])
+mac=e(release['assets']['mac'].get('version',release['desktop_version']))
+windows=e(release['assets']['windows'].get('version',release['desktop_version']))
 items=json.loads((ROOT/'content/docs.json').read_text())
 out=ROOT/'docs';out.mkdir(exist_ok=True)
 for en in (False,True):
@@ -19,7 +21,7 @@ for en in (False,True):
  for x in items:
   slug,zh,eng,desczh,descen,stepszh,stepsen,okzh,oken,errzh,erren=x
   title=eng if en else zh;desc=descen if en else desczh;steps=stepsen if en else stepszh;ok=oken if en else okzh;err=erren if en else errzh
-  scope=(f'Applies to desktop {desktop} and the 0.20.x service. Labels and capabilities vary by channel; the installer version is authoritative. Development features are not implied.' if en else f'适用于桌面 {desktop} 与 0.20.x 服务的基本流程。按钮与能力因渠道不同，以所装版本为准；不代表开发中功能已经随安装包发布。')
+  scope=(f'Current installers: Mac {mac}, Windows {windows}. Labels and capabilities vary by channel; the installer version is authoritative. Development features are not implied.' if en else f'当前安装包：Mac {mac}、Windows {windows}。按钮与能力因渠道不同，以所装版本为准；不代表开发中功能已经随安装包发布。')
   body=f'<p class="eyebrow">BRIEFLOOP / {"GUIDES" if en else "使用指南"}</p><h1>{e(title)}</h1><p class="lead">{e(desc)}</p><p class="scope">{scope}</p><h2>{"Before you start" if en else "前置条件"}</h2><p>{"Use a workspace you can back up. Model tasks require an authenticated runtime and permission to process the chosen materials." if en else "准备可备份的工作区；需要模型的操作须先完成宿主认证，并确认材料允许交给所选服务处理。"}</p><h2>{"Steps" if en else "操作步骤"}</h2><ol>'+''.join(f'<li>{e(s)}</li>' for s in steps)+f'</ol><h2>{"What success looks like" if en else "成功后应该看到什么"}</h2><p>{e(ok)}</p><h2>{"If something goes wrong" if en else "失败与边界"}</h2><p>{e(err)}</p><p class="next"><a href="{link("index")}">← {"All guides" if en else "全部文档"}</a> · <a href="../downloads{suffix}.html">{"Installation options" if en else "选择安装方式"} →</a></p>'
   if slug=='external-agent':body=body.replace('<p class="next">',(ROOT/f'content/external-agent{suffix}.html').read_text()+'<p class="next">')
   (out/link(slug)).write_text(shell(title,body,slug))
