@@ -2,7 +2,7 @@
   "schema_version": "briefloop.agent-bootstrap.v1",
   "product": {
     "name": "BriefLoop",
-    "version": "0.23.0",
+    "version": "0.23.1",
     "homepage": "https://briefloop.ai/",
     "description": "A local agent workbench for sourced briefings, independent evaluation and reusable learning.",
     "python_requires": ">=3.11",
