@@ -1,7 +1,7 @@
 /* Enable an asset only after native acceptance and publication of its exact URL. */
 (function () {
   'use strict';
-  const release = {"version": "0.22.2", "mac": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.22.2/BriefLoop-0.22.2-arm64.dmg", "architecture": "arm64"}, "windows": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.22.2/BriefLoop-Setup-0.22.2-x64.exe", "architecture": "x64"}};
+  const release = {"version": "0.23.0", "mac": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.23.0/BriefLoop-0.23.0-arm64.dmg", "architecture": "arm64"}, "windows": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.23.0/BriefLoop-Setup-0.23.0-x64.exe", "architecture": "x64"}};
   function detectPlatform(nav) {
     const ua = nav.userAgent || '';
     const platform = nav.userAgentData?.platform || nav.platform || '';
