@@ -10,6 +10,8 @@ class Page(HTMLParser):
  def handle_starttag(self,tag,attrs):
   for k,v in attrs:
    if k in ('href','src') and v:self.links.append(v)
+   # Responsive image candidates are "URL [descriptor]" lists.
+   if k=='srcset' and v:self.links.extend(c.split()[0] for c in v.split(',') if c.strip())
    if k=='id':self.ids.add(v)
 pages=[root/x for x in ('index.html','en.html','downloads.html','downloads.en.html')]+list((root/'docs').glob('*.html'))+list((root/'reports').glob('technical-report-v*/*.html'))+list((root/'reports').glob('tencent-*.html'))
 errors=[]

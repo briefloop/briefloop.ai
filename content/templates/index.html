@@ -43,7 +43,7 @@ a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3p
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 h1,h2,h3,h4,p{margin:0}
 h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
-img,svg{display:block;max-width:100%}
+img,svg,picture{display:block;max-width:100%}
 .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
 section{scroll-margin-top:88px}
 
@@ -288,13 +288,13 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <span class="chip">服务只监听本机</span>
       </div>
       <figure class="shot" data-od-id="hero-shot">
-        <img src="assets/workbench-home-20260914.png" alt="BriefLoop 最新桌面首页：对话输入、权限管理、报告快捷入口与最近报告" width="2640" height="1800" decoding="async">
+        <picture><source type="image/webp" srcset="assets/workbench-home-20260914-800.webp 800w, assets/workbench-home-20260914-1320.webp 1320w, assets/workbench-home-20260914.webp 2640w" sizes="(min-width: 1800px) 1300px, (min-width: 1440px) 1160px, (min-width: 1080px) 1000px, calc(100vw - 40px)"><img src="assets/workbench-home-20260914.png" alt="BriefLoop 最新桌面首页：对话输入、权限管理、报告快捷入口与最近报告" width="2640" height="1800" decoding="async" fetchpriority="high"></picture>
         <figcaption><span class="badge">真实界面</span> 最新桌面首页 · 权限管理与报告快捷入口</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot"><img src="assets/tencent-report-workbench.png" alt="BriefLoop 中已保存的腾讯报告实际界面" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"><figcaption>真实界面 · 经独立审阅的工作稿；Word 原生阅读器验收待完成</figcaption></figure></div></section>
+  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot"><picture><source type="image/webp" srcset="assets/tencent-report-workbench.webp"><img src="assets/tencent-report-workbench.png" alt="BriefLoop 中已保存的腾讯报告实际界面" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"></picture><figcaption>真实界面 · 经独立审阅的工作稿；Word 原生阅读器验收待完成</figcaption></figure></div></section>
 
 
   <!-- why -->
@@ -373,7 +373,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       </ul>
       <figure class="shot trace-shot" data-od-id="trace-shot">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 来源追溯</span></div>
-        <img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async">
+        <picture><source type="image/webp" srcset="assets/source-evidence-800.webp 800w, assets/source-evidence.webp 1600w" sizes="(min-width: 1800px) 1300px, (min-width: 1440px) 1160px, (min-width: 1080px) 1000px, calc(100vw - 40px)"><img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async"></picture>
         <figcaption><span class="badge">真实界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
       <p><a href="docs/evidence-review.html">如何查看依据与处理审阅问题</a></p>
@@ -392,7 +392,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
 
       <figure class="shot feat-shot" data-od-id="feature-shot-doc">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 报告正文</span></div>
-        <img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="1100" loading="lazy" decoding="async">
+        <picture><source type="image/webp" srcset="assets/report-document.webp"><img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="1100" loading="lazy" decoding="async"></picture>
         <figcaption><span class="badge">真实界面</span> 报告正文细节 · 正文、表格与引用同稿编辑</figcaption>
       </figure>
     </div>
