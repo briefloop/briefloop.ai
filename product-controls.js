@@ -10,12 +10,8 @@
    catch{button.textContent=en?'Select the checksum above to copy':'请选中上方校验值复制';}
   });code.after(button);
  }
- const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.platform));
- if(mobile){
-  const main=document.querySelector('main');if(!main)return;
-  const p=document.createElement('p');p.textContent=en?'Install on a desktop computer. Save this download-page link to open there.':'请在电脑上安装。可以复制下载页链接，稍后在电脑上打开。';
-  const button=document.createElement('button');button.type='button';button.textContent=en?'Copy download-page link':'复制电脑下载页链接';button.style.cssText='display:block;min-height:44px;padding:10px 16px;margin:12px 0';
-  button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('https://briefloop.ai/downloads'+(en?'.en':'')+'.html');button.textContent=en?'Copied':'已复制';}catch{button.textContent=en?'Copy this page address from your browser':'请从浏览器地址栏复制本页地址';}});
-  p.append(button);main.prepend(p);
+ // The note itself is in the page and shown before first paint; only copying needs script.
+ for(const button of document.querySelectorAll('[data-copy-page]')){
+  button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(button.dataset.copyPage);button.textContent=en?'Copied':'已复制';}catch{button.textContent=en?'Copy this page address from your browser':'请从浏览器地址栏复制本页地址';}});
  }
 })();
