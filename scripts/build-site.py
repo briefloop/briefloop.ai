@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """Render static channel metadata and bilingual docs without network or dependencies."""
 from pathlib import Path
-import json, re, runpy
+import json, re, runpy, sys
 root=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(root/'scripts'))
+import site_header
 data=json.loads((root/'content/releases.json').read_text())
 values={'desktop_version':data['desktop_version'],'pypi_version':data['pypi_version'], 'release_catalog':json.dumps({'version':data['desktop_version'],**{key:{field:asset[field] for field in ('ready','url','architecture')} for key,asset in data['assets'].items()}},ensure_ascii=False)}
+values.update(site_header_head=site_header.head(),site_header_script=site_header.script(),
+ downloads_header=site_header.header(False,'downloads.en.html',current='download'),
+ downloads_header_en=site_header.header(True,'downloads.html',current='download'))
 for key,asset in data['assets'].items():
  values[key+'_version']=asset.get('version',data['desktop_version'])
  values[key+'_url']=asset['url'];values[key+'_sha256']=asset['sha256'];values[key+'_mib']=f"{asset['bytes']/1024/1024:.2f}"
