@@ -4,7 +4,7 @@ Run with a Python environment containing markdown-it-py 4.2.0.
 Input directory must contain report.md, report.docx and public-metadata.json.
 """
 from pathlib import Path
-import argparse,hashlib,html,json,shutil,sys
+import argparse,hashlib,html,json,re,shutil,sys
 from markdown_it import MarkdownIt
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import site_header
@@ -18,7 +18,12 @@ for name in ('report.md','report.docx'):
 text=(a.input/'report.md').read_text()
 if '/Users/' in text or '[@src_' in text:raise ValueError('Export contains local paths or unresolved source IDs')
 rendered=MarkdownIt('commonmark',{'html':False}).enable('table').render(text)
-rendered=rendered.replace('<table>','<div class="table-scroll" tabindex="0" role="region" aria-label="Report table"><table>').replace('</table>','</table></div>')
+# Each scrollable table is a named region; its section heading keeps the regions distinguishable.
+def region(match):
+ headings=re.findall(r'<h[23]>(.*?)</h[23]>',rendered[:match.start()])
+ label=re.sub(r'<[^>]+>','',headings[-1]) if headings else 'Report table'
+ return f'<div class="table-scroll" tabindex="0" role="region" aria-label="{label}"><table>'
+rendered=re.sub('<table>',region,rendered).replace('</table>','</table></div>')
 out=root/'assets/samples'/a.slug;out.mkdir(parents=True,exist_ok=True)
 for name in ('report.md','report.docx'):shutil.copyfile(a.input/name,out/name)
 meta['exports']={name:{'sha256':hashlib.sha256((out/name).read_bytes()).hexdigest()} for name in ('report.md','report.docx')}
