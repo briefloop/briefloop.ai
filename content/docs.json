@@ -88,7 +88,7 @@
       "新建报告时检查截至日期、时间范围和时区。开始后保留本轮搜索策略与时间窗口；改设置影响新任务。定时报告每期重新计算相对时间。",
       "在“我的报告”查看当前阶段、实际耗时、成功与失败搜索、已保存材料、研究轮次及审阅和修订进展。已有稿件可先打开；需要停止或恢复时沿用原任务。",
       "在“研究预算 → 查看搜索记录”查看渠道、用途、耗时和错误；在“数据源”按发现渠道筛选材料。",
-      "新建报告时选择研究深度、事实核查和自动学习。目标用时用于安排任务，不会在到点后自动中断；高级“最长运行保护”另行控制，默认关闭。深度研究默认目标 10,000 字、上限 12,000 字，明确填写的篇幅优先。",
+      "新建报告时选择研究深度、事实核查和自动学习。目标用时用于安排任务，不会在到点后自动中断；高级“最长运行保护”另行控制，默认关闭。深度研究的默认篇幅按报告语言设置：中文目标 10,000 字、上限 12,000 字；英文目标 6,500 词、上限 8,000 词。目标与上限不是保证输出的篇幅范围，明确填写的篇幅优先。",
       "在设置中调整“同时生成报告数”：默认 4，可选 1–16。Scout 并发单独设置。生成中可查看独立等待页，也可通过版本选择器切换已保存稿件；排队等待与执行时间分别显示。"
     ],
     [
@@ -97,7 +97,7 @@
       "Check the cutoff, date range and time zone before starting. The run retains its search policy and time window; later settings apply to new tasks. Scheduled reports recalculate relative dates for each run.",
       "In My reports, follow the current stage, elapsed time, successful and failed searches, saved sources, research rounds, review and revisions. Open saved drafts early; stop or resume the original task when needed.",
       "Open Research budget → Search records for channels, purpose, duration and errors. Filter sources by their discovery channel.",
-      "Choose research depth, fact-checking and automatic learning when creating a report. Target duration guides the task; it does not stop the run at that time. The separate advanced maximum-runtime safeguard is off by default. Deep research defaults to a 10,000-character target and 12,000-character cap; explicit length settings take precedence.",
+      "Choose research depth, fact-checking and automatic learning when creating a report. Target duration guides the task; it does not stop the run at that time. The separate advanced maximum-runtime safeguard is off by default. Deep-research length defaults depend on the report language: a target of 10,000 characters and a cap of 12,000 for Chinese; a target of 6,500 words and a cap of 8,000 for English. These targets and caps are not guaranteed output ranges; explicit length settings take precedence.",
       "Set simultaneous reports in settings: the default is 4, with a range of 1–16. Scout concurrency is separate. A dedicated waiting page shows pending generation, while the version selector lets you open saved drafts. Queue time and execution time are shown separately."
     ],
     "阶段和数量来自已记录的执行与产物，不显示估算完成百分比。搜索失败会保留记录，并且消耗搜索尝试额度。",
