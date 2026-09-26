@@ -1,7 +1,7 @@
 /* Enable an asset only after native acceptance and publication of its exact URL. */
 (function () {
   'use strict';
-  const release = {"version": "0.24.0", "mac": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.24.0/BriefLoop-0.24.0-arm64.dmg", "architecture": "arm64"}, "windows": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.23.1/BriefLoop-Setup-0.23.1-x64.exe", "architecture": "x64"}};
+  const release = {"version": "0.25.0", "mac": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.25.0/BriefLoop-0.25.0-arm64.dmg", "architecture": "arm64"}, "windows": {"ready": true, "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.23.1/BriefLoop-Setup-0.23.1-x64.exe", "architecture": "x64"}};
   function detectPlatform(nav) {
     const ua = nav.userAgent || '';
     const platform = nav.userAgentData?.platform || nav.platform || '';
@@ -44,7 +44,7 @@
       if (asset?.ready && asset.url) {
         link.href = asset.url;
         link.removeAttribute('aria-disabled');
-        link.textContent = en ? `Download ${key === 'mac' ? 'DMG · Apple silicon' : 'EXE · x64'}` : `下载 ${key === 'mac' ? 'DMG · Apple 芯片' : 'EXE · x64'}`;
+        link.textContent = en ? `Download ${key === 'mac' ? 'DMG' : 'EXE'}` : `下载 ${key === 'mac' ? 'DMG' : 'EXE'}`;
         link.classList.add('available');
       }
     }

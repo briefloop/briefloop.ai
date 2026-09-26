@@ -51,14 +51,14 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--fg);font:var(--bl-body)/var(--bl-leading) var(--bl-sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
 a{color:var(--accent-2);text-decoration:none}
 a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 h1,h2,h3,h4,p{margin:0}
 h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
 img,svg,picture{display:block;max-width:100%}
-.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.wrap{max-width:var(--bl-page);margin:0 auto;padding:0 var(--bl-gutter)}
 section{scroll-margin-top:88px}
 
 /* ---------- nav ---------- */
@@ -74,14 +74,14 @@ section{scroll-margin-top:88px}
 .menu-toggle{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 10px;color:var(--fg);cursor:pointer}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);height:44px;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--bl-sans);height:44px;white-space:nowrap;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
 .btn:hover{text-decoration:none}
 .btn-primary{background:var(--accent-2);color:#ffffff;border-color:var(--accent-2)}
 .btn-primary:hover{background:var(--accent-hover);color:#ffffff;box-shadow:0 6px 18px -6px color-mix(in srgb,#006838 45%,transparent);transform:translateY(-1px)}
 .btn-primary:active{transform:translateY(0);box-shadow:none}
 .btn-ghost{background:transparent;color:var(--fg);border-color:var(--border)}
 .btn-ghost:hover{background:var(--surface);color:var(--fg);border-color:var(--muted)}
-.btn-sm{height:36px;padding:0 14px;font-size:14px}
+.btn-sm{height:44px;padding:0 16px;font-size:15px}
 .btn-lg{height:52px;padding:0 26px;font-size:16.5px}
 
 /* ---------- shared ---------- */
@@ -92,19 +92,19 @@ section{scroll-margin-top:88px}
 .sub{color:var(--text-2);font-size:17px;max-width:64ch}
 .sec-head{max-width:680px;margin-bottom:clamp(32px,4vw,48px)}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--surface)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 26px 28px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--bl-lg)}
 .card.soft{background:var(--bg)}
 .ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);flex:none}
 .ico svg{width:20px;height:20px}
 
 /* ---------- hero ---------- */
-.hero{padding:clamp(56px,8vw,96px) 0 0;text-align:center}
-.hero h1{font-size:clamp(40px,7vw,68px);letter-spacing:-.035em;line-height:1.06;margin:22px auto 20px;max-width:12em;text-wrap:balance}
+.hero{padding:var(--bl-section) 0 0;text-align:center}
+.hero h1{font-size:var(--bl-display);font-weight:650;letter-spacing:-.03em;line-height:1.2;margin:24px auto;max-width:18em;overflow-wrap:anywhere;min-width:0;text-wrap:balance}
 .lead{font-size:clamp(17px,1.6vw,19.5px);line-height:1.75;color:var(--text-2);max-width:60ch;margin:0 auto}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:32px 0 0}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 0}
 .chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
-.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
+.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:var(--bl-panel);overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
 .shot .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
 .shot .dot{width:10px;height:10px;border-radius:50%;background:var(--border);display:block}
 .shot .dot:nth-child(2){background:color-mix(in srgb,#1e2320 22%,#faf9f6)}
@@ -260,17 +260,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .shot-desktop{display:none}
   .report-excerpt{display:block}
 }
-/* ---------- wide desktop: spend the width instead of leaving it blank ---------- */
-@media (min-width:1440px){
-  .wrap{max-width:1280px}
-  .shot{max-width:1160px}
-}
-@media (min-width:1800px){
-  .wrap{max-width:1420px}
-  .shot{max-width:1300px}
-}
 </style>
-<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript><link rel="stylesheet" href="architecture-section.css">
+<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript><link rel="stylesheet" href="architecture-section.css"><link rel="stylesheet" href="site-header.css">
 </head>
 <body id="top">
 
@@ -298,7 +289,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
     <div class="wrap">
       <span class="eyebrow" data-od-id="hero-eyebrow">
         <img src="assets/briefloop-mark.svg" alt="" style="width:14px;height:14px">
-        本地 · 开源（MIT）· <span data-release-version>v0.24.0</span>
+        本地 · 开源（MIT）· <span data-release-version>v0.25.0</span>
       </span>
       <h1 data-od-id="hero-title">把分散的材料，<br>做成有据可查的严肃报告。</h1>
       <p class="lead">本地运行的 AI 报告工作台。帮你查资料、写初稿、核对每条结论的出处，并将你的修改变成下次运行的经验。</p>
@@ -415,7 +406,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <h2 class="h2">够用，而且每一步都透明。</h2>
         <p class="sub">从聊天到正式交付，同一套工作台里完成；公开工具与子 Agent 的活动始终可见。</p>
       </div>
-      <div class="grid-features"><div class="card feat"><h3>找资料</h3><p>上传原件、搜索公开资料，使用明确授权的连接器材料；保留来源与日期。</p><p><a href="docs/faq-data.html">材料与数据去向</a></p></div><div class="card feat"><h3>写和改</h3><p>把正文、表格与引用保存在可编辑稿件中，保留修订版本，并导出 Word。</p><p><a href="docs/write-edit.html">编辑与导出步骤</a></p></div><div class="card feat"><h3>核查与复用</h3><p>查看问题与来源支持范围，把反馈整理为候选经验，核对采用或回退结果。</p><p><a href="docs/feedback-learning.html">反馈与下一次报告</a></p></div></div>
+      <div class="grid-features"><div class="card feat"><h3>找资料</h3><p>上传原件、搜索公开资料，使用明确授权的连接器材料；保留来源与日期。</p><p><a href="docs/faq-data.html">材料与数据去向</a></p></div><div class="card feat"><h3>写和改</h3><p>把正文、表格与引用保存在可编辑稿件中，保留修订版本，导出 Word、PDF、HTML 或 Excel。</p><p><a href="docs/write-edit.html">编辑与导出步骤</a></p></div><div class="card feat"><h3>核查与复用</h3><p>查看问题与来源支持范围，把反馈整理为候选经验，核对采用或回退结果。</p><p><a href="docs/feedback-learning.html">反馈与下一次报告</a></p></div></div>
 
       <figure class="shot shot-desktop feat-shot" data-od-id="feature-shot-doc">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 报告正文</span></div>
@@ -496,7 +487,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>BriefLoop 0.24.0 · MIT</span>
+      <span>BriefLoop 0.25.0 · MIT</span>
       <span>与材料一起思考</span>
     </div>
   </div>
