@@ -44,7 +44,7 @@
       if (asset?.ready && asset.url) {
         link.href = asset.url;
         link.removeAttribute('aria-disabled');
-        link.textContent = en ? `Download ${key === 'mac' ? 'DMG · Apple silicon' : 'EXE · x64'}` : `下载 ${key === 'mac' ? 'DMG · Apple 芯片' : 'EXE · x64'}`;
+        link.textContent = en ? `Download ${key === 'mac' ? 'DMG' : 'EXE'}` : `下载 ${key === 'mac' ? 'DMG' : 'EXE'}`;
         link.classList.add('available');
       }
     }

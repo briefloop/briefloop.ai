@@ -51,14 +51,14 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--fg);font:var(--bl-body)/var(--bl-leading) var(--bl-sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
 a{color:var(--accent-2);text-decoration:none}
 a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 h1,h2,h3,h4,p{margin:0}
 h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
 img,svg,picture{display:block;max-width:100%}
-.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.wrap{max-width:var(--bl-page);margin:0 auto;padding:0 var(--bl-gutter)}
 section{scroll-margin-top:88px}
 
 /* ---------- nav ---------- */
@@ -74,14 +74,14 @@ section{scroll-margin-top:88px}
 .menu-toggle{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 10px;color:var(--fg);cursor:pointer}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--sans);height:44px;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--bl-sans);height:44px;white-space:nowrap;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
 .btn:hover{text-decoration:none}
 .btn-primary{background:var(--accent-2);color:#ffffff;border-color:var(--accent-2)}
 .btn-primary:hover{background:var(--accent-hover);color:#ffffff;box-shadow:0 6px 18px -6px color-mix(in srgb,#006838 45%,transparent);transform:translateY(-1px)}
 .btn-primary:active{transform:translateY(0);box-shadow:none}
 .btn-ghost{background:transparent;color:var(--fg);border-color:var(--border)}
 .btn-ghost:hover{background:var(--surface);color:var(--fg);border-color:var(--muted)}
-.btn-sm{height:36px;padding:0 14px;font-size:14px}
+.btn-sm{height:44px;padding:0 16px;font-size:15px}
 .btn-lg{height:52px;padding:0 26px;font-size:16.5px}
 
 /* ---------- shared ---------- */
@@ -92,19 +92,19 @@ section{scroll-margin-top:88px}
 .sub{color:var(--text-2);font-size:17px;max-width:64ch}
 .sec-head{max-width:680px;margin-bottom:clamp(32px,4vw,48px)}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--surface)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 26px 28px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--bl-lg)}
 .card.soft{background:var(--bg)}
 .ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);flex:none}
 .ico svg{width:20px;height:20px}
 
 /* ---------- hero ---------- */
-.hero{padding:clamp(56px,8vw,96px) 0 0;text-align:center}
-.hero h1{font-size:clamp(40px,7vw,68px);letter-spacing:-.035em;line-height:1.06;margin:22px auto 20px;max-width:12em;text-wrap:balance}
+.hero{padding:var(--bl-section) 0 0;text-align:center}
+.hero h1{font-size:var(--bl-display);font-weight:650;letter-spacing:-.03em;line-height:1.2;margin:24px auto;max-width:18em;overflow-wrap:anywhere;min-width:0;text-wrap:balance}
 .lead{font-size:clamp(17px,1.6vw,19.5px);line-height:1.75;color:var(--text-2);max-width:60ch;margin:0 auto}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:32px 0 0}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 0}
 .chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
-.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
+.shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:var(--bl-panel);overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
 .shot .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
 .shot .dot{width:10px;height:10px;border-radius:50%;background:var(--border);display:block}
 .shot .dot:nth-child(2){background:color-mix(in srgb,#1e2320 22%,#faf9f6)}
@@ -270,17 +270,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
   .nav-links a:last-child{border-bottom:0}
   .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
 }
-/* ---------- wide desktop: spend the width instead of leaving it blank ---------- */
-@media (min-width:1440px){
-  .wrap{max-width:1280px}
-  .shot{max-width:1160px}
-}
-@media (min-width:1800px){
-  .wrap{max-width:1420px}
-  .shot{max-width:1300px}
-}
 </style>
-<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript><link rel="stylesheet" href="architecture-section.css">
+<noscript><style>.menu-toggle{display:none!important}.nav-links{display:flex!important;flex-wrap:wrap;position:static!important}</style></noscript><link rel="stylesheet" href="architecture-section.css"><link rel="stylesheet" href="site-header.css">
 </head>
 <body id="top">
 
@@ -425,7 +416,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <h2 class="h2">Enough, and transparent at every step.</h2>
         <p class="sub">From chat to final delivery inside one workbench; the activity of public tools and sub-agents stays visible throughout.</p>
       </div>
-      <div class="grid-features"><div class="card feat"><h3>Find sources</h3><p>Upload original files, search public information and use explicitly authorized connector materials.</p><p><a href="docs/faq-data.en.html">Sources and data</a></p></div><div class="card feat"><h3>Write and revise</h3><p>Keep text, tables and citations in an editable draft. Save revisions and export to Word.</p><p><a href="docs/write-edit.en.html">Editing and export</a></p></div><div class="card feat"><h3>Check and reuse</h3><p>Inspect review findings and source scope. Turn feedback into candidate experience and check adoption or rollback.</p><p><a href="docs/feedback-learning.en.html">Review and feedback</a></p></div></div>
+      <div class="grid-features"><div class="card feat"><h3>Find sources</h3><p>Upload original files, search public information and use explicitly authorized connector materials.</p><p><a href="docs/faq-data.en.html">Sources and data</a></p></div><div class="card feat"><h3>Write and revise</h3><p>Keep text, tables and citations in an editable draft. Save revisions and export to Word, PDF, HTML or Excel.</p><p><a href="docs/write-edit.en.html">Editing and export</a></p></div><div class="card feat"><h3>Check and reuse</h3><p>Inspect review findings and source scope. Turn feedback into candidate experience and check adoption or rollback.</p><p><a href="docs/feedback-learning.en.html">Review and feedback</a></p></div></div>
 
       <figure class="shot shot-desktop feat-shot" data-od-id="feature-shot-doc">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · report body</span></div>

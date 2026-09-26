@@ -58,15 +58,15 @@
     "知道谁执行任务、谁接收内容、谁计费。",
     "Understand execution, data recipients and billing.",
     [
-      "宿主是本机执行工具，模型是它连接的生成服务。先在宿主中完成登录或 API 配置，再在 BriefLoop 设置中选择。",
-      "使用宿主实际支持的模型 ID。保存配置不等于连接测试成功；用一小段公开文字进行首次对话验证。",
+      "在设置中选择 BriefLoop Agent 或 Agent CLI。内置 Agent 直接配置模型服务；使用 CLI 时，先在对应工具中完成登录或 API 配置。模型用量由所选服务账户承担。",
+      "使用当前执行工具实际支持的模型和推理档位。0.25.0 支持 OpenCode 1.x 与 2.x；v2 的 Provider 配置在 OpenCode 中完成。保存配置不等于连接成功，用一小段公开文字验证。",
       "主链、Evaluator、Wiki Maintainer 与 Skill Proposer 可分别指定模型。留空继承主链时，学习和评价同样可能调用模型。",
       "为报告设置检索量、篇幅和执行时限。这些控制不等同于完整费用上限，宿主自带搜索的计量能力也不同。",
       "在模型与搜索提供方后台核对实际额度及账单。BriefLoop 不提供这些服务的订阅或模型额度。"
     ],
     [
-      "A runtime is the local execution tool; a model is the generation service it connects to. Authenticate or configure its API first, then select it in BriefLoop.",
-      "Use a model ID supported by that runtime. Saving settings is not a successful connection test; validate with a short public-text conversation.",
+      "Choose BriefLoop Agent or Agent CLI in settings. Configure a model service directly for the built-in agent; for a CLI, sign in or configure its API in that tool first. Usage is charged to the selected service account.",
+      "Use a model and reasoning option that the current runtime supports. Version 0.25.0 supports OpenCode 1.x and 2.x; configure v2 providers in OpenCode. Saving settings is not a successful connection test: verify with a short public-text conversation.",
       "The main agent, Evaluator, Wiki Maintainer and Skill Proposer can use separate models. Evaluation and learning may also consume model usage.",
       "Set research limits, length and execution time. These are not a complete monetary cap; metering of runtime-native search varies.",
       "Check actual quotas and bills with the model and search providers. BriefLoop does not supply their subscriptions or model credits."
@@ -80,15 +80,15 @@
     "search-progress",
     "搜索与任务进度",
     "Search and task progress",
-    "0.22.2：选择搜索渠道，明确报告期间，跟踪实际进展。",
-    "0.22.2: choose search channels, fix the reporting period and follow actual progress.",
+    "选择搜索渠道，明确报告期间，跟踪实际进展。",
+    "Choose search channels, fix the reporting period and follow actual progress.",
     [
       "在“设置 → 运行与搜索”选择首选和允许的补充渠道。新工作区默认 Tavily 优先，并允许宿主自带搜索补充；博查和智谱需主动启用并配置 Key。",
       "选择“检查跨市场覆盖并补缺”“仅在发现缺口时补查”或“只用首选”。Tavily、博查和智谱使用各自账户；没有搜索 Key 时，可选 DuckDuckGo 或宿主已有能力。",
       "新建报告时检查截至日期、时间范围和时区。开始后保留本轮搜索策略与时间窗口；改设置影响新任务。定时报告每期重新计算相对时间。",
       "在“我的报告”查看当前阶段、实际耗时、成功与失败搜索、已保存材料、研究轮次及审阅和修订进展。已有稿件可先打开；需要停止或恢复时沿用原任务。",
       "在“研究预算 → 查看搜索记录”查看渠道、用途、耗时和错误；在“数据源”按发现渠道筛选材料。",
-      "0.22.2 在首页和新建报告中提供紧凑的研究深度、事实核查与 WikiSkill 选项。默认执行上限为 60 分钟；深度研究默认目标 10,000 字、上限 12,000 字，明确填写的篇幅优先。",
+      "新建报告时选择研究深度、事实核查和自动学习。目标用时用于安排任务，不会在到点后自动中断；高级“最长运行保护”另行控制，默认关闭。深度研究的默认篇幅按报告语言设置：中文目标 10,000 字、上限 12,000 字；英文目标 6,500 词、上限 8,000 词。目标与上限不是保证输出的篇幅范围，明确填写的篇幅优先。",
       "在设置中调整“同时生成报告数”：默认 4，可选 1–16。Scout 并发单独设置。生成中可查看独立等待页，也可通过版本选择器切换已保存稿件；排队等待与执行时间分别显示。"
     ],
     [
@@ -97,7 +97,7 @@
       "Check the cutoff, date range and time zone before starting. The run retains its search policy and time window; later settings apply to new tasks. Scheduled reports recalculate relative dates for each run.",
       "In My reports, follow the current stage, elapsed time, successful and failed searches, saved sources, research rounds, review and revisions. Open saved drafts early; stop or resume the original task when needed.",
       "Open Research budget → Search records for channels, purpose, duration and errors. Filter sources by their discovery channel.",
-      "Version 0.22.2 adds compact research-depth, fact-checking and WikiSkill options on the home and new-report screens. The default execution limit is 60 minutes. Deep research defaults to a 10,000-character target and 12,000-character cap; explicit length settings take precedence.",
+      "Choose research depth, fact-checking and automatic learning when creating a report. Target duration guides the task; it does not stop the run at that time. The separate advanced maximum-runtime safeguard is off by default. Deep-research length defaults depend on the report language: a target of 10,000 characters and a cap of 12,000 for Chinese; a target of 6,500 words and a cap of 8,000 for English. These targets and caps are not guaranteed output ranges; explicit length settings take precedence.",
       "Set simultaneous reports in settings: the default is 4, with a range of 1–16. Scout concurrency is separate. A dedicated waiting page shows pending generation, while the version selector lets you open saved drafts. Queue time and execution time are shown separately."
     ],
     "阶段和数量来自已记录的执行与产物，不显示估算完成百分比。搜索失败会保留记录，并且消耗搜索尝试额度。",
@@ -112,18 +112,18 @@
     "从材料、要求到可持续修改的正文。",
     "Move from sources and requirements to an editable draft.",
     [
-      "新建报告，明确读者、用途与必答问题。0.22.1 会预览并冻结报告截至日期、时间范围和时区；开始前可修改，历史材料仍按各自期间使用。",
+      "新建报告，明确读者、用途与必答问题，并确认报告语言。0.25.0 支持英文报告；开始前核对并冻结截至日期、时间范围和时区，历史材料仍按各自期间使用。",
       "加入原始材料；搜索摘要仅作为发现线索。核对来源的日期、主体和口径。",
       "生成后先阅读结论与表格，再检查关键引用。低分或审阅未通过的工作稿仍可查看和下载。",
       "在正文编辑后保存，或把具体修改要求发给 BriefLoop。保留原稿，确认修改形成新版本。",
-      "保存后生成 Word。导出固定点击时的已保存版本，之后的修改需要再次导出。"
+      "保存后下载 Word，或从导出菜单选择 HTML、PDF。0.25.0 新增 Excel 导出，可按表分工作表或整份报告单表导出；基础导出无需 OfficeCLI。导出固定点击时的已保存版本，之后的修改需要再次导出。"
     ],
     [
-      "Create a report with its audience, purpose and required questions. Version 0.22.1 previews and freezes the cutoff, date range and time zone; adjust them before starting and keep historical sources tied to their own periods.",
+      "Create a report with its audience, purpose, required questions and language. Version 0.25.0 supports English reports. Check and freeze the cutoff, date range and time zone before starting; keep historical sources tied to their own periods.",
       "Add original sources; use search snippets only as discovery leads. Check dates, entities and definitions.",
       "Read conclusions and tables, then inspect key citations. Working drafts remain visible and downloadable even with low scores or unresolved review issues.",
       "Edit and save the body, or give BriefLoop specific revision instructions. Preserve the original and confirm that changes create a new version.",
-      "Generate Word after saving. Export uses the saved version fixed when requested; later edits require another export."
+      "After saving, download Word or select HTML or PDF from the export menu. Version 0.25.0 adds Excel, with one worksheet per table or the full report on one sheet; basic export needs no OfficeCLI. Export uses the saved version fixed when requested; later edits require another export."
     ],
     "正文、版本记录与导出的内容应对应。网页用于编辑，最终分页在 Word/WPS 中核对。",
     "The body, version history and exported content should correspond. Edit in the browser and check final pagination in Word or WPS.",
@@ -140,15 +140,15 @@
       "点击正文引用，查看来源标题、日期和摘录，并在必要时打开原件核对。",
       "对重要数字核对主体、期间、单位、分母和计算。来源有冲突时保留差异，不把二手摘要当作解决依据。",
       "读取当前版本的评分及具体问题；旧稿评分不能自动用于改写后的稿件。",
-      "如所用版本提供独立审阅，查看其实际范围与未核验项目。宿主缺少只读隔离能力时，不能只凭提示词声称隔离成立。",
-      "把问题交回 BriefLoop 修订或人工修正并保存，再对新版本核查。普通工作稿下载与正式交付资格分开。"
+      "0.25.0 可在设置中选择普通或严格审阅。普通模式在独立只读会话中核对稿件、来源与任务历史，支持 Codex、OpenCode 和 BriefLoop Agent；严格模式目前使用 BriefLoop Agent 强制限定核查材料包及可用工具。选择严格模式时，不支持的后端不会自动降级。查看本次实际模式与未核验项目；历史未记录模式的审阅不标为严格。",
+      "两种模式使用相同的事实与证据标准。把问题交回 BriefLoop 修订或人工修正并保存，再对新版本核查。普通工作稿下载与正式交付资格分开。"
     ],
     [
       "Open citations to inspect the source title, date and excerpt, and consult originals where needed.",
       "For important figures, check entity, period, units, denominators and calculations. Preserve source conflicts rather than resolving them with a secondary summary.",
       "Read scores and specific findings for the current version; an old score does not automatically apply to a rewritten draft.",
-      "If your version supports independent review, inspect its actual scope and unchecked items. A prompt alone cannot provide read-only isolation when the runtime lacks it.",
-      "Ask BriefLoop to revise findings, or edit and save yourself, then check the new version. Downloading a working draft is separate from eligibility for formal delivery."
+      "Version 0.25.0 offers standard or strict review in settings. Standard review checks the draft, sources and task history in an independent read-only session using Codex, OpenCode or BriefLoop Agent. Strict review currently uses BriefLoop Agent to enforce packet and tool limits; unsupported runtimes cannot silently downgrade it. Inspect the actual mode and unchecked items. Historical reviews with no recorded mode are not labeled strict.",
+      "Both modes use the same factual and evidence standards. Ask BriefLoop to revise findings, or edit and save yourself, then check the new version. Downloading a working draft is separate from eligibility for formal delivery."
     ],
     "每个已处理问题应能在新版本中定位到修改，核查范围与未决问题仍清楚可见。来源链接或关联记录本身不是事实证明。",
     "Each resolved issue should correspond to a change in the new version, with review scope and unresolved issues visible. A source link or binding alone is not factual proof.",
@@ -162,14 +162,14 @@
     "分别管理内容方法、版式和图表数据。",
     "Manage writing methods, layout and chart data separately.",
     [
-      "先写清报告用途和内容要求，再选择可用的 Word 版式。版式名称不证明对应领域已有专门研究流程。",
+      "先写清报告用途、语言和内容要求，再选择可用的 Word 版式。0.25.0 新增 10 套英文版式。版式名称不证明对应领域已有专门研究流程。",
       "需要企业模板时上传 DOCX，检查识别出的章节与待填写项；支持范围以当前安装版本为准。",
       "编辑表格后核对单位、行列和汇总关系。图表应保留来源与数据期间。",
       "让 BriefLoop 修改复杂图表时，要求核对关联数据；不要只按图片外观确认数值正确。",
       "保存后导出并在 Word/WPS 中查看字体、分页、表格宽度和图注。"
     ],
     [
-      "Specify the report purpose and content before choosing a Word layout. A template name does not establish a specialized research workflow.",
+      "Specify the report purpose, language and content before choosing a Word layout. Version 0.25.0 adds 10 English layouts. A template name does not establish a specialized research workflow.",
       "Upload a DOCX for a company template and inspect recognized sections and manual fields. Supported layouts depend on the installed version.",
       "After table edits, check units, rows, columns and totals. Charts should retain sources and data periods.",
       "When asking BriefLoop to change complex charts, request checks against linked data; appearance alone does not verify values.",
