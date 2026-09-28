@@ -6,7 +6,7 @@ root=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(root/'scripts'))
 import site_header
 data=json.loads((root/'content/releases.json').read_text())
-values={'desktop_version':data['desktop_version'],'pypi_version':data['pypi_version'], 'release_catalog':json.dumps({'version':data['desktop_version'],**{key:{field:asset[field] for field in ('ready','url','architecture')} for key,asset in data['assets'].items()}},ensure_ascii=False)}
+values={'desktop_version':data['desktop_version'],'pypi_version':data['pypi_version'], 'release_url':data['release_url'], 'release_catalog':json.dumps({'version':data['desktop_version'],**{key:{field:asset[field] for field in ('ready','url','architecture')} for key,asset in data['assets'].items()}},ensure_ascii=False)}
 values.update(site_header_head=site_header.head(),site_header_script=site_header.script(),
  downloads_header=site_header.header(False,'downloads.en.html',current='download'),
  downloads_header_en=site_header.header(True,'downloads.html',current='download'))
