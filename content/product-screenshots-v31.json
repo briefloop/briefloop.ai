@@ -1,0 +1,20 @@
+{
+  "screenshots": [
+    {
+      "path": "assets/product-v31-citation-card-20261001.jpg",
+      "sha256": "f708062eaa893f046e71207258ff845df672939c7e9232d13bcec9cfe9244c32",
+      "product_commit": "cd53320ed4b5285f7cc4417716df530b90ab3461",
+      "captured": "2026-10-01",
+      "fixture": "software-provided synthetic weekly report; no model call; not independently reviewed",
+      "status": "v3.1 prerelease UI"
+    },
+    {
+      "path": "assets/product-v31-report-exports-20261001.jpg",
+      "sha256": "7f4e3c13ecefb67f6212d440f2db28fbcd59da3abe4b0e215b760ddbfd108618",
+      "product_commit": "cd53320ed4b5285f7cc4417716df530b90ab3461",
+      "captured": "2026-10-01",
+      "fixture": "software-provided synthetic weekly report; no model call; not independently reviewed",
+      "status": "v3.1 prerelease UI"
+    }
+  ]
+}
