@@ -1,6 +1,6 @@
 # Public site build
 
-Run `python3 scripts/build-site.py`, then `python3 scripts/check-site.py` and `node --test tests/downloads.test.cjs` from the repository root. No network or third-party Python package is required.
+Run `python3 scripts/build-site.py`, then `python3 scripts/check-site.py`, `python3 scripts/check-design.py` and `node --test tests/downloads.test.cjs` from the repository root. No network or third-party Python package is required.
 
 - Edit home/download markup in `content/templates/`; root HTML and `downloads.js` are generated static files with functional no-JavaScript download links.
 - Pages other than the home page take their header from `scripts/site_header.py` (download, guide and saved-sample builds) with `site-header.css`/`site-header.js`. It mirrors the home navigation; change both together.
@@ -17,3 +17,9 @@ Technical report v3 publishes only the nine reviewed public files from the main-
 Screenshot WebP copies come from `scripts/build-images.py` (optional; requires Pillow). Pages serve them through `<picture>` with the saved PNG/JPEG as fallback; rerun it after replacing a screenshot and keep the original file at its URL.
 
 Saved sample pages use `scripts/render-sample.py INPUT --slug SLUG` with markdown-it-py 4.2.0. This optional renderer copies the original Markdown/Word bytes and requires generation/review metadata; it does not author report prose.
+
+## Design v3.1
+
+`design-tokens.css` and both logo assets are copied without modification from the product source commit in `content/design-source.json`. Keep the source record and file hashes in sync when intentionally upgrading that source; `scripts/check-design.py` checks identity, CSS token references/cycles, and component colors. Website-only reading scale remains in `site-tokens.css`.
+
+This static repository serves the existing `briefloop.ai` GitHub Pages site. No deployment workflow is checked in; confirm the repository Pages settings before an authorized production publication. Pushing a candidate branch or building locally is not a deployment. Do not change `CNAME` or release metadata as part of design work.
