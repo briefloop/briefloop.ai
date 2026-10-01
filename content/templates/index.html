@@ -11,7 +11,7 @@
 <link rel="alternate" hreflang="en" href="https://briefloop.ai/en.html">
 <link rel="alternate" hreflang="x-default" href="https://briefloop.ai/">
 <link rel="canonical" href="https://briefloop.ai/">
-<meta name="theme-color" content="#faf9f6">
+<meta name="theme-color" content="#F7F8FA">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BriefLoop">
 <meta property="og:locale" content="zh_CN">
@@ -19,36 +19,13 @@
 <meta property="og:url" content="https://briefloop.ai/">
 <meta property="og:title" content="BriefLoop · 与材料一起思考 — 本地 Agent 工作台">
 <meta property="og:description" content="BriefLoop 是一个跑在你本机上的 Agent 工作台：围绕问题找来源、写出可编辑的报告、独立评分，并把每条重要结论绑定回它来自的那一行原文。">
-<meta property="og:image" content="https://briefloop.ai/assets/workbench-home-20260914.png">
-<meta property="og:image:width" content="2640">
-<meta property="og:image:height" content="1800">
-<meta property="og:image:alt" content="BriefLoop 最新桌面首页：对话输入、权限管理、报告快捷入口与最近报告">
+<meta property="og:image" content="https://briefloop.ai/assets/product-v31-citation-card-20261001.jpg">
+<meta property="og:image:width" content="1510">
+<meta property="og:image:height" content="938">
+<meta property="og:image:alt" content="BriefLoop v3.1 预发行报告编辑界面、来源卡与涨跌配色（合成示例）">
 <meta name="twitter:card" content="summary_large_image">
 <style>
-:root{
-  --bg:#faf9f6;
-  --surface:#ffffff;
-  --fg:#1e2320;
-  --muted:#6a706b;
-  --border:#dedfd8;
-  --accent:#006838;
-  --accent-2:#006838;
-  --accent-hover:oklch(0.38 0.1136 154.4);
-  --accent-light:color-mix(in srgb,#006838 55%,#faf9f6);
-  --text-2:#5a615b;
-  --text-3:#6a706b;
-  --accent-soft:color-mix(in srgb,#006838 7%,#ffffff);
-  --accent-line:color-mix(in srgb,#006838 22%,#ffffff);
-  --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
-  --r-xs:4px;
-  --r-sm:6px;
-  --r:8px;
-  --r-lg:12px;
-  --shadow-sm:0 1px 2px color-mix(in srgb,#1e2320 5%,transparent);
-  --shadow:0 1px 2px color-mix(in srgb,#1e2320 4%,transparent),0 12px 32px color-mix(in srgb,#1e2320 6%,transparent);
-  --shadow-lg:0 32px 80px -28px color-mix(in srgb,#1e2320 16%,transparent);
-}
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:var(--bl-body)/var(--bl-leading) var(--bl-sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
@@ -56,13 +33,14 @@ a{color:var(--accent-2);text-decoration:none}
 a:hover{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 h1,h2,h3,h4,p{margin:0}
-h1,h2,h3,h4{font-weight:640;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
+.hero-phrase{white-space:nowrap}
+h1,h2,h3,h4{font-weight:var(--fw-semibold);letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
 img,svg,picture{display:block;max-width:100%}
 .wrap{max-width:var(--bl-page);margin:0 auto;padding:0 var(--bl-gutter)}
 section{scroll-margin-top:88px}
 
 /* ---------- nav ---------- */
-.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,#faf9f6 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav{position:sticky;top:0;z-index:var(--z-sticky);background:color-mix(in srgb,var(--color-bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav-inner{display:flex;align-items:center;gap:24px;height:64px}
 .brand{display:inline-flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:18px;letter-spacing:-.02em;flex:none}
 .brand:hover{color:var(--fg);text-decoration:none}
@@ -76,10 +54,10 @@ section{scroll-margin-top:88px}
 /* ---------- buttons ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--bl-sans);height:44px;white-space:nowrap;padding:0 20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
 .btn:hover{text-decoration:none}
-.btn-primary{background:var(--accent-2);color:#ffffff;border-color:var(--accent-2)}
-.btn-primary:hover{background:var(--accent-hover);color:#ffffff;box-shadow:0 6px 18px -6px color-mix(in srgb,#006838 45%,transparent);transform:translateY(-1px)}
-.btn-primary:active{transform:translateY(0);box-shadow:none}
-.btn-ghost{background:transparent;color:var(--fg);border-color:var(--border)}
+.btn-primary{background:var(--accent-2);color:var(--color-surface);border-color:var(--accent-2)}
+.btn-primary:hover{background:var(--color-primary-hover);color:var(--color-on-primary);border-color:var(--color-primary-hover)}
+.btn-primary:active,.btn-invert:active{background:var(--color-primary-active);border-color:var(--color-primary-active)}
+.btn-ghost{background:transparent;color:var(--fg);border-color:var(--color-border-strong)}
 .btn-ghost:hover{background:var(--surface);color:var(--fg);border-color:var(--muted)}
 .btn-sm{height:44px;padding:0 16px;font-size:15px}
 .btn-lg{height:52px;padding:0 26px;font-size:16.5px}
@@ -91,39 +69,39 @@ section{scroll-margin-top:88px}
 .h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:12px;text-wrap:balance}
 .sub{color:var(--text-2);font-size:17px;max-width:64ch}
 .sec-head{max-width:680px;margin-bottom:clamp(32px,4vw,48px)}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--surface)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:var(--radius);padding:6px 14px;background:var(--surface)}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--bl-lg)}
 .card.soft{background:var(--bg)}
-.ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);flex:none}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:var(--radius);background:var(--color-surface-soft);color:var(--color-text-secondary);flex:none}
 .ico svg{width:20px;height:20px}
 
 /* ---------- hero ---------- */
 .hero{padding:var(--bl-section) 0 0;text-align:center}
-.hero h1{font-size:var(--bl-display);font-weight:650;letter-spacing:-.03em;line-height:1.2;margin:24px auto;max-width:18em;overflow-wrap:anywhere;min-width:0;text-wrap:balance}
+.hero h1{font-size:var(--bl-display);font-weight:var(--fw-semibold);letter-spacing:-.03em;line-height:1.2;margin:24px auto;max-width:18em;overflow-wrap:anywhere;min-width:0;text-wrap:balance}
 .lead{font-size:clamp(17px,1.6vw,19.5px);line-height:1.75;color:var(--text-2);max-width:60ch;margin:0 auto}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:32px 0 0}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 0}
-.chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
+.chip{font-size:13px;color:var(--text-2);border:1px solid var(--border);border-radius:var(--radius);padding:5px 13px;background:var(--surface)}
 .shot{margin:clamp(40px,6vw,64px) auto 0;max-width:1000px;border:1px solid var(--border);border-radius:var(--bl-panel);overflow:hidden;background:var(--surface);box-shadow:var(--shadow-lg)}
 .shot .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
 .shot .dot{width:10px;height:10px;border-radius:50%;background:var(--border);display:block}
-.shot .dot:nth-child(2){background:color-mix(in srgb,#1e2320 22%,#faf9f6)}
-.shot .dot:nth-child(3){background:color-mix(in srgb,#1e2320 34%,#faf9f6)}
-.shot .url{flex:1;max-width:360px;margin-left:10px;height:24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:11.5px;color:var(--text-3);overflow:hidden;white-space:nowrap}
+.shot .dot:nth-child(2){background:color-mix(in srgb,var(--color-text) 22%,var(--color-bg))}
+.shot .dot:nth-child(3){background:color-mix(in srgb,var(--color-text) 34%,var(--color-bg))}
+.shot .url{flex:1;max-width:360px;margin-left:10px;height:24px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:var(--text-xs);color:var(--text-3);overflow:hidden;white-space:nowrap}
 .shot img{width:100%;height:auto}
 .shot figcaption{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-3)}
 /* Phones get the saved report as text, not desktop screenshots shrunk to thumbnails (DESIGN.md). */
 .report-excerpt{display:none}
 .excerpt-kicker{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--accent-2);margin:18px 18px 0}
 .report-excerpt blockquote{margin:0;padding:8px 18px 4px;font-size:15px;line-height:1.75}
-.excerpt-title{font-weight:640;font-size:17px;margin-bottom:8px}
+.excerpt-title{font-weight:var(--fw-semibold);font-size:17px;margin-bottom:8px}
 .report-excerpt table{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:13.5px;font-variant-numeric:tabular-nums}
 .report-excerpt caption{text-align:left;font-weight:600;padding-bottom:6px}
 .report-excerpt th,.report-excerpt td{padding:7px 4px;border-bottom:1px solid var(--border);text-align:right;font-weight:400}
 .report-excerpt th:first-child{text-align:left}
 .report-excerpt thead th{color:var(--text-3);font-size:12.5px}
 .excerpt-note{font-size:12.5px;color:var(--text-3)}
-.badge{font-size:12px;font-weight:600;color:var(--accent-2);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px;line-height:1.6;white-space:nowrap}
+.badge{font-size:12px;font-weight:600;color:var(--color-text-muted);background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:var(--radius);padding:2px 10px;line-height:1.6;white-space:nowrap}
 
 /* ---------- why ---------- */
 .why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -136,7 +114,7 @@ section{scroll-margin-top:88px}
 .step:hover{border-color:var(--muted);box-shadow:var(--shadow-sm)}
 .step[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft);box-shadow:var(--shadow-sm)}
 .step-num{font:700 13px/1 var(--mono);color:var(--accent-2);letter-spacing:.04em}
-.step-title{font-size:16px;font-weight:640;line-height:1.3}
+.step-title{font-size:16px;font-weight:var(--fw-semibold);line-height:1.3}
 .step-sub{color:var(--text-3);font-size:13px;line-height:1.5}
 .step-arrow{display:inline-flex;align-items:center;align-self:center;color:var(--muted)}
 .step-arrow svg{width:20px;height:20px}
@@ -145,7 +123,7 @@ section{scroll-margin-top:88px}
 .loopbar[aria-selected="true"]{border-color:var(--accent-2);background:var(--accent-soft)}
 .loopbar .ico{width:34px;height:34px;background:transparent;border:1px solid var(--accent-line)}
 .loopbar-text{display:flex;flex-direction:column;gap:2px;min-width:0}
-.loopbar .t{font-size:15px;font-weight:640}
+.loopbar .t{font-size:15px;font-weight:var(--fw-semibold)}
 .loopbar .s{font-size:12.5px;color:var(--text-3)}
 .panel{margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;box-shadow:var(--shadow-sm)}
 .panel-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -162,7 +140,7 @@ section{scroll-margin-top:88px}
 .trace li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--border)}
 .trace li:first-child{padding-top:0}
 .trace li:last-child{border-bottom:0;padding-bottom:0}
-.trace-key{font-weight:640;font-size:15px;color:var(--fg)}
+.trace-key{font-weight:var(--fw-semibold);font-size:15px;color:var(--fg)}
 .trace-val{color:var(--text-2);font-size:15px;line-height:1.75}
 .trace-val strong{color:var(--fg);font-weight:600}
 .trace-shot{margin:44px 0 0}
@@ -199,12 +177,12 @@ td .num{font-family:var(--mono);font-size:13.5px}
 .terminal{background:var(--fg);border-radius:var(--r-lg);padding:22px 24px 24px;box-shadow:var(--shadow)}
 .terminal .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .terminal .dot{display:flex;gap:6px}
-.terminal .dot i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,#faf9f6 24%,#1e2320);display:block}
+.terminal .dot i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,var(--color-bg) 24%,var(--color-text));display:block}
 .terminal pre{margin:0;overflow-x:auto}
-.terminal code{font:14px/1.9 var(--mono);color:#faf9f6;white-space:pre}
+.terminal code{font:14px/1.9 var(--mono);color:var(--color-bg);white-space:pre}
 .terminal code .p{color:var(--accent-light)}
-.copy-btn{background:color-mix(in srgb,#faf9f6 12%,#1e2320);border:1px solid color-mix(in srgb,#faf9f6 26%,#1e2320);color:#faf9f6;font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--r-sm);cursor:pointer;transition:background .15s ease}
-.copy-btn:hover{background:color-mix(in srgb,#faf9f6 20%,#1e2320);color:#faf9f6}
+.copy-btn{background:color-mix(in srgb,var(--color-bg) 12%,var(--color-text));border:1px solid color-mix(in srgb,var(--color-bg) 26%,var(--color-text));color:var(--color-bg);font:600 13px/1 var(--sans);padding:8px 13px;border-radius:var(--r-sm);cursor:pointer;transition:background .15s ease}
+.copy-btn:hover{background:color-mix(in srgb,var(--color-bg) 20%,var(--color-text));color:var(--color-bg)}
 .reqs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
 .reqs li{position:relative;padding-left:22px;color:var(--text-2);font-size:15px;line-height:1.7}
 .reqs li::before{content:"—";position:absolute;left:0;top:0;color:var(--accent-2)}
@@ -212,18 +190,18 @@ td .num{font-family:var(--mono);font-size:13.5px}
 .reqs .flags{display:block;font:13.5px/1.8 var(--mono);color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;margin-top:8px;overflow-x:auto;white-space:pre}
 
 /* ---------- final cta ---------- */
-.cta-band{background:var(--accent-2);border-radius:clamp(16px,2.4vw,24px);padding:clamp(48px,7vw,80px) clamp(24px,5vw,64px);text-align:center;position:relative;overflow:hidden}
-.cta-band .ring{position:absolute;border-radius:50%;border:1px solid color-mix(in srgb,#ffffff 26%,transparent)}
+.cta-band{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:clamp(48px,7vw,80px) clamp(24px,5vw,64px);text-align:center;position:relative;overflow:hidden}
+.cta-band .ring{display:none}
 .cta-band .ring.a{width:340px;height:340px;top:-140px;right:-100px}
 .cta-band .ring.b{width:260px;height:260px;bottom:-130px;left:-90px}
 .cta-band .inner{position:relative}
-.cta-band h2{color:#ffffff;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.025em;line-height:1.15;max-width:16em;margin:0 auto 12px;text-wrap:balance}
-.cta-band p{color:#ffffff;font-size:17px;max-width:52ch;margin:0 auto 28px}
+.cta-band h2{color:var(--color-text);font-size:clamp(26px,3.6vw,40px);letter-spacing:-.025em;line-height:1.15;max-width:16em;margin:0 auto 12px;text-wrap:balance}
+.cta-band p{color:var(--color-text-muted);font-size:17px;max-width:52ch;margin:0 auto 28px}
 .cta-band .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
-.btn-invert{background:#ffffff;color:var(--accent-2);border-color:#ffffff}
-.btn-invert:hover{background:#ffffff;color:var(--accent-2);box-shadow:0 8px 22px -8px color-mix(in srgb,#1e2320 30%,transparent);transform:translateY(-1px)}
-.cta-band .link-w{color:#ffffff;font-weight:600;font-size:15px;padding:0 6px}
-.cta-band .link-w:hover{color:#ffffff}
+.btn-invert{background:var(--color-primary);color:var(--color-on-primary);border-color:var(--color-primary)}
+.btn-invert:hover{background:var(--color-primary-hover);color:var(--color-on-primary);border-color:var(--color-primary-hover)}
+.cta-band .link-w{color:var(--color-link);font-weight:600;font-size:15px;padding:0 6px}
+.cta-band .link-w:hover{color:var(--color-primary-hover)}
 .section-cta{padding:0 0 clamp(64px,8vw,96px)}
 
 /* ---------- footer ---------- */
@@ -291,7 +269,7 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <img src="assets/briefloop-mark.svg" alt="" style="width:14px;height:14px">
         本地 · 开源（MIT）· <span data-release-version>v{{desktop_version}}</span>
       </span>
-      <h1 data-od-id="hero-title">把分散的材料，<br>做成有据可查的严肃报告。</h1>
+      <h1 data-od-id="hero-title">把分散的材料，<br>做成有据可查的<span class="hero-phrase">严肃报告。</span></h1>
       <p class="lead">本地运行的 AI 报告工作台。帮你查资料、写初稿、核对每条结论的出处，并将你的修改变成下次运行的经验。</p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-lg" href="downloads.html" data-od-id="hero-cta-start" data-auto-download>下载桌面版</a>
@@ -306,13 +284,13 @@ td .num{font-family:var(--mono);font-size:13.5px}
         <span class="chip">服务只监听本机</span>
       </div>
       <figure class="shot shot-desktop" data-od-id="hero-shot">
-        <picture><source type="image/webp" srcset="assets/workbench-home-20260914-800.webp 800w, assets/workbench-home-20260914-1320.webp 1320w, assets/workbench-home-20260914.webp 2640w" sizes="(min-width: 1800px) 1300px, (min-width: 1440px) 1160px, (min-width: 1080px) 1000px, calc(100vw - 40px)"><img src="assets/workbench-home-20260914.png" alt="BriefLoop 最新桌面首页：对话输入、权限管理、报告快捷入口与最近报告" width="2640" height="1800" decoding="async" fetchpriority="high"></picture>
-        <figcaption><span class="badge">真实界面</span> 最新桌面首页 · 权限管理与报告快捷入口</figcaption>
+        <picture><source type="image/webp" srcset="assets/product-v31-citation-card-20261001.webp"><img src="assets/product-v31-citation-card-20261001.jpg" alt="BriefLoop v3.1 预发行报告编辑界面、来源卡与涨跌配色（合成示例）" width="1510" height="938" decoding="async" fetchpriority="high"></picture>
+        <figcaption><span class="badge">v3.1 预发行界面</span> 真实报告编辑与来源卡 · 合成示例，未调用模型</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot shot-desktop"><picture><source type="image/webp" srcset="assets/tencent-report-workbench.webp"><img src="assets/tencent-report-workbench.png" alt="BriefLoop 中已保存的腾讯报告实际界面" width="896" height="920" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"></picture><figcaption>真实界面 · 经独立审阅的工作稿；Word 原生阅读器验收待完成</figcaption></figure>{{sample_excerpt}}</div></section>
+  <section class="section" id="report-example"><div class="wrap"><div class="sec-head"><span class="kicker">真实产物示例</span><h2 class="h2">看看 BriefLoop 实际生成的报告</h2><p>基于五份公开资料，面向腾讯高管阅读场景生成的 2026 年 8 月经营观察月报。保留原稿、生成记录与审阅边界，非腾讯官方报告。</p><a class="btn btn-primary" href="reports/tencent-2026-08.html">阅读完整报告</a></div><figure class="shot shot-desktop"><picture><source type="image/webp" srcset="assets/product-v31-report-exports-20261001.webp"><img src="assets/product-v31-report-exports-20261001.jpg" alt="BriefLoop v3.1 报告编辑界面（合成周报）" width="1510" height="882" loading="lazy" style="max-height:620px;object-fit:contain;background:var(--bg)"></picture><figcaption>v3.1 预发行界面 · 此图为合成示例界面；腾讯报告原件和审阅记录见上方链接。Word 原生阅读器验收待完成</figcaption></figure>{{sample_excerpt}}</div></section>
 
 
   <!-- why -->
@@ -391,8 +369,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
       </ul>
       <figure class="shot shot-desktop trace-shot" data-od-id="trace-shot">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 来源追溯</span></div>
-        <picture><source type="image/webp" srcset="assets/source-evidence-800.webp 800w, assets/source-evidence.webp 1600w" sizes="(min-width: 1800px) 1300px, (min-width: 1440px) 1160px, (min-width: 1080px) 1000px, calc(100vw - 40px)"><img src="assets/source-evidence.png" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1600" height="1000" loading="lazy" decoding="async"></picture>
-        <figcaption><span class="badge">真实界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
+        <picture><source type="image/webp" srcset="assets/product-v31-citation-card-20261001.webp"><img src="assets/product-v31-citation-card-20261001.jpg" alt="BriefLoop 来源追溯：报告中的引用可定位回原文来源与证据（合成示例数据）" width="1510" height="938" loading="lazy" decoding="async"></picture>
+        <figcaption><span class="badge">v3.1 预发行界面</span> 引用回到来源 · 合成示例数据，不含 API Key 与真实业务材料</figcaption>
       </figure>
       <p><a href="docs/evidence-review.html">如何查看依据与处理审阅问题</a></p>
     </div>
@@ -410,8 +388,8 @@ td .num{font-family:var(--mono);font-size:13.5px}
 
       <figure class="shot shot-desktop feat-shot" data-od-id="feature-shot-doc">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">localhost · 报告正文</span></div>
-        <picture><source type="image/webp" srcset="assets/report-document.webp"><img src="assets/report-document.png" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1053" height="961" loading="lazy" decoding="async"></picture>
-        <figcaption><span class="badge">真实界面</span> 报告正文细节 · 正文、表格与引用同稿编辑</figcaption>
+        <picture><source type="image/webp" srcset="assets/product-v31-report-exports-20261001.webp"><img src="assets/product-v31-report-exports-20261001.jpg" alt="BriefLoop 报告正文细节：可编辑的正文、表格与带定位的引用（合成示例数据）" width="1510" height="882" loading="lazy" decoding="async"></picture>
+        <figcaption><span class="badge">v3.1 预发行界面</span> 报告正文细节 · 正文、表格与引用同稿编辑</figcaption>
       </figure>
     </div>
   </section>

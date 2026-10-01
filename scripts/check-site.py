@@ -13,7 +13,7 @@ class Page(HTMLParser):
    # Responsive image candidates are "URL [descriptor]" lists.
    if k=='srcset' and v:self.links.extend(c.split()[0] for c in v.split(',') if c.strip())
    if k=='id':self.ids.add(v)
-pages=[root/x for x in ('index.html','en.html','downloads.html','downloads.en.html')]+list((root/'docs').glob('*.html'))+list((root/'reports').glob('technical-report-v*/*.html'))+list((root/'reports').glob('tencent-*.html'))
+pages=[root/x for x in ('index.html','en.html','downloads.html','downloads.en.html','how-it-works.html','how-it-works.en.html')]+list((root/'docs').glob('*.html'))+list((root/'reports').glob('technical-report-v*/*.html'))+list((root/'reports').glob('tencent-*.html'))
 errors=[]
 for p in pages:
  parsed=Page();parsed.feed(p.read_text())

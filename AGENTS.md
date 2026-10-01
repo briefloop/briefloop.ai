@@ -1,5 +1,7 @@
 # briefloop.ai 网站仓库
 
-- 视觉以 `index.html`（线上落地页）为准：它自带令牌——纸色 `#faf9f6`、墨色 `#1e2320`、深绿 `#006838`、圆角 8/12px、正文 system sans、数据 ui-monospace。子页（下载、使用文档、样例报告）共用的页头 `site-header.css` 与各页样式跟随同一套值。
-- 标志以 `assets/briefloop-mark.svg` 为准，应用图标与 favicon 用 `assets/briefloop-icon.svg`；完整标志规范（变体、留白、配色）在 Open Design 项目的 `briefloop-logo.html`。
-- 完成视觉/页面类任务后，主动起本地预览服务器（如 `python3 -m http.server 8137`）并用 `open` 在浏览器打开给用户看，不要只给截图或文字描述。
+- 当前视觉以 `DESIGN.md` v3.1 为准：与产品共享黛蓝、冷灰、系统字体、6px 控件及 8px 面板圆角。`design-tokens.css` 是产品令牌的固定副本，来源与哈希在 `content/design-source.json`；`site-tokens.css` 仅定义网站阅读尺度和别名。组件引用语义令牌，不新增裸颜色体系
+- 标志与 favicon 使用用户提供的 v3.1 标志原始文件，保留来源信息。禁止用旧绿或自动改写来源元数据
+- 首页、下载页源码在 `content/templates/`；按 `scripts/README.md` 构建并核验。历史报告原文和已发布资产保持不变
+- 完成视觉任务后，使用获准的浏览器预览并检查实际页面；若当前执行环境不允许预览，不绕过限制，交由可用的已授权执行环境验证，明确尚未验证的部分
+- 界面截图必须来自实际运行的对应提交，使用合成或允许公开的材料，标明预发行界面。视觉修改不授权改版号、下载工件、部署平台或生产发布

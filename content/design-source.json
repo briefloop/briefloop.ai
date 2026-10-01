@@ -1,0 +1,19 @@
+{
+  "design_version": "3.1",
+  "source_repository": "https://github.com/Stahl-G/briefloop",
+  "source_commit": "cd53320ed4b5285f7cc4417716df530b90ab3461",
+  "files": {
+    "design-tokens.css": {
+      "source_path": "src/briefloop/static/tokens.css",
+      "sha256": "a551873e4c41a66627e539bd854014a23c3079e61bb19de0aa4f900043e595ec"
+    },
+    "assets/briefloop-mark.svg": {
+      "source_path": "desktop/electron/assets/briefloop-mark.svg",
+      "sha256": "9a513e3788a1b5d647a8cb07c36b3b0b993e086876b1b6f7132396065c167afe"
+    },
+    "assets/briefloop-icon.svg": {
+      "source_path": "desktop/electron/assets/briefloop-mark.svg",
+      "sha256": "9a513e3788a1b5d647a8cb07c36b3b0b993e086876b1b6f7132396065c167afe"
+    }
+  }
+}

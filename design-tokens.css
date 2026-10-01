@@ -1,0 +1,168 @@
+/* =============================================================
+   BriefLoop 设计令牌
+   v3.1 · 2026-10-01 · 品牌色 黛蓝
+   -------------------------------------------------------------
+   本文件是色值/数值的唯一事实来源。
+   - 原始层(--c-*):具体值,只被语义层引用
+   - 语义层:用途别名,组件只允许引用这一层
+   - 其余 CSS 文件禁止出现裸 hex / 裸 z-index(见 DESIGN.md §9.1)
+   ============================================================= */
+
+:root {
+  /* ===== 1. 原始层 — 色彩 ===== */
+
+  /* 黛蓝(品牌) */
+  --c-blue-800: #142D6E;
+  --c-blue-700: #1B3A8F;
+  --c-blue-600: #2448B8;
+  --c-blue-100: #DCE4F7;
+  --c-blue-050: #EEF2FC;
+
+  /* 鎏金(仅信誉标记) */
+  --c-gold-600: #9A6B1F;
+  --c-gold-050: #F7F0E3;
+
+  /* 中性(冷灰) */
+  --c-ink-900: #1A1F2B;
+  --c-ink-700: #3A4150;
+  --c-ink-500: #5F6675;   /* 对页面底 5.44:1 */
+  --c-ink-400: #8A909C;   /* 对白底 3.21:1,满足 WCAG 1.4.11 */
+  --c-ink-200: #DFE2E8;
+  --c-ink-100: #ECEEF2;
+  --c-ink-050: #F3F5F8;
+  --c-paper:   #F7F8FA;
+  --c-white:   #FFFFFF;
+  --c-black-rgb: 26, 31, 43;
+
+  /* 状态 */
+  --c-green-700: #1F7A4D;
+  --c-orange-700: #A35200;
+  --c-red-700:   #C2341F;
+
+  /* 涨跌(数据专用,不复用状态色) */
+  --c-up-cn:   #D9363E;
+  --c-down-cn: #1E8E4F;
+
+  /* 分类:不得使用蓝 / 绿 / 橙 / 红 —— 已被主操作 / 成功 / 警告 / 错误独占 */
+  --c-cat-cyan-fg:    #0B6A78;  --c-cat-cyan-bg:    #E3F2F4;  /* 商业 / 周报 */
+  --c-cat-magenta-fg: #A3195B;  --c-cat-magenta-bg: #FBE8F0;  /* 证券 / 对比 */
+  --c-cat-violet-fg:  #6741D9;  --c-cat-violet-bg:  #EFEAFD;  /* 学术 / 资料 */
+  --c-cat-ochre-fg:   #8A5524;  --c-cat-ochre-bg:   #F5EDE4;  /* 协作 / 会议 */
+  --c-cat-neutral-fg: #5D6472;  --c-cat-neutral-bg: #ECEEF2;  /* 中性兜底 */
+
+  /* ===== 2. 语义层 — 色彩(深色模式只重定义本段) ===== */
+
+  --color-primary:        var(--c-blue-600);
+  --color-primary-hover:  var(--c-blue-700);
+  --color-primary-active: var(--c-blue-800);
+  --color-primary-soft:   var(--c-blue-050);
+  --color-primary-line:   var(--c-blue-100);
+  --color-on-primary:     var(--c-white);
+
+  --color-accent:         var(--c-gold-600);   /* 仅信誉标记:正式交付 / 已认证 */
+  --color-accent-soft:    var(--c-gold-050);
+
+  --color-text:           var(--c-ink-900);
+  --color-text-secondary: var(--c-ink-700);
+  --color-text-muted:     var(--c-ink-500);
+  --color-link:           var(--c-blue-600);
+
+  --color-bg:             var(--c-paper);
+  --color-surface:        var(--c-white);
+  --color-surface-soft:   var(--c-ink-050);
+
+  --color-border:         var(--c-ink-200);   /* 装饰  1.30:1 */
+  --color-border-strong:  var(--c-ink-400);   /* 控件  3.21:1 */
+
+  --color-focus:          var(--c-blue-600);
+  --color-focus-inverse:  var(--c-white);
+
+  --color-success:        var(--c-green-700);
+  --color-warn:           var(--c-orange-700);
+  --color-danger:         var(--c-red-700);
+
+  --color-scrim:          rgba(var(--c-black-rgb), .36);
+
+  /* AI 标识:唯一允许渐变,尺寸 ≤16px(DESIGN.md §4.7) */
+  --ai-from:     var(--c-blue-600);
+  --ai-to:       #5B4BDB;
+  --ai-gradient: linear-gradient(135deg, var(--ai-from), var(--ai-to));
+
+  --data-up:   var(--c-up-cn);
+  --data-down: var(--c-down-cn);
+  --data-flat: var(--c-ink-500);
+
+  --cat-business-fg:  var(--c-cat-cyan-fg);     --cat-business-bg:  var(--c-cat-cyan-bg);
+  --cat-markets-fg:   var(--c-cat-magenta-fg);  --cat-markets-bg:   var(--c-cat-magenta-bg);
+  --cat-academic-fg:  var(--c-cat-violet-fg);   --cat-academic-bg:  var(--c-cat-violet-bg);
+  --cat-collab-fg:    var(--c-cat-ochre-fg);    --cat-collab-bg:    var(--c-cat-ochre-bg);
+  --cat-neutral-fg:   var(--c-cat-neutral-fg);  --cat-neutral-bg:   var(--c-cat-neutral-bg);
+
+  /* ===== 3. 排版 ===== */
+
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font: var(--font-ui);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-2xs:  11px;  /* 仅数字角标 / 纯拉丁标签 —— 禁止用于中文 */
+  --text-xs:   12px;  /* 中文最小字号 */
+  --text-sm:   13px;
+  --text-base: 14px;
+  --text-md:   15px;
+  --text-lg:   17px;
+  --text-xl:   23px;
+  --text-2xl:  30px;
+
+  --leading-tight:   1.4;
+  --leading-normal:  1.6;
+  --leading-relaxed: 1.9;
+
+  --fw-normal:   400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+
+  /* ===== 4. 间距 / 圆角 / 控件 ===== */
+
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-5: 24px; --space-6: 32px;
+
+  --radius-sm:   4px;   /* v3: 6 → 4 */
+  --radius:      6px;   /* v3: 9 → 6 */
+  --radius-lg:   8px;   /* v3: 14 → 8 */
+  --radius-pill: 100px;
+
+  --control-h-sm: 28px;
+  --control-h-md: 36px;
+  --control-h-lg: 42px;
+  --control-check: 16px;
+
+  /* ===== 5. 阴影 / 层级 ===== */
+
+  --shadow-sm: 0 1px 2px  rgba(var(--c-black-rgb), .06);
+  --shadow-md: 0 4px 12px rgba(var(--c-black-rgb), .10);
+  --shadow-lg: 0 12px 32px rgba(var(--c-black-rgb), .14);
+
+  --z-sticky: 100; --z-dropdown: 200; --z-drawer-scrim: 300; --z-drawer: 310;
+  --z-dialog-scrim: 400; --z-dialog: 410; --z-toast: 500;
+
+  /* ===== 6. 布局 ===== */
+
+  --sidebar-width: 218px;
+  --rail-width:    340px;
+  --chat-column:   728px;
+  --content-max:  1080px;
+  --page-max:     1680px;
+}
+
+/* 国际涨跌惯例(英文报告默认) */
+[data-market="intl"] {
+  --data-up:   var(--c-down-cn);
+  --data-down: var(--c-up-cn);
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
