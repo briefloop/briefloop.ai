@@ -1,28 +1,28 @@
 {
-  "desktop_version": "0.28.2",
-  "pypi_version": "0.28.2",
-  "verified_at": "2026-10-01",
-  "release_url": "https://github.com/Stahl-G/briefloop/releases/tag/v0.28.2",
+  "desktop_version": "0.28.3",
+  "pypi_version": "0.28.3",
+  "verified_at": "2026-10-02",
+  "release_url": "https://github.com/Stahl-G/briefloop/releases/tag/v0.28.3",
   "python_min": "3.11",
   "assets": {
     "mac": {
       "ready": true,
       "architecture": "arm64",
-      "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.28.2/BriefLoop-0.28.2-arm64.dmg",
-      "bytes": 133377775,
-      "sha256": "9f1793ae8d5d75d2cb1326bfb7a521cd468034b8f811aea293dbcb66dda3eb43",
+      "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.28.3/BriefLoop-0.28.3-arm64.dmg",
+      "bytes": 134170649,
+      "sha256": "9dab375c53ee2d042e708a1b87ec81e69133ae86f0db03b6daefeb56c642a519",
       "signed": false,
       "notarized": false,
-      "version": "0.28.2"
+      "version": "0.28.3"
     },
     "windows": {
       "ready": true,
       "architecture": "x64",
-      "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.28.2/BriefLoop-Setup-0.28.2-x64.exe",
-      "bytes": 116887741,
-      "sha256": "332863f1a83a3e81ce2c92e995d20d905e6ff8fdc4d87612fbe80e23f83f348b",
+      "url": "https://github.com/Stahl-G/briefloop/releases/download/v0.28.3/BriefLoop-Setup-0.28.3-x64.exe",
+      "bytes": 117634547,
+      "sha256": "04aff31939165e6130ab7689c61359fac522a70d10423ebd5cd10ae74efef37f",
       "signed": false,
-      "version": "0.28.2"
+      "version": "0.28.3"
     }
   }
 }
